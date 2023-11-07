@@ -5,27 +5,21 @@ on: pull_request
 jobs:
   lint:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [17.x]
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Lint code
-      run: yarn lint
-
-    - name: Report results
-      uses: juliangruber/pr-comment@v1
-      with:
-        message: |
-          Lint results:
-          ``` 
-          ${{ steps.lint.outputs.stdout }}
-          ```
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --ignore-scripts
+      - name: Run lint check
+        run: yarn lint
+      - name: Reviewdog
+        uses: reviewdog/action-eslint@v1
+        with:
+          eslint-github-check-bright: true
