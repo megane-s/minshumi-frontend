@@ -1,14 +1,16 @@
 {
   "recommendations": [
-      "formulahendry.auto-close-tag",
-      "steoates.autoimport",
-      "formulahendry.auto-rename-tag",
-      "anseki.vscode-color",
-      "oderwat.indent-rainbow",
-      "ms-ceintl.vscode-language-pack-ja",
-      "pkief.material-icon-theme",
-      "esbenp.prettier-vscode",
-      "jock.svg",
-      "mosapride.zenkaku"
+    "formulahendry.auto-close-tag",
+    "steoates.autoimport",
+    "formulahendry.auto-rename-tag",
+    "anseki.vscode-color",
+    "oderwat.indent-rainbow",
+    "ms-ceintl.vscode-language-pack-ja",
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "jock.svg",
+    "mosapride.zenkaku",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
   ]
 }
