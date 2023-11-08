@@ -1,9 +1,21 @@
 {
   "editor.formatOnSave": true,
-  "[typescriptreact]": {
-      "editor.defaultFormatter": "vscode.typescript-language-features"
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   },
-  "cSpell.words": [
-      "Mantine"
-  ]
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {},
+  "[jsonc]": {},
+  "[javascript]": {},
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": false
+  },
+  "[ejs]": {
+    "editor.formatOnSave": false
+  },
+  "cSpell.words": ["Mantine"]
 }
