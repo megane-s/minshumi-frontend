@@ -1,8 +1,7 @@
-// 要見直し
 {
   "functional component": {
     "scope": "typescriptreact",
-    "prefix": "fc",
+    "prefix": ["fc", "component"],
     "body": [
       "import { FC } from \"react\"",
       "",
@@ -18,12 +17,11 @@
   },
   "nextpage": {
     "scope": "typescriptreact",
-    "prefix": [
-      "nextpage",
-      "np"
-    ],
+    "prefix": ["nextpage", "np", "page"],
     "body": [
-      "const ${1:${TM_FILENAME_BASE}}Page = ({}:{})=>{",
+      "interface PageProps {",
+      "}",
+      "const ${1:${TM_FILENAME_BASE}}Page = ({}:PageProps)=>{",
       "    return (",
       "        $2",
       "    )",
@@ -33,24 +31,12 @@
   },
   "use client": {
     "scope": "typescriptreact",
-    "prefix": [
-      "useclient",
-      "uc"
-    ],
-    "body": [
-      "\"use client\"",
-      "$1"
-    ]
+    "prefix": ["useclient", "uc"],
+    "body": ["\"use client\"", "$1"]
   },
   "use server": {
     "scope": "typescript",
-    "prefix": [
-      "useserver",
-      "us"
-    ],
-    "body": [
-      "\"use server\"",
-      "$1"
-    ]
+    "prefix": ["useserver", "us"],
+    "body": ["\"use server\"", "$1"]
   }
 }
