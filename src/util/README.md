@@ -3,6 +3,22 @@
 
 ## クライアント用
 
+### useMutate
+
+```tsx
+
+const save = useMutate(async ()=>{
+  await handleSaveData() // Server Actionsの呼び出しなど
+})
+
+save.mutate // 引数に渡した関数を実行する
+save.isLoading // ローディング中かどうか
+save.isSuccess, // 成功したかどうか
+save.isError, // エラーが発生したかどうか
+save.error, // エラーが発生した時に発生したエラーが代入される
+
+```
+
 ## サーバ用
 
 ## 共通
