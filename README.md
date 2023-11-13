@@ -14,6 +14,10 @@ cd minshumi-frontend
 yarn
 ```
 
+## ユーティリティ
+
+[こちらを参照](./src/util/README.md)
+
 ## スニペット(ショートカット)
 
 ### `.tsx` ファイル
@@ -93,4 +97,6 @@ export const ファイル名:FC<ファイル名Props> = ()=>{
 import "server-only"
 
 ```
+
+
 
