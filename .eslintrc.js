@@ -11,58 +11,18 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'unused-imports'],
   root: true,
   rules: {
-    'import/order': [
-      'error',
+    'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
       {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          ['parent', 'sibling'],
-          'object',
-          'type',
-          'index',
-        ],
-        'newlines-between': 'always',
-        pathGroupsExcludedImportTypes: ['builtin'],
-        pathGroups: [
-          {
-            pattern: '@/utils/**',
-            group: 'internal',
-            position: 'before',
-          },
-          {
-            pattern: '@/libs/**',
-            group: 'internal',
-            position: 'before',
-          },
-          {
-            pattern: '@/hooks/**',
-            group: 'internal',
-            position: 'before',
-          },
-          {
-            pattern: '@/components/**',
-            group: 'internal',
-            position: 'before',
-          },
-          {
-            pattern: '@/const/**',
-            group: 'internal',
-            position: 'before',
-          },
-          {
-            pattern: '@/types/**',
-            group: 'internal',
-            position: 'before',
-          },
-        ],
-        alphabetize: {
-          order: 'asc',
-        },
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
       },
     ],
   },
