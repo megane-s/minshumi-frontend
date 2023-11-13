@@ -1,0 +1,10 @@
+{
+  "use server": {
+    "prefix": ["useserver", "us"],
+    "body": ["\"use server\"", "", "$1"]
+  },
+  "server only": {
+    "prefix": ["serveronly", "so"],
+    "body": ["import \"server-only\"", "", "$1"]
+  }
+}
