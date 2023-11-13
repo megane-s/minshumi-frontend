@@ -39,3 +39,14 @@ console.log("end")
 // endはstartが表示されてから3000ミリ秒後(3秒後)に表示される
 
 ```
+
+### randomId
+
+ランダムなIDを生成する関数。
+
+```ts
+import {} from "@/util/randomId"
+
+const newRandomId = randomId()
+
+```
