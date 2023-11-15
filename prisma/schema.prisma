@@ -5,6 +5,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider                         = "zod-prisma-types"
+  output                           = "../src/prisma/schema/zod"
+}
+
 datasource db {
   provider = "cockroachdb"
   url      = env("DATABASE_URL")
