@@ -38,6 +38,36 @@ export default DevelopPage
 
 ```
 
+### 認証ガード
+
+認証が必須なページやサーバアクション向け。
+
+- 認証が必須の **ページ** では `requireAuthPage()` を呼び出す。
+- 認証が必須のServerActionは `routeHandler()` でサーバアクションをラップし、第2引数に `{ requireAuth: true }` を指定する
+
+```tsx
+// ページ向け
+interface PageProps {
+}
+const ProfilePage = ({}:PageProps)=>{
+    requireAuthPage() // { onNotLogin: { redirectTo: "/login"} } を指定してリダレクトさせることも可能
+    return (
+        ...
+    )
+}
+export default ProfilePage
+
+```
+
+```ts
+// Server Action向け
+routeHandler(async ()=>{
+  ...
+}, {
+  requireAuth: true,
+})
+```
+
 ## 共通
 
 ### sleep
