@@ -25,5 +25,8 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "unused-imports/no-unused-vars": "warn",
   },
 }
