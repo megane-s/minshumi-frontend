@@ -1,12 +1,23 @@
 import "server-only"
 
 import { getServerSession } from "next-auth"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 
-export const requireAuthPage = async () => {
+export interface Options {
+    onNotLogin: Partial<{
+        notFound: true
+        redirectTo: string
+    }>
+}
+export const requireAuthPage = async (options: Partial<Options> = {}) => {
     const session = await getServerSession()
     if (!session) {
-        notFound()
+        const onNotLogin = options.onNotLogin ?? { notFound: true }
+        if (onNotLogin.notFound) {
+            notFound()
+        } else if (onNotLogin.redirectTo) {
+            redirect(onNotLogin.redirectTo)
+        }
     }
     return session
 }
