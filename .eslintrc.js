@@ -29,4 +29,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn",
     "unused-imports/no-unused-vars": "warn",
   },
+  ignorePatterns: [
+    "**/generated/**/*",
+  ]
 }
