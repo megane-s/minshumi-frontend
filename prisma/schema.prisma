@@ -69,9 +69,9 @@ model User {
   following           Follower[]               @relation("followings")
   blockUsers          BlockUser[]              @relation("blockUsers")
   blocking            BlockUser[]              @relation("blocking")
-  bussinessCards      BussinessCard[]
+  businessCards       BusinessCard[]
   goodProfileComments ProfileCommentGoodUser[]
-  goodBussinessCards  BussinessCardGoodUser[]
+  goodBusinessCards   BusinessCardGoodUser[]
   ranks               UserRank[]
   notifications       Notification[]
 }
@@ -115,16 +115,16 @@ model UserRank {
 // Art
 
 model Art {
-  artId                   String                 @id @default(cuid())
-  title                   String
-  imageUrl                String
-  relatedArt              RelatedArt[]
-  tags                    ArtTag[]
-  goodUsers               ArtGoodUser[]
-  reccomendUsers          RecommendArt[]
-  watchingUsers           WatchingArt[]
-  bookmarkUsers           BookmarkArt[]
-  useAsLikeBussinessCards BussinessCardLikeArt[]
+  artId                  String                @id @default(cuid())
+  title                  String
+  imageUrl               String
+  relatedArt             RelatedArt[]
+  tags                   ArtTag[]
+  goodUsers              ArtGoodUser[]
+  reccomendUsers         RecommendArt[]
+  watchingUsers          WatchingArt[]
+  bookmarkUsers          BookmarkArt[]
+  useAsLikeBusinessCards BusinessCardLikeArt[]
 }
 
 model RelatedArt {
@@ -189,41 +189,41 @@ model BookmarkArt {
   @@id([userId, artId])
 }
 
-// BussinessCard
+// BusinessCard
 
-model BussinessCard {
-  bussinessCardId    String                  @id @default(cuid())
+model BusinessCard {
+  businessCardId     String                 @id @default(cuid())
   userId             String
   backgroundImageUrl String
   canComment         Boolean
-  user               User                    @relation(fields: [userId], references: [id])
-  likeArts           BussinessCardLikeArt[]
+  user               User                   @relation(fields: [userId], references: [id])
+  likeArts           BusinessCardLikeArt[]
   comments           ProfileComment[]
-  goodUsers          BussinessCardGoodUser[]
+  goodUsers          BusinessCardGoodUser[]
 }
 
-model BussinessCardLikeArt {
-  bussinessCardId String
-  likeArtId       String
-  bussinessCard   BussinessCard @relation(fields: [bussinessCardId], references: [bussinessCardId])
-  likeArt         Art           @relation(fields: [likeArtId], references: [artId])
+model BusinessCardLikeArt {
+  businessCardId String
+  likeArtId      String
+  businessCard   BusinessCard @relation(fields: [businessCardId], references: [businessCardId])
+  likeArt        Art          @relation(fields: [likeArtId], references: [artId])
 
-  @@id([bussinessCardId, likeArtId])
+  @@id([businessCardId, likeArtId])
 }
 
-model BussinessCardRank {
-  bussinessCardId String
-  rank            String
+model BusinessCardRank {
+  businessCardId String
+  rank           String
 
-  @@id([bussinessCardId, rank])
+  @@id([businessCardId, rank])
 }
 
 model ProfileComment {
-  commentId       String                   @id @default(cuid())
-  bussinessCardId String
-  content         String
-  bussinessCard   BussinessCard            @relation(fields: [bussinessCardId], references: [bussinessCardId])
-  goodUsers       ProfileCommentGoodUser[]
+  commentId      String                   @id @default(cuid())
+  businessCardId String
+  content        String
+  businessCard   BusinessCard             @relation(fields: [businessCardId], references: [businessCardId])
+  goodUsers      ProfileCommentGoodUser[]
 }
 
 model ProfileCommentGoodUser {
@@ -235,13 +235,13 @@ model ProfileCommentGoodUser {
   @@id([commentId, goodUserId])
 }
 
-model BussinessCardGoodUser {
-  bussinessCardId String
-  userId          String
-  bussinessCard   BussinessCard @relation(fields: [bussinessCardId], references: [bussinessCardId])
-  user            User          @relation(fields: [userId], references: [id])
+model BusinessCardGoodUser {
+  businessCardId String
+  userId         String
+  businessCard   BusinessCard @relation(fields: [businessCardId], references: [businessCardId])
+  user           User         @relation(fields: [userId], references: [id])
 
-  @@id([bussinessCardId, userId])
+  @@id([businessCardId, userId])
 }
 
 // Notification
