@@ -138,7 +138,7 @@ model RelatedArt {
 model ArtTag {
   artId String
   tag   String
-  Art   Art    @relation(fields: [artId], references: [artId])
+  art   Art    @relation(fields: [artId], references: [artId])
 
   @@id([artId, tag])
 }
@@ -154,7 +154,7 @@ model InterestTag {
 model ArtGoodUser {
   artId    String
   userId   String
-  Art      Art    @relation(fields: [artArtId], references: [artId])
+  art      Art    @relation(fields: [artArtId], references: [artId])
   artArtId String
   user     User   @relation(fields: [userId], references: [id])
 
