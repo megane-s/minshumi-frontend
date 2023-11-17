@@ -97,3 +97,21 @@ import {} from "@/util/randomId"
 const newRandomId = randomId()
 
 ```
+
+### notImplementWarn notImplementError
+
+```ts
+// 実装されてない旨の警告を表示します。それ以外は何もしません。
+notImplementWarn()
+
+// メッセージを渡してデフォルトのメッセージを上書きできます。
+notImplementWarn("xxx() はまだ実装されていません。")
+
+// 実装されていない旨のエラーを発生させます。
+notImplementError()
+
+// メッセージを渡してデフォルトのメッセージを上書きできます。
+notImplementError("xxx() はまだ実装されていません。")
+
+```
+
