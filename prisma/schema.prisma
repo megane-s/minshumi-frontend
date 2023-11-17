@@ -10,6 +10,7 @@ generator zod {
   // output                           = "../src/prisma/schema/zod"
   output           = "../src/prisma/generated"
   createInputTypes = false
+  coerceDate       = true
 }
 
 datasource db {
