@@ -22,5 +22,8 @@
   },
   "cSpell.words": [
     "Mantine"
-  ]
+  ],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }
