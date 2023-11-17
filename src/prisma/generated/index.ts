@@ -50,9 +50,9 @@ export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId'
 
 export const BusinessCardRankScalarFieldEnumSchema = z.enum(['businessCardId','rank']);
 
-export const ProfileCommentScalarFieldEnumSchema = z.enum(['commentId','businessCardId','content']);
+export const BusinessCardCommentScalarFieldEnumSchema = z.enum(['commentId','businessCardId','content']);
 
-export const ProfileCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
+export const BusinessCardCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
 
 export const BusinessCardGoodUserScalarFieldEnumSchema = z.enum(['businessCardId','userId']);
 
@@ -300,27 +300,27 @@ export const BusinessCardRankSchema = z.object({
 export type BusinessCardRank = z.infer<typeof BusinessCardRankSchema>
 
 /////////////////////////////////////////
-// PROFILE COMMENT SCHEMA
+// BUSINESS CARD COMMENT SCHEMA
 /////////////////////////////////////////
 
-export const ProfileCommentSchema = z.object({
+export const BusinessCardCommentSchema = z.object({
   commentId: z.string().cuid(),
   businessCardId: z.string(),
   content: z.string(),
 })
 
-export type ProfileComment = z.infer<typeof ProfileCommentSchema>
+export type BusinessCardComment = z.infer<typeof BusinessCardCommentSchema>
 
 /////////////////////////////////////////
-// PROFILE COMMENT GOOD USER SCHEMA
+// BUSINESS CARD COMMENT GOOD USER SCHEMA
 /////////////////////////////////////////
 
-export const ProfileCommentGoodUserSchema = z.object({
+export const BusinessCardCommentGoodUserSchema = z.object({
   commentId: z.string(),
   goodUserId: z.string(),
 })
 
-export type ProfileCommentGoodUser = z.infer<typeof ProfileCommentGoodUserSchema>
+export type BusinessCardCommentGoodUser = z.infer<typeof BusinessCardCommentGoodUserSchema>
 
 /////////////////////////////////////////
 // BUSINESS CARD GOOD USER SCHEMA

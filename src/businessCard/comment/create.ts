@@ -1,16 +1,16 @@
 import { prisma } from "@/prisma";
-import { ProfileComment, ProfileCommentSchema } from "@/prisma/generated";
+import { BusinessCardComment, BusinessCardCommentSchema } from "@/prisma/generated";
 import "server-only";
 import { z } from "zod";
 
-export const CreateBusinessCardCommentParamsSchema = ProfileCommentSchema.pick({
+export const CreateBusinessCardCommentParamsSchema = BusinessCardCommentSchema.pick({
     businessCardId: true,
     content: true,
 })
 export type CreateBusinessCardCommentParams = z.infer<typeof CreateBusinessCardCommentParamsSchema>
 
-export const createBusinessCardComment = async (params: CreateBusinessCardCommentParams): Promise<ProfileComment> => {
-    const result = await prisma.profileComment.create({
+export const createBusinessCardComment = async (params: CreateBusinessCardCommentParams): Promise<BusinessCardComment> => {
+    const result = await prisma.businessCardComment.create({
         data: params,
     })
     return result

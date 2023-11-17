@@ -1,9 +1,9 @@
 import { prisma } from "@/prisma"
-import { ProfileComment } from "@prisma/client"
+import { BusinessCardComment } from "@prisma/client"
 import "server-only"
 
-export const deleteBusinessCardComment = async (commentId: ProfileComment["commentId"]): Promise<void> => {
-    await prisma.profileComment.delete({
+export const deleteBusinessCardComment = async (commentId: BusinessCardComment["commentId"]): Promise<void> => {
+    await prisma.businessCardComment.delete({
         where: { commentId },
     })
 }

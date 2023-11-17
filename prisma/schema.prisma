@@ -53,27 +53,27 @@ model Session {
 }
 
 model User {
-  id                  String                   @id @default(cuid())
-  name                String?
-  email               String?                  @unique
-  emailVerified       DateTime?
-  image               String?
-  accounts            Account[]
-  sessions            Session[]
-  interestTags        InterestTag[]
-  goodArts            ArtGoodUser[]
-  recommendedArts     RecommendArt[]
-  watchingArts        WatchingArt[]
-  bookmarkArts        BookmarkArt[]
-  followers           Follower[]               @relation("followers")
-  following           Follower[]               @relation("followings")
-  blockUsers          BlockUser[]              @relation("blockUsers")
-  blocking            BlockUser[]              @relation("blocking")
-  businessCards       BusinessCard[]
-  goodProfileComments ProfileCommentGoodUser[]
-  goodBusinessCards   BusinessCardGoodUser[]
-  ranks               UserRank[]
-  notifications       Notification[]
+  id                       String                        @id @default(cuid())
+  name                     String?
+  email                    String?                       @unique
+  emailVerified            DateTime?
+  image                    String?
+  accounts                 Account[]
+  sessions                 Session[]
+  interestTags             InterestTag[]
+  goodArts                 ArtGoodUser[]
+  recommendedArts          RecommendArt[]
+  watchingArts             WatchingArt[]
+  bookmarkArts             BookmarkArt[]
+  followers                Follower[]                    @relation("followers")
+  following                Follower[]                    @relation("followings")
+  blockUsers               BlockUser[]                   @relation("blockUsers")
+  blocking                 BlockUser[]                   @relation("blocking")
+  businessCards            BusinessCard[]
+  goodBusinessCardComments BusinessCardCommentGoodUser[]
+  goodBusinessCards        BusinessCardGoodUser[]
+  ranks                    UserRank[]
+  notifications            Notification[]
 }
 
 model VerificationToken {
@@ -198,7 +198,7 @@ model BusinessCard {
   canComment         Boolean
   user               User                   @relation(fields: [userId], references: [id])
   likeArts           BusinessCardLikeArt[]
-  comments           ProfileComment[]
+  comments           BusinessCardComment[]
   goodUsers          BusinessCardGoodUser[]
 }
 
@@ -218,19 +218,19 @@ model BusinessCardRank {
   @@id([businessCardId, rank])
 }
 
-model ProfileComment {
-  commentId      String                   @id @default(cuid())
+model BusinessCardComment {
+  commentId      String                        @id @default(cuid())
   businessCardId String
   content        String
-  businessCard   BusinessCard             @relation(fields: [businessCardId], references: [businessCardId])
-  goodUsers      ProfileCommentGoodUser[]
+  businessCard   BusinessCard                  @relation(fields: [businessCardId], references: [businessCardId])
+  goodUsers      BusinessCardCommentGoodUser[]
 }
 
-model ProfileCommentGoodUser {
+model BusinessCardCommentGoodUser {
   commentId  String
   goodUserId String
-  comment    ProfileComment @relation(fields: [commentId], references: [commentId])
-  goodUser   User           @relation(fields: [goodUserId], references: [id])
+  comment    BusinessCardComment @relation(fields: [commentId], references: [commentId])
+  goodUser   User                @relation(fields: [goodUserId], references: [id])
 
   @@id([commentId, goodUserId])
 }

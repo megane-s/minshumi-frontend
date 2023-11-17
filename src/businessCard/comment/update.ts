@@ -1,13 +1,13 @@
 import { prisma } from '@/prisma';
-import { ProfileComment, ProfileCommentSchema } from '@/prisma/generated/index';
+import { BusinessCardComment, BusinessCardCommentSchema } from '@/prisma/generated/index';
 import "server-only";
 import { z } from 'zod';
 
-export const UpdateBusinessCardCommentSchema = ProfileCommentSchema.partial()
+export const UpdateBusinessCardCommentSchema = BusinessCardCommentSchema.partial()
 export type UpdateBusinessCardComment = z.infer<typeof UpdateBusinessCardCommentSchema>
 
-export const updateBusinessCardComment = async (commentId: ProfileComment["commentId"], params: UpdateBusinessCardComment): Promise<ProfileComment> => {
-    const result = await prisma.profileComment.update({
+export const updateBusinessCardComment = async (commentId: BusinessCardComment["commentId"], params: UpdateBusinessCardComment): Promise<BusinessCardComment> => {
+    const result = await prisma.businessCardComment.update({
         where: { commentId },
         data: params,
     })

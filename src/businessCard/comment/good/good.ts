@@ -1,10 +1,10 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
-import { ProfileCommentGoodUser } from "@prisma/client";
+import { BusinessCardCommentGoodUser } from "@prisma/client";
 
-export const goodToBusinessCardCommentGood = async (commentId: ProfileCommentGoodUser["commentId"], by: ProfileCommentGoodUser["goodUserId"]): Promise<void> => {
-    await prisma.profileCommentGoodUser.create({
+export const goodToBusinessCardCommentGood = async (commentId: BusinessCardCommentGoodUser["commentId"], by: BusinessCardCommentGoodUser["goodUserId"]): Promise<void> => {
+    await prisma.businessCardCommentGoodUser.create({
         data: {
             commentId,
             goodUserId: by,

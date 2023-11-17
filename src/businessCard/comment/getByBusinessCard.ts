@@ -1,10 +1,10 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
-import { ProfileComment } from "@prisma/client";
+import { BusinessCardComment } from "@prisma/client";
 
-export const getCommentsByBusinessCard = async (businessCardId: ProfileComment["businessCardId"]): Promise<ProfileComment[]> => {
-    const results = await prisma.profileComment.findMany({
+export const getCommentsByBusinessCard = async (businessCardId: BusinessCardComment["businessCardId"]): Promise<BusinessCardComment[]> => {
+    const results = await prisma.businessCardComment.findMany({
         where: { businessCardId },
     })
     return results
