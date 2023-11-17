@@ -22,6 +22,42 @@ export const UserScalarFieldEnumSchema = z.enum(['id','name','email','emailVerif
 
 export const VerificationTokenScalarFieldEnumSchema = z.enum(['identifier','token','expires']);
 
+export const FollowerScalarFieldEnumSchema = z.enum(['userId','followerId']);
+
+export const BlockUserScalarFieldEnumSchema = z.enum(['userId','blockUserId']);
+
+export const UserRankScalarFieldEnumSchema = z.enum(['userId','rank']);
+
+export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl']);
+
+export const RelatedArtScalarFieldEnumSchema = z.enum(['artId','relatedArtId']);
+
+export const ArtTagScalarFieldEnumSchema = z.enum(['artId','tag']);
+
+export const InterestTagScalarFieldEnumSchema = z.enum(['userId','tag']);
+
+export const ArtGoodUserScalarFieldEnumSchema = z.enum(['artId','userId','artArtId']);
+
+export const RecommendArtScalarFieldEnumSchema = z.enum(['userId','artId','likePoint']);
+
+export const WatchingArtScalarFieldEnumSchema = z.enum(['userId','artId']);
+
+export const BookmarkArtScalarFieldEnumSchema = z.enum(['userId','artId']);
+
+export const BussinessCardScalarFieldEnumSchema = z.enum(['bussinessCardId','userId','backgroundImageUrl','canComment']);
+
+export const BussinessCardLikeArtScalarFieldEnumSchema = z.enum(['bussinessCardId','likeArtId']);
+
+export const BussinessCardRankScalarFieldEnumSchema = z.enum(['bussinessCardId','rank']);
+
+export const ProfileCommentScalarFieldEnumSchema = z.enum(['commentId','bussinessCardId','content']);
+
+export const ProfileCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
+
+export const BussinessCardGoodUserScalarFieldEnumSchema = z.enum(['bussinessCardId','userId']);
+
+export const NotificationScalarFieldEnumSchema = z.enum(['notificationId','userId','content','type']);
+
 export const SortOrderSchema = z.enum(['asc','desc']);
 
 export const QueryModeSchema = z.enum(['default','insensitive']);
@@ -103,3 +139,209 @@ export const VerificationTokenSchema = z.object({
 })
 
 export type VerificationToken = z.infer<typeof VerificationTokenSchema>
+
+/////////////////////////////////////////
+// FOLLOWER SCHEMA
+/////////////////////////////////////////
+
+export const FollowerSchema = z.object({
+  userId: z.string(),
+  followerId: z.string(),
+})
+
+export type Follower = z.infer<typeof FollowerSchema>
+
+/////////////////////////////////////////
+// BLOCK USER SCHEMA
+/////////////////////////////////////////
+
+export const BlockUserSchema = z.object({
+  userId: z.string(),
+  blockUserId: z.string(),
+})
+
+export type BlockUser = z.infer<typeof BlockUserSchema>
+
+/////////////////////////////////////////
+// USER RANK SCHEMA
+/////////////////////////////////////////
+
+export const UserRankSchema = z.object({
+  userId: z.string(),
+  rank: z.string(),
+})
+
+export type UserRank = z.infer<typeof UserRankSchema>
+
+/////////////////////////////////////////
+// ART SCHEMA
+/////////////////////////////////////////
+
+export const ArtSchema = z.object({
+  artId: z.string().cuid(),
+  title: z.string(),
+  imageUrl: z.string(),
+})
+
+export type Art = z.infer<typeof ArtSchema>
+
+/////////////////////////////////////////
+// RELATED ART SCHEMA
+/////////////////////////////////////////
+
+export const RelatedArtSchema = z.object({
+  artId: z.string(),
+  relatedArtId: z.string(),
+})
+
+export type RelatedArt = z.infer<typeof RelatedArtSchema>
+
+/////////////////////////////////////////
+// ART TAG SCHEMA
+/////////////////////////////////////////
+
+export const ArtTagSchema = z.object({
+  artId: z.string(),
+  tag: z.string(),
+})
+
+export type ArtTag = z.infer<typeof ArtTagSchema>
+
+/////////////////////////////////////////
+// INTEREST TAG SCHEMA
+/////////////////////////////////////////
+
+export const InterestTagSchema = z.object({
+  userId: z.string(),
+  tag: z.string(),
+})
+
+export type InterestTag = z.infer<typeof InterestTagSchema>
+
+/////////////////////////////////////////
+// ART GOOD USER SCHEMA
+/////////////////////////////////////////
+
+export const ArtGoodUserSchema = z.object({
+  artId: z.string(),
+  userId: z.string(),
+  artArtId: z.string(),
+})
+
+export type ArtGoodUser = z.infer<typeof ArtGoodUserSchema>
+
+/////////////////////////////////////////
+// RECOMMEND ART SCHEMA
+/////////////////////////////////////////
+
+export const RecommendArtSchema = z.object({
+  userId: z.string(),
+  artId: z.string(),
+  likePoint: z.string(),
+})
+
+export type RecommendArt = z.infer<typeof RecommendArtSchema>
+
+/////////////////////////////////////////
+// WATCHING ART SCHEMA
+/////////////////////////////////////////
+
+export const WatchingArtSchema = z.object({
+  userId: z.string(),
+  artId: z.string(),
+})
+
+export type WatchingArt = z.infer<typeof WatchingArtSchema>
+
+/////////////////////////////////////////
+// BOOKMARK ART SCHEMA
+/////////////////////////////////////////
+
+export const BookmarkArtSchema = z.object({
+  userId: z.string(),
+  artId: z.string(),
+})
+
+export type BookmarkArt = z.infer<typeof BookmarkArtSchema>
+
+/////////////////////////////////////////
+// BUSSINESS CARD SCHEMA
+/////////////////////////////////////////
+
+export const BussinessCardSchema = z.object({
+  bussinessCardId: z.string().cuid(),
+  userId: z.string(),
+  backgroundImageUrl: z.string(),
+  canComment: z.boolean(),
+})
+
+export type BussinessCard = z.infer<typeof BussinessCardSchema>
+
+/////////////////////////////////////////
+// BUSSINESS CARD LIKE ART SCHEMA
+/////////////////////////////////////////
+
+export const BussinessCardLikeArtSchema = z.object({
+  bussinessCardId: z.string(),
+  likeArtId: z.string(),
+})
+
+export type BussinessCardLikeArt = z.infer<typeof BussinessCardLikeArtSchema>
+
+/////////////////////////////////////////
+// BUSSINESS CARD RANK SCHEMA
+/////////////////////////////////////////
+
+export const BussinessCardRankSchema = z.object({
+  bussinessCardId: z.string(),
+  rank: z.string(),
+})
+
+export type BussinessCardRank = z.infer<typeof BussinessCardRankSchema>
+
+/////////////////////////////////////////
+// PROFILE COMMENT SCHEMA
+/////////////////////////////////////////
+
+export const ProfileCommentSchema = z.object({
+  commentId: z.string().cuid(),
+  bussinessCardId: z.string(),
+  content: z.string(),
+})
+
+export type ProfileComment = z.infer<typeof ProfileCommentSchema>
+
+/////////////////////////////////////////
+// PROFILE COMMENT GOOD USER SCHEMA
+/////////////////////////////////////////
+
+export const ProfileCommentGoodUserSchema = z.object({
+  commentId: z.string(),
+  goodUserId: z.string(),
+})
+
+export type ProfileCommentGoodUser = z.infer<typeof ProfileCommentGoodUserSchema>
+
+/////////////////////////////////////////
+// BUSSINESS CARD GOOD USER SCHEMA
+/////////////////////////////////////////
+
+export const BussinessCardGoodUserSchema = z.object({
+  bussinessCardId: z.string(),
+  userId: z.string(),
+})
+
+export type BussinessCardGoodUser = z.infer<typeof BussinessCardGoodUserSchema>
+
+/////////////////////////////////////////
+// NOTIFICATION SCHEMA
+/////////////////////////////////////////
+
+export const NotificationSchema = z.object({
+  notificationId: z.string().cuid(),
+  userId: z.string(),
+  content: z.string(),
+  type: z.string(),
+})
+
+export type Notification = z.infer<typeof NotificationSchema>
