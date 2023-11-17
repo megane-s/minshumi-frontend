@@ -1,11 +1,16 @@
 {
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": ["source.addMissingImports", "source.fixAll.eslint"],
+  "editor.codeActionsOnSave": [
+    "source.addMissingImports",
+    "source.fixAll.eslint"
+  ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "[typescript]": {},
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
   "[jsonc]": {},
   "[javascript]": {},
   "[html]": {
@@ -15,5 +20,7 @@
   "[ejs]": {
     "editor.formatOnSave": false
   },
-  "cSpell.words": ["Mantine"]
+  "cSpell.words": [
+    "Mantine"
+  ]
 }
