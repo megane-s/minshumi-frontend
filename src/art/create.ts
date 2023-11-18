@@ -10,7 +10,7 @@ export const CreateArtParamsSchema = ArtSchema.pick({
 })
 export type CreateArtParams = z.infer<typeof CreateArtParamsSchema>
 
-export const createArtParams = async (params: CreateArtParams) => {
+export const createArt = async (params: CreateArtParams) => {
     const result = prisma.art.create({
         data: params,
     })
