@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
+import toast from "react-hot-toast"
 
 interface UseMutateOptions {
   onSuccess: { toast: JSX.Element | string }
@@ -12,8 +13,20 @@ export const useMutate = <F extends ((...args: any[]) => Promise<any>)>(
   const { mutateAsync, isPending, isError, error, isSuccess } = useMutation({
     ...options,
     mutationFn: handler,
-    onSuccess: () => { /* TODO トーストの表示 */ },
-    onError: () => { /* TODO トーストの表示 */ },
+    onSuccess: () => {
+      if (options.onSuccess?.toast) {
+        toast.success(options.onSuccess.toast, {
+          position: "bottom-center",
+        })
+      }
+    },
+    onError: () => {
+      if (options.onError?.toast) {
+        toast.error(options.onError.toast, {
+          position: "bottom-center",
+        })
+      }
+    },
   })
   return {
     mutate: mutateAsync,
