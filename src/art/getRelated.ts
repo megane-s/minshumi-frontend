@@ -8,6 +8,8 @@ import "server-only";
  * @param artId 指定する作品のID。
  * @returns 関連する作品の一覧。
  */
+// 未実装のためdisable。実装し次第外す。
+// eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
 export const getRelatedArts = async (artId: Art["artId"]): Promise<Art[]> => {
     notImplementWarn("getRelatedArtsはまだ実装されていません。関連作品として空の配列がreturnされます。")
     return []
