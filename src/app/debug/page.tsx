@@ -1,11 +1,11 @@
 "use client"
 
-import { developOnlyPage } from "@/util/developOnly";
+import { onlyDevelopPage } from "@/util/server/onlyDevelop";
 import { Button, Card, Checkbox, Container, Grid, Slider, Stack, Switch, Text, TextInput, Textarea, Title } from "@mantine/core";
 import Image from "next/image";
 
 export default function DebugPage() {
-    developOnlyPage()
+    onlyDevelopPage()
     return (
         <Container>
             <Stack p="lg" gap="lg">
