@@ -53,27 +53,27 @@ model Session {
 }
 
 model User {
-  id                  String                   @id @default(cuid())
-  name                String?
-  email               String?                  @unique
-  emailVerified       DateTime?
-  image               String?
-  accounts            Account[]
-  sessions            Session[]
-  interestTags        InterestTag[]
-  goodArts            ArtGoodUser[]
-  recommendedArts     RecommendArt[]
-  watchingArts        WatchingArt[]
-  bookmarkArts        BookmarkArt[]
-  followers           Follower[]               @relation("followers")
-  following           Follower[]               @relation("followings")
-  blockUsers          BlockUser[]              @relation("blockUsers")
-  blocking            BlockUser[]              @relation("blocking")
-  bussinessCards      BussinessCard[]
-  goodProfileComments ProfileCommentGoodUser[]
-  goodBussinessCards  BussinessCardGoodUser[]
-  ranks               UserRank[]
-  notifications       Notification[]
+  id                       String                        @id @default(cuid())
+  name                     String?
+  email                    String?                       @unique
+  emailVerified            DateTime?
+  image                    String?
+  accounts                 Account[]
+  sessions                 Session[]
+  interestTags             InterestTag[]
+  goodArts                 ArtGoodUser[]
+  recommendedArts          RecommendArt[]
+  watchingArts             WatchingArt[]
+  bookmarkArts             BookmarkArt[]
+  followers                Follower[]                    @relation("followers")
+  following                Follower[]                    @relation("followings")
+  blockUsers               BlockUser[]                   @relation("blockUsers")
+  blocking                 BlockUser[]                   @relation("blocking")
+  businessCards            BusinessCard[]
+  goodBusinessCardComments BusinessCardCommentGoodUser[]
+  goodBusinessCards        BusinessCardGoodUser[]
+  ranks                    UserRank[]
+  notifications            Notification[]
 }
 
 model VerificationToken {
@@ -115,16 +115,16 @@ model UserRank {
 // Art
 
 model Art {
-  artId                   String                 @id @default(cuid())
-  title                   String
-  imageUrl                String
-  relatedArt              RelatedArt[]
-  tags                    ArtTag[]
-  goodUsers               ArtGoodUser[]
-  reccomendUsers          RecommendArt[]
-  watchingUsers           WatchingArt[]
-  bookmarkUsers           BookmarkArt[]
-  useAsLikeBussinessCards BussinessCardLikeArt[]
+  artId                  String                @id @default(cuid())
+  title                  String
+  imageUrl               String
+  relatedArt             RelatedArt[]
+  tags                   ArtTag[]
+  goodUsers              ArtGoodUser[]
+  reccomendUsers         RecommendArt[]
+  watchingUsers          WatchingArt[]
+  bookmarkUsers          BookmarkArt[]
+  useAsLikeBusinessCards BusinessCardLikeArt[]
 }
 
 model RelatedArt {
@@ -138,7 +138,7 @@ model RelatedArt {
 model ArtTag {
   artId String
   tag   String
-  Art   Art    @relation(fields: [artId], references: [artId])
+  art   Art    @relation(fields: [artId], references: [artId])
 
   @@id([artId, tag])
 }
@@ -154,7 +154,7 @@ model InterestTag {
 model ArtGoodUser {
   artId    String
   userId   String
-  Art      Art    @relation(fields: [artArtId], references: [artId])
+  art      Art    @relation(fields: [artArtId], references: [artId])
   artArtId String
   user     User   @relation(fields: [userId], references: [id])
 
@@ -189,59 +189,59 @@ model BookmarkArt {
   @@id([userId, artId])
 }
 
-// BussinessCard
+// BusinessCard
 
-model BussinessCard {
-  bussinessCardId    String                  @id @default(cuid())
+model BusinessCard {
+  businessCardId     String                 @id @default(cuid())
   userId             String
   backgroundImageUrl String
   canComment         Boolean
-  user               User                    @relation(fields: [userId], references: [id])
-  likeArts           BussinessCardLikeArt[]
-  comments           ProfileComment[]
-  goodUsers          BussinessCardGoodUser[]
+  user               User                   @relation(fields: [userId], references: [id])
+  likeArts           BusinessCardLikeArt[]
+  comments           BusinessCardComment[]
+  goodUsers          BusinessCardGoodUser[]
 }
 
-model BussinessCardLikeArt {
-  bussinessCardId String
-  likeArtId       String
-  bussinessCard   BussinessCard @relation(fields: [bussinessCardId], references: [bussinessCardId])
-  likeArt         Art           @relation(fields: [likeArtId], references: [artId])
+model BusinessCardLikeArt {
+  businessCardId String
+  likeArtId      String
+  businessCard   BusinessCard @relation(fields: [businessCardId], references: [businessCardId])
+  likeArt        Art          @relation(fields: [likeArtId], references: [artId])
 
-  @@id([bussinessCardId, likeArtId])
+  @@id([businessCardId, likeArtId])
 }
 
-model BussinessCardRank {
-  bussinessCardId String
-  rank            String
+model BusinessCardRank {
+  businessCardId String
+  rank           String
 
-  @@id([bussinessCardId, rank])
+  @@id([businessCardId, rank])
 }
 
-model ProfileComment {
-  commentId       String                   @id @default(cuid())
-  bussinessCardId String
-  content         String
-  bussinessCard   BussinessCard            @relation(fields: [bussinessCardId], references: [bussinessCardId])
-  goodUsers       ProfileCommentGoodUser[]
+model BusinessCardComment {
+  commentId      String                        @id @default(cuid())
+  businessCardId String
+  content        String
+  businessCard   BusinessCard                  @relation(fields: [businessCardId], references: [businessCardId])
+  goodUsers      BusinessCardCommentGoodUser[]
 }
 
-model ProfileCommentGoodUser {
+model BusinessCardCommentGoodUser {
   commentId  String
   goodUserId String
-  comment    ProfileComment @relation(fields: [commentId], references: [commentId])
-  goodUser   User           @relation(fields: [goodUserId], references: [id])
+  comment    BusinessCardComment @relation(fields: [commentId], references: [commentId])
+  goodUser   User                @relation(fields: [goodUserId], references: [id])
 
   @@id([commentId, goodUserId])
 }
 
-model BussinessCardGoodUser {
-  bussinessCardId String
-  userId          String
-  bussinessCard   BussinessCard @relation(fields: [bussinessCardId], references: [bussinessCardId])
-  user            User          @relation(fields: [userId], references: [id])
+model BusinessCardGoodUser {
+  businessCardId String
+  userId         String
+  businessCard   BusinessCard @relation(fields: [businessCardId], references: [businessCardId])
+  user           User         @relation(fields: [userId], references: [id])
 
-  @@id([bussinessCardId, userId])
+  @@id([businessCardId, userId])
 }
 
 // Notification

@@ -44,17 +44,17 @@ export const WatchingArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
 export const BookmarkArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
-export const BussinessCardScalarFieldEnumSchema = z.enum(['bussinessCardId','userId','backgroundImageUrl','canComment']);
+export const BusinessCardScalarFieldEnumSchema = z.enum(['businessCardId','userId','backgroundImageUrl','canComment']);
 
-export const BussinessCardLikeArtScalarFieldEnumSchema = z.enum(['bussinessCardId','likeArtId']);
+export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId','likeArtId']);
 
-export const BussinessCardRankScalarFieldEnumSchema = z.enum(['bussinessCardId','rank']);
+export const BusinessCardRankScalarFieldEnumSchema = z.enum(['businessCardId','rank']);
 
-export const ProfileCommentScalarFieldEnumSchema = z.enum(['commentId','bussinessCardId','content']);
+export const BusinessCardCommentScalarFieldEnumSchema = z.enum(['commentId','businessCardId','content']);
 
-export const ProfileCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
+export const BusinessCardCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
 
-export const BussinessCardGoodUserScalarFieldEnumSchema = z.enum(['bussinessCardId','userId']);
+export const BusinessCardGoodUserScalarFieldEnumSchema = z.enum(['businessCardId','userId']);
 
 export const NotificationScalarFieldEnumSchema = z.enum(['notificationId','userId','content','type']);
 
@@ -265,73 +265,73 @@ export const BookmarkArtSchema = z.object({
 export type BookmarkArt = z.infer<typeof BookmarkArtSchema>
 
 /////////////////////////////////////////
-// BUSSINESS CARD SCHEMA
+// BUSINESS CARD SCHEMA
 /////////////////////////////////////////
 
-export const BussinessCardSchema = z.object({
-  bussinessCardId: z.string().cuid(),
+export const BusinessCardSchema = z.object({
+  businessCardId: z.string().cuid(),
   userId: z.string(),
   backgroundImageUrl: z.string(),
   canComment: z.boolean(),
 })
 
-export type BussinessCard = z.infer<typeof BussinessCardSchema>
+export type BusinessCard = z.infer<typeof BusinessCardSchema>
 
 /////////////////////////////////////////
-// BUSSINESS CARD LIKE ART SCHEMA
+// BUSINESS CARD LIKE ART SCHEMA
 /////////////////////////////////////////
 
-export const BussinessCardLikeArtSchema = z.object({
-  bussinessCardId: z.string(),
+export const BusinessCardLikeArtSchema = z.object({
+  businessCardId: z.string(),
   likeArtId: z.string(),
 })
 
-export type BussinessCardLikeArt = z.infer<typeof BussinessCardLikeArtSchema>
+export type BusinessCardLikeArt = z.infer<typeof BusinessCardLikeArtSchema>
 
 /////////////////////////////////////////
-// BUSSINESS CARD RANK SCHEMA
+// BUSINESS CARD RANK SCHEMA
 /////////////////////////////////////////
 
-export const BussinessCardRankSchema = z.object({
-  bussinessCardId: z.string(),
+export const BusinessCardRankSchema = z.object({
+  businessCardId: z.string(),
   rank: z.string(),
 })
 
-export type BussinessCardRank = z.infer<typeof BussinessCardRankSchema>
+export type BusinessCardRank = z.infer<typeof BusinessCardRankSchema>
 
 /////////////////////////////////////////
-// PROFILE COMMENT SCHEMA
+// BUSINESS CARD COMMENT SCHEMA
 /////////////////////////////////////////
 
-export const ProfileCommentSchema = z.object({
+export const BusinessCardCommentSchema = z.object({
   commentId: z.string().cuid(),
-  bussinessCardId: z.string(),
+  businessCardId: z.string(),
   content: z.string(),
 })
 
-export type ProfileComment = z.infer<typeof ProfileCommentSchema>
+export type BusinessCardComment = z.infer<typeof BusinessCardCommentSchema>
 
 /////////////////////////////////////////
-// PROFILE COMMENT GOOD USER SCHEMA
+// BUSINESS CARD COMMENT GOOD USER SCHEMA
 /////////////////////////////////////////
 
-export const ProfileCommentGoodUserSchema = z.object({
+export const BusinessCardCommentGoodUserSchema = z.object({
   commentId: z.string(),
   goodUserId: z.string(),
 })
 
-export type ProfileCommentGoodUser = z.infer<typeof ProfileCommentGoodUserSchema>
+export type BusinessCardCommentGoodUser = z.infer<typeof BusinessCardCommentGoodUserSchema>
 
 /////////////////////////////////////////
-// BUSSINESS CARD GOOD USER SCHEMA
+// BUSINESS CARD GOOD USER SCHEMA
 /////////////////////////////////////////
 
-export const BussinessCardGoodUserSchema = z.object({
-  bussinessCardId: z.string(),
+export const BusinessCardGoodUserSchema = z.object({
+  businessCardId: z.string(),
   userId: z.string(),
 })
 
-export type BussinessCardGoodUser = z.infer<typeof BussinessCardGoodUserSchema>
+export type BusinessCardGoodUser = z.infer<typeof BusinessCardGoodUserSchema>
 
 /////////////////////////////////////////
 // NOTIFICATION SCHEMA
