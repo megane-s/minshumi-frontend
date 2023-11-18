@@ -12,6 +12,12 @@ export const CreateBusinessParamsSchema = BusinessCardSchema.pick({
 })
 export type CreateBusinessParams = z.infer<typeof CreateBusinessParamsSchema>
 
+/**
+ * 名刺を作成する。
+ * @param authorId 作成するユーザのID。
+ * @param params 名刺の内容。
+ * @returns 作成した名刺。
+ */
 export const createBusinessCard = async (authorId: User["id"], params: CreateBusinessParams): Promise<BusinessCard> => {
     const result = await prisma.businessCard.create({
         data: {

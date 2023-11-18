@@ -1,15 +1,14 @@
-import { ArtSchema } from "@/prisma/generated";
 import { notImplementWarn } from "@/util/notImplement";
 import { Art } from "@prisma/client";
 import "server-only";
-import { z } from "zod";
 
-export const GetRelatedArtsParamsSchema = z.object({
-    artId: ArtSchema.shape.artId,
-})
-export type GetRelatedArtsParams = z.infer<typeof GetRelatedArtsParamsSchema>
-
-export const getRelatedArts = async (params: GetRelatedArtsParams): Promise<Art[]> => {
+/**
+ * 未実装。
+ * 指定した作品に関連する作品を取得する。
+ * @param artId 指定する作品のID。
+ * @returns 関連する作品の一覧。
+ */
+export const getRelatedArts = async (artId: Art["artId"]): Promise<Art[]> => {
     notImplementWarn("getRelatedArtsはまだ実装されていません。関連作品として空の配列がreturnされます。")
     return []
 }

@@ -1,18 +1,16 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
-import { ArtSchema } from "@/prisma/generated";
 import { Art } from "@prisma/client";
-import { z } from "zod";
 
-export const DeleteArtParamsSchema = z.object({
-    artId: ArtSchema.shape.artId,
-})
-export type DeleteArtParams = z.infer<typeof DeleteArtParamsSchema>
-
-export const deleteArt = async (params: DeleteArtParams): Promise<Art> => {
+/**
+ * 作品を削除する。
+ * @param artId 削除する作品のID。
+ * @returns 削除した作品。
+ */
+export const deleteArt = async (artId: Art["artId"]): Promise<Art> => {
     const result = await prisma.art.delete({
-        where: { artId: params.artId },
+        where: { artId },
     })
     return result
 }
