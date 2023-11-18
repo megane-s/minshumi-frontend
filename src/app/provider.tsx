@@ -1,9 +1,9 @@
 "use client"
 
 import { FC, ReactNode } from "react"
-import { MantineProvider } from '@mantine/core'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { SessionProvider } from "next-auth/react"
+import StyleProvider from "@/style/provider"
 
 const queryClient = new QueryClient()
 
@@ -13,11 +13,11 @@ interface ProvidersProps {
 export const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider>
+      <StyleProvider>
         <SessionProvider>
           {children}
         </SessionProvider>
-      </MantineProvider>
+      </StyleProvider>
     </QueryClientProvider>
   )
 }
