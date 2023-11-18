@@ -19,6 +19,7 @@
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "embla-carousel-react": "^8.0.0-rc14",
+    "framer-motion": "^10.16.5",
     "next": "14.0.1",
     "next-auth": "^4.24.5",
     "react": "^18",
