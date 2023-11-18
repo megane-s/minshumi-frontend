@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 
 interface UseMutateOptions {
+  loading: JSX.Element | string
   onSuccess: { toast: JSX.Element | string }
   onError: { toast: JSX.Element | string }
 }
@@ -34,5 +35,6 @@ export const useMutate = <F extends ((...args: any[]) => Promise<any>)>(
     isError,
     error,
     isSuccess,
+    loading: options.loading,
   }
 }
