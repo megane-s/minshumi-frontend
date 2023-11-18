@@ -1,9 +1,10 @@
-import "server-only"
+import "server-only";
+import { BusinessCard } from './../prisma/generated/index';
 
-import { prisma } from "@/prisma"
-import { BusinessCardSchema } from "@/prisma/generated"
-import { User } from "@prisma/client"
-import { z } from "zod"
+import { prisma } from "@/prisma";
+import { BusinessCardSchema } from "@/prisma/generated";
+import { User } from "@prisma/client";
+import { z } from "zod";
 
 export const CreateBusinessParamsSchema = BusinessCardSchema.pick({
     backgroundImageUrl: true,
@@ -11,7 +12,7 @@ export const CreateBusinessParamsSchema = BusinessCardSchema.pick({
 })
 export type CreateBusinessParams = z.infer<typeof CreateBusinessParamsSchema>
 
-export const createBusinessCard = async (authorId: User["id"], params: CreateBusinessParams) => {
+export const createBusinessCard = async (authorId: User["id"], params: CreateBusinessParams): Promise<BusinessCard> => {
     const result = await prisma.businessCard.create({
         data: {
             userId: authorId,

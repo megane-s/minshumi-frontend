@@ -10,6 +10,6 @@ export const SendNotificationParamsSchema = NotificationSchema.pick({
 })
 export type SendNotificationParams = z.infer<typeof SendNotificationParamsSchema>
 
-export const sendNotification = async (params: SendNotificationParams) => {
+export const sendNotification = async (params: SendNotificationParams): Promise<void> => {
     notImplementWarn("sendNotification はまだ実装されていません。")
 }

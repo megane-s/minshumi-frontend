@@ -1,7 +1,7 @@
 import { prisma } from "@/prisma";
-import { User } from "@prisma/client";
+import { Notification, User } from "@prisma/client";
 
-export const getNotifications = async (userId: User["id"]) => {
+export const getNotifications = async (userId: User["id"]): Promise<Notification[]> => {
     return await prisma.notification.findMany({
         where: { userId },
     })

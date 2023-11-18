@@ -1,13 +1,11 @@
-import { prisma } from "@/prisma"
-import { User } from "@prisma/client"
-import "server-only"
+import { prisma } from "@/prisma";
+import { User } from "@prisma/client";
+import "server-only";
+import { BusinessCard } from './../prisma/generated/index';
 
-export const getBusinessCardByUser = async (userId: User["id"]): Promise<User[]> => {
+export const getBusinessCardByUser = async (userId: User["id"]): Promise<BusinessCard[]> => {
     const results = await prisma.businessCard.findMany({
         where: { userId },
-        include: {
-            user: true,
-        }
     })
-    return results.map(result => result.user)
+    return results.map(result => result)
 }
