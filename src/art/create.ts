@@ -1,9 +1,8 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
-import { ArtSchema } from "@/prisma/generated";
-import { Art } from "@prisma/client";
 import { z } from "zod";
+import { Art, ArtSchema } from "./type";
 
 export const CreateArtParamsSchema = ArtSchema.pick({
     title: true,

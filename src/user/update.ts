@@ -1,8 +1,7 @@
 import { prisma } from "@/prisma"
-import { UserSchema } from "@/prisma/generated"
-import { User } from "@prisma/client"
 import "server-only"
 import { z } from "zod"
+import { User, UserSchema } from "./type"
 
 export const UpdateUserParamsSchema = UserSchema.pick({
     image: true,

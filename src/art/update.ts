@@ -1,9 +1,8 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
-import { ArtSchema } from "@/prisma/generated";
-import { Art } from "@prisma/client";
 import { z } from "zod";
+import { Art, ArtId, ArtSchema } from "./type";
 
 export const UpdateArtParamsSchema = ArtSchema.partial()
 export type UpdateArtParams = z.infer<typeof UpdateArtParamsSchema>
@@ -14,7 +13,7 @@ export type UpdateArtParams = z.infer<typeof UpdateArtParamsSchema>
  * @param art 更新内容。
  * @returns 更新後の作品。
  */
-export const updateArt = async (artId: Art["artId"], art: UpdateArtParams): Promise<Art> => {
+export const updateArt = async (artId: ArtId, art: UpdateArtParams): Promise<Art> => {
     const result = await prisma.art.update({
         where: { artId: artId },
         data: art,

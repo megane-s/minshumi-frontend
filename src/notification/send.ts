@@ -1,7 +1,7 @@
-import { NotificationSchema } from "@/prisma/generated"
 import { notImplementWarn } from "@/util/notImplement"
 import "server-only"
 import { z } from "zod"
+import { NotificationSchema } from "./type"
 
 export const SendNotificationParamsSchema = NotificationSchema.pick({
     type: true,
