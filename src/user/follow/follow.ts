@@ -1,13 +1,13 @@
 import { prisma } from "@/prisma"
-import { User } from "@prisma/client"
 import "server-only"
+import { UserId } from "../type"
 
 /**
  * 他のユーザをフォローする。
  * @param by フォロー操作をするユーザのID。
  * @param followUser フォロー対象のユーザのID。
  */
-export const follow = async (by: User["id"], followUser: User["id"]): Promise<void> => {
+export const follow = async (by: UserId, followUser: UserId): Promise<void> => {
     await prisma.follower.create({
         data: {
             userId: by,

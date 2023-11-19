@@ -1,5 +1,6 @@
+import { ArtTag } from "@/art/type"
 import { prisma } from "@/prisma"
-import { User } from "@prisma/client"
+import { UserId } from "@/user/type"
 import "server-only"
 
 /**
@@ -7,7 +8,7 @@ import "server-only"
  * @param userId 対象のユーザID
  * @returns 興味のあるタグ一覧
  */
-export const getInterestTags = async (userId: User["id"]): Promise<string[]> => {
+export const getInterestTags = async (userId: UserId): Promise<ArtTag[]> => {
     const results = await prisma.interestTag.findMany({
         where: { userId },
     })

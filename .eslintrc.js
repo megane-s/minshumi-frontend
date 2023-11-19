@@ -28,6 +28,15 @@ module.exports = {
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "unused-imports/no-unused-vars": "warn",
+    "no-restricted-imports": [
+      "error",
+      {
+        paths: [
+          "@/prisma/generated",
+          "@prisma/client",
+        ],
+      },
+    ]
   },
   ignorePatterns: [
     "**/generated/**/*",

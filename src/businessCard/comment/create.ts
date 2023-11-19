@@ -1,7 +1,7 @@
 import { prisma } from "@/prisma";
-import { BusinessCardComment, BusinessCardCommentSchema } from "@/prisma/generated";
 import "server-only";
 import { z } from "zod";
+import { BusinessCardComment, BusinessCardCommentSchema } from "./type";
 
 export const CreateBusinessCardCommentParamsSchema = BusinessCardCommentSchema.pick({
     businessCardId: true,

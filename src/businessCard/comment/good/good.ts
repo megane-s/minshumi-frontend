@@ -1,14 +1,15 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
-import { BusinessCardCommentGoodUser } from "@prisma/client";
+import { UserId } from "@/user/type";
+import { BusinessCardCommentId } from "../type";
 
 /**
  * 名刺に対するコメントへいいねする。
  * @param commentId いいねするコメントのID。
  * @param by いいねするユーザのID。
  */
-export const goodToBusinessCardCommentGood = async (commentId: BusinessCardCommentGoodUser["commentId"], by: BusinessCardCommentGoodUser["goodUserId"]): Promise<void> => {
+export const goodToBusinessCardCommentGood = async (commentId: BusinessCardCommentId, by: UserId): Promise<void> => {
     await prisma.businessCardCommentGoodUser.create({
         data: {
             commentId,

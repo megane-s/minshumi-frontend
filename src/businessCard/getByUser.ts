@@ -1,14 +1,14 @@
 import { prisma } from "@/prisma";
-import { User } from "@prisma/client";
+import { UserId } from "@/user/type";
 import "server-only";
-import { BusinessCard } from './../prisma/generated/index';
+import { BusinessCard } from "./type";
 
 /**
  * 指定したユーザが作成した名刺の一覧を取得する。
  * @param userId 指定するユーザ。
  * @returns 指定したユーザが作成した名刺の一覧。
  */
-export const getBusinessCardByUser = async (userId: User["id"]): Promise<BusinessCard[]> => {
+export const getBusinessCardByUser = async (userId: UserId): Promise<BusinessCard[]> => {
     const results = await prisma.businessCard.findMany({
         where: { userId },
     })

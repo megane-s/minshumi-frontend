@@ -1,6 +1,6 @@
 import { notImplementWarn } from "@/util/notImplement"
-import { User } from "@prisma/client"
 import "server-only"
+import { User } from "./type"
 
 /**
  * 未実装。
