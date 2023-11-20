@@ -7,6 +7,7 @@ import { Card, CardSection } from "@/components/Card"
 import { TextInput } from "@/components/TextInput"
 import { PageTitle } from "@/components/PageTitle"
 import { SectionTitle } from "@/components/SectionTitle"
+import { ActionIcon } from "@/components/ActionIcon"
 
 interface ContentProps {
 }
@@ -108,6 +109,7 @@ const Content: FC<ContentProps> = () => {
                             <Textarea placeholder="placeholderの使用例" />
                         </Card>
                     </Grid.Col>
+
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
                             <PageTitle>作品登録</PageTitle>
@@ -119,6 +121,12 @@ const Content: FC<ContentProps> = () => {
                                 2. 概要の入力
                             </SectionTitle>
                             これこれこうして
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <ActionIcon size="xl" />
                         </Card>
                     </Grid.Col>
 
