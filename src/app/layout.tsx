@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 
 import { Providers } from "./provider"
-import BaseLayout from "./BaseLayout"
+import BaseLayout from "./BaseLayout/BaseLayout"
 
 const inter = Inter({ subsets: ['latin'] })
 
