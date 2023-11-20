@@ -73,14 +73,14 @@ const Content: FC<ContentProps> = () => {
                         <Card>
                             <Card.Section>
                                 <Image
-                                    src="/placeholder/300x200_blue.png"
+                                    src="/placeholder/peach2.jpg"
                                     alt="placeholder"
                                     width={300} height={200}
                                     style={{ width: "100%", height: "auto" }}
                                 />
                             </Card.Section>
                             <Text my="md">
-                                カード
+                                ピーチ姫
                             </Text>
                             <Button variant="outline" w="fit-content">
                                 詳細
@@ -214,6 +214,16 @@ const Content: FC<ContentProps> = () => {
                                         style={{ width: "100%", height: "auto" }} /></CarouselSlide>
                             </Carousel>
                         </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Switch />
+                            <Switch defaultChecked />
+                            <Switch onLabel="ON" offLabel="OFF" />
+                            <Switch onLabel="ON" offLabel="OFF" defaultChecked />
+                        </Card>
+
                     </Grid.Col>
 
                 </Grid>
