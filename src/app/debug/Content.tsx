@@ -1,5 +1,11 @@
 "use client"
 
+import { Badge } from "@/components/Badge"
+import { Carousel, CarouselSlide } from "@/components/Carousel"
+import { Chip } from "@/components/Chip"
+import { Loader } from "@/components/Loader"
+import { TabsList, TabsTab, Tabs } from "@/components/Tabs"
+import { TagsInput } from "@/components/TagsInput"
 import { Button } from "@/components/Button"
 import { Link } from "@/components/Link"
 import Image from "next/image"
@@ -12,6 +18,7 @@ import { PageTitle } from "@/components/PageTitle"
 import { SectionTitle } from "@/components/SectionTitle"
 import { ActionIcon } from "@/components/ActionIcon"
 import { CiStar } from "react-icons/ci";
+
 
 interface ContentProps {
 }
@@ -75,18 +82,61 @@ const Content: FC<ContentProps> = () => {
                         <Card>
                             <CardSection>
                                 <Image
-                                    src="/placeholder/300x200_blue.png"
+                                    src="/placeholder/peach2.jpg"
                                     alt="placeholder"
                                     width={300} height={200}
                                     style={{ width: "100%", height: "auto" }}
                                 />
                             </CardSection>
                             <Text my="md">
-                                カード
+                                ピーチ姫
                             </Text>
                             <Button variant="outline" w="fit-content">
                                 詳細
                             </Button>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Chip>
+                                default
+                            </Chip>
+
+                            <Chip checked>
+                                checked
+                            </Chip>
+
+                            <Chip checked={false} >
+                                not checked
+                            </Chip>
+
+                            <Chip variant="light" checked>
+                                light checked
+                            </Chip>
+
+                            <Chip variant="light" checked={false}>
+                                light not checked
+                            </Chip>
+
+                            <Chip variant="outline">
+                                outline
+                            </Chip>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Tabs defaultValue="">
+                                <TabsList>
+                                    <TabsTab value="profile">
+                                        プロフィール
+                                    </TabsTab>
+                                    <TabsTab value="通知">
+                                        通知
+                                    </TabsTab>
+                                </TabsList>
+                            </Tabs>
                         </Card>
                     </Grid.Col>
 
@@ -119,6 +169,22 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
+                            <Loader />
+                        </Card>
+
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <TagsInput defaultValue={['アニメ']} >
+
+                            </TagsInput>
+                        </Card>
+                    </Grid.Col>
+
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
                             <TextInput />
                             <TextInput label="ラベルの使用例" />
                             <TextInput description="descriptionの使用例" />
@@ -131,12 +197,80 @@ const Content: FC<ContentProps> = () => {
                             <DialogExample />
                         </Card>
                     </Grid.Col>
+
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
                             <Textarea />
                             <Textarea label="ラベルの使用例" />
                             <Textarea description="descriptionの使用例" />
                             <Textarea placeholder="placeholderの使用例" />
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Badge variant="filled">
+                                filled
+                            </Badge>
+                            <Badge variant="light">
+                                light
+                            </Badge>
+                            <Badge variant="outline">
+                                outline
+                            </Badge>
+                            <Badge variant="dot">
+                                dot
+                            </Badge>
+                            <Badge variant="transparent">
+                                transparent
+                            </Badge>
+                            <Badge variant="default">
+                                default
+                            </Badge>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Carousel withIndicators height={200}>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach1.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} />
+                                </CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach2.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach3.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach4.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/bowser1.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/bowser2.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                            </Carousel>
                         </Card>
                     </Grid.Col>
 
@@ -156,6 +290,16 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
+                            <Switch />
+                            <Switch defaultChecked />
+                            <Switch onLabel="ON" offLabel="OFF" />
+                            <Switch onLabel="ON" offLabel="OFF" defaultChecked />
+                        </Card>
+
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
                             <ActionIcon size="xl" />
                         </Card>
                     </Grid.Col>
@@ -164,13 +308,10 @@ const Content: FC<ContentProps> = () => {
                         <Card>
                             {/* With image */}
                             <Avatar src="/placeholder/avatar.jpg" alt="it's me" />
-
                             {/* Default placeholder */}
                             <Avatar radius="xl" />
-
                             {/* Letters with xl radius */}
                             <Avatar color="error.1" radius="xl">MK</Avatar>
-
                             {/* Custom placeholder icon */}
                             <Avatar color="primary.0" radius="sm">
                                 <CiStar size="1.5rem" />
