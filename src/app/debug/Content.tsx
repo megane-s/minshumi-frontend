@@ -98,6 +98,14 @@ const Content: FC<ContentProps> = () => {
                         </Card>
                     </Grid.Col>
 
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Textarea />
+                            <Textarea label="ラベルの使用例" />
+                            <Textarea description="descriptionの使用例" />
+                            <Textarea placeholder="placeholderの使用例" />
+                        </Card>
+                    </Grid.Col>
                 </Grid>
             </Stack>
         </Container>
