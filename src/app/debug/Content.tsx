@@ -1,5 +1,6 @@
 "use client"
 
+import { Chip } from "@/components/Chip"
 import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
@@ -78,6 +79,29 @@ const Content: FC<ContentProps> = () => {
                             <Button variant="outline" w="fit-content">
                                 詳細
                             </Button>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Chip>
+                                default
+                            </Chip>
+                            <Chip checked>
+                                checked
+                            </Chip>
+                            <Chip checked={false} >
+                                not checked
+                            </Chip>
+                            <Chip variant="light" checked>
+                                light checked
+                            </Chip>
+                            <Chip variant="light" checked={false}>
+                                light not checked
+                            </Chip>
+                            <Chip variant="outline">
+                                outline
+                            </Chip>
                         </Card>
                     </Grid.Col>
 
