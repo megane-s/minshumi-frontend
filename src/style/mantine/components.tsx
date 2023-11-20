@@ -1,4 +1,4 @@
-import { Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
+import { Button, Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
 
 export const components: MantineTheme["components"] = {
     Card: Card.extend({
@@ -16,5 +16,11 @@ export const components: MantineTheme["components"] = {
         defaultProps: {
             styles: { input: { backgroundColor: "transparent" } }
         }
+    }),
+    Button: Button.extend({
+        defaultProps: {
+            variant: "default",
+            w: "fit-content",
+        },
     }),
 }
