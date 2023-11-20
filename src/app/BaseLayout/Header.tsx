@@ -9,6 +9,7 @@ import { ActionIcon } from "@/components/ActionIcon"
 import { IoMdInformation } from "react-icons/io"
 import { getSession } from "@/auth/server/auth"
 import LinkButton from "@/components/LinkButton"
+import HeaderMenu from "./HeaderMenu"
 
 interface HeaderProps {
 }
@@ -16,6 +17,7 @@ const Header: FC<HeaderProps> = async () => {
     const session = await getSession()
     return (
         <AppShellHeader>
+
             <Flex justify="space-between" align="center" px="sm">
                 <Logo
                     imageProps={{ priority: true }}
@@ -42,6 +44,9 @@ const Header: FC<HeaderProps> = async () => {
                         </LinkButton>}
                 </Flex>
             </Flex>
+
+            <HeaderMenu />
+
         </AppShellHeader>
     )
 }
