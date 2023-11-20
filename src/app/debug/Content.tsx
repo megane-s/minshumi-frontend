@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/Button"
+import { Link } from "@/components/Link"
 import { Container, Stack, Grid, Card, Title, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
@@ -98,6 +99,13 @@ const Content: FC<ContentProps> = () => {
                                     ボタン subtle
                                 </Button>
                             </Stack>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Link href="/">Top Page Link</Link>
+                            <Link href="/" newTab>New Tab Top Page Link</Link>
                         </Card>
                     </Grid.Col>
 
