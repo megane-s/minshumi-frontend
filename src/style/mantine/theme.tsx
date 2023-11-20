@@ -14,7 +14,7 @@ const minshumiColorSchemeToMantine = <Scheme extends keyof MinshumiTheme["colors
 }
 
 const themeOverride = createTheme({
-    focusRing: "always",
+    focusRing: "auto",
     colors: {
         primary: minshumiColorSchemeToMantine("primary"),
         primaryText: minshumiColorSchemeToMantine("primaryText"),
