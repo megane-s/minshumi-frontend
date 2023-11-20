@@ -1,6 +1,7 @@
 "use client"
 
 import { Badge } from "@/components/Badge"
+import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { Chip } from "@/components/Chip"
 import { Loader } from "@/components/Loader"
 import { TabsList, TabsTab, Tabs } from "@/components/Tabs"
@@ -91,18 +92,23 @@ const Content: FC<ContentProps> = () => {
                             <Chip>
                                 default
                             </Chip>
+
                             <Chip checked>
                                 checked
                             </Chip>
+
                             <Chip checked={false} >
                                 not checked
                             </Chip>
+
                             <Chip variant="light" checked>
                                 light checked
                             </Chip>
+
                             <Chip variant="light" checked={false}>
                                 light not checked
                             </Chip>
+
                             <Chip variant="outline">
                                 outline
                             </Chip>
@@ -162,6 +168,50 @@ const Content: FC<ContentProps> = () => {
                             <Badge variant="default">
                                 default
                             </Badge>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Carousel withIndicators height={200} loop>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach1.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} />
+                                </CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach2.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach3.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/peach4.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/bowser1.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                                <CarouselSlide>
+                                    <Image
+                                        src="/placeholder/bowser2.jpg"
+                                        alt="placeholder"
+                                        width={300} height={200}
+                                        style={{ width: "100%", height: "auto" }} /></CarouselSlide>
+                            </Carousel>
                         </Card>
                     </Grid.Col>
 
