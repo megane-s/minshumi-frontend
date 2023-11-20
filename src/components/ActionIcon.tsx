@@ -4,12 +4,13 @@ import { FaRegHeart } from "react-icons/fa";
 
 interface ActionIconProps extends MActionIconProps {
 }
-export const ActionIcon: FC<ActionIconProps> = () => {
+export const ActionIcon: FC<ActionIconProps> = ({ ...props }) => {
     return (
         <MActionIcon
             variant="filled"
             size="xl"
             aria-label="filled action icon"
+            {...props}
         >
             <FaRegHeart />
         </MActionIcon>
