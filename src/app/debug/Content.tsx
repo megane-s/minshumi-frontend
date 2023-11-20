@@ -10,6 +10,7 @@ import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slide
 import Image from "next/image"
 import { FC } from "react"
 
+
 interface ContentProps {
 }
 const Content: FC<ContentProps> = () => {
@@ -173,7 +174,7 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
-                            <Carousel withIndicators height={200} loop>
+                            <Carousel withIndicators height={200}>
                                 <CarouselSlide>
                                     <Image
                                         src="/placeholder/peach1.jpg"
