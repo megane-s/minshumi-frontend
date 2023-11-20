@@ -1,8 +1,11 @@
 "use client"
 
+import { Badge } from "@/components/Badge"
 import { Chip } from "@/components/Chip"
+import { Loader } from "@/components/Loader"
 import { TabsList, TabsTab, Tabs } from "@/components/Tabs"
-import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text, Loader, TagsInput } from "@mantine/core"
+import { TagsInput } from "@/components/TagsInput"
+import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
 
@@ -136,6 +139,29 @@ const Content: FC<ContentProps> = () => {
                             <TagsInput defaultValue={['アニメ']} >
 
                             </TagsInput>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Badge variant="filled">
+                                filled
+                            </Badge>
+                            <Badge variant="light">
+                                light
+                            </Badge>
+                            <Badge variant="outline">
+                                outline
+                            </Badge>
+                            <Badge variant="dot">
+                                dot
+                            </Badge>
+                            <Badge variant="transparent">
+                                transparent
+                            </Badge>
+                            <Badge variant="default">
+                                default
+                            </Badge>
                         </Card>
                     </Grid.Col>
 
