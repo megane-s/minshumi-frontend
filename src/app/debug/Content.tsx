@@ -1,9 +1,10 @@
 "use client"
 
-import { Container, Stack, Grid, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
+import { Container, Stack, Grid, Title, Button, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
 import { Card, CardSection } from "@/components/Card"
+import { TextInput } from "@/components/TextInput"
 
 interface ContentProps {
 }
@@ -85,6 +86,15 @@ const Content: FC<ContentProps> = () => {
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
                             my card example
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <TextInput />
+                            <TextInput label="ラベルの使用例" />
+                            <TextInput description="descriptionの使用例" />
+                            <TextInput placeholder="placeholderの使用例" />
                         </Card>
                     </Grid.Col>
 
