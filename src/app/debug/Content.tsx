@@ -1,8 +1,9 @@
 "use client"
 
-import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
+import { Container, Stack, Grid, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
+import { Card, CardSection } from "@/components/Card"
 
 interface ContentProps {
 }
@@ -64,20 +65,26 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
-                            <Card.Section>
+                            <CardSection>
                                 <Image
                                     src="/placeholder/300x200_blue.png"
                                     alt="placeholder"
                                     width={300} height={200}
                                     style={{ width: "100%", height: "auto" }}
                                 />
-                            </Card.Section>
+                            </CardSection>
                             <Text my="md">
                                 カード
                             </Text>
                             <Button variant="outline" w="fit-content">
                                 詳細
                             </Button>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            my card example
                         </Card>
                     </Grid.Col>
 
