@@ -6,6 +6,7 @@ import { FC } from "react"
 import { Card, CardSection } from "@/components/Card"
 import { TextInput } from "@/components/TextInput"
 import { PageTitle } from "@/components/PageTitle"
+import { SectionTitle } from "@/components/SectionTitle"
 
 interface ContentProps {
 }
@@ -110,12 +111,14 @@ const Content: FC<ContentProps> = () => {
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
                             <PageTitle>作品登録</PageTitle>
-                            {/* <SectionTitle>
+                            <SectionTitle>
                                 1. 作品名の入力
                             </SectionTitle>
+                            これこれこうして
                             <SectionTitle>
                                 2. 概要の入力
-                            </SectionTitle> */}
+                            </SectionTitle>
+                            これこれこうして
                         </Card>
                     </Grid.Col>
 
