@@ -1,5 +1,6 @@
 "use client"
 
+import { Container, Stack, Grid, Title, Textarea, Slider, Switch, Checkbox, Text, } from "@mantine/core"
 import { Badge } from "@/components/Badge"
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { Chip } from "@/components/Chip"
@@ -11,13 +12,13 @@ import { Link } from "@/components/Link"
 import Image from "next/image"
 import { FC } from "react"
 import { DialogExample } from "./DialogExample"
-import { Container, Stack, Grid, Title, Textarea, Slider, Switch, Checkbox, Text, Avatar } from "@mantine/core"
 import { Card, CardSection } from "@/components/Card"
 import { TextInput } from "@/components/TextInput"
 import { PageTitle } from "@/components/PageTitle"
 import { SectionTitle } from "@/components/SectionTitle"
 import { ActionIcon } from "@/components/ActionIcon"
 import { CiStar } from "react-icons/ci";
+import { Avatar } from "@/components/Avatar"
 
 
 interface ContentProps {

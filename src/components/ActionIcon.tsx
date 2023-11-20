@@ -4,13 +4,13 @@ import { FaRegHeart } from "react-icons/fa";
 
 interface ActionIconProps extends MActionIconProps {
 }
-export const ActionIcon: FC<ActionIconProps> = () => {
+export const ActionIcon: FC<ActionIconProps> = ({ ...props }) => {
     return (
         <MActionIcon
-            variant="gradient"
+            variant="filled"
             size="xl"
-            aria-label="Gradient action icon"
-            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+            aria-label="filled action icon"
+            {...props}
         >
             <FaRegHeart />
         </MActionIcon>
