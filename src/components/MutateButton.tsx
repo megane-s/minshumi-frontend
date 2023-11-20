@@ -1,8 +1,9 @@
 "use client"
 
 import { useMutate } from "@/util/client/useMutate"
-import { Button, ButtonProps, Loader } from "@mantine/core"
+import { Loader } from "@mantine/core"
 import { AnimatePresence, motion } from "framer-motion"
+import { Button, ButtonProps } from "./Button"
 
 interface MutateButtonProps<Res> extends ButtonProps {
     mutation: ReturnType<typeof useMutate<() => Promise<Res>>>
