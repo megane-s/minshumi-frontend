@@ -2,7 +2,7 @@
 
 import { Chip } from "@/components/Chip"
 import { TabsList, TabsTab, Tabs } from "@/components/Tabs"
-import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text, Loader } from "@mantine/core"
+import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text, Loader, TagsInput } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
 
@@ -106,6 +106,7 @@ const Content: FC<ContentProps> = () => {
                         </Card>
                     </Grid.Col>
 
+
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
                             <Tabs defaultValue="">
@@ -128,6 +129,14 @@ const Content: FC<ContentProps> = () => {
                             </Loader>
                         </Card>
 
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <TagsInput defaultValue={['アニメ']} >
+
+                            </TagsInput>
+                        </Card>
                     </Grid.Col>
 
                 </Grid>
