@@ -1,6 +1,6 @@
 "use client"
 
-import { Container, Stack, Grid, Title, Button, Textarea, Slider, Switch, Checkbox, Text, Avatar } from "@mantine/core"
+import { Container, Stack, Grid, Title, Button, Textarea, Slider, Switch, Checkbox, Text, } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
 import { Card, CardSection } from "@/components/Card"
@@ -9,6 +9,7 @@ import { PageTitle } from "@/components/PageTitle"
 import { SectionTitle } from "@/components/SectionTitle"
 import { ActionIcon } from "@/components/ActionIcon"
 import { CiStar } from "react-icons/ci";
+import { Avatar } from "@/components/Avatar"
 
 interface ContentProps {
 }
