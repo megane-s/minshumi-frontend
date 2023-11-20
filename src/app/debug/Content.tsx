@@ -6,9 +6,15 @@ import { Chip } from "@/components/Chip"
 import { Loader } from "@/components/Loader"
 import { TabsList, TabsTab, Tabs } from "@/components/Tabs"
 import { TagsInput } from "@/components/TagsInput"
-import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
+import { Container, Stack, Grid, Title, Button, Textarea, Slider, Switch, Checkbox, Text, Avatar } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
+import { Card, CardSection } from "@/components/Card"
+import { TextInput } from "@/components/TextInput"
+import { PageTitle } from "@/components/PageTitle"
+import { SectionTitle } from "@/components/SectionTitle"
+import { ActionIcon } from "@/components/ActionIcon"
+import { CiStar } from "react-icons/ci";
 
 
 interface ContentProps {
@@ -71,14 +77,14 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
-                            <Card.Section>
+                            <CardSection>
                                 <Image
                                     src="/placeholder/peach2.jpg"
                                     alt="placeholder"
                                     width={300} height={200}
                                     style={{ width: "100%", height: "auto" }}
                                 />
-                            </Card.Section>
+                            </CardSection>
                             <Text my="md">
                                 ピーチ姫
                             </Text>
@@ -129,6 +135,7 @@ const Content: FC<ContentProps> = () => {
                                     </TabsTab>
                                 </TabsList>
                             </Tabs>
+                            my card example
                         </Card>
                     </Grid.Col>
 
@@ -146,6 +153,19 @@ const Content: FC<ContentProps> = () => {
                             <TagsInput defaultValue={['アニメ']} >
 
                             </TagsInput>
+                            <TextInput />
+                            <TextInput label="ラベルの使用例" />
+                            <TextInput description="descriptionの使用例" />
+                            <TextInput placeholder="placeholderの使用例" />
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Textarea />
+                            <Textarea label="ラベルの使用例" />
+                            <Textarea description="descriptionの使用例" />
+                            <Textarea placeholder="placeholderの使用例" />
                         </Card>
                     </Grid.Col>
 
@@ -218,6 +238,20 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
+                            <PageTitle>作品登録</PageTitle>
+                            <SectionTitle>
+                                1. 作品名の入力
+                            </SectionTitle>
+                            これこれこうして
+                            <SectionTitle>
+                                2. 概要の入力
+                            </SectionTitle>
+                            これこれこうして
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
                             <Switch />
                             <Switch defaultChecked />
                             <Switch onLabel="ON" offLabel="OFF" />
@@ -226,9 +260,30 @@ const Content: FC<ContentProps> = () => {
 
                     </Grid.Col>
 
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <ActionIcon size="xl" />
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            {/* With image */}
+                            <Avatar src="/placeholder/avatar.jpg" alt="it's me" />
+                            {/* Default placeholder */}
+                            <Avatar radius="xl" />
+                            {/* Letters with xl radius */}
+                            <Avatar color="error.1" radius="xl">MK</Avatar>
+                            {/* Custom placeholder icon */}
+                            <Avatar color="primary.0" radius="sm">
+                                <CiStar size="1.5rem" />
+                            </Avatar>
+                        </Card>
+                    </Grid.Col>
+
                 </Grid>
-            </Stack>
-        </Container>
+            </Stack >
+        </Container >
     )
 }
 
