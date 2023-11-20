@@ -8,8 +8,7 @@ import { Avatar } from "@/components/Avatar"
 import { ActionIcon } from "@/components/ActionIcon"
 import { IoMdInformation } from "react-icons/io"
 import { getSession } from "@/auth/server/auth"
-import { Button } from "@/components/Button"
-import Link from "next/link"
+import LinkButton from "@/components/LinkButton"
 
 interface HeaderProps {
 }
@@ -34,12 +33,13 @@ const Header: FC<HeaderProps> = async () => {
                             </ActionIcon>
                             <Space w="0.5em" />
                             <Avatar
-                                src=""
+                                src={session.user.image}
+                                alt={session.user.name ?? "ユーザ"}
                             />
                         </>
-                        : <Button component={Link} href="/login" variant="outline">
+                        : <LinkButton href="/login" variant="outline">
                             ログイン
-                        </Button>}
+                        </LinkButton>}
                 </Flex>
             </Flex>
         </AppShellHeader>
