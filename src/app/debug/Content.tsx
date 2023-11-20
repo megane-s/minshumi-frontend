@@ -1,8 +1,11 @@
 "use client"
 
-import { Container, Stack, Grid, Title, Button, Textarea, Slider, Switch, Checkbox, Text, Avatar } from "@mantine/core"
+import { Button } from "@/components/Button"
+import { Link } from "@/components/Link"
 import Image from "next/image"
 import { FC } from "react"
+import { DialogExample } from "./DialogExample"
+import { Container, Stack, Grid, Title, Textarea, Slider, Switch, Checkbox, Text, Avatar } from "@mantine/core"
 import { Card, CardSection } from "@/components/Card"
 import { TextInput } from "@/components/TextInput"
 import { PageTitle } from "@/components/PageTitle"
@@ -89,7 +92,28 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
-                            my card example
+                            <Stack>
+                                my card example
+                                <Button>
+                                    ボタン default
+                                </Button>
+                                <Button variant="light">
+                                    ボタン light
+                                </Button>
+                                <Button variant="filled">
+                                    ボタン filled
+                                </Button>
+                                <Button variant="subtle">
+                                    ボタン subtle
+                                </Button>
+                            </Stack>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Link href="/">Top Page Link</Link>
+                            <Link href="/" newTab>New Tab Top Page Link</Link>
                         </Card>
                     </Grid.Col>
 
@@ -102,6 +126,11 @@ const Content: FC<ContentProps> = () => {
                         </Card>
                     </Grid.Col>
 
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <DialogExample />
+                        </Card>
+                    </Grid.Col>
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
                             <Textarea />
@@ -148,9 +177,10 @@ const Content: FC<ContentProps> = () => {
                             </Avatar>
                         </Card>
                     </Grid.Col>
-                </Grid>
-            </Stack>
-        </Container>
+
+                </Grid >
+            </Stack >
+        </Container >
     )
 }
 
