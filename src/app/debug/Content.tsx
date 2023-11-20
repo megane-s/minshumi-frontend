@@ -1,6 +1,6 @@
 "use client"
 
-import { Container, Stack, Grid, Title, Button, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
+import { Container, Stack, Grid, Title, Button, Textarea, Slider, Switch, Checkbox, Text, Avatar } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
 import { Card, CardSection } from "@/components/Card"
@@ -8,6 +8,7 @@ import { TextInput } from "@/components/TextInput"
 import { PageTitle } from "@/components/PageTitle"
 import { SectionTitle } from "@/components/SectionTitle"
 import { ActionIcon } from "@/components/ActionIcon"
+import { CiStar } from "react-icons/ci";
 
 interface ContentProps {
 }
@@ -130,6 +131,23 @@ const Content: FC<ContentProps> = () => {
                         </Card>
                     </Grid.Col>
 
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            {/* With image */}
+                            <Avatar src="/placeholder/avatar.jpg" alt="it's me" />
+
+                            {/* Default placeholder */}
+                            <Avatar radius="xl" />
+
+                            {/* Letters with xl radius */}
+                            <Avatar color="error.1" radius="xl">MK</Avatar>
+
+                            {/* Custom placeholder icon */}
+                            <Avatar color="primary.0" radius="sm">
+                                <CiStar size="1.5rem" />
+                            </Avatar>
+                        </Card>
+                    </Grid.Col>
                 </Grid>
             </Stack>
         </Container>
