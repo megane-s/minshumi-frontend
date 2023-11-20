@@ -1,6 +1,7 @@
 "use client"
 
 import { Chip } from "@/components/Chip"
+import { TabsList, TabsTab, Tabs } from "@/components/Tabs"
 import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
@@ -102,6 +103,21 @@ const Content: FC<ContentProps> = () => {
                             <Chip variant="outline">
                                 outline
                             </Chip>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Tabs defaultValue="">
+                                <TabsList>
+                                    <TabsTab value="profile">
+                                        プロフィール
+                                    </TabsTab>
+                                    <TabsTab value="通知">
+                                        通知
+                                    </TabsTab>
+                                </TabsList>
+                            </Tabs>
                         </Card>
                     </Grid.Col>
 
