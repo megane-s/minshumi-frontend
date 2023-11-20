@@ -1,6 +1,7 @@
 "use client"
 
-import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
+import { Button } from "@/components/Button"
+import { Container, Stack, Grid, Card, Title, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
 
@@ -78,6 +79,25 @@ const Content: FC<ContentProps> = () => {
                             <Button variant="outline" w="fit-content">
                                 詳細
                             </Button>
+                        </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Stack>
+                                <Button>
+                                    ボタン default
+                                </Button>
+                                <Button variant="light">
+                                    ボタン light
+                                </Button>
+                                <Button variant="filled">
+                                    ボタン filled
+                                </Button>
+                                <Button variant="subtle">
+                                    ボタン subtle
+                                </Button>
+                            </Stack>
                         </Card>
                     </Grid.Col>
 
