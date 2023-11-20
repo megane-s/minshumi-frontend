@@ -2,7 +2,7 @@
 
 import { Chip } from "@/components/Chip"
 import { TabsList, TabsTab, Tabs } from "@/components/Tabs"
-import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text } from "@mantine/core"
+import { Container, Stack, Grid, Card, Title, Button, TextInput, Textarea, Slider, Switch, Checkbox, Text, Loader } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
 
@@ -119,6 +119,15 @@ const Content: FC<ContentProps> = () => {
                                 </TabsList>
                             </Tabs>
                         </Card>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12, sm: 4 }}>
+                        <Card>
+                            <Loader>
+
+                            </Loader>
+                        </Card>
+
                     </Grid.Col>
 
                 </Grid>
