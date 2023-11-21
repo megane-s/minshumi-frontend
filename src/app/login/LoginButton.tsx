@@ -1,6 +1,5 @@
 "use client"
 
-
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { signIn } from "next-auth/react"
