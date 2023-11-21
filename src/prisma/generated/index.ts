@@ -28,7 +28,7 @@ export const BlockUserScalarFieldEnumSchema = z.enum(['userId','blockUserId']);
 
 export const UserRankScalarFieldEnumSchema = z.enum(['userId','rank']);
 
-export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl']);
+export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl','description']);
 
 export const RelatedArtScalarFieldEnumSchema = z.enum(['artId','relatedArtId']);
 
@@ -181,6 +181,7 @@ export const ArtSchema = z.object({
   artId: z.string().cuid(),
   title: z.string(),
   imageUrl: z.string(),
+  description: z.string(),
 })
 
 export type Art = z.infer<typeof ArtSchema>
