@@ -1,9 +1,12 @@
-import "server-only"
+import "server-only";
 
-import { NextAuthOptions } from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import { prisma } from "@/prisma";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
 export const options: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma),
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_AUTH_CLIENT_ID as string,
@@ -17,6 +20,7 @@ export const options: NextAuthOptions = {
             },
         }),
     ],
+    session: { strategy: "database" },
     callbacks: {
         session: ({ session, user }) => {
             if (session.user) {
@@ -24,5 +28,5 @@ export const options: NextAuthOptions = {
             }
             return session
         },
-    }
+    },
 }
