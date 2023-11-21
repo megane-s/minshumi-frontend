@@ -32,6 +32,13 @@ const seedKimetsu = async () => {
                     { tag: "週刊少年ジャンプ" },
                 ],
             },
+            relatedArt: {
+                create: [
+                    {
+                        artId: "test-art-2",
+                    },
+                ],
+            },
         },
     })
 }
@@ -53,6 +60,13 @@ const seedJurujuru = async () => {
                     { tag: "アニメ" },
                     { tag: "アニメ映画" },
                     { tag: "バトル" },
+                ],
+            },
+            relatedArt: {
+                create: [
+                    {
+                        artId: "test-art-1",
+                    },
                 ],
             },
         },
