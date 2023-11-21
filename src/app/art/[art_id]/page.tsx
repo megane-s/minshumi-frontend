@@ -1,4 +1,4 @@
-import { Art, ArtTag } from "@/art/type"
+import { ArtTag } from "@/art/type"
 import { Badge } from "@/components/Badge"
 import { Button } from "@/components/Button"
 import { PageTitle } from "@/components/PageTitle"
@@ -6,25 +6,22 @@ import { Box, Divider, Flex } from "@mantine/core"
 import Image from "next/image"
 import Link from "next/link"
 import { GoodButton } from "./GoodButton"
+import { getArt } from "@/art/get"
+import { notFound } from "next/navigation"
 
 interface PageProps {
     params: { art_id: string }
 }
 const ArtDetailPage = async ({ params }: PageProps) => {
     const artId = params.art_id
-    console.log("artId", artId)
-    // const art = await getArt("10")
-    const art: Art = {
-        artId: "test-100",
-        title: "鬼滅の刃",
-        imageUrl: "/placeholder/1200x675_red.png",
-    }
+    const art = await getArt(artId)
     const artDescription = "鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要"
     const artTags: ArtTag[] = [
         "アクション",
         "ジャンプ",
         "SF",
     ]
+    if (!art) notFound()
     return (
         <div>
 
