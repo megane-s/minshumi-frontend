@@ -1,5 +1,5 @@
 
-import { AppShell } from "@mantine/core"
+import { AppShell, Container } from "@mantine/core"
 import { FC, ReactNode } from "react"
 import Header from "./Header"
 import Footer from "./Footer"
@@ -15,7 +15,9 @@ const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
         >
             <Header />
             <AppShellMain>
-                {children}
+                <Container>
+                    {children}
+                </Container>
             </AppShellMain>
             <Footer />
         </AppShell>
