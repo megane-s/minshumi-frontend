@@ -59,6 +59,34 @@ export const newSeedUser = async (id: string, businessCardCount: number) => {
                     { rank: "ジャンプマスター" },
                 ]),
             },
+            watchingArts: {
+                create: faker.helpers.arrayElements([
+                    { artId: "test-art-1" },
+                    { artId: "test-art-2" },
+                    { artId: "test-art-3" },
+                    { artId: "test-art-4" },
+                ]),
+            },
+            interestTags: {
+                create: faker.helpers.arrayElements([
+                    { tag: "アニメ" },
+                    { tag: "アクション" },
+                    { tag: "音楽" },
+                    { tag: "映画" },
+                    { tag: "恋愛" },
+                    { tag: "ファンタジー" },
+                    { tag: "ミステリー" },
+                    { tag: "ジャンプ" },
+                ]),
+            },
+            recommendedArts: {
+                create: faker.helpers.arrayElements([
+                    { artId: "test-art-1", likePoint: faker.lorem.lines(1) },
+                    { artId: "test-art-2", likePoint: faker.lorem.lines(2) },
+                    { artId: "test-art-3", likePoint: faker.lorem.lines(1) },
+                    { artId: "test-art-4", likePoint: faker.lorem.lines(3) },
+                ]),
+            },
         },
     })
 }
