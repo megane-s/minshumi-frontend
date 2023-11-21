@@ -28,7 +28,7 @@ export const BlockUserScalarFieldEnumSchema = z.enum(['userId','blockUserId']);
 
 export const UserRankScalarFieldEnumSchema = z.enum(['userId','rank']);
 
-export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl']);
+export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl','description']);
 
 export const RelatedArtScalarFieldEnumSchema = z.enum(['artId','relatedArtId']);
 
@@ -44,7 +44,7 @@ export const WatchingArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
 export const BookmarkArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
-export const BusinessCardScalarFieldEnumSchema = z.enum(['businessCardId','userId','backgroundImageUrl','canComment']);
+export const BusinessCardScalarFieldEnumSchema = z.enum(['businessCardId','userId','backgroundImageUrl','canComment','imageUrl']);
 
 export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId','likeArtId']);
 
@@ -181,6 +181,7 @@ export const ArtSchema = z.object({
   artId: z.string().cuid(),
   title: z.string(),
   imageUrl: z.string(),
+  description: z.string(),
 })
 
 export type Art = z.infer<typeof ArtSchema>
@@ -273,6 +274,7 @@ export const BusinessCardSchema = z.object({
   userId: z.string(),
   backgroundImageUrl: z.string(),
   canComment: z.boolean(),
+  imageUrl: z.string(),
 })
 
 export type BusinessCard = z.infer<typeof BusinessCardSchema>

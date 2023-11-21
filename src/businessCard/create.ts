@@ -8,6 +8,7 @@ import { BusinessCard, BusinessCardSchema } from "./type";
 export const CreateBusinessParamsSchema = BusinessCardSchema.pick({
     backgroundImageUrl: true,
     canComment: true,
+    imageUrl: true,
 })
 export type CreateBusinessParams = z.infer<typeof CreateBusinessParamsSchema>
 
@@ -21,8 +22,7 @@ export const createBusinessCard = async (authorId: UserId, params: CreateBusines
     const result = await prisma.businessCard.create({
         data: {
             userId: authorId,
-            backgroundImageUrl: params.backgroundImageUrl,
-            canComment: params.canComment,
+            ...params,
         },
     })
     return result
