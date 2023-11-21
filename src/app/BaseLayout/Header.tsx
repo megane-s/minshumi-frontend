@@ -45,7 +45,7 @@ const Header: FC<HeaderProps> = async () => {
                 </Flex>
             </Flex>
 
-            <HeaderMenu />
+            <HeaderMenu session={session} />
 
         </AppShellHeader>
     )
