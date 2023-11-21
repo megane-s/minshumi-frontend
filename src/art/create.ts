@@ -7,6 +7,7 @@ import { Art, ArtSchema } from "./type";
 export const CreateArtParamsSchema = ArtSchema.pick({
     title: true,
     imageUrl: true,
+    description: true,
 })
 export type CreateArtParams = z.infer<typeof CreateArtParamsSchema>
 
