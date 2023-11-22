@@ -19,7 +19,7 @@ import { SectionTitle } from "@/components/SectionTitle"
 import { ActionIcon } from "@/components/ActionIcon"
 import { CiStar } from "react-icons/ci";
 import { Avatar } from "@/components/Avatar"
-
+import { CiHeart } from "react-icons/ci"
 
 interface ContentProps {
 }
@@ -301,7 +301,9 @@ const Content: FC<ContentProps> = () => {
 
                     <Grid.Col span={{ base: 12, sm: 4 }}>
                         <Card>
-                            <ActionIcon size="xl" />
+                            <ActionIcon size="xl">
+                                <CiHeart />
+                            </ActionIcon>
                         </Card>
                     </Grid.Col>
 

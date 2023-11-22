@@ -1,10 +1,10 @@
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 import { ActionIcon as MActionIcon, ActionIconProps as MActionIconProps } from "@mantine/core"
-import { FaRegHeart } from "react-icons/fa";
 
 interface ActionIconProps extends MActionIconProps {
+    children: ReactNode
 }
-export const ActionIcon: FC<ActionIconProps> = ({ ...props }) => {
+export const ActionIcon: FC<ActionIconProps> = ({ children, ...props }) => {
     return (
         <MActionIcon
             variant="filled"
@@ -12,7 +12,7 @@ export const ActionIcon: FC<ActionIconProps> = ({ ...props }) => {
             aria-label="filled action icon"
             {...props}
         >
-            <FaRegHeart />
+            {children}
         </MActionIcon>
     )
 }
