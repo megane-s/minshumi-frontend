@@ -13,10 +13,10 @@ interface NewArtNavigationProps {
 const NewArtNavigation: FC<NewArtNavigationProps> = ({ prevHref, nextHref, prevButtonProps, nextButtonProps }) => {
     return (
         <Flex justify="space-between" my="md" w="100%">
-            <Button variant="default" leftSection={<IoCaretBack />} component={Link} href={prevHref} {...prevButtonProps}>
+            <Button variant="default" leftSection={<IoCaretBack />} component={Link} href={prevHref} prefetch {...prevButtonProps}>
                 {prevButtonProps?.children ?? "戻る"}
             </Button>
-            <Button variant="filled" rightSection={<IoCaretForward />} component={Link} href={nextHref} {...nextButtonProps}>
+            <Button variant="filled" rightSection={<IoCaretForward />} component={Link} href={nextHref} prefetch {...nextButtonProps}>
                 {nextButtonProps?.children ?? "次へ"}
             </Button>
         </Flex>
