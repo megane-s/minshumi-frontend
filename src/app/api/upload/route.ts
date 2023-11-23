@@ -1,5 +1,6 @@
 import { getSession } from "@/auth/server/auth";
 import { credentials } from "@/gcp/credentials";
+import { randomId } from "@/util/random";
 import { Storage } from "@google-cloud/storage";
 import { NextResponse } from "next/server";
 
@@ -13,7 +14,7 @@ export const GET = async () => {
         credentials,
     })
     const bucket = storage.bucket(process.env.GCP_GCS_USER_CONTENT_BUCKET as string)
-    const file = bucket.file("test-content")
+    const file = bucket.file(randomId())
     const publicUrl = file.publicUrl()
     const [uploadUrl] = await file.getSignedUrl({
         version: "v4",
