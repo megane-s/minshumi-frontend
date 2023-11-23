@@ -1,4 +1,3 @@
-import { getSession } from "@/auth/server/auth";
 import { credentials } from "@/gcp/credentials";
 import { randomId } from "@/util/random";
 import { Storage } from "@google-cloud/storage";
@@ -7,9 +6,6 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic"
 
 export const GET = async () => {
-    const session = await getSession()
-    console.log(session)
-
     const storage = new Storage({
         credentials,
     })
@@ -21,7 +17,6 @@ export const GET = async () => {
         action: "write",
         expires: Date.now() + 5 * 60 * 1000,
     })
-    console.log({ uploadUrl, publicUrl });
 
     return NextResponse.json({
         uploadUrl,

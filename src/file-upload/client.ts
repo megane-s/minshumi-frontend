@@ -4,11 +4,8 @@ import { useState } from "react"
 const uploadServerUrl = "/api/upload"
 
 export const uploadFile = async (file: File | "select" = "select") => {
-    console.log(file)
     if (file === "select") file = await selectFile()
-    console.log(file)
     const res = await fetch(uploadServerUrl).then(r => r.json()) as { uploadUrl: string, publicUrl: string }
-    console.log("urls", res)
     await fetch(res.uploadUrl, {
         method: "PUT",
         body: file,
