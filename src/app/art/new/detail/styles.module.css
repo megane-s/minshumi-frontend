@@ -1,0 +1,12 @@
+.flexGrow {
+  flex-grow: 1;
+}
+
+.flexShrink {
+  flex-shrink: 1;
+}
+
+.imageIndicator {
+  right: 8px;
+  bottom: 8px;
+}
