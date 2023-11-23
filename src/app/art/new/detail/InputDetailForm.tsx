@@ -9,11 +9,12 @@ import Image from "next/image"
 import { MdOutlineEdit } from "react-icons/md";
 
 interface InputDetailFormProps {
-    defaultValues: { title: string }
+    defaultValues: { title: string, description: string, likePoint: string }
 }
 const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
     const [title, setTitle] = useState(defaultValues.title)
-    const [description, setDescription] = useState(defaultValues.title)
+    const [description, setDescription] = useState(defaultValues.description)
+    const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
     return (
         <div>
             <NewArtSectionTitle>
@@ -53,8 +54,8 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
                         rows={5}
                     />
                     <Textarea
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
+                        value={likePoint}
+                        onChange={e => setLikePoint(e.target.value)}
                         label="好きなポイント"
                         rows={3}
                     />

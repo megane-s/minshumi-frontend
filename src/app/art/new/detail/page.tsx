@@ -2,17 +2,14 @@ import NewArtNavigation from "../Navigation"
 import NewArtProgress from "../NewArtProgress"
 import InputDetailForm from "./InputDetailForm"
 
-interface PageProps {
-    params: {
-        title?: string
-    }
-}
-const NewArtDetailPage = ({ params }: PageProps) => {
+const NewArtDetailPage = () => {
     return (
         <div>
             <InputDetailForm
                 defaultValues={{
-                    title: params.title ?? "",
+                    title: "",
+                    description: "",
+                    likePoint: "",
                 }}
             />
 
