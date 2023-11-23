@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/Button"
 import { Card } from "@/components/Card"
-import { SectionTitle } from "@/components/SectionTitle"
 import { TextInput } from "@/components/TextInput"
 import { Box, Center, Text } from "@mantine/core"
 import { FC } from "react"
@@ -17,10 +16,6 @@ const InputTitle: FC<InputTitleProps> = ({ title, onChangeTitle, autoFocus = tru
     return (
         <div>
             <Box my="lg">
-                <SectionTitle ta="center" my="sm">
-                    1. タイトルを入力
-                </SectionTitle>
-
                 <TextInput
                     bg="background.2"
                     mx="lg"
