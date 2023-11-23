@@ -1,3 +1,5 @@
+import { useMutate } from "@/util/client/useMutate"
+import { useState } from "react"
 
 const uploadServerUrl = "/api/upload"
 
@@ -30,3 +32,18 @@ export const selectFile = ({ accept = "*/*", }: Partial<{ accept: string }> = {}
     })
     input.click()
 })
+
+export const useFileUpload = (selectParams: Parameters<typeof selectFile>[0] = {}) => {
+    const [url, setUrl] = useState<string | null>(null)
+    const upload = useMutate(async () => {
+        const file = await selectFile(selectParams)
+        const res = await uploadFile(file)
+        setUrl(res.publicUrl)
+        return res
+    }, {})
+    return {
+        upload: () => upload.mutate("select"),
+        url,
+        ...upload,
+    }
+}
