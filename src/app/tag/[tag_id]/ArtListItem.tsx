@@ -11,7 +11,7 @@ interface ArtListItemProps {
 }
 export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
     // const tags = await getTagsByArtId(art.artId)
-    const tags = ["tag1", "tag2"]
+    const tags = ["tag1", "tag2", "tag3", "tttttttttttttttttag4"]
     return (
         <Link href="/" className={styles.link}>
             <Flex key={art.artId} p="sm" gap="md">
@@ -27,9 +27,11 @@ export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
                         {art.title}
                     </Text>
                     <div>
-                        <Badge variant="filled" color="primary.1">
-                            tag1
-                        </Badge>
+                        {tags.map(tag =>
+                            <Badge key={tag} variant="filled" color="primary.1">
+                                {tag}
+                            </Badge>
+                        )}
                     </div>
                 </div>
             </Flex>
