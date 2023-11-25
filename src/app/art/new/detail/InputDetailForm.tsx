@@ -6,14 +6,20 @@ import styles from "./styles.module.css"
 import { Textarea } from "@/components/Textarea"
 import Image from "next/image"
 import { MdOutlineEdit } from "react-icons/md";
+import { uploadFile } from "@/file-upload/client"
 
 interface InputDetailFormProps {
-    defaultValues: { title: string, description: string, likePoint: string }
+    defaultValues: { title: string, description: string, likePoint: string, imageUrl: string }
 }
 const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
     const [title, setTitle] = useState(defaultValues.title)
     const [description, setDescription] = useState(defaultValues.description)
     const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
+    const [imageUrl, setImageUrl] = useState(defaultValues.imageUrl)
+    const handleUpload = async () => {
+        const { publicUrl } = await uploadFile()
+        setImageUrl(publicUrl)
+    }
     return (
         <div>
             <Flex gap="sm" direction={{ base: "column", sm: "row" }}>
@@ -26,9 +32,10 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
                         position="bottom-end"
                         h="fit-content"
                         classNames={{ indicator: styles.imageIndicator }}
+                        onClick={() => void handleUpload()}
                     >
                         <Image
-                            src={`/placeholder/300x200_red.png`}
+                            src={imageUrl}
                             alt={title}
                             width={200}
                             height={200}

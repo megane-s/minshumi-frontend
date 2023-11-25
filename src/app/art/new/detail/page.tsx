@@ -15,6 +15,7 @@ const NewArtDetailPage = () => {
                     title: "",
                     description: "",
                     likePoint: "",
+                    imageUrl: "/placeholder/300x200_red.png",
                 }}
             />
 
