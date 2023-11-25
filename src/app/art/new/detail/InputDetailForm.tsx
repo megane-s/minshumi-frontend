@@ -1,7 +1,6 @@
 "use client"
 
 import { FC, useState } from "react"
-import NewArtSectionTitle from "../NewArtSectionTitle"
 import { Flex, Indicator, Stack, TextInput } from "@mantine/core"
 import styles from "./styles.module.css"
 import { Textarea } from "@/components/Textarea"
@@ -17,9 +16,6 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
     const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
     return (
         <div>
-            <NewArtSectionTitle>
-                2. 作品の詳細を入力
-            </NewArtSectionTitle>
             <Flex gap="sm" direction={{ base: "column", sm: "row" }}>
 
                 <Flex justify="center" py="md">
