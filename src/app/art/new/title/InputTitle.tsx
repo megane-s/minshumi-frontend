@@ -6,6 +6,8 @@ import { TextInput } from "@/components/TextInput"
 import { Box, Center, Text } from "@mantine/core"
 import { FC } from "react"
 import styles from "./styles.module.css"
+import { useQuery } from "@tanstack/react-query"
+import { getSuggestions } from "./actions"
 
 interface InputTitleProps {
     title: string
@@ -13,6 +15,12 @@ interface InputTitleProps {
     autoFocus?: boolean
 }
 const InputTitle: FC<InputTitleProps> = ({ title, onChangeTitle, autoFocus = true }) => {
+    const suggestions = useQuery({
+        queryKey: ["art", "suggestions", title],
+        queryFn: async () => {
+            return await getSuggestions(title)
+        },
+    })
     return (
         <div>
             <Box my="lg">
@@ -26,20 +34,23 @@ const InputTitle: FC<InputTitleProps> = ({ title, onChangeTitle, autoFocus = tru
             </Box>
 
             <Center style={{ flexDirection: "column" }}>
-                <Text my="sm">
-                    もしかして...
-                </Text>
-                <Card variant="subtle" w="fit-content" miw="200px" maw="100%">
-                    <Button variant={title === "鬼滅の刃" ? "light" : "subtle"} w="100%" onClick={() => onChangeTitle("鬼滅の刃")}>
-                        鬼滅の刃
-                    </Button>
-                    <Button variant={title === "呪術廻戦" ? "light" : "subtle"} w="100%" onClick={() => onChangeTitle("呪術廻戦")}>
-                        呪術廻戦
-                    </Button>
-                    <Button variant={title === "ずとまよ" ? "light" : "subtle"} w="100%" onClick={() => onChangeTitle("ずとまよ")}>
-                        ずとまよ
-                    </Button>
-                </Card>
+                {suggestions.data?.length === 0
+                    ? <Text my="sm">
+                        タイトルを入力してください
+                    </Text>
+                    : <>
+                        <Text my="sm">
+                            もしかして...
+                        </Text>
+                        <Card variant="subtle" w="fit-content" miw="200px" maw="100%">
+                            {suggestions.data?.map(suggestion =>
+                                <Button key={suggestion} variant={title === suggestion ? "light" : "subtle"} w="100%" onClick={() => onChangeTitle(suggestion)}>
+                                    {suggestion}
+                                </Button>
+                            )}
+                        </Card>
+                    </>
+                }
             </Center>
 
         </div>
