@@ -13,7 +13,7 @@ const NewArtTagPage = () => {
             <NewArtTagForm
             />
 
-            <NewArtProgress now={3} />
+            <NewArtProgress now={2} />
 
         </div>
     )

@@ -17,7 +17,7 @@ const NewArtRelatedArtPage = () => {
                 nextHref="/art/new/"
             />
 
-            <NewArtProgress now={4} />
+            <NewArtProgress now={3} />
         </div>
     )
 }

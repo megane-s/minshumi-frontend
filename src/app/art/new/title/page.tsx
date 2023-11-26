@@ -11,7 +11,7 @@ const NewArtTitlePage = () => {
 
             <InputTitleForm />
 
-            <NewArtProgress now={1} />
+            <NewArtProgress now={0} />
         </div>
     )
 }

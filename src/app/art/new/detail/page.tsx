@@ -19,7 +19,7 @@ const NewArtDetailPage = () => {
                 }}
             />
 
-            <NewArtProgress now={2} />
+            <NewArtProgress now={1} />
 
             <NewArtNavigation
                 prevHref="/art/new/title#"
