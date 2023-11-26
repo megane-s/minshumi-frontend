@@ -6,24 +6,8 @@ import { ArtTag } from "@/art/type"
 import { SectionTitle } from "@/components/SectionTitle"
 import NewArtNavigation from "../Navigation"
 import { Space } from "@mantine/core"
+import { medias, others, getGenreTags } from "./tags"
 
-const medias = [
-    "アニメ", "マンガ", "本", "映画", "ドラマ",
-    "アーティスト", "Youtuber", "音楽", "ポッドキャスト", "ゲーム",
-    "イラスト", "ボードゲーム",
-]
-const genres = [
-    "アクション", "ロマンス", "ドラマ", "コメディ",
-    "ファンタジー", "SF", "ホラー", "ミステリー", "スリラー",
-    "スポーツ", "冒険", "歴史", "時代劇", "魔法", "恋愛",
-    "学園", "青春", "ギャグ", "バトル", "萌え", "音楽",
-    "ダンス", "アイドル", "グルメ", "超能力", "ダーク",
-    "サスペンス", "ノンフィクション", "ファッション", "ミュージカル",
-]
-const others = [
-    "感動", "クラシック", "インディーズ", "ヒット作", "定番",
-    "ハイテク", "カラフル",
-]
 
 interface NewArtTagFormProps {
 }
@@ -48,7 +32,7 @@ const NewArtTagForm: FC<NewArtTagFormProps> = () => {
             </SectionTitle>
 
             <TagSelect
-                tags={genres}
+                tags={getGenreTags(selectedMedias)}
                 selectedTags={selectedGenres}
                 onChangeSelected={setSelectedGenres}
             />
