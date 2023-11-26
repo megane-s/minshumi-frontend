@@ -1,93 +1,125 @@
 "use client"
 
-import { Center, Flex, Image, Skeleton, Stack } from "@mantine/core"
-import { FC, useCallback, useEffect, useRef, useState } from "react"
-import styles from "./NewArtRelatedForm.module.css"
+import { Center, Image, Stack } from "@mantine/core"
+import { FC, Fragment, useMemo, useState } from "react"
 import { IoMdAdd } from "react-icons/io";
 import { ActionIcon } from "@/components/ActionIcon"
 import FullWidth from "@/app/BaseLayout/FullWidth";
-import AddArtDialog, { AddArtDialogProps } from "./AddArtDialog";
-import { Art } from "@/art/type";
+import EditArtDialog from "./EditArtDialog";
+import CenterizedScroll, { CenterizedScrollTarget } from "./CenterizedScroll";
+import styles from "./NewArtRelatedForm.module.css"
+import { InputRelatedArt, InputRelatedArts } from "../type";
+import RelatedArtListItem from "./RelatedArtListItem";
 
 interface NewArtRelatedFormProps {
 }
 const NewArtRelatedForm: FC<NewArtRelatedFormProps> = () => {
-    const [prepared, setPrepared] = useState(false)
-    const centerRef = useRef<null | HTMLDivElement>(null)
-    useEffect(() => {
-        centerRef.current?.scrollIntoView({ block: "end", inline: "center", behavior: "instant" })
-        setPrepared(true)
-    }, [])
-    const [addTarget, setAddTarget] = useState<null | "prev" | "next">(null)
-    const openAddDialog = !!addTarget
-    const onCloseAddDialog = useCallback(() => setAddTarget(null), [])
-    const onConfirm: AddArtDialogProps["onConfirm"] = useCallback((art) => {
-        console.log(addTarget, art)
-        /* TODO titleを追加 */
-        const setArts = addTarget === "prev" ? setPrevArts : setNextArts
-        setArts(p => [...p, art])
-        onCloseAddDialog()
-    }, [addTarget, onCloseAddDialog])
-
-    const [prevArts, setPrevArts] = useState<Art[]>([])
-    const [nextArts, setNextArts] = useState<Art[]>([])
-
+    const { prevArts, nextArts, addNextArts, addPrevArts, updateNextArt, updatePrevArt } = useInputRelatedArts()
+    const [updateTarget, setUpdateTarget] = useState<
+        | null
+        | { type: "add", to: "prev" | "next" }
+        | { type: "update", to: "prev" | "next", index: number }
+    >(null)
+    const openEditDialog = !!updateTarget
+    const editArtDialogDefaultValue = useMemo(() => {
+        if (updateTarget?.type !== "update") {
+            return {}
+        }
+        const arts = updateTarget.to === "prev" ? prevArts : nextArts
+        return arts[updateTarget.index]
+    }, [nextArts, prevArts, updateTarget])
+    const handleEditArtDialogConfirm = (artInput: InputRelatedArt) => {
+        if (updateTarget?.type === "add") {
+            const addArt = updateTarget.to === "prev" ? addPrevArts : addNextArts
+            addArt(artInput)
+        } else if (updateTarget?.type === "update") {
+            const updateArt = updateTarget.to === "prev" ? updatePrevArt : updateNextArt
+            updateArt(updateTarget.index, artInput)
+        }
+    }
     return (
         <div>
             <FullWidth>
                 <Center>
-                    <Flex component={Skeleton} visible={!prepared} direction="row" align="center" gap="md" className={`${styles.arts} ${prepared ? styles.overflowXAuto : styles.overflowXHidden}`}>
-                        <ActionIcon onClick={() => setAddTarget("prev")}>
+                    <CenterizedScroll className={styles.arts}>
+                        <ActionIcon onClick={() => setUpdateTarget({ type: "add", to: "prev" })}>
                             <IoMdAdd />
                         </ActionIcon>
-                        {prevArts.map(art =>
-                            <Stack key={art.artId} align="center" gap="xs" ta="center">
-                                <Image
-                                    src={art.imageUrl}
-                                    alt="テスト"
-                                    width={150}
-                                    height={100}
-                                    style={{ width: 150, height: "auto" }}
-                                />
-                                {art.title}
-                            </Stack>
-                        )}
-                        <Stack align="center" gap="xs" ta="center" ref={centerRef}>
-                            <Image
-                                src="/placeholder/300x200_red.png"
-                                alt="テスト"
-                                width={150 * 1.2}
-                                height={100 * 1.2}
-                                style={{ width: 150 * 1.2, height: "auto" }}
+                        {prevArts.map((art, index) =>
+                            <RelatedArtListItem
+                                key={index}
+                                artInput={art}
+                                onClickRelatedArt={() => { setUpdateTarget({ type: "update", to: "prev", index: index }) }}
                             />
-                            鬼滅の刃
-                        </Stack>
-                        {nextArts.map(art =>
-                            <Stack key={art.artId} align="center" gap="xs" ta="center">
-                                <Image
-                                    src={art.imageUrl}
-                                    alt="テスト"
-                                    width={150}
-                                    height={100}
-                                    style={{ width: 150, height: "auto" }}
-                                />
-                                {art.title}
-                            </Stack>
                         )}
-                        <ActionIcon onClick={() => setAddTarget("next")}>
+                        <CenterizedScrollTarget>
+                            <Stack align="center" gap="xs" ta="center">
+                                <Image
+                                    src="/placeholder/300x200_red.png"
+                                    alt="テスト"
+                                    width={150 * 1.2}
+                                    height={100 * 1.2}
+                                    style={{ width: 150 * 1.2, height: "auto" }}
+                                />
+                                鬼滅の刃
+                            </Stack>
+                        </CenterizedScrollTarget>
+                        {nextArts.map((art, index) =>
+                            <RelatedArtListItem
+                                key={index}
+                                artInput={art}
+                                onClickRelatedArt={() => { setUpdateTarget({ type: "update", to: "next", index: index }) }}
+                            />
+                        )}
+                        <ActionIcon onClick={() => setUpdateTarget({ type: "add", to: "next" })}>
                             <IoMdAdd />
                         </ActionIcon>
-                    </Flex>
+                    </CenterizedScroll>
                 </Center>
             </FullWidth>
 
-            <AddArtDialog
-                key={addTarget}
-                opened={openAddDialog} onClose={onCloseAddDialog}
-                onConfirm={onConfirm}
-            />
+            <Fragment key={String(openEditDialog)}>
+                <EditArtDialog
+                    defaultValues={editArtDialogDefaultValue}
+                    opened={openEditDialog} onClose={() => setUpdateTarget(null)}
+                    onConfirm={handleEditArtDialogConfirm}
+                />
+            </Fragment>
         </div>
     )
 }
 
 export default NewArtRelatedForm
+
+export const useInputRelatedArts = () => {
+    const [prevArts, setPrevArts] = useState<InputRelatedArts>([])
+    const [nextArts, setNextArts] = useState<InputRelatedArts>([])
+    const addPrevArts = (art: InputRelatedArt) => {
+        setPrevArts(p => [art, ...p])
+    }
+    const addNextArts = (art: InputRelatedArt) => {
+        setNextArts(p => [...p, art])
+    }
+    const updatePrevArt = (index: number, art: InputRelatedArt) => {
+        setPrevArts(p => {
+            const newState = [...p]
+            newState[index] = art
+            return newState
+        })
+    }
+    const updateNextArt = (index: number, art: InputRelatedArt) => {
+        setPrevArts(p => {
+            const newState = [...p]
+            newState[index] = art
+            return newState
+        })
+    }
+    return {
+        prevArts,
+        nextArts,
+        addPrevArts,
+        addNextArts,
+        updatePrevArt,
+        updateNextArt,
+    }
+}

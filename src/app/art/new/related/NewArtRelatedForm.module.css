@@ -1,5 +1,5 @@
 .arts {
-  width: fit-content;
+  /* width: fit-content; */
   transition: opacity 0.3s;
   padding-left: var(--mantine-spacing-lg);
   padding-right: var(--mantine-spacing-lg);
