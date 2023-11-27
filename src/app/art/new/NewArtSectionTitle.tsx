@@ -6,7 +6,7 @@ interface NewArtSectionTitleProps extends SectionTitleProps {
 }
 const NewArtSectionTitle: FC<NewArtSectionTitleProps> = ({ children, ...props }) => {
     return (
-        <SectionTitle ta="center" my="sm" {...props}>
+        <SectionTitle ta="center" my="xl" {...props}>
             {children}
         </SectionTitle>
     )
