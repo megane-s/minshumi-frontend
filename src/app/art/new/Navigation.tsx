@@ -7,12 +7,13 @@ import Link from "next/link"
 interface NewArtNavigationProps {
     prevHref: string
     nextHref: string
-    prevButtonProps?: ComponentProps<typeof Button<typeof Link>>
-    nextButtonProps?: ComponentProps<typeof Button<typeof Link>>
+    prevButtonProps?: Partial<ComponentProps<typeof Button<typeof Link>>>
+    nextButtonProps?: Partial<ComponentProps<typeof Button<typeof Link>>>
+    flexProps?: Partial<ComponentProps<typeof Flex<"div">>>
 }
-const NewArtNavigation: FC<NewArtNavigationProps> = ({ prevHref, nextHref, prevButtonProps, nextButtonProps }) => {
+const NewArtNavigation: FC<NewArtNavigationProps> = ({ prevHref, nextHref, prevButtonProps, nextButtonProps, flexProps = {} }) => {
     return (
-        <Flex justify="space-between" my="md" w="100%">
+        <Flex justify="space-between" my="md" w="100%" wrap="wrap" gap="sm" {...flexProps}>
             <Button variant="default" leftSection={<IoCaretBack />} component={Link} href={prevHref} prefetch {...prevButtonProps}>
                 {prevButtonProps?.children ?? "戻る"}
             </Button>

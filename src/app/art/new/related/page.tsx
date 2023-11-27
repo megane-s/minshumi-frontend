@@ -1,7 +1,9 @@
-import NewArtNavigation from "../Navigation"
 import NewArtProgress from "../NewArtProgress"
 import NewArtSectionTitle from "../NewArtSectionTitle"
 import NewArtRelatedForm from "./NewArtRelatedForm"
+import { Box } from "@mantine/core"
+import FullWidth from "@/app/BaseLayout/FullWidth"
+import Navigation from "./Navigation"
 
 const NewArtRelatedArtPage = () => {
     return (
@@ -12,10 +14,11 @@ const NewArtRelatedArtPage = () => {
 
             <NewArtRelatedForm />
 
-            <NewArtNavigation
-                prevHref="/art/new/tag#"
-                nextHref="/art/new/"
-            />
+            <FullWidth>
+                <Box py="xl">
+                    <Navigation />
+                </Box>
+            </FullWidth>
 
             <NewArtProgress now={3} />
         </div>
