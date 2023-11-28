@@ -10,20 +10,13 @@ import { SlPencil } from "react-icons/sl"
 import { BsBellFill } from "react-icons/bs"
 import { FcSettings } from "react-icons/fc"
 import { Session } from "next-auth";
-import { ArtTag } from "@/art/type";
+import { tags } from "../tags";
 
 interface HeaderMenuProps {
     session: Session | null
 }
 const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
     const [opened, { toggle, close }] = useDisclosure();
-    const tags: ArtTag[] = [
-        "アニメ",
-        "映画",
-        "マンガ",
-        "恋愛",
-        "アクション",
-    ]
     return (
         <>
             <Flex className={styles.menu} align="center" onClick={toggle} >
