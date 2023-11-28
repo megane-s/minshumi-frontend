@@ -13,7 +13,7 @@ export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
     // const tags = await getTagsByArtId(art.artId)
     const tags = ["tag1", "tag2", "tag3", "tttttttttttttttttag4"]
     return (
-        <Link href="/" className={styles.link}>
+        <Link href={`/art/${art.artId}`} className={styles.link}>
             <Flex key={art.artId} p="sm" gap="md">
                 <Box
                     component={Image}
@@ -26,15 +26,18 @@ export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
                     <Text fw="bold">
                         {art.title}
                     </Text>
-                    <div>
+                    <Flex gap="xs">
                         {tags.map(tag =>
-                            <Badge key={tag} variant="filled" color="primary.1">
-                                {tag}
-                            </Badge>
+                            <Box key={tag}>
+                                <Badge key={tag} variant="filled" color="primary.1">
+                                    {tag}
+                                </Badge>
+                            </Box>
                         )}
-                    </div>
+                    </Flex>
                 </div>
+
             </Flex>
         </Link>
-    )
-}
+    );
+};

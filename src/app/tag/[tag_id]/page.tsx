@@ -1,3 +1,4 @@
+//タグごとの作品一覧
 import { getArtsWithTag } from "@/art/tag/getArts"
 import { ArtListItem } from "./ArtListItem"
 import { PageTitle } from "@/components/PageTitle"
@@ -11,11 +12,11 @@ const pagePage = async ({ params }: PageProps) => {
 
     const arts = await getArtsWithTag(tag)
 
-    console.log("tag", tag)
-    console.log("arts", arts)
     return (
         <div>
-            <PageTitle>{tag}</PageTitle>
+            <PageTitle mt="xs" mb="xs" px={20} py={20}>
+                {tag}
+            </PageTitle>
 
             {arts.map(art =>
                 <ArtListItem key={art.artId} art={art} />
