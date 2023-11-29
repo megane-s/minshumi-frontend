@@ -19,7 +19,14 @@ export const handleGood = serverAction(async (artId: ArtId) => {
     await goodToArt(artId, userId)
 })
 
-export const handleCancelGood = serverAction(async () => {
-    // ... (サーバ側でいいねを取り消す関数を呼び出す) ...
-    cancelGoodToArt
+export const handleCancelGood = serverAction(async (artId: ArtId) => {
+    // ユーザIDを取得
+    const session = await getSession()
+    if (!session) {
+        // ログインしていない時
+        throw new Error(`ログインしていません`)
+    }
+    const userId = session.user.id
+
+    await cancelGoodToArt(artId, userId)
 })

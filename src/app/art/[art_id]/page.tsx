@@ -7,6 +7,9 @@ import Link from "next/link"
 import { GoodButton } from "./GoodButton"
 import { getArt } from "@/art/get"
 import { notFound } from "next/navigation"
+import FullWidth from "@/app/BaseLayout/FullWidth"
+import { getSession } from "@/auth/server/auth"
+import { isArtGooded } from "@/art/good/isGooded"
 
 
 interface ArtDetailPageProps {
@@ -22,20 +25,23 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
         "ジャンプ",
         "SF",
     ]
-    console.log(art)
+    const session = await getSession()
+    const isLogined = !!session
+    const isGooded = session ? await isArtGooded(artId, session.user.id) : false
 
     if (!art) notFound()
     return (
         <div>
 
-
-            <Image
-                src={art.imageUrl}
-                alt={art.title}
-                width={300}
-                height={200}
-                style={{ width: "100%", height: "auto", maxHeight: "50vh", objectFit: "cover" }}
-            />
+            <FullWidth>
+                <Image
+                    src={art.imageUrl}
+                    alt={art.title}
+                    width={300}
+                    height={200}
+                    style={{ width: "100%", height: "auto", maxHeight: "50vh", objectFit: "cover" }}
+                />
+            </FullWidth>
 
             <Box bg="background.2" px="sm" py="md">
                 <PageTitle>
@@ -64,7 +70,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
             </Box>
 
 
-            <GoodButton artId={artId} />
+            <GoodButton artId={artId} isGooded={isGooded} isLogined={isLogined} />
 
             {/* アイデア:ここにこの作品をお勧めしている人上位3人を出す */}
 
