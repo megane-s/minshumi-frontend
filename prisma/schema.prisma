@@ -122,7 +122,7 @@ model Art {
   relatedArt             RelatedArt[]
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
-  reccomendUsers         RecommendArt[]
+  recommendUsers         RecommendArt[]
   watchingUsers          WatchingArt[]
   bookmarkUsers          BookmarkArt[]
   useAsLikeBusinessCards BusinessCardLikeArt[]
