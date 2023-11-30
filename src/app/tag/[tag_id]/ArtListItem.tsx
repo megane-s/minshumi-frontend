@@ -5,13 +5,13 @@ import { Box, Flex, Text } from "@mantine/core"
 import { Badge } from "@/components/Badge"
 import Image from "next/image"
 import Link from 'next/link'
+import { getTags } from "@/art/tag/getTags"
 
 interface ArtListItemProps {
     art: Art
 }
 export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
-    // const tags = await getTagsByArtId(art.artId)
-    const tags = ["tag1", "tag2", "tag3", "tttttttttttttttttag4"]
+    const tags = await getTags(art.artId)
     return (
         <Link href={`/art/${art.artId}`} className={styles.link}>
             <Flex key={art.artId} p="sm" gap="md">
