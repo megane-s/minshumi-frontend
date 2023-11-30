@@ -9,6 +9,7 @@ import { notFound } from "next/navigation"
 import FullWidth from "@/app/BaseLayout/FullWidth"
 import { getSession } from "@/auth/server/auth"
 import { isArtGooded } from "@/art/good/isGooded"
+import { getTags } from "@/art/tag/getTags"
 
 
 interface ArtDetailPageProps {
@@ -18,7 +19,7 @@ interface ArtDetailPageProps {
 const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
     const artId = decodeURI(params.art_id)
     const art = await getArt(artId)
-
+    const tags = await getTags(artId)
     const session = await getSession()
     const isLogined = !!session
     const isGooded = session ? await isArtGooded(artId, session.user.id) : false
@@ -47,7 +48,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                     </Button>
                 </div> */}
                 <Flex gap="xs" py="md" wrap="wrap" rowGap="0px" columnGap="xs">
-                    {artTags.map(tag =>
+                    {tags.map(tag =>
                         <Link href={`/tag/${tag}`} key={tag}>
                             <Badge>
                                 {tag}
@@ -60,7 +61,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
             <Divider />
 
             <Box p="md">
-                {artDescription}
+                {art.description}
             </Box>
 
 
