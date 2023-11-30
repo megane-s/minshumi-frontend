@@ -1,4 +1,3 @@
-import { ArtTag } from "@/art/type"
 import { Badge } from "@/components/Badge"
 import { PageTitle } from "@/components/PageTitle"
 import { Box, Divider, Flex } from "@mantine/core"
@@ -19,12 +18,7 @@ interface ArtDetailPageProps {
 const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
     const artId = decodeURI(params.art_id)
     const art = await getArt(artId)
-    const artDescription = "鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要鬼滅の刃の作品概要"
-    const artTags: ArtTag[] = [
-        "アクション",
-        "ジャンプ",
-        "SF",
-    ]
+
     const session = await getSession()
     const isLogined = !!session
     const isGooded = session ? await isArtGooded(artId, session.user.id) : false
