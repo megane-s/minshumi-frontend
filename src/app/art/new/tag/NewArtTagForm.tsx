@@ -1,20 +1,21 @@
 "use client"
 import { FC } from "react"
-import { useState } from "react"
 import TagSelect from "@/components/TagSelect"
-import { ArtTag } from "@/art/type"
 import { SectionTitle } from "@/components/SectionTitle"
 import NewArtNavigation from "../Navigation"
 import { Space } from "@mantine/core"
 import { medias, others, getGenreTags } from "./tags"
+import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
+import { NewArtSession } from "@/art/newArtSession/type"
 
 
 interface NewArtTagFormProps {
+    defaultValues: Pick<NewArtSession, "mediaTags" | "genreTags" | "otherTags">
 }
-const NewArtTagForm: FC<NewArtTagFormProps> = () => {
-    const [selectedMedias, setSelectedMedias] = useState<ArtTag[]>([])
-    const [selectedGenres, setSelectedGenres] = useState<ArtTag[]>([])
-    const [selectedOthers, setSelectedOthers] = useState<ArtTag[]>([])
+const NewArtTagForm: FC<NewArtTagFormProps> = ({ defaultValues }) => {
+    const [selectedMedias, setSelectedMedias] = useInputNewArtSessionField("mediaTags", defaultValues.mediaTags, "")
+    const [selectedGenres, setSelectedGenres] = useInputNewArtSessionField("genreTags", defaultValues.genreTags, "")
+    const [selectedOthers, setSelectedOthers] = useInputNewArtSessionField("otherTags", defaultValues.otherTags, "")
     return (
         <div>
             <SectionTitle my="md">

@@ -1,21 +1,23 @@
 "use client"
 
-import { FC, useState } from "react"
+import { FC } from "react"
 import { Flex, Indicator, Stack, TextInput } from "@mantine/core"
 import styles from "./styles.module.css"
 import { Textarea } from "@/components/Textarea"
 import Image from "next/image"
 import { MdOutlineEdit } from "react-icons/md";
 import { uploadFile } from "@/file-upload/client"
+import { NewArtSession } from "@/art/newArtSession/type"
+import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 
 interface InputDetailFormProps {
-    defaultValues: { title: string, description: string, likePoint: string, imageUrl: string }
+    defaultValues: Pick<NewArtSession, "title" | "description" | "likePoint" | "imageUrl">
 }
 const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
-    const [title, setTitle] = useState(defaultValues.title)
-    const [description, setDescription] = useState(defaultValues.description)
-    const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
-    const [imageUrl, setImageUrl] = useState(defaultValues.imageUrl)
+    const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title, "/art/new/detail")
+    const [description, setDescription] = useInputNewArtSessionField("description", defaultValues.description, "/art/new/detail")
+    const [likePoint, setLikePoint] = useInputNewArtSessionField("likePoint", defaultValues.likePoint, "/art/new/detail")
+    const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl, "/art/new/detail")
     const handleUpload = async () => {
         const { publicUrl } = await uploadFile()
         setImageUrl(publicUrl)

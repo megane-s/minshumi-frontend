@@ -1,9 +1,11 @@
+import { getNewArtSession } from "@/art/newArtSession/cookies"
 import NewArtNavigation from "../Navigation"
 import NewArtProgress from "../NewArtProgress"
 import NewArtSectionTitle from "../NewArtSectionTitle"
 import InputDetailForm from "./InputDetailForm"
 
-const NewArtDetailPage = () => {
+const NewArtDetailPage = async () => {
+    const newArtSession = await getNewArtSession()
     return (
         <div>
             <NewArtSectionTitle>
@@ -12,10 +14,10 @@ const NewArtDetailPage = () => {
 
             <InputDetailForm
                 defaultValues={{
-                    title: "",
-                    description: "",
-                    likePoint: "",
-                    imageUrl: "/placeholder/300x200_red.png",
+                    title: newArtSession?.title ?? "",
+                    description: newArtSession?.description ?? "",
+                    likePoint: newArtSession?.likePoint ?? "",
+                    imageUrl: newArtSession?.imageUrl ?? "/placeholder/300x200_red.png",
                 }}
             />
 

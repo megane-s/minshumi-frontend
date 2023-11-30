@@ -8,13 +8,16 @@ import FullWidth from "@/app/BaseLayout/FullWidth";
 import EditArtDialog from "./EditArtDialog";
 import CenterizedScroll, { CenterizedScrollTarget } from "./CenterizedScroll";
 import styles from "./NewArtRelatedForm.module.css"
-import { InputRelatedArt, InputRelatedArts } from "../type";
+import { InputRelatedArt } from "../type";
 import RelatedArtListItem from "./RelatedArtListItem";
+import { NewArtSessionInput } from "@/art/newArtSession/type";
+import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField";
 
 interface NewArtRelatedFormProps {
+    defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts">
 }
-const NewArtRelatedForm: FC<NewArtRelatedFormProps> = () => {
-    const { prevArts, nextArts, addNextArts, addPrevArts, updateNextArt, updatePrevArt } = useInputRelatedArts()
+const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ defaultValues }) => {
+    const { prevArts, nextArts, addNextArts, addPrevArts, updateNextArt, updatePrevArt } = useInputRelatedArts(defaultValues)
     const [updateTarget, setUpdateTarget] = useState<
         | null
         | { type: "add", to: "prev" | "next" }
@@ -91,9 +94,9 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = () => {
 
 export default NewArtRelatedForm
 
-export const useInputRelatedArts = () => {
-    const [prevArts, setPrevArts] = useState<InputRelatedArts>([])
-    const [nextArts, setNextArts] = useState<InputRelatedArts>([])
+export const useInputRelatedArts = (defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts">) => {
+    const [prevArts, setPrevArts] = useInputNewArtSessionField("prevArts", defaultValues.prevArts ?? [], "/new/art/related")
+    const [nextArts, setNextArts] = useInputNewArtSessionField("nextArts", defaultValues.nextArts ?? [], "/new/art/related")
     const addPrevArts = (art: InputRelatedArt) => {
         setPrevArts(p => [art, ...p])
     }
