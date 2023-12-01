@@ -1,6 +1,7 @@
 import { notImplementWarn } from "@/util/notImplement"
 import "server-only"
 import { Art } from "./type"
+import { prisma } from "@/prisma"
 
 /**
  * 未実装。
@@ -10,5 +11,5 @@ import { Art } from "./type"
  */
 export const searchArt = async (query: string): Promise<Art[]> => {
     notImplementWarn(`searchArt(${query}) はまだ実装されていません。現状はからの配列を返します。`)
-    return []
+    return await prisma.art.findMany()
 }
