@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Divider, Drawer, Flex, NavLink } from "@mantine/core"
+import { Divider, Drawer, Flex, NavLink } from "@mantine/core"
 import { FC } from "react"
 import styles from "./Header.module.css"
 import { useDisclosure } from '@mantine/hooks';
@@ -11,6 +11,7 @@ import { BsBellFill } from "react-icons/bs"
 import { FcSettings } from "react-icons/fc"
 import { Session } from "next-auth";
 import { tags } from "../tags";
+import { Burger } from '@mantine/core';
 
 interface HeaderMenuProps {
     session: Session | null
@@ -20,11 +21,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
     return (
         <>
             <Flex className={styles.menu} align="center" onClick={toggle} >
-                {/* <Burger opened={opened} />
-                すべて */}
-                <Button onClick={toggle} variant="default">
-                    メニュー
-                </Button>
+                <Burger opened={opened} onClick={toggle} aria-label="Toggle navigation" />
             </Flex>
             <Drawer
                 opened={opened}
