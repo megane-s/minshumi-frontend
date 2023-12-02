@@ -21,6 +21,7 @@ const seedKimetsu = async () => {
             title: "キメツのやばい",
             description: faker.lorem.lines(2),
             imageUrl: "/placeholder/1200x675_red.png",
+            authorId: null,
             tags: {
                 create: [
                     { tag: "アクション" },
@@ -53,6 +54,7 @@ const seedJurujuru = async () => {
             title: "ジュルジュル回線",
             description: faker.lorem.lines(2),
             imageUrl: "/placeholder/1200x675_blue.png",
+            authorId: null,
             tags: {
                 create: [
                     { tag: "少年マンガ" },
@@ -83,6 +85,7 @@ const seedKitomayo = async () => {
             title: "きっとマヨネーズでいいのに。",
             description: faker.lorem.lines(4),
             imageUrl: "/placeholder/1200x675_red.png",
+            authorId: null,
             tags: {
                 create: [
                     { tag: "アーティスト" },
@@ -105,6 +108,7 @@ const seedMyName = async () => {
             title: "俺の名は。",
             description: faker.lorem.lines(1),
             imageUrl: "/placeholder/1200x675_blue.png",
+            authorId: null,
             tags: {
                 create: [
                     { tag: "映画" },

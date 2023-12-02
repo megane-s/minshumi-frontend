@@ -75,6 +75,7 @@ model User {
   ranks                    UserRank[]
   notifications            Notification[]
   BusinessCardComment      BusinessCardComment[]
+  Art                      Art[]
 }
 
 model VerificationToken {
@@ -120,6 +121,8 @@ model Art {
   title                  String
   imageUrl               String
   description            String
+  authorId               String?               @default("NULL")
+  author                 User?                 @relation(fields: [authorId], references: [id])
   relatedArt             RelatedArt[]
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
