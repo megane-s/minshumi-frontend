@@ -4,10 +4,11 @@ import { Button } from "@/components/Button"
 import { Card } from "@/components/Card"
 import { TextInput } from "@/components/TextInput"
 import { Box, Center, Text } from "@mantine/core"
-import { FC } from "react"
+import { FC, useState } from "react"
 import styles from "./styles.module.css"
-import { useQuery } from "@tanstack/react-query"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { getSuggestions } from "./actions"
+import { useDebounce } from "react-use"
 
 interface InputTitleProps {
     title: string
@@ -15,11 +16,16 @@ interface InputTitleProps {
     autoFocus?: boolean
 }
 const InputTitle: FC<InputTitleProps> = ({ title, onChangeTitle, autoFocus = true }) => {
+    const [debouncedTitle, setDebouncedTitle] = useState(title)
+    useDebounce(() => {
+        setDebouncedTitle(title)
+    }, 500, [title])
     const suggestions = useQuery({
-        queryKey: ["art", "suggestions", title],
+        queryKey: ["art", "suggestions", debouncedTitle],
         queryFn: async () => {
-            return await getSuggestions(title)
+            return await getSuggestions(debouncedTitle)
         },
+        placeholderData: keepPreviousData,
     })
     return (
         <div>
