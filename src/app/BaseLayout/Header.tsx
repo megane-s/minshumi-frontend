@@ -19,6 +19,7 @@ const Header: FC<HeaderProps> = async () => {
         <AppShellHeader>
 
             <Flex justify="space-between" align="center" px="sm">
+                <HeaderMenu session={session} />
                 <Logo
                     imageProps={{ priority: true }}
                 />
@@ -45,7 +46,7 @@ const Header: FC<HeaderProps> = async () => {
                 </Flex>
             </Flex>
 
-            <HeaderMenu session={session} />
+            {/* <HeaderMenu session={session} /> */}
 
         </AppShellHeader>
     )
