@@ -26,7 +26,7 @@ export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
                     <Text fw="bold">
                         {art.title}
                     </Text>
-                    <Flex gap="xs">
+                    <Flex gap="xs" wrap={"wrap-reverse"}>
                         {tags.map(tag =>
                             <Box key={tag}>
                                 <Badge key={tag} variant="filled" color="primary.1">
