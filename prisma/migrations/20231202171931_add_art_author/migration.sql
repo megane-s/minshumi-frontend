@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "Art" ADD COLUMN     "authorId" STRING DEFAULT 'NULL';
-
--- AddForeignKey
-ALTER TABLE "Art" ADD CONSTRAINT "Art_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

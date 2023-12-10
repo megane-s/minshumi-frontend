@@ -121,15 +121,15 @@ model Art {
   title                  String
   imageUrl               String
   description            String
-  authorId               String?               @default("NULL")
-  author                 User?                 @relation(fields: [authorId], references: [id])
   relatedArt             RelatedArt[]
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
-  recommendUsers         RecommendArt[]
+  reccomendUsers         RecommendArt[]
   watchingUsers          WatchingArt[]
   bookmarkUsers          BookmarkArt[]
   useAsLikeBusinessCards BusinessCardLikeArt[]
+  User                   User?                 @relation(fields: [userId], references: [id])
+  userId                 String?
 }
 
 model RelatedArt {
