@@ -117,7 +117,7 @@ model UserRank {
 // Art
 
 model Art {
-  artId                  String                @id @default(cuid())
+  artId                  String                @id @default(cuid()) /// @zod.custom.use(z.string())
   title                  String
   imageUrl               String
   description            String
