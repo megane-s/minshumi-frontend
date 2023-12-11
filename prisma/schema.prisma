@@ -74,6 +74,7 @@ model User {
   goodBusinessCards        BusinessCardGoodUser[]
   ranks                    UserRank[]
   notifications            Notification[]
+  BusinessCardComment      BusinessCardComment[]
 }
 
 model VerificationToken {
@@ -224,6 +225,8 @@ model BusinessCardComment {
   commentId      String                        @id @default(cuid())
   businessCardId String
   content        String
+  commentUserId  String
+  commentUser    User                          @relation(fields: [commentUserId], references: [id])
   businessCard   BusinessCard                  @relation(fields: [businessCardId], references: [businessCardId])
   goodUsers      BusinessCardCommentGoodUser[]
 }

@@ -6,6 +6,7 @@ import { BusinessCardComment, BusinessCardCommentSchema } from "./type";
 export const CreateBusinessCardCommentParamsSchema = BusinessCardCommentSchema.pick({
     businessCardId: true,
     content: true,
+    commentUserId: true,
 })
 export type CreateBusinessCardCommentParams = z.infer<typeof CreateBusinessCardCommentParamsSchema>
 

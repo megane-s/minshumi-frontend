@@ -17,7 +17,7 @@ const seedTestUser1WatchingArt = async () => {
         }),
         prisma.watchingArt.upsert({
             where: { userId_artId: { userId: "test-user-1", artId: "test-art-2" } },
-            create: { userId: "test-user-1", artId: "test-art-1" },
+            create: { userId: "test-user-1", artId: "test-art-2" },
             update: {},
         }),
     ])

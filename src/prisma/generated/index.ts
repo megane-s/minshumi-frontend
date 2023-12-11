@@ -50,7 +50,7 @@ export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId'
 
 export const BusinessCardRankScalarFieldEnumSchema = z.enum(['businessCardId','rank']);
 
-export const BusinessCardCommentScalarFieldEnumSchema = z.enum(['commentId','businessCardId','content']);
+export const BusinessCardCommentScalarFieldEnumSchema = z.enum(['commentId','businessCardId','content','commentUserId']);
 
 export const BusinessCardCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
 
@@ -309,6 +309,7 @@ export const BusinessCardCommentSchema = z.object({
   commentId: z.string().cuid(),
   businessCardId: z.string(),
   content: z.string(),
+  commentUserId: z.string(),
 })
 
 export type BusinessCardComment = z.infer<typeof BusinessCardCommentSchema>
