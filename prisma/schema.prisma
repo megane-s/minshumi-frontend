@@ -74,8 +74,8 @@ model User {
   goodBusinessCards        BusinessCardGoodUser[]
   ranks                    UserRank[]
   notifications            Notification[]
-  BusinessCardComment      BusinessCardComment[]
-  Art                      Art[]
+  bussinessCardComments    BusinessCardComment[]
+  arts                     Art[]
 }
 
 model VerificationToken {
@@ -128,7 +128,7 @@ model Art {
   watchingUsers          WatchingArt[]
   bookmarkUsers          BookmarkArt[]
   useAsLikeBusinessCards BusinessCardLikeArt[]
-  User                   User?                 @relation(fields: [userId], references: [id])
+  user                   User?                 @relation(fields: [userId], references: [id])
   userId                 String?
 }
 
