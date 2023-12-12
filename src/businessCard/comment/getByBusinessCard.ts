@@ -12,6 +12,7 @@ import { BusinessCardComment } from "./type";
 export const getCommentsByBusinessCard = async (businessCardId: BusinessCardId): Promise<BusinessCardComment[]> => {
     const results = await prisma.businessCardComment.findMany({
         where: { businessCardId },
+        // TODO 作成日の新しい順で返すように
     })
     return results
 }
