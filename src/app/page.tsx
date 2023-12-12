@@ -1,13 +1,10 @@
-//トップ画面
+// トップ画面
 
 import { SectionTitle } from '@/components/SectionTitle';
-import { ActionIcon, Flex } from '@mantine/core';
 import React from 'react';
-import { IoMdSearch } from 'react-icons/io';
 import { getArtsWithTag } from '@/art/tag/getArts';
-import { TextInput } from '@/components/TextInput';
-import styles from "./page.module.css"
 import { tags } from './tags';
+import SearchBar from './search';
 
 const TopPage = async () => {
   const tagArts = await Promise.all(
@@ -20,7 +17,7 @@ const TopPage = async () => {
   return (
     <div>
       {/* 検索バー */}
-      <Flex justify="center" align="center" mt="xl" mb="xl">
+      {/* <Flex justify="center" align="center" mt="xl" mb="xl">
         <TextInput
           placeholder="作品やユーザを検索"
           size='xs'
@@ -29,7 +26,8 @@ const TopPage = async () => {
         <ActionIcon className={styles.actionIcon}>
           <IoMdSearch />
         </ActionIcon>
-      </Flex>
+      </Flex> */}
+      <SearchBar />
 
       {/* ここに作品登録を促す画面やおすすめ作品を出す画面 */}
 
@@ -71,4 +69,3 @@ const TopPage = async () => {
 };
 
 export default TopPage;
-
