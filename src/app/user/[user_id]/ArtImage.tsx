@@ -17,7 +17,6 @@ export const ArtImage: FC<ArtImageProps> = ({ art }) => {
     const dialog = useDialog()
     return (
         <>
-            {/* 作品を押すとダイアログを出してもらう */}
             <Flex direction="column" align="center" w="min-content">
                 <Image
                     src={art.imageUrl}
@@ -32,7 +31,6 @@ export const ArtImage: FC<ArtImageProps> = ({ art }) => {
                 </div>
             </Flex>
 
-            {/* 画像を押すと作品詳細に飛ぶ */}
             <Dialog {...dialog.dialogProps}>
                 <Link href={`/art/${art.artId}`} >
                     <Image
@@ -43,6 +41,7 @@ export const ArtImage: FC<ArtImageProps> = ({ art }) => {
                         style={{ width: "100%", height: "auto", objectFit: "cover" }}
                     />
                 </Link>
+
                 <SectionTitle>
                     <Flex w="100%" justify="space-between" align="center">
                         <div>

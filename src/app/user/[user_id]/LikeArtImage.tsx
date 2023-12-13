@@ -17,7 +17,6 @@ export const LikeArtImage: FC<LikeArtImageProps> = ({ art }) => {
     const dialog = useDialog()
     return (
         <>
-            {/* 作品を押すとダイアログを出してもらう */}
             <Flex direction="column" align="center" w="min-content">
                 <Image
                     src={art.imageUrl}
@@ -31,7 +30,7 @@ export const LikeArtImage: FC<LikeArtImageProps> = ({ art }) => {
                     {art.title}
                 </div>
             </Flex>
-            {/* 画像を押すと作品詳細に飛ぶ */}
+
             <Dialog {...dialog.dialogProps}>
                 <Link href={`/art/${art.artId}`} >
                     <Image
@@ -42,6 +41,7 @@ export const LikeArtImage: FC<LikeArtImageProps> = ({ art }) => {
                         style={{ width: "100%", height: "auto", maxHeight: "50vh", objectFit: "cover" }}
                     />
                 </Link>
+
                 <SectionTitle>
                     <Flex w="100%" justify="space-between" align="center">
                         <div>

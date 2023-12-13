@@ -72,7 +72,6 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 </LinkButton>
             </Flex>
 
-            {/* フォロワ、フォロワー数を表示する */}
             <Flex w="100%" justify="flex-start">
                 {followingsCount}
                 フォロー
@@ -80,8 +79,8 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 {followersCount}
                 フォロワー
             </Flex>
-            {/* ☆ 作品表示の部分をカルーセルを使う */}
-            {/* 今見ている作品を表示する*/}
+
+            {/* TODO 作品表示の部分をカルーセルを使う */}
             <SectionTitle mt="md">
                 今見ている作品
             </SectionTitle>
@@ -93,13 +92,12 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 )}
             </Flex>
+
             <SectionTitle mt="md">
                 好きな作品
             </SectionTitle>
-            {/* ☆ 作品表示の部分をカルーセルを使う */}
-            {/* 好きな作品を表示する */}
+            {/* TODO 作品表示の部分をカルーセルを使う */}
             <Flex gap="xs" my="xl" rowGap="100px" columnGap="sm" w="100%" className={styles.overflowAuto}>
-                {/* <Flex gap="xs" py="xl" rowGap="100px" columnGap="sm"  > */}
                 {recommendArts.map(art =>
                     <LikeArtImage
                         key={art.artId}
@@ -107,15 +105,15 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 )}
             </Flex>
+
             <Divider />
 
-            {/* コメントの件数も出したい */}
             コメント {comments.length}件
 
             <CommentForm
                 businessCardId={businessCard.businessCardId}
             />
-            {/* コメントを送信すると、コメント欄を表示する */}
+
             {comments.map((comment, index) =>
                 <CommentListItem
                     key={comment.commentId}
@@ -126,8 +124,10 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     loginUser={loginUser ?? null}
                 />
             )}
+
             {comments.length === 0 &&
                 <Flex justify="center" align="center" p={50}>
+                    {/* TODO コメントない時に表示される内容を改善 */}
                     コメントないぜ
                 </Flex>
             }

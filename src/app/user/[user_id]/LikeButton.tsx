@@ -1,4 +1,3 @@
-//いいね、いいねキャンセルボタン
 "use client"
 
 import { ActionIcon } from "@mantine/core"
@@ -11,16 +10,6 @@ interface LikeButtonProps {
     onClick: () => void
 }
 export const LikeButton: FC<LikeButtonProps> = ({ isGooded, onClick }) => {
-    // const [isGooded, setIsGooded] = useState(propsIsGooded)
-    // const commentGoodClick = async () => {
-    //     if (!isGooded) {
-    //         setIsGooded(true)
-    //         await goodComment();
-    //     } else {
-    //         setIsGooded(false)
-    //         await cancelGoodComment();
-    //     }
-
     return (
         <>
             <ActionIcon
@@ -31,7 +20,6 @@ export const LikeButton: FC<LikeButtonProps> = ({ isGooded, onClick }) => {
                 size={"lg"}
             >
                 <FaRegHeart />
-
             </ActionIcon>
         </>
     )
