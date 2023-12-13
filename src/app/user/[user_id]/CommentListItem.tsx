@@ -4,7 +4,6 @@ import { FC, useState } from "react"
 import { BusinessCardComment } from "@/businessCard/comment/type"
 import { ActionIcon, Avatar, Box, Divider, Flex, Menu } from "@mantine/core"
 import { LikeButton } from "./LikeButton"
-import { BusinessCard } from "@/businessCard/type"
 import { Textarea } from "@/components/Textarea"
 import { IoMdMore } from "react-icons/io";
 import { PiPencilSimple } from "react-icons/pi"
@@ -19,14 +18,13 @@ import { login } from "@/auth/client/login"
 import { User } from "next-auth"
 
 interface CommentListItemProps {
-    businessCard: BusinessCard
     comment: BusinessCardComment
     commentUser: User
     defaultIsGooded: boolean
     isLogin: boolean
     loginUser: User | null
 }
-export const CommentListItem: FC<CommentListItemProps> = ({ businessCard, comment, commentUser, defaultIsGooded, isLogin, loginUser }) => {
+export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser, defaultIsGooded, isLogin, loginUser }) => {
     const [mode, setMode] = useState<"view" | "edit">("view")
     const handleToggleMode = () => {
         if (!isLogin) return pleaseLoginDialog.onOpen()

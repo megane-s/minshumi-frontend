@@ -119,7 +119,6 @@ const UserProfilePage = async ({ params }: PageProps) => {
             {comments.map((comment, index) =>
                 <CommentListItem
                     key={comment.commentId}
-                    businessCard={businessCard}
                     comment={comment}
                     commentUser={commentUsers[index]}
                     defaultIsGooded={commentIsGoodeds[index]}
