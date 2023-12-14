@@ -73,9 +73,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
 
     if (isDeleted) return
     return (
-
         <div>
-
             <Box py="md">
                 <Flex justify="space-between" gap="xs" align="center">
                     <Flex gap="xs" className={`${styles.fill}`}>
@@ -117,7 +115,6 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                 }
 
                 <Flex justify="space-between">
-                    {/* コメントの隣にお気に入り、削除、編集機能に入れる */}
                     <LikeButton
                         isGooded={isGooded}
                         onClick={() => void handleGoodClick()}
@@ -129,10 +126,6 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                             onDeleteComment={handleDeleteConfirm}
                         />
                     }
-                    {/* <DeleteButton businessCardId={businessCard.businessCardId} />
-                <EditButton onClick={() => {
-                    setMode(mode => mode === "view" ? "edit" : "view");
-                }} /> */}
                 </Flex>
 
                 <Dialog {...pleaseLoginDialog.dialogProps}>
