@@ -10,7 +10,8 @@ import { useMutate } from "@/util/client/useMutate"
 import { IoSendOutline } from "react-icons/io5"
 import { Loader } from "@/components/Loader"
 import { User } from "next-auth"
-import LinkButton from "@/components/LinkButton"
+import { Button } from "@/components/Button"
+import { login } from "@/auth/client/login"
 
 interface CommentFormProps {
     businessCardId: BusinessCardId
@@ -28,37 +29,44 @@ export const CommentForm: FC<CommentFormProps> = ({ businessCardId, isLogin, log
         onError: { toast: "コメントを送信できませんでした..." },
     })
 
-    if (!isLogin) {
-        return (
-            <Flex justify="left" align="center" gap="xs">
-                <Textarea
-                    className={styles.textarea}
-                    size='xs'
-                    value={comment}
-                    onChange={e => setComment(e.target.value)}
-                    disabled={handleClickPostButton.isLoading}
-                    placeholder="コメントを入力"
-                />
-                <ActionIcon
-                    className={styles.actionIcon}
-                    onClick={() => void handleClickPostButton.mutate(null)}
-                    size='md'
-                    disabled={!isOkComment || handleClickPostButton.isLoading}
-                >
-                    {handleClickPostButton.isLoading
-                        ? <Loader size="sm" />
-                        : <IoSendOutline />
-                    }
 
-                </ActionIcon>
-            </ Flex>
-        )
-    } else {
-        <div>
-            ログインするとコメントを送信できるようになります
-            <LinkButton href="/login" variant="outline">
-                ログイン
-            </LinkButton>
-        </div>
-    }
+
+    return isLogin ? (
+        <Flex justify="left" align="center" gap="xs">
+            <Textarea
+                className={styles.textarea}
+                size='xs'
+                value={comment}
+                onChange={e => setComment(e.target.value)}
+                disabled={handleClickPostButton.isLoading}
+                placeholder="コメントを入力"
+            />
+            <ActionIcon
+                className={styles.actionIcon}
+                onClick={() => void handleClickPostButton.mutate(null)}
+                size='md'
+                disabled={!isOkComment || handleClickPostButton.isLoading}
+            >
+                {handleClickPostButton.isLoading
+                    ? <Loader size="sm" />
+                    : <IoSendOutline />
+                }
+
+            </ActionIcon>
+        </ Flex>
+    ) : (
+        <Flex justify="center">
+            <div>
+                ログインするとコメントを送信できるようになります
+                <Button variant="outline" onClick={() => void login()}>
+                    ログイン
+                </Button>
+            </div>
+        </Flex>
+    )
 }
+
+
+
+
+
