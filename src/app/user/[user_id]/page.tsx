@@ -19,6 +19,8 @@ import { isBusinessCardCommentGooded } from "@/businessCard/comment/good/isGoode
 import { SectionTitle } from "@/components/SectionTitle";
 import { PageTitle } from "@/components/PageTitle";
 import Image from "next/image";
+import { BusinessCard } from "@/businessCard/type";
+import { FollowButton } from "./FollowButton";
 
 
 
@@ -31,15 +33,17 @@ const UserProfilePage = async ({ params }: PageProps) => {
     const isLogin = !!loginUser
     const userId = params.user_id
     const user = await getUser(userId)
+    if (!user) notFound()
+
     const recommendArts = await getRecommendArtsByUser(userId)
     const WatchingArts = await getWatchingArts(userId)
     const businessCards = await getBusinessCardByUser(userId)
-    const businessCard = businessCards[0]
-    const comments = await getCommentsByBusinessCard(businessCard.businessCardId)
-    const commentUsers = await Promise.all(
+    const businessCard = businessCards[0] as BusinessCard | null
+    const comments = businessCard && await getCommentsByBusinessCard(businessCard.businessCardId)
+    const commentUsers = comments && await Promise.all(
         comments.map(comment => getUser(comment.commentUserId))
     ) as User[]
-    const commentIsGoodeds = await Promise.all(
+    const commentIsGoodeds = comments && await Promise.all(
         comments.map(comment =>
             loginUser
                 ? isBusinessCardCommentGooded(comment.commentId, loginUser.id)
@@ -47,12 +51,15 @@ const UserProfilePage = async ({ params }: PageProps) => {
         )
     )
     // TODO 数だけ取得するmodelを用意すべき
-    const followings = await getFollowings(userId)
-    const followingsCount = followings.length
-    const followers = await getFollowers(userId)
-    const followersCount = followers.length
+    const userFollowings = await getFollowings(userId)
+    const userFollowingsCount = userFollowings.length
+    const userFollowers = await getFollowers(userId)
+    const userFollowersCount = userFollowers.length
 
-    if (!user) notFound()
+    // TODO フォローしているかどうかを判定する関数を用意する
+    const isLoginUserFollow = userFollowers
+        .some(userFollower => userFollower.id === loginUser?.id)
+
     return (
         <div>
             {/* TODO 名刺を表示する */}
@@ -67,16 +74,22 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 <PageTitle>
                     {user.name}
                 </PageTitle>
-                <LinkButton href="/settings" >
-                    編集する
-                </LinkButton>
+                {loginUser && (user.id === loginUser?.id
+                    ? <LinkButton href="/settings">
+                        編集する
+                    </LinkButton>
+                    : <FollowButton
+                        userId={userId}
+                        defaultIsLoginUserFollow={isLoginUserFollow}
+                    />
+                )}
             </Flex>
 
             <Flex w="100%" justify="flex-start">
-                {followingsCount}
+                {userFollowingsCount}
                 フォロー
                 <Box w="1em" />
-                {followersCount}
+                {userFollowersCount}
                 フォロワー
             </Flex>
 
@@ -91,6 +104,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                         art={art}
                     />
                 )}
+                {/* TODO 0件の時の表示 */}
             </Flex>
 
             <SectionTitle mt="md">
@@ -104,33 +118,42 @@ const UserProfilePage = async ({ params }: PageProps) => {
                         art={art}
                     />
                 )}
+                {/* TODO 0件の時の表示 */}
             </Flex>
 
-            <Divider />
+            {comments && <>
+                <Divider />
+                コメント {comments.length}件
 
-            コメント {comments.length}件
+                {businessCard &&
+                    <CommentForm
+                        businessCardId={businessCard.businessCardId}
+                        isLogin={isLogin}
+                        loginUser={loginUser ?? null}
+                    />
+                }
 
-            <CommentForm
-                businessCardId={businessCard.businessCardId}
-            />
+                {commentUsers && commentIsGoodeds &&
+                    comments.map((comment, index) =>
+                        <CommentListItem
+                            key={comment.commentId}
+                            comment={comment}
+                            commentUser={commentUsers[index]}
+                            defaultIsGooded={commentIsGoodeds[index]}
+                            isLogin={isLogin}
+                            loginUser={loginUser ?? null}
+                        />
+                    )
+                }
 
-            {comments.map((comment, index) =>
-                <CommentListItem
-                    key={comment.commentId}
-                    comment={comment}
-                    commentUser={commentUsers[index]}
-                    defaultIsGooded={commentIsGoodeds[index]}
-                    isLogin={isLogin}
-                    loginUser={loginUser ?? null}
-                />
-            )}
+                {comments.length === 0 &&
+                    <Flex justify="center" align="center" p={50}>
+                        {/* TODO コメントない時に表示される内容を改善 */}
+                        コメントないぜ
+                    </Flex>
+                }
+            </>}
 
-            {comments.length === 0 &&
-                <Flex justify="center" align="center" p={50}>
-                    {/* TODO コメントない時に表示される内容を改善 */}
-                    コメントないぜ
-                </Flex>
-            }
         </div >
     )
 }

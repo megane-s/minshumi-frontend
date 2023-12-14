@@ -10,8 +10,8 @@ import { UserId } from "../type"
 export const follow = async (by: UserId, followUser: UserId): Promise<void> => {
     await prisma.follower.create({
         data: {
-            userId: by,
-            followerId: followUser,
+            userId: followUser,
+            followerId: by,
         },
     })
 }
