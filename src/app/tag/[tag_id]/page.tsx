@@ -2,6 +2,12 @@
 import { getArtsWithTag } from "@/art/tag/getArts"
 import { ArtListItem } from "./ArtListItem"
 import { PageTitle } from "@/components/PageTitle"
+import { getMetadata } from "@/seo/getMetadata"
+import { Metadata } from "next"
+
+export const metadata: Metadata = getMetadata({
+    title: "タグごとの作品",
+})
 
 interface PageProps {
     params: { tag_id: string }

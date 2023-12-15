@@ -4,6 +4,12 @@ import { PageTitle } from "@/components/PageTitle"
 import { Box, Center, Stack, Text } from "@mantine/core"
 import LoginButton from "./LoginButton"
 import AlreadyLoginedAlert from "./AlreadyLoginedAlert"
+import { getMetadata } from "@/seo/getMetadata"
+import { Metadata } from "next"
+
+export const metadata: Metadata = getMetadata({
+    title: "ログイン",
+})
 
 const LoginPage = async () => {
     return (
