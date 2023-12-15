@@ -11,11 +11,10 @@ import { getSession } from "@/auth/server/auth"
 import { isArtGooded } from "@/art/good/isGooded"
 import { getTags } from "@/art/tag/getTags"
 import { getMetadata } from "@/seo/getMetadata"
-import { Metadata, ResolvingMetadata } from "next"
+import { Metadata } from "next"
 
 export const generateMetadata = async (
     { params }: ArtDetailPageProps,
-    parent: ResolvingMetadata
 ): Promise<Metadata> => {
     const art = await getArt(params.art_id)
     if (!art) notFound()
