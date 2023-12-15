@@ -17,7 +17,6 @@ const TopPage = async () => {
   return (
     <div>
       {/* 検索バー */}
-      {/* <Flex justify="center" align="center" mt="xl" mb="xl">
         <TextInput
           placeholder="作品やユーザを検索"
           size='xs'
