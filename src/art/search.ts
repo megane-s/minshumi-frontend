@@ -14,5 +14,5 @@ import { cache } from "react"
 export const searchArt = cache(async (query: string): Promise<Art[]> => {
     notImplementWarn(`searchArt(${query}) はまだ実装されていません。現状はからの配列を返します。`)
     await sleep(2000)
-    return (await prisma.art.findMany()).filter(art => Math.random() >= 0.8)
+    return (await prisma.art.findMany()).filter(()=> Math.random() >= 0.8)
 })
