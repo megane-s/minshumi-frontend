@@ -22,7 +22,6 @@ const ArtSearchPage = async ({ searchParams }: PageProps) => {
             <SearchBar defaultValue={query} />
             {query.length >= 1
                 ? <Suspense key={query} fallback={
-                    //mantineのCenterで中央揃えが可能
                     <Center>
                         <Loader />
                     </Center>
