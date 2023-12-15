@@ -17,27 +17,11 @@ const TopPage = async () => {
   return (
     <div>
       {/* 検索バー */}
-        <TextInput
-          placeholder="作品やユーザを検索"
-          size='xs'
-          classNames={{ input: styles.textInput }}
-        />
-        <ActionIcon className={styles.actionIcon}>
-          <IoMdSearch />
-        </ActionIcon>
-      </Flex> */}
       <SearchBar />
 
       {/* ここに作品登録を促す画面やおすすめ作品を出す画面 */}
 
       {/* カルーセルここに入れる */}
-      {/* <Flex justify="center">
-        <Image
-          src={art.imageUrl}
-          alt={art.title}
-          width={1200}
-          height={500} />
-      </Flex> */}
 
       {/* 下部の空白 */}
       <div style={{ marginBottom: '20px' }}>
@@ -50,15 +34,6 @@ const TopPage = async () => {
             <div key={art.artId}>
 
               {/* カルーセルここに入れる */}
-              {/* <Flex justify="space-between" gap="xs" py="x1" rowGap="100px" columnGap="sm" >
-                <LinkButton href="/tag">全て見る</LinkButton>
-                <Image
-                  src={art.imageUrl}
-                  alt={art.title}
-                  width={200}
-                  height={100}
-                />
-              </Flex> */}
             </div>
           ))}
         </div>
