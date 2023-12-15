@@ -12,6 +12,7 @@ import { FcSettings } from "react-icons/fc"
 import { Session } from "next-auth";
 import { tags } from "../tags";
 import { Burger } from '@mantine/core';
+import { logout } from "@/auth/client/logout";
 
 interface HeaderMenuProps {
     session: Session | null
@@ -56,6 +57,10 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
                         rightSection={<FcSettings />}
                         component={Link}
                         href="/settings"
+                    />
+                    <NavLink
+                        label="ログアウト"
+                        onClick={() => void logout()}
                     />
                 </>}
             </Drawer>
