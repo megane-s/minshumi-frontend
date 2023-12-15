@@ -129,7 +129,6 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     <CommentForm
                         businessCardId={businessCard.businessCardId}
                         isLogin={isLogin}
-                        loginUser={loginUser ?? null}
                     />
                 }
 

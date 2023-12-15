@@ -9,16 +9,14 @@ import { BusinessCardId } from "@/businessCard/type"
 import { useMutate } from "@/util/client/useMutate"
 import { IoSendOutline } from "react-icons/io5"
 import { Loader } from "@/components/Loader"
-import { User } from "next-auth"
 import { Button } from "@/components/Button"
 import { login } from "@/auth/client/login"
 
 interface CommentFormProps {
     businessCardId: BusinessCardId
     isLogin: boolean
-    loginUser: User | null
 }
-export const CommentForm: FC<CommentFormProps> = ({ businessCardId, isLogin, loginUser }) => {
+export const CommentForm: FC<CommentFormProps> = ({ businessCardId, isLogin, }) => {
     const [comment, setComment] = useState("")
     const isOkComment = comment.trim().length >= 1
     const handleClickPostButton = useMutate(async () => {
