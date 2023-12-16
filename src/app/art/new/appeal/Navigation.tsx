@@ -16,9 +16,10 @@ interface NavigationProps {
 }
 const Navigation: FC<NavigationProps> = ({ artId }) => {
     const handleSubmit = useMutate(async () => {
-        const newArt = await handleCreateArt()
+        await handleCreateArt()
     }, {
-        onSuccess: { toast: "ok !" },
+        loading: "登録しています...",
+        onSuccess: { toast: "好きな作品を登録しました！" },
     })
     return (
         <Flex justify="space-around" my="md" w="100%" wrap="wrap">

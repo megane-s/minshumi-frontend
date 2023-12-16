@@ -15,7 +15,7 @@ export const updateNewArtSession = async (input: NewArtSessionInput) => {
     })
 }
 
-export const getNewArtSession = async () => {
+export const getNewArtSession = async (): Promise<NewArtSessionInput | null> => {
     const sessionId = cookies().get(COOKIE_KEY)?.value
     if (!sessionId) return null
     return await originGetNewArtSession(sessionId)
