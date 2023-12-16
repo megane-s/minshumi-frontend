@@ -76,6 +76,7 @@ model User {
   notifications            Notification[]
   bussinessCardComments    BusinessCardComment[]
   arts                     Art[]
+  RelatedArt               RelatedArt[]
 }
 
 model VerificationToken {
@@ -134,10 +135,12 @@ model Art {
 
 model RelatedArt {
   artId        String
+  userId       String
   relatedArtId String
   relatedArt   Art    @relation(fields: [relatedArtId], references: [artId])
+  user         User   @relation(fields: [userId], references: [id])
 
-  @@id([artId, relatedArtId])
+  @@id([artId, userId, relatedArtId])
 }
 
 model ArtTag {
