@@ -9,6 +9,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import { uploadFile } from "@/file-upload/client"
 import { NewArtSession } from "@/art/newArtSession/type"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
+import { useMutate } from "@/util/client/useMutate"
 
 interface InputDetailFormProps {
     defaultValues: Pick<NewArtSession, "title" | "description" | "imageUrl">
@@ -17,10 +18,14 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
     const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title ?? "", "/art/new/detail")
     const [description, setDescription] = useInputNewArtSessionField("description", defaultValues.description ?? "", "/art/new/detail")
     const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl ?? "/placeholder/300x200_red.png", "/art/new/detail")
-    const handleUpload = async () => {
+    const handleUpload = useMutate(async () => {
         const { publicUrl } = await uploadFile()
         setImageUrl(publicUrl)
-    }
+    }, {
+        loading: "アップロード中...",
+        onSuccess: { toast: "アップロードしました！" },
+        onError: { toast: "アップロードできませんでした..." },
+    })
     return (
         <div>
             <Flex gap="sm" direction={{ base: "column", sm: "row" }}>
@@ -33,7 +38,7 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
                         position="bottom-end"
                         h="fit-content"
                         classNames={{ indicator: styles.imageIndicator }}
-                        onClick={() => void handleUpload()}
+                        onClick={handleUpload.mutate}
                     >
                         <Image
                             src={imageUrl}
