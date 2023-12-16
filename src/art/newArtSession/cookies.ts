@@ -20,3 +20,7 @@ export const getNewArtSession = async () => {
     if (!sessionId) return null
     return await originGetNewArtSession(sessionId)
 }
+
+export const deleteNewArtSession = async () => {
+    cookies().delete(COOKIE_KEY)
+}

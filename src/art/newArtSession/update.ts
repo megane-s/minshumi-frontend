@@ -1,4 +1,4 @@
-import { redisClient } from "@/redis/client"
+import { redis } from "@/redis/client"
 import { randomId } from "@/util/random"
 import "server-only"
 import { getNewArtSession } from "./get"
@@ -11,5 +11,5 @@ export const updateNewArtSession = async ({ sessionId, session }: { sessionId: s
         ...newArtSession,
         ...session,
     }
-    await redisClient.set(sessionId, JSON.stringify(newData))
+    await redis(async client => client.set(sessionId as string, JSON.stringify(newData)))
 }
