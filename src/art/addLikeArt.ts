@@ -9,7 +9,7 @@ import { InputRelatedArt, NewArtSession } from "./newArtSession/type"
 
 export const addLikeArt = async (newArtSession: NewArtSession, by: UserId) => {
     return await prisma.$transaction(async (prisma) => {
-        const art = await createOrGetArt(prisma, newArtSession)
+        const art = await createOrGetArt(prisma, newArtSession, by)
 
         const likePoint = newArtSession.likePoint
         await prisma.recommendArt.create({
@@ -51,6 +51,7 @@ export const addLikeArt = async (newArtSession: NewArtSession, by: UserId) => {
 const createOrGetArt = async (
     prisma: Omit<PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
     newArtSession: NewArtSession,
+    by: UserId,
 ) => {
     if (newArtSession.artId) {
         const art = await prisma.art.findUnique({
@@ -73,7 +74,8 @@ const createOrGetArt = async (
             imageUrl: imageUrl,
             tags: {
                 create: tags.map(tag => ({ tag })),
-            }
+            },
+            userId: by,
         },
         include: { tags: true },
     })
