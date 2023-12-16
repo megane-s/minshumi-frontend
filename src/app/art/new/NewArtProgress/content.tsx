@@ -9,7 +9,7 @@ interface NewArtProgressContentProps {
 const NewArtProgressContent: FC<NewArtProgressContentProps> = ({ now, total }) => {
     return (
         <Affix position={{ left: 0, right: 0, bottom: 0 }} w="100%">
-            <Flex w="100%" h="fit-content" align="flex-end">
+            <Flex w="100%" h={0} align="flex-end">
                 <Box p="md" className={`${styles.flexGrow} ${styles.flexShrink}`} bg="background.2">
                     <Progress
                         value={now / total * 100}
