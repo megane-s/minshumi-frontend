@@ -20,7 +20,7 @@ const InputTitleForm: FC<InputTitleFormProps> = ({ defaultValues }) => {
                 onSelectArt={({ artId }) => setSelectArtId(artId)}
             />
 
-            {selectArtId !== null &&
+            {selectArtId !== undefined &&
                 <Center>
                     <Button
                         variant="filled"
