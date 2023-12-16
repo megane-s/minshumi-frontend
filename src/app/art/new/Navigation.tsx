@@ -10,8 +10,14 @@ interface NewArtNavigationProps {
     prevButtonProps?: Partial<ComponentProps<typeof Button<typeof Link>>>
     nextButtonProps?: Partial<ComponentProps<typeof Button<typeof Link>>>
     flexProps?: Partial<ComponentProps<typeof Flex<"div">>>
+    disabledPrev?: boolean
+    disabledNext?: boolean
 }
-const NewArtNavigation: FC<NewArtNavigationProps> = ({ prevHref, nextHref, prevButtonProps, nextButtonProps, flexProps = {} }) => {
+const NewArtNavigation: FC<NewArtNavigationProps> = ({
+    prevHref, nextHref,
+    prevButtonProps, nextButtonProps,
+    flexProps = {},
+}) => {
     return (
         <Flex justify="space-between" my="md" w="100%" wrap="wrap" gap="sm" {...flexProps}>
             <Button variant="default" leftSection={<IoCaretBack />} component={Link} href={prevHref} prefetch {...prevButtonProps}>

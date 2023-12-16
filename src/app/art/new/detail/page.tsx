@@ -1,5 +1,4 @@
 import { getNewArtSession } from "@/art/newArtSession/cookies"
-import NewArtNavigation from "../Navigation"
 import NewArtProgress from "../NewArtProgress"
 import NewArtSectionTitle from "../NewArtSectionTitle"
 import InputDetailForm from "./InputDetailForm"
@@ -21,11 +20,6 @@ const NewArtDetailPage = async () => {
             />
 
             <NewArtProgress now={1} />
-
-            <NewArtNavigation
-                prevHref="/art/new/title#"
-                nextHref="/art/new/tag#"
-            />
         </div>
     )
 }

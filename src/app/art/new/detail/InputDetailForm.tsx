@@ -1,6 +1,6 @@
 "use client"
 
-import { FC } from "react"
+import { FC, Fragment } from "react"
 import { Flex, Indicator, Stack, TextInput } from "@mantine/core"
 import styles from "./styles.module.css"
 import { Textarea } from "@/components/Textarea"
@@ -10,14 +10,20 @@ import { uploadFile } from "@/file-upload/client"
 import { NewArtSession } from "@/art/newArtSession/type"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { useMutate } from "@/util/client/useMutate"
+import NewArtNavigation from "../Navigation"
+import { Art } from "@/art/type"
 
 interface InputDetailFormProps {
     defaultValues: Pick<NewArtSession, "title" | "description" | "imageUrl">
 }
 const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
     const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title ?? "", "/art/new/detail")
+    const titleErrors = getTitleErrors(title)
     const [description, setDescription] = useInputNewArtSessionField("description", defaultValues.description ?? "", "/art/new/detail")
     const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl ?? "/placeholder/300x200_red.png", "/art/new/detail")
+
+    const isValid = titleErrors.length >= 1
+
     const handleUpload = useMutate(async () => {
         const { publicUrl } = await uploadFile()
         setImageUrl(publicUrl)
@@ -55,6 +61,7 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
                         value={title}
                         onChange={e => setTitle(e.target.value)}
                         label="タイトル"
+                        error={isValid ? titleErrors.map((err, i) => <Fragment key={i}>{err}<br /></Fragment>) : null}
                     />
                     <Textarea
                         value={description}
@@ -65,8 +72,22 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
                 </Stack>
 
             </Flex>
+
+            <NewArtNavigation
+                prevHref="/art/new/title#"
+                nextHref={isValid ? "#" : "/art/new/tag#"}
+                nextButtonProps={{
+                    disabled: isValid,
+                }}
+            />
         </div>
     )
 }
 
 export default InputDetailForm
+
+const getTitleErrors = (title: Art["title"]) => {
+    const errors: string[] = []
+    if (title.trim().length === 0) errors.push("タイトルは必須です。")
+    return errors
+}
