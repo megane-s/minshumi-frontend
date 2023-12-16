@@ -13,7 +13,7 @@ const NewArtTitlePage = async () => {
 
             <InputTitleForm
                 defaultValues={{
-                    artId: newArtSession?.artId ?? null,
+                    artId: newArtSession?.artId,
                 }}
             />
 

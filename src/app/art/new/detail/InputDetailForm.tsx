@@ -14,9 +14,9 @@ interface InputDetailFormProps {
     defaultValues: Pick<NewArtSession, "title" | "description" | "imageUrl">
 }
 const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
-    const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title, "/art/new/detail")
-    const [description, setDescription] = useInputNewArtSessionField("description", defaultValues.description, "/art/new/detail")
-    const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl, "/art/new/detail")
+    const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title ?? "", "/art/new/detail")
+    const [description, setDescription] = useInputNewArtSessionField("description", defaultValues.description ?? "", "/art/new/detail")
+    const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl ?? "/placeholder/300x200_red.png", "/art/new/detail")
     const handleUpload = async () => {
         const { publicUrl } = await uploadFile()
         setImageUrl(publicUrl)

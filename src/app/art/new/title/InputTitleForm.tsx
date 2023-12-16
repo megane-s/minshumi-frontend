@@ -1,7 +1,7 @@
 "use client"
 
 import { FC } from "react"
-import InputTitle from "./InputTitle"
+import SelectArt from "./InputTitle"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { NewArtSession } from "@/art/newArtSession/type"
 import { Button } from "@/components/Button"
@@ -15,8 +15,8 @@ const InputTitleForm: FC<InputTitleFormProps> = ({ defaultValues }) => {
     const [selectArtId, setSelectArtId] = useInputNewArtSessionField("artId", defaultValues.artId, "/art/new/title")
     return (
         <div>
-            <InputTitle
-                selectArtId={selectArtId}
+            <SelectArt
+                selectArtId={selectArtId ?? null}
                 onSelectArt={({ artId }) => setSelectArtId(artId)}
             />
 

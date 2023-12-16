@@ -3,7 +3,7 @@ import { DialogProps } from "@/components/Dialog"
 import { Center, Button } from "@mantine/core"
 import { useQueryClient } from "@tanstack/react-query"
 import { FC, useState } from "react"
-import InputTitle from "../../title/InputTitle"
+import SelectArt from "../../title/InputTitle"
 import { EditArtDialogFooter } from "./Footer"
 import { InputRelatedArt } from "@/art/newArtSession/type"
 
@@ -31,7 +31,7 @@ export const SelectRelatedArt: FC<SelectRelatedArtProps> = ({ defaultArtId, onGo
     }
     return (
         <div>
-            <InputTitle
+            <SelectArt
                 selectArtId={selectedArtId}
                 onSelectArt={({ artId }) => setSelectedArtId(artId)}
                 autoFocus

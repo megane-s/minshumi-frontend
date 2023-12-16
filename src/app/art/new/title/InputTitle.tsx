@@ -15,7 +15,7 @@ interface InputTitleProps {
     onSelectArt: (art: Art) => void
     autoFocus?: boolean
 }
-const InputTitle: FC<InputTitleProps> = ({ autoFocus = true, selectArtId, onSelectArt }) => {
+const SelectArt: FC<InputTitleProps> = ({ autoFocus = true, selectArtId, onSelectArt }) => {
     const [title, setTitle] = useState("")
     const [debouncedTitle, setDebouncedTitle] = useState(title)
     useDebounce(() => {
@@ -75,4 +75,4 @@ const InputTitle: FC<InputTitleProps> = ({ autoFocus = true, selectArtId, onSele
     )
 }
 
-export default InputTitle
+export default SelectArt

@@ -3,9 +3,9 @@ import { NewArtSession } from "./type";
 import { updateNewArtSessionAction } from "./actions";
 import { useDebounce } from 'react-use'
 
-export const useInputNewArtSessionField = <Key extends keyof NewArtSession>(
+export const useInputNewArtSessionField = <Key extends keyof NewArtSession, Value extends NewArtSession[Key]>(
     key: Key,
-    init: NewArtSession[typeof key],
+    init: Value,
     revalidateKey: string,
 ) => {
     const [state, setState] = useState(init)

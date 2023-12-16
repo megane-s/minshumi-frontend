@@ -13,9 +13,9 @@ interface NewArtTagFormProps {
     defaultValues: Pick<NewArtSession, "mediaTags" | "genreTags" | "otherTags">
 }
 const NewArtTagForm: FC<NewArtTagFormProps> = ({ defaultValues }) => {
-    const [selectedMedias, setSelectedMedias] = useInputNewArtSessionField("mediaTags", defaultValues.mediaTags, "")
-    const [selectedGenres, setSelectedGenres] = useInputNewArtSessionField("genreTags", defaultValues.genreTags, "")
-    const [selectedOthers, setSelectedOthers] = useInputNewArtSessionField("otherTags", defaultValues.otherTags, "")
+    const [selectedMedias, setSelectedMedias] = useInputNewArtSessionField("mediaTags", defaultValues.mediaTags ?? [], "")
+    const [selectedGenres, setSelectedGenres] = useInputNewArtSessionField("genreTags", defaultValues.genreTags ?? [], "")
+    const [selectedOthers, setSelectedOthers] = useInputNewArtSessionField("otherTags", defaultValues.otherTags ?? [], "")
     return (
         <div>
             <SectionTitle my="md">

@@ -18,7 +18,7 @@ interface NewArtRelatedFormProps {
     defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts">
 }
 const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ defaultValues }) => {
-    const [likePoint, setLikePoint] = useInputNewArtSessionField("likePoint", "", "/new/art/appeal")
+    const [likePoint, setLikePoint] = useInputNewArtSessionField<"likePoint", string>("likePoint", "", "/new/art/appeal")
 
     const {
         prevArts, nextArts,
