@@ -5,13 +5,17 @@ import { Box } from "@mantine/core"
 import FullWidth from "@/app/BaseLayout/FullWidth"
 import Navigation from "./Navigation"
 import { getNewArtSession } from "@/art/newArtSession/cookies"
+import { getArt } from "@/art/get"
+import { redirect } from "next/navigation"
 
 const NewArtRelatedArtPage = async () => {
     const newArtSession = await getNewArtSession()
+    const title = (newArtSession?.artId ? (await getArt(newArtSession.artId))?.title : newArtSession?.title)
+    if (!title) redirect("/art/new/title")
     return (
         <div>
             <NewArtSectionTitle>
-                4. 前後に見た作品
+                {title} をアピール
             </NewArtSectionTitle>
 
             <NewArtRelatedForm
@@ -23,7 +27,9 @@ const NewArtRelatedArtPage = async () => {
 
             <FullWidth>
                 <Box py="xl">
-                    <Navigation />
+                    <Navigation
+                        artId={newArtSession?.artId ?? null}
+                    />
                 </Box>
             </FullWidth>
 

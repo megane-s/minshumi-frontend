@@ -8,10 +8,14 @@ const NewArtTitlePage = async () => {
     return (
         <div>
             <NewArtSectionTitle>
-                1. タイトルを入力
+                作品を選択
             </NewArtSectionTitle>
 
-            <InputTitleForm defaultValues={{ title: newArtSession?.title ?? "" }} />
+            <InputTitleForm
+                defaultValues={{
+                    artId: newArtSession?.artId ?? null,
+                }}
+            />
 
             <NewArtProgress now={0} />
         </div>

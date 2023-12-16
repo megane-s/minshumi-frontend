@@ -9,14 +9,13 @@ const NewArtDetailPage = async () => {
     return (
         <div>
             <NewArtSectionTitle>
-                2. 作品の詳細を入力
+                作品の詳細を入力
             </NewArtSectionTitle>
 
             <InputDetailForm
                 defaultValues={{
                     title: newArtSession?.title ?? "",
                     description: newArtSession?.description ?? "",
-                    likePoint: newArtSession?.likePoint ?? "",
                     imageUrl: newArtSession?.imageUrl ?? "/placeholder/300x200_red.png",
                 }}
             />

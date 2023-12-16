@@ -6,13 +6,20 @@ import Link from "next/link"
 import { FC } from "react"
 import { IoMdCheckmark } from "react-icons/io"
 import { IoCaretBack } from "react-icons/io5"
+import { handleCreateArt } from "./actions"
+import { useMutate } from "@/util/client/useMutate"
+import MutateButton from "@/components/MutateButton"
+import { ArtId } from "@/art/type"
 
 interface NavigationProps {
+    artId: ArtId | null
 }
-const Navigation: FC<NavigationProps> = () => {
-    const handleSubmit = async () => {
-        alert("submit")
-    }
+const Navigation: FC<NavigationProps> = ({ artId }) => {
+    const handleSubmit = useMutate(async () => {
+        const newArt = await handleCreateArt()
+    }, {
+        onSuccess: { toast: "ok !" },
+    })
     return (
         <Flex justify="space-around" my="md" w="100%" wrap="wrap">
             <Button
@@ -20,18 +27,18 @@ const Navigation: FC<NavigationProps> = () => {
                 leftSection={<IoCaretBack />}
                 size="md"
                 component={Link}
-                href="/art/new/tag#"
+                href={artId ? "/art/new/title#" : "/art/new/tag#"}
             >
                 戻る
             </Button>
-            <Button
+            <MutateButton
                 variant="gradient"
                 size="md"
                 rightSection={<IoMdCheckmark />}
-                onClick={() => void handleSubmit()}
+                mutation={handleSubmit}
             >
                 登録
-            </Button>
+            </MutateButton>
         </Flex>
     )
 }

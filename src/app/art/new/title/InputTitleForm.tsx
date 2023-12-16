@@ -2,27 +2,45 @@
 
 import { FC } from "react"
 import InputTitle from "./InputTitle"
+import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
+import { NewArtSession } from "@/art/newArtSession/type"
 import { Button } from "@/components/Button"
 import { Center } from "@mantine/core"
 import Link from "next/link"
-import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
-import { NewArtSession } from "@/art/newArtSession/type"
 
 interface InputTitleFormProps {
-    defaultValues: Pick<NewArtSession, "title">
+    defaultValues: Pick<NewArtSession, "artId">
 }
 const InputTitleForm: FC<InputTitleFormProps> = ({ defaultValues }) => {
-    const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title, "/art/new/title")
+    const [selectArtId, setSelectArtId] = useInputNewArtSessionField("artId", defaultValues.artId, "/art/new/title")
     return (
         <div>
             <InputTitle
-                title={title}
-                onChangeTitle={setTitle}
+                selectArtId={selectArtId}
+                onSelectArt={({ artId }) => setSelectArtId(artId)}
             />
 
-            <Center my="lg">
-                <Button variant="filled" size="md" component={Link} href={`/art/new/detail#`} prefetch>
-                    次へ
+            {selectArtId !== null &&
+                <Center>
+                    <Button
+                        variant="filled"
+                        component={Link}
+                        href="/art/new/appeal#"
+                        my="sm"
+                    >
+                        次へ
+                    </Button>
+                </Center>
+            }
+
+            <Center>
+                <Button
+                    variant="subtle"
+                    component={Link}
+                    href="/art/new/detail"
+                    my="sm"
+                >
+                    この中にない
                 </Button>
             </Center>
 

@@ -9,7 +9,7 @@ const NewArtTagPage = async () => {
     return (
         <div>
             <NewArtSectionTitle>
-                3. タグを設定
+                タグを設定
             </NewArtSectionTitle>
 
             <NewArtTagForm

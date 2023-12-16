@@ -52,7 +52,7 @@ const NewArtTagForm: FC<NewArtTagFormProps> = ({ defaultValues }) => {
 
             <NewArtNavigation
                 prevHref="/art/new/detail#"
-                nextHref="/art/new/related#"
+                nextHref="/art/new/appeal#"
             />
         </div>
     )

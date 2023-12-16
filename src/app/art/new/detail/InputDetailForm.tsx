@@ -11,12 +11,11 @@ import { NewArtSession } from "@/art/newArtSession/type"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 
 interface InputDetailFormProps {
-    defaultValues: Pick<NewArtSession, "title" | "description" | "likePoint" | "imageUrl">
+    defaultValues: Pick<NewArtSession, "title" | "description" | "imageUrl">
 }
 const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
     const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title, "/art/new/detail")
     const [description, setDescription] = useInputNewArtSessionField("description", defaultValues.description, "/art/new/detail")
-    const [likePoint, setLikePoint] = useInputNewArtSessionField("likePoint", defaultValues.likePoint, "/art/new/detail")
     const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl, "/art/new/detail")
     const handleUpload = async () => {
         const { publicUrl } = await uploadFile()
@@ -57,12 +56,6 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
                         onChange={e => setDescription(e.target.value)}
                         label="作品の概要"
                         rows={5}
-                    />
-                    <Textarea
-                        value={likePoint}
-                        onChange={e => setLikePoint(e.target.value)}
-                        label="好きなポイント"
-                        rows={3}
                     />
                 </Stack>
 
