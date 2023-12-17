@@ -1,5 +1,5 @@
 import { getSession } from "@/auth/server/auth"
-import { InfoIcon } from "@/components/Alert"
+import { InfoIcon } from "@/components/icon/Info"
 import { Alert } from "@mantine/core"
 import { FC, Suspense } from "react"
 
