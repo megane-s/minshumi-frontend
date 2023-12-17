@@ -1,4 +1,5 @@
-import { ActionIcon, Button, Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
+import { ActionIcon, Badge, Button, Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
+import styles from "./styles.module.css"
 
 export const components: MantineTheme["components"] = {
     Card: Card.extend({
@@ -28,5 +29,11 @@ export const components: MantineTheme["components"] = {
             variant: "filled",
             size: "xl",
         },
+    }),
+    Badge: Badge.extend({
+        classNames: {
+            // 自動的に大文字になるのを防ぐ
+            root: styles.badge,
+        }
     }),
 }
