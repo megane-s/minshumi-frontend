@@ -44,6 +44,13 @@ const themeOverride = createTheme({
         deg: 90,
     },
     components,
+    breakpoints: {
+        xs: '36em',
+        sm: '48em',
+        md: '62em',
+        lg: '75em',
+        xl: '88em',
+    },
 })
 
 export const mantineTheme = mergeMantineTheme(DEFAULT_THEME, themeOverride)
