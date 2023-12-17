@@ -1,4 +1,4 @@
-import { Button, Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
+import { ActionIcon, Button, Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
 
 export const components: MantineTheme["components"] = {
     Card: Card.extend({
@@ -21,6 +21,12 @@ export const components: MantineTheme["components"] = {
         defaultProps: {
             variant: "default",
             w: "fit-content",
+        },
+    }),
+    ActionIcon: ActionIcon.extend({
+        defaultProps: {
+            variant: "filled",
+            size: "xl",
         },
     }),
 }
