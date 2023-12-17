@@ -3,9 +3,9 @@
 
 import React, { useState } from 'react';
 import { Flex, TextInput, ActionIcon } from '@mantine/core';
-import { IoMdSearch } from 'react-icons/io';
 import styles from "./page.module.css"
 import Link from 'next/link';
+import { SearchIcon } from '@/components/icon/Search';
 
 // onSearchの型を定義
 interface SearchBarProps {
@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "" }) => {
             />
             <Link href={`/art/search?q=${searchInput}`}>
                 <ActionIcon className={styles.actionIcon} disabled={!isValidSearchInput}>
-                    <IoMdSearch />
+                    <SearchIcon />
                 </ActionIcon>
             </Link>
         </Flex >
