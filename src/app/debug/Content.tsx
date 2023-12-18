@@ -19,7 +19,7 @@ const Content: FC<ContentProps> = () => {
 export default Content
 
 const MyComp = withSuspense(async (props: { label: string }) => {
-    const session = await sleep(3000)
+    await sleep(3000)
     return <>{props.label}:ok</>
 }, <Loader />)
 
