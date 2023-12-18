@@ -1,7 +1,7 @@
 import { Title, TitleProps } from "@mantine/core"
 import { FC } from "react"
 
-interface SectionTitleProps extends TitleProps {
+export interface SectionTitleProps extends TitleProps {
 }
 export const SectionTitle: FC<SectionTitleProps> = ({ ...props }) => {
     return (

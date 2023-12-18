@@ -1,0 +1,11 @@
+.overflowXHidden {
+  overflow-x: hidden;
+}
+
+.overflowXAuto {
+  overflow-x: auto;
+}
+
+.root {
+  width: fit-content;
+}

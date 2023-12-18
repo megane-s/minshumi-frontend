@@ -7,9 +7,9 @@ import { seedWatchingArt } from "./watchingArt"
 const main = async () => {
     try {
         console.log("🔵 seed script start .")
+        await seedArt()
+        await seedUser()
         await Promise.all([
-            seedArt(),
-            seedUser(),
             seedRecommendArt(),
             seedWatchingArt(),
         ])
