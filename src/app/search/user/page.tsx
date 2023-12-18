@@ -3,10 +3,8 @@ import React, { Suspense } from 'react';
 
 
 import { Loader } from '@/components/Loader';
-import { Center } from '@mantine/core';
-import SearchBar from './SearchBar';
+import { Box, Center } from '@mantine/core';
 import { SearchResultList } from './SearchResultList';
-import { getUser } from '@/user/get';
 
 interface PageProps {
     searchParams: {
@@ -17,10 +15,8 @@ interface PageProps {
 
 const UserSearchPage = async ({ searchParams }: PageProps) => {
     const query = searchParams.q ?? ""
-    await getUser("")
     return (
-        <div>
-            <SearchBar defaultValue={query} />
+        <Box my="md">
             {query.length >= 1
                 ? <Suspense key={query} fallback={
                     <Center>
@@ -31,7 +27,7 @@ const UserSearchPage = async ({ searchParams }: PageProps) => {
                 </Suspense>
                 : <div>検索文字列を入れて下さい。</div>
             }
-        </div>
+        </Box>
     );
 };
 
