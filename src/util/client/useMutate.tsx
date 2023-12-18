@@ -2,7 +2,10 @@ import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 
 interface UseMutateOptions {
-  loading: JSX.Element | string
+  loading: Partial<{
+    toast: JSX.Element | string
+    button: JSX.Element | string
+  }>
   onSuccess: { toast: JSX.Element | string }
   onError: { toast: JSX.Element | string }
 }
@@ -12,25 +15,21 @@ export const useMutate = <F extends ((...args: any[]) => Promise<any>)>(
   options: Partial<UseMutateOptions> = {},
 ) => {
   const { mutateAsync, isPending, isError, error, isSuccess } = useMutation({
-    ...options,
     mutationFn: handler,
-    onSuccess: () => {
-      if (options.onSuccess?.toast) {
-        toast.success(options.onSuccess.toast, {
-          position: "bottom-center",
-        })
-      }
-    },
-    onError: () => {
-      if (options.onError?.toast) {
-        toast.error(options.onError.toast, {
-          position: "bottom-center",
-        })
-      }
-    },
   })
+  const handleMutate = async (...args: Parameters<typeof mutateAsync>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return await toast.promise(
+      mutateAsync(...args),
+      {
+        loading: options.loading?.toast ?? null,
+        success: options.onSuccess?.toast ?? null,
+        error: options.onError?.toast ?? null,
+      },
+    )
+  }
   return {
-    mutate: mutateAsync,
+    mutate: handleMutate,
     isLoading: isPending,
     isError,
     error,

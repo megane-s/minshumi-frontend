@@ -1,4 +1,8 @@
-.control {
+.badge {
+  text-transform: none;
+}
+
+.carouselControl {
   &[data-inactive] {
     opacity: 0;
     cursor: default;
