@@ -91,6 +91,7 @@ export const handleFollow = async (followUserId: UserId) => {
     console.log(followUserId, loginUserId, isFollowing)
     if (isFollowing) return
     await follow(loginUserId, followUserId)
+    revalidatePath(`/user/${followUserId}`)
 }
 
 export const handleCancelFollow = async (followUserId: UserId) => {
