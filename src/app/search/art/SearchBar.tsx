@@ -24,7 +24,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "" }) => {
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
             />
-            <Link href={`/user/search?q=${searchInput}`}>
+            <Link href={`/search/art?q=${searchInput}`}>
                 <ActionIcon className={styles.actionIcon} disabled={!isValidSearchInput}>
                     <IoMdSearch />
                 </ActionIcon>

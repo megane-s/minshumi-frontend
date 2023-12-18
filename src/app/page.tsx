@@ -4,7 +4,7 @@ import { SectionTitle } from '@/components/SectionTitle';
 import React from 'react';
 import { getArtsWithTag } from '@/art/tag/getArts';
 import { tags } from './tags';
-import SearchBar from './art/search/SearchBar';
+import SearchBar from './search/art/SearchBar';
 
 const TopPage = async () => {
   const tagArts = await Promise.all(

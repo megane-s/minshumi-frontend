@@ -1,6 +1,6 @@
 //作品の検索画面
 
-import SearchBar from '@/app/art/search/SearchBar';
+import SearchBar from '@/app/search/art/SearchBar';
 import React, { Suspense } from 'react';
 import { SearchResultList } from './SearchResultList';
 import { getArt } from '@/art/get';
