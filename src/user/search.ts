@@ -1,6 +1,8 @@
 import { notImplementWarn } from "@/util/notImplement"
 import "server-only"
 import { User } from "./type"
+import { sleep } from "@/util/sleep"
+import { prisma } from "@/prisma"
 
 /**
  * 未実装。
@@ -10,5 +12,7 @@ import { User } from "./type"
  */
 export const searchUser = async (query: string): Promise<User[]> => {
     notImplementWarn(`searchUser(${query}) はまだ実装されていません。現状はからの配列を返します。`)
-    return []
+    await sleep(2000)
+    return (await prisma.user.findMany()).filter(() => Math.random() >= 0.8)
 }
+
