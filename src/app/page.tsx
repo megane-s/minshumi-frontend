@@ -4,7 +4,7 @@ import { SectionTitle } from '@/components/SectionTitle';
 import React from 'react';
 import { getArtsWithTag } from '@/art/tag/getArts';
 import { tags } from './tags';
-import SearchBar from './search/art/SearchBar';
+import SearchBar from '@/components/SearchBar';
 
 const TopPage = async () => {
   const tagArts = await Promise.all(
@@ -17,7 +17,7 @@ const TopPage = async () => {
   return (
     <div>
       {/* 検索バー */}
-      <SearchBar />
+      <SearchBar type="art" />
 
       {/* ここに作品登録を促す画面やおすすめ作品を出す画面 */}
 
