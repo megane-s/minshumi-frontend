@@ -18,7 +18,7 @@ const Navigation: FC<NavigationProps> = ({ artId }) => {
     const handleSubmit = useMutate(async () => {
         await handleCreateArt()
     }, {
-        loading: "登録しています...",
+        loading: { button: "登録しています..." },
         onSuccess: { toast: "好きな作品を登録しました！" },
     })
     return (

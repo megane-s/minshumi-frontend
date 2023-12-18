@@ -32,7 +32,7 @@ export const InputNewRelatedArt: FC<InputNewRelatedArtProps> = ({
         const { publicUrl } = await uploadFile()
         setInputNewArt(p => ({ ...p, imageUrl: publicUrl }))
     }, {
-        loading: "アップロード中...",
+        loading: { button: "アップロード中..." },
         onSuccess: { toast: "アップロードしました" },
         onError: { toast: "アップロードできませんでした" },
     })

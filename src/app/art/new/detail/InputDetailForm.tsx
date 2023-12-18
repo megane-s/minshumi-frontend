@@ -28,7 +28,7 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
         const { publicUrl } = await uploadFile()
         setImageUrl(publicUrl)
     }, {
-        loading: "アップロード中...",
+        loading: { button: "アップロード中..." },
         onSuccess: { toast: "アップロードしました！" },
         onError: { toast: "アップロードできませんでした..." },
     })

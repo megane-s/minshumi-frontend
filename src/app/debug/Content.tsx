@@ -1,10 +1,12 @@
 "use client"
 
+import { sleep } from "@/util/sleep"
+import { withSuspense } from "@/util/withSuspense"
+import { Container, Loader, } from "@mantine/core"
 import MutateButton from "@/components/MutateButton"
 import { Switch } from "@/components/Switch"
 import { useMutate } from "@/util/client/useMutate"
-import { sleep } from "@/util/sleep"
-import { Container, } from "@mantine/core"
+
 import { FC, useState } from "react"
 
 interface ContentProps {
@@ -22,6 +24,7 @@ const Content: FC<ContentProps> = () => {
     return (
         <Container>
             {/* 呼び出したいページ */}
+            <MyComp label="hoge" />
 
             <Switch
                 label="エラー"
@@ -37,3 +40,9 @@ const Content: FC<ContentProps> = () => {
 }
 
 export default Content
+
+const MyComp = withSuspense(async (props: { label: string }) => {
+    await sleep(3000)
+    return <>{props.label}:ok</>
+}, <Loader />)
+
