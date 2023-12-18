@@ -74,7 +74,9 @@ model User {
   goodBusinessCards        BusinessCardGoodUser[]
   ranks                    UserRank[]
   notifications            Notification[]
-  BusinessCardComment      BusinessCardComment[]
+  bussinessCardComments    BusinessCardComment[]
+  arts                     Art[]
+  RelatedArt               RelatedArt[]
 }
 
 model VerificationToken {
@@ -116,23 +118,32 @@ model UserRank {
 // Art
 
 model Art {
-  artId                  String                @id @default(cuid())
+  artId                  String                @id @default(cuid()) /// @zod.custom.use(z.string())
   title                  String
   imageUrl               String
   description            String
   relatedArt             RelatedArt[]
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
-  recommendUsers         RecommendArt[]
+  reccomendUsers         RecommendArt[]
   watchingUsers          WatchingArt[]
   bookmarkUsers          BookmarkArt[]
   useAsLikeBusinessCards BusinessCardLikeArt[]
+  user                   User?                 @relation(fields: [userId], references: [id])
+  userId                 String?
+  relatedArtArt          RelatedArt[]          @relation("art")
+  relatedArts            RelatedArt[]          @relation("relatedArt")
 }
 
 model RelatedArt {
+  userId       String
   artId        String
   relatedArtId String
-  relatedArt   Art    @relation(fields: [relatedArtId], references: [artId])
+  user         User    @relation(fields: [userId], references: [id])
+  art          Art     @relation("art", fields: [artId], references: [artId])
+  relatedArt   Art     @relation("relatedArt", fields: [relatedArtId], references: [artId])
+  Art          Art?    @relation(fields: [artArtId], references: [artId])
+  artArtId     String?
 
   @@id([artId, relatedArtId])
 }

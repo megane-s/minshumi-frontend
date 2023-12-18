@@ -1,7 +1,7 @@
 import { Modal, ModalProps } from "@mantine/core"
 import { useCallback, useMemo, useState } from "react"
 
-interface DialogProps extends ModalProps {
+export interface DialogProps extends ModalProps {
 }
 export const Dialog = Modal
 
