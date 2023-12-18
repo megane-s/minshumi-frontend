@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 
 import { Loader } from '@/components/Loader';
 import { Center } from '@mantine/core';
-import SearchBar from './search';
+import SearchBar from './SearchBar';
 import { SearchResultList } from './SearchResultList';
 import { getUser } from '@/user/get';
 
