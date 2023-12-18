@@ -16,6 +16,7 @@ import { Dialog, useDialog } from "@/components/Dialog"
 import styles from "./styles.module.css"
 import { login } from "@/auth/client/login"
 import { User } from "next-auth"
+import { DeleteConfirmCommentDialog } from "./DeleteConfirmCommentDialog"
 
 interface CommentListItemProps {
     comment: BusinessCardComment
@@ -144,25 +145,11 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                     </Button>
                 </Dialog>
 
-                <Dialog {...deleteConfirmDialog.dialogProps}>
-                    コメントを
-                    削除してもいいですか？
-                    <Flex justify="flex-end" gap="sm" mt="md">
-                        <Button
-                            variant="default"
-                            c="backgroundText"
-                            onClick={() => deleteConfirmDialog.onClose()}
-                        >
-                            NO
-                        </Button>
-                        <MutateButton
-                            variant="filled"
-                            mutation={deleteComment}
-                        >
-                            OK
-                        </MutateButton>
-                    </Flex>
-                </Dialog>
+                {/* ここにいれて */}
+                <DeleteConfirmCommentDialog
+                    comment={comment}
+                    {...deleteConfirmDialog.dialogProps}
+                />
 
             </Box>
             <Divider />
