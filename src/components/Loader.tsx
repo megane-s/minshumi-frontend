@@ -1,9 +1,3 @@
-import { FC } from "react"
-import { Loader as MLoader, LoaderProps as MLoaderPorps } from "@mantine/core"
-interface LoaderProps extends MLoaderPorps {
-}
-export const Loader: FC<LoaderProps> = ({ ...props }) => {
-    return (
-        <MLoader {...props} />
-    )
-}
+import { Loader as MLoader } from "@mantine/core"
+
+export const Loader = MLoader

@@ -1,0 +1,30 @@
+.flexGrow {
+  flex-grow: 1;
+}
+
+.flexShrink {
+  flex-shrink: 1;
+}
+
+.square {
+  width: fit-content;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.progressText {
+  font-size: 16px;
+}
+
+.progressTextLg {
+  font-size: 32px;
+}
+
+.progressTextBorder {
+  border-top: solid 1px var(--mantine-color-gray-3);
+  border-left: solid 1px var(--mantine-color-gray-3);
+}
+
+.progressSection {
+  transition: 0.5s;
+}

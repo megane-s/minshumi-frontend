@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Art" ADD COLUMN     "userId" STRING;
+
+-- AddForeignKey
+ALTER TABLE "Art" ADD CONSTRAINT "Art_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

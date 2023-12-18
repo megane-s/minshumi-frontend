@@ -1,13 +1,9 @@
 import { Modal, ModalProps } from "@mantine/core"
-import { FC, useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 
-interface DialogProps extends ModalProps {
+export interface DialogProps extends ModalProps {
 }
-export const Dialog: FC<DialogProps> = ({ ...props }) => {
-  return (
-    <Modal {...props}></Modal>
-  )
-}
+export const Dialog = Modal
 
 export const useDialog = (initialOpen: boolean = false) => {
   const [open, setOpen] = useState(initialOpen)

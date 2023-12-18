@@ -3,9 +3,10 @@
 import { useMutate } from "@/util/client/useMutate"
 import { Loader } from "@mantine/core"
 import { AnimatePresence, motion } from "framer-motion"
-import { Button, ButtonProps } from "./Button"
+import { Button } from "./Button"
+import { ComponentProps } from "react"
 
-interface MutateButtonProps<Res> extends ButtonProps {
+interface MutateButtonProps<Res> extends ComponentProps<typeof Button<"button">> {
     mutation: ReturnType<typeof useMutate<() => Promise<Res>>>
 }
 const MutateButton = <Res,>({ mutation, children, leftSection, disabled, ...buttonProps }: MutateButtonProps<Res>) => {

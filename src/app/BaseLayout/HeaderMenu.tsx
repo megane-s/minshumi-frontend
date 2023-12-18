@@ -6,13 +6,13 @@ import styles from "./Header.module.css"
 import { useDisclosure } from '@mantine/hooks';
 import Logo from "./Logo";
 import Link from "next/link";
-import { SlPencil } from "react-icons/sl"
-import { BsBellFill } from "react-icons/bs"
-import { FcSettings } from "react-icons/fc"
 import { Session } from "next-auth";
 import { tags } from "../tags";
 import { Burger } from '@mantine/core';
 import { logout } from "@/auth/client/logout";
+import { EditIcon } from "@/components/icon/Edit";
+import { NotificationIcon } from "@/components/icon/Notification";
+import { SettingsIcon } from "@/components/icon/Settings";
 
 interface HeaderMenuProps {
     session: Session | null
@@ -42,19 +42,19 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
                     <Divider />
                     <NavLink
                         label="作品の登録"
-                        rightSection={<SlPencil />}
+                        rightSection={<EditIcon />}
                         component={Link}
                         href="/art/new"
                     />
                     <NavLink
                         label="通知"
-                        rightSection={<BsBellFill />}
+                        rightSection={<NotificationIcon />}
                         component={Link}
                         href="/notification"
                     />
                     <NavLink
                         label="設定"
-                        rightSection={<FcSettings />}
+                        rightSection={<SettingsIcon />}
                         component={Link}
                         href="/settings"
                     />
