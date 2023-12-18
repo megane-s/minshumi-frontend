@@ -35,8 +35,8 @@ const MutateButton = <Res,>({ mutation, children, leftSection, disabled, ...butt
             disabled={mutation.isLoading || disabled}
             {...buttonProps}
         >
-            {mutation.isLoading && mutation.loading
-                ? mutation.loading
+            {mutation.isLoading && mutation.loading?.button
+                ? mutation.loading.button
                 : children
             }
         </Button>
