@@ -145,7 +145,6 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                     </Button>
                 </Dialog>
 
-                {/* ここにいれて */}
                 <DeleteConfirmCommentDialog
                     comment={comment}
                     {...deleteConfirmDialog.dialogProps}
