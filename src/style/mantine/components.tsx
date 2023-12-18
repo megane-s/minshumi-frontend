@@ -1,4 +1,6 @@
-import { Button, Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
+import { ActionIcon, Badge, Button, Card, MantineTheme, TextInput, Textarea } from "@mantine/core";
+import styles from "./styles.module.css"
+import { Carousel } from "@mantine/carousel";
 
 export const components: MantineTheme["components"] = {
     Card: Card.extend({
@@ -22,5 +24,20 @@ export const components: MantineTheme["components"] = {
             variant: "default",
             w: "fit-content",
         },
+    }),
+    ActionIcon: ActionIcon.extend({
+        defaultProps: {
+            variant: "filled",
+            size: "xl",
+        },
+    }),
+    Badge: Badge.extend({
+        classNames: {
+            // 自動的に大文字になるのを防ぐ
+            root: styles.badge,
+        }
+    }),
+    Carousel: Carousel.extend({
+        classNames: { root: styles.carouselControl },
     }),
 }

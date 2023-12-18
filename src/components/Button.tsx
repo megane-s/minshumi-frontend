@@ -1,5 +1,3 @@
-import { Button as MButton, ButtonProps as MButtonProps } from "@mantine/core"
+import { Button as MButton } from "@mantine/core"
 
-export interface ButtonProps extends MButtonProps {
-}
 export const Button = MButton
