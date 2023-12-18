@@ -1,12 +1,9 @@
-//ユーザー検索画面
+//作品の検索画面
+
 import React, { Suspense } from 'react';
-
-
-import { Loader } from '@/components/Loader';
-import { Center } from '@mantine/core';
-import SearchBar from './SearchBar';
 import { SearchResultList } from './SearchResultList';
-import { getUser } from '@/user/get';
+import { Loader } from '@/components/Loader';
+import { Box, Center } from '@mantine/core';
 
 interface PageProps {
     searchParams: {
@@ -15,12 +12,10 @@ interface PageProps {
 }
 
 
-const UserSearchPage = async ({ searchParams }: PageProps) => {
+const ArtSearchPage = async ({ searchParams }: PageProps) => {
     const query = searchParams.q ?? ""
-    await getUser("")
     return (
-        <div>
-            <SearchBar defaultValue={query} />
+        <Box my="md">
             {query.length >= 1
                 ? <Suspense key={query} fallback={
                     <Center>
@@ -31,8 +26,8 @@ const UserSearchPage = async ({ searchParams }: PageProps) => {
                 </Suspense>
                 : <div>検索文字列を入れて下さい。</div>
             }
-        </div>
+        </Box>
     );
 };
 
-export default UserSearchPage;
+export default ArtSearchPage;

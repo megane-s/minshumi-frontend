@@ -3,16 +3,17 @@
 
 import React, { useState } from 'react';
 import { Flex, TextInput, ActionIcon } from '@mantine/core';
-import styles from "./page.module.css"
+import styles from "./SearchBar.module.css"
 import Link from 'next/link';
 import { SearchIcon } from '@/components/icon/Search';
 
 // onSearchの型を定義
 interface SearchBarProps {
     defaultValue?: string
+    type: "art" | "user"
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "" }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "", type }) => {
     const [searchInput, setSearchInput] = useState(defaultValue);
     const isValidSearchInput = searchInput.trim().length !== 0
 
@@ -24,7 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "" }) => {
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
             />
-            <Link href={`/art/search?q=${searchInput}`}>
+            <Link href={`/search/${type}?q=${searchInput}`}>
                 <ActionIcon className={styles.actionIcon} disabled={!isValidSearchInput}>
                     <SearchIcon />
                 </ActionIcon>
