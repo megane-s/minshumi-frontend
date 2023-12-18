@@ -57,7 +57,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
     const pleaseLoginDialog = useDialog()
 
     const [isGooded, setIsGooded] = useState(defaultIsGooded)
-    const handleGoodClick = async () => {
+    const handleGoodClick = useMutate(async () => {
         try {
             if (!isLogin) return pleaseLoginDialog.onOpen()
             setIsGooded(!isGooded)
@@ -66,10 +66,14 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
             } else {
                 await handleCancelGood(comment.commentId)
             }
+
         } catch (error) {
             setIsGooded(isGooded)
         }
-    }
+    }, {
+        onSuccess: { toast: "いいねを押しました" },
+        onError: { toast: "いいねを押せませんでした" },
+    })
 
     if (isDeleted) return
     return (
@@ -117,7 +121,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                 <Flex justify="space-between">
                     <LikeButton
                         isGooded={isGooded}
-                        onClick={() => void handleGoodClick()}
+                        onClick={() => void handleGoodClick.mutate(null)}
                     />
                     {loginUser?.id === comment.commentUserId &&
                         <CommentMenu

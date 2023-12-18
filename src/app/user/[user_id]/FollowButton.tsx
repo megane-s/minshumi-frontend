@@ -4,6 +4,7 @@ import { FC, useState } from "react"
 import { handleCancelFollow, handleFollow } from "./actions"
 import { UserId } from "@/user/type"
 import { Button } from "@/components/Button"
+import { useMutate } from "@/util/client/useMutate"
 
 interface FollowButtonProps {
     userId: UserId
@@ -11,7 +12,7 @@ interface FollowButtonProps {
 }
 export const FollowButton: FC<FollowButtonProps> = ({ userId, defaultIsLoginUserFollow }) => {
     const [isLoginUserFollow, setIsLoginUserFollow] = useState(defaultIsLoginUserFollow)
-    const handleClickFollow = async () => {
+    const handleClickFollow = useMutate(async () => {
         setIsLoginUserFollow(!isLoginUserFollow)
         try {
             if (isLoginUserFollow) {
@@ -23,10 +24,15 @@ export const FollowButton: FC<FollowButtonProps> = ({ userId, defaultIsLoginUser
             console.error(error)
             setIsLoginUserFollow(isLoginUserFollow)
         }
+
+    }, {
+        onSuccess: { toast: "フォローを押しました" },
+        onError: { toast: "フォローを押せませんでした" },
     }
+    )
 
     return (
-        <Button onClick={() => void handleClickFollow()}>
+        <Button onClick={() => void handleClickFollow.mutate(null)}>
             {isLoginUserFollow ? "フォロー解除" : "フォロー"}
         </Button>
     )
