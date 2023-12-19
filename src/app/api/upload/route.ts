@@ -9,7 +9,7 @@ export const GET = async () => {
     const storage = new Storage({
         credentials,
     })
-    const bucket = storage.bucket(process.env._GCP_GCS_USER_CONTENT_BUCKET as string)
+    const bucket = storage.bucket(process.env.GCP_GCS_USER_CONTENT_BUCKET as string)
     const file = bucket.file(randomId())
     const publicUrl = file.publicUrl()
     const [uploadUrl] = await file.getSignedUrl({

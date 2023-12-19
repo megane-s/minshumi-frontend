@@ -12,8 +12,8 @@ permissions:
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   SERVICE_NAME: minshumi-frontend
-  _COCKROACH_DATABASE_URL: ${{ secrets._COCKROACH_DATABASE_URL }}
-  _NEXTAUTH_SECRET: ${{ secrets._NEXTAUTH_SECRET }}
+  COCKROACH_DATABASE_URL: ${{ secrets.COCKROACH_DATABASE_URL }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
 
 jobs:
   deploy:
@@ -41,6 +41,6 @@ jobs:
             --project=$PROJECT_ID \
             --image=asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} \
             --region=asia-northeast1 \
-            --set-secrets=_COCKROACH_DATABASE_URL=cockroach-db-prod-url:1,_GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:1,_GOOGLE_AUTH_CLIENT_SECRET=google-auth-client-secret:1,_NEXTAUTH_SECRET=nextauth-secret:1,_REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:1 \
+            --set-secrets=COCKROACH_DATABASE_URL=cockroach-db-prod-url:1,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:1,GOOGLE_AUTH_CLIENT_SECRET=google-auth-client-secret:1,NEXTAUTH_SECRET=nextauth-secret:1,REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:1 \
             --allow-unauthenticated \
             --service-account=minshumi-frontend-prod-service@megane-s-gcp.iam.gserviceaccount.com
