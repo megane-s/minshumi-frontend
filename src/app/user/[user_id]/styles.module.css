@@ -1,0 +1,24 @@
+.textarea {
+  flex-grow: 1;
+}
+
+.overflowAuto {
+  overflow: auto;
+}
+
+.circle {
+  border-radius: 9999px;
+}
+
+.fill {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.widthMinContent {
+  width: min-content;
+}
+
+.taCenter {
+  text-align: center;
+}

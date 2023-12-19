@@ -245,7 +245,7 @@ model BusinessCardComment {
 model BusinessCardCommentGoodUser {
   commentId  String
   goodUserId String
-  comment    BusinessCardComment @relation(fields: [commentId], references: [commentId])
+  comment    BusinessCardComment @relation(fields: [commentId], references: [commentId], onDelete: Cascade)
   goodUser   User                @relation(fields: [goodUserId], references: [id])
 
   @@id([commentId, goodUserId])

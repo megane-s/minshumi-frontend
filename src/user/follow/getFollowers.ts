@@ -9,8 +9,8 @@ import { User, UserId } from "../type"
  */
 export const getFollowers = async (userId: UserId): Promise<User[]> => {
     const results = await prisma.follower.findMany({
-        where: { followerId: userId },
-        include: { user: true },
+        where: { userId: userId },
+        include: { follower: true },
     })
-    return results.map(result => result.user)
+    return results.map(result => result.follower)
 }
