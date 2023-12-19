@@ -21,8 +21,11 @@
     "editor.formatOnSave": false
   },
   "cSpell.words": [
+    "buildx",
     "Mantine",
-    "minshumi"
+    "megane-s",
+    "minshumi",
+    "tbsten"
   ],
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
