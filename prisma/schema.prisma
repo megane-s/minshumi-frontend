@@ -240,6 +240,8 @@ model BusinessCardComment {
   commentUser    User                          @relation(fields: [commentUserId], references: [id])
   businessCard   BusinessCard                  @relation(fields: [businessCardId], references: [businessCardId])
   goodUsers      BusinessCardCommentGoodUser[]
+  createAt       DateTime                      @default(now())
+  updateAt       DateTime                      @updatedAt
 }
 
 model BusinessCardCommentGoodUser {
