@@ -51,7 +51,7 @@ jobs:
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
           path: './deploy.log'
-          destination: 'minshumi-ci/deploy-log/${{ github.sha }}/${{ github.workflow_sha }}.log'
+          destination: 'minshumi-ci/deploy-log/${{ github.workflow_sha }}.log'
       - name: Output Deploy Log URL
         run: |
           # Log
