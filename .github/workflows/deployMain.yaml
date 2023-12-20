@@ -56,9 +56,9 @@ jobs:
         run: |
           # Log
           echo "Deploy URL:"
-          echo "${{ steps.send-deploy-log.outputs.uploaded }}"
+          echo "https://console.cloud.google.com/storage/browser/_details/${{ steps.send-deploy-log.outputs.uploaded }};tab=live_object?project=megane-s-gcp"
 
           # Job Summary
           echo "| | | "  >> $GITHUB_STEP_SUMMARY
           echo "|---|---|"  >> $GITHUB_STEP_SUMMARY
-          echo "| Deploy Log | ${{ steps.send-deploy-log.outputs.uploaded }} | "  >> $GITHUB_STEP_SUMMARY
+          echo "| Deploy Log | https://console.cloud.google.com/storage/browser/_details/${{ steps.send-deploy-log.outputs.uploaded }};tab=live_object?project=megane-s-gcp | "  >> $GITHUB_STEP_SUMMARY
