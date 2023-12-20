@@ -54,11 +54,12 @@ jobs:
           destination: 'minshumi-ci/deploy-log/${{ github.workflow_sha }}.log'
       - name: Output Deploy Log URL
         run: |
+          DEPLOY_LOG_URL=https://storage.cloud.google.com/minshumi-ci/${{ steps.send-deploy-log.outputs.uploaded }}
           # Log
           echo "Deploy URL:"
-          echo "https://console.cloud.google.com/storage/browser/_details/minshumi-ci/${{ steps.send-deploy-log.outputs.uploaded }};tab=live_object?project=megane-s-gcp"
+          echo "$DEPLOY_LOG_URL"
 
           # Job Summary
           echo "| | | "  >> $GITHUB_STEP_SUMMARY
           echo "|---|---|"  >> $GITHUB_STEP_SUMMARY
-          echo "| Deploy Log | https://console.cloud.google.com/storage/browser/_details/minshumi-ci/${{ steps.send-deploy-log.outputs.uploaded }};tab=live_object?project=megane-s-gcp | "  >> $GITHUB_STEP_SUMMARY
+          echo "| Deploy Log | $DEPLOY_LOG_URL | "  >> $GITHUB_STEP_SUMMARY
