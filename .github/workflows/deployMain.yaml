@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
   SERVICE_NAME: minshumi-frontend
   COCKROACH_DATABASE_URL: ${{ secrets.COCKROACH_DATABASE_URL }}
   NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
