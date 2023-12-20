@@ -23,6 +23,13 @@ jobs:
       id-token: write
     steps:
       - uses: 'actions/checkout@v4'
+      - name: Set current datetime as env variable
+        env:
+          TZ: 'Asia/Tokyo'
+        run: |
+          echo "DEPLOY_TIMESTAMP=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
+          echo "[deploy-log] sha:${{ github.sha }}"
+          echo "[deploy-log] at $DEPLOY_TIMESTAMP"
       - uses: 'google-github-actions/auth@v2'
         with:
           workload_identity_provider: 'projects/174482454094/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider'
@@ -43,4 +50,14 @@ jobs:
             --region=asia-northeast1 \
             --set-secrets=COCKROACH_DATABASE_URL=cockroach-db-prod-url:1,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:1,GOOGLE_AUTH_CLIENT_SECRET=google-auth-client-secret:1,NEXTAUTH_SECRET=nextauth-secret:1,REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:1 \
             --allow-unauthenticated \
-            --service-account=minshumi-frontend-prod-service@megane-s-gcp.iam.gserviceaccount.com
+            --service-account=minshumi-frontend-prod-service@megane-s-gcp.iam.gserviceaccount.com \
+          &>> ./deploy.log
+      - name: Send Deploy Log to Cloud Storage
+        uses: 'google-github-actions/upload-cloud-storage@v2'
+        with:
+          path: './deploy.log'
+          destination: 'minshumi-ci/deploy-log/${{ github.sha }}/${{ github.env.DEPLOY_TIMESTAMP }}.log'
+      - name: Output Deploy Log URL
+        run: |
+          echo "[deploy-log] deploy.log is here"
+          echo 'https://minshumi-ci/deploy-log/${{ github.sha }}/${{ github.env.DEPLOY_TIMESTAMP }}.log'
