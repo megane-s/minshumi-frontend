@@ -59,6 +59,6 @@ jobs:
           echo "${{ steps.send-deploy-log.outputs.uploaded }}"
 
           # Job Summary
-          echo "| | | "
-          echo "|---|---|"
-          echo "| Deploy Log | ${{ steps.send-deploy-log.outputs.uploaded }} | "
+          echo "| | | "  >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|"  >> $GITHUB_STEP_SUMMARY
+          echo "| Deploy Log | ${{ steps.send-deploy-log.outputs.uploaded }} | "  >> $GITHUB_STEP_SUMMARY
