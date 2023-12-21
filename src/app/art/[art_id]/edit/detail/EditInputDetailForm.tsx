@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react"
 import { NewArtSession } from "@/art/newArtSession/type"
-import InputDetailForm, { getTitleErrors } from "@/art/components/detail/InputDetailForm"
+import InputDetailForm, { getTitleErrors } from "@/art/components/detail/ArtDetailForm"
 import { Flex } from "@mantine/core"
 import { useMutate } from "@/util/client/useMutate"
 import MutateButton from "@/components/MutateButton"

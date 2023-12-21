@@ -3,7 +3,7 @@
 import { FC } from "react"
 import { NewArtSession } from "@/art/newArtSession/type"
 import NewArtNavigation from "../Navigation"
-import InputDetailForm from "@/art/components/detail/InputDetailForm"
+import InputDetailForm from "@/art/components/detail/ArtDetailForm"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { Art } from "@/art/type"
 

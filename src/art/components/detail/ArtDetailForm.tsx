@@ -2,7 +2,7 @@
 
 import { FC, Fragment, ReactNode } from "react"
 import { Flex, Indicator, Stack, TextInput } from "@mantine/core"
-import styles from "./InputDetailForm.module.css"
+import styles from "./ArtDetailForm.module.css"
 import { Textarea } from "@/components/Textarea"
 import Image from "next/image"
 import { MdOutlineEdit } from "react-icons/md";
@@ -10,7 +10,7 @@ import { uploadFile } from "@/file-upload/client"
 import { useMutate } from "@/util/client/useMutate"
 import { Art } from "../../type"
 
-interface InputDetailFormProps {
+interface ArtDetailFormProps {
     title: string
     onChangeTitle: (title: string) => void
     titleErrors: string[]
@@ -25,7 +25,7 @@ interface InputDetailFormProps {
 
     actions: ReactNode
 }
-const InputDetailForm: FC<InputDetailFormProps> = ({
+const ArtDetailForm: FC<ArtDetailFormProps> = ({
     title, onChangeTitle, titleErrors,
     description, onChangeDescription,
     imageUrl, onChangeImageUrl,
@@ -89,7 +89,7 @@ const InputDetailForm: FC<InputDetailFormProps> = ({
     )
 }
 
-export default InputDetailForm
+export default ArtDetailForm
 
 export const getTitleErrors = (title: Art["title"]) => {
     const errors: string[] = []
