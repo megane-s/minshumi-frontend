@@ -8,7 +8,7 @@ import Image from "next/image"
 import { MdOutlineEdit } from "react-icons/md";
 import { uploadFile } from "@/file-upload/client"
 import { useMutate } from "@/util/client/useMutate"
-import { Art } from "../type"
+import { Art } from "../../type"
 
 interface InputDetailFormProps {
     title: string

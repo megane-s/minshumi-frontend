@@ -3,7 +3,7 @@
 import { FC } from "react"
 import { NewArtSession } from "@/art/newArtSession/type"
 import NewArtNavigation from "../Navigation"
-import InputDetailForm from "@/art/components/InputDetailForm"
+import InputDetailForm from "@/art/components/detail/InputDetailForm"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { Art } from "@/art/type"
 
@@ -28,7 +28,7 @@ const NewInputDetailForm: FC<NewInputDetailFormProps> = ({ defaultValues }) => {
                     prevHref="/art/new/title#"
                     nextHref={isValid ? "#" : "/art/new/tag#"}
                     nextButtonProps={{
-                        disabled: isValid,
+                        disabled: !isValid,
                     }}
                 />
             }
