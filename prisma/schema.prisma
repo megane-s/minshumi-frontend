@@ -123,7 +123,6 @@ model Art {
   title                  String
   imageUrl               String
   description            String
-  relatedArt             RelatedArt[]
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
   reccomendUsers         RecommendArt[]
@@ -140,11 +139,9 @@ model RelatedArt {
   userId       String
   artId        String
   relatedArtId String
-  user         User    @relation(fields: [userId], references: [id])
-  art          Art     @relation("art", fields: [artId], references: [artId])
-  relatedArt   Art     @relation("relatedArt", fields: [relatedArtId], references: [artId])
-  Art          Art?    @relation(fields: [artArtId], references: [artId])
-  artArtId     String?
+  user         User   @relation(fields: [userId], references: [id])
+  art          Art    @relation("art", fields: [artId], references: [artId])
+  relatedArt   Art    @relation("relatedArt", fields: [relatedArtId], references: [artId])
 
   @@id([artId, relatedArtId])
 }
