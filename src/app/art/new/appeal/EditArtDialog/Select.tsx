@@ -3,7 +3,7 @@ import { DialogProps } from "@/components/Dialog"
 import { Center, Button } from "@mantine/core"
 import { useQueryClient } from "@tanstack/react-query"
 import { FC, useState } from "react"
-import SelectArt from "../../title/InputTitle"
+import SelectArt from "@/art/components/SelectArt"
 import { EditArtDialogFooter } from "./Footer"
 import { InputRelatedArt } from "@/art/newArtSession/type"
 
