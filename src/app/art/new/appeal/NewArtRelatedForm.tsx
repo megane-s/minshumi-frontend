@@ -1,21 +1,15 @@
 "use client"
 
-import { Center, Image, Stack, Text } from "@mantine/core"
-import { FC, useState } from "react"
-import { IoMdAdd } from "react-icons/io";
-import { ActionIcon } from "@/components/ActionIcon"
+import { Box } from "@mantine/core"
+import { FC } from "react"
 import FullWidth from "@/app/BaseLayout/FullWidth";
-import CenterizedScroll, { CenterizedScrollTarget } from "./CenterizedScroll";
-import styles from "./NewArtRelatedForm.module.css"
-import RelatedArtListItem from "./RelatedArtListItem";
 import { InputRelatedArt, NewArtSessionInput } from "@/art/newArtSession/type";
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField";
-import { Textarea } from "@/components/Textarea";
-import { useDialog } from "@/components/Dialog";
-import EditArtDialog from "./EditArtDialog/EditArtDialog";
+import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm";
+import Navigation from "./Navigation";
 
 interface NewArtRelatedFormProps {
-    defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts">
+    defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts" | "artId">
 }
 const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ defaultValues }) => {
     const [likePoint, setLikePoint] = useInputNewArtSessionField<"likePoint", string>("likePoint", "", "/new/art/appeal")
@@ -27,91 +21,28 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ defaultValues }) => {
         deletePrevArt, deleteNextArt,
     } = useInputRelatedArts(defaultValues)
 
-    const [addTarget, setAddTarget] = useState<null | "prev" | "next">(null)
-    const addArtDialog = useDialog()
-    const handleAddArt = (art: InputRelatedArt) => {
-        if (addTarget === null) return
-        if (addTarget === "prev") {
-            addPrevArts(art)
-        } else {
-            addNextArts(art)
-        }
-        setAddTarget(null)
-    }
-
     return (
-        <div>
-            <Text ta="center">好きなポイント</Text>
-            <Center my="md" w="100%">
-                <Textarea
-                    value={likePoint}
-                    onChange={e => setLikePoint(e.target.value)}
-                    w="500px"
-                    maw="100%"
-                    mb="xl"
-                    rows={4}
-                />
-            </Center>
-
-            <Text ta="center">前後に見た作品</Text>
-            <FullWidth>
-                <Center>
-                    <CenterizedScroll className={styles.arts}>
-                        <ActionIcon
-                            onClick={() => {
-                                setAddTarget("prev")
-                                addArtDialog.onOpen()
-                            }}
-                        >
-                            <IoMdAdd />
-                        </ActionIcon>
-                        {prevArts.map((art, index) =>
-                            <RelatedArtListItem
-                                key={"artId" in art ? art.artId : art.title}
-                                artInput={art}
-                                onEditConfirm={(input) => updatePrevArt(index, input)}
-                                onDelete={() => deletePrevArt(index)}
-                            />
-                        )}
-                        <CenterizedScrollTarget>
-                            <Stack align="center" gap="xs" ta="center">
-                                <Image
-                                    src="/placeholder/300x200_red.png"
-                                    alt="テスト"
-                                    width={150 * 1.2}
-                                    height={100 * 1.2}
-                                    style={{ width: 150 * 1.2, height: "auto" }}
-                                />
-                                鬼滅の刃
-                            </Stack>
-                        </CenterizedScrollTarget>
-                        {nextArts.map((art, index) =>
-                            <RelatedArtListItem
-                                key={index}
-                                artInput={art}
-                                onEditConfirm={(input) => updateNextArt(index, input)}
-                                onDelete={() => deleteNextArt(index)}
-                            />
-                        )}
-                        <ActionIcon
-                            onClick={() => {
-                                setAddTarget("next")
-                                addArtDialog.onOpen()
-                            }}
-                        >
-                            <IoMdAdd />
-                        </ActionIcon>
-                    </CenterizedScroll>
-                </Center>
-            </FullWidth>
-
-            <EditArtDialog
-                {...addArtDialog.dialogProps}
-                title="関連作品を追加"
-                defaultValues={{ mode: "select" }}
-                onEditConfirm={handleAddArt}
-            />
-        </div>
+        <ArtRelatedForm
+            likePoint={likePoint}
+            onChangeLikePoint={setLikePoint}
+            prevArts={prevArts}
+            onAddPrevArt={addPrevArts}
+            onUpdatePrevArt={updatePrevArt}
+            onDeletePrevArt={deletePrevArt}
+            nextArts={nextArts}
+            onAddNextArt={addNextArts}
+            onUpdateNextArt={updateNextArt}
+            onDeleteNextArt={deleteNextArt}
+            actions={
+                <FullWidth>
+                    <Box py="xl">
+                        <Navigation
+                            artId={defaultValues.artId ?? null}
+                        />
+                    </Box>
+                </FullWidth>
+            }
+        />
     )
 }
 
