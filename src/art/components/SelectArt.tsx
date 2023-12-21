@@ -5,17 +5,17 @@ import { Card } from "@/components/Card"
 import { TextInput } from "@/components/TextInput"
 import { Center, Loader } from "@mantine/core"
 import { FC, useState } from "react"
-import styles from "./styles.module.css"
+import styles from "./SelectArt.module.css"
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useDebounce } from "react-use"
 import { Art, ArtId, ArtSchema } from "@/art/type"
 
-interface InputTitleProps {
+interface SelectArtProps {
     selectArtId: ArtId | null
     onSelectArt: (art: Art) => void
     autoFocus?: boolean
 }
-const SelectArt: FC<InputTitleProps> = ({ autoFocus = true, selectArtId, onSelectArt }) => {
+const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelectArt }) => {
     const [title, setTitle] = useState("")
     const [debouncedTitle, setDebouncedTitle] = useState(title)
     useDebounce(() => {
