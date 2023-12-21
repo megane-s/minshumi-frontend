@@ -1,3 +1,5 @@
+import "server-only"
+
 import { UserId } from "@/user/type";
 import { RecommendArt } from "../type";
 import { prisma } from "@/prisma";
@@ -7,5 +9,5 @@ export const getRecommendArtsByUser = async (userId: UserId): Promise<RecommendA
         include: { art: true },
         where: { userId },
     })
-    return recommendArts.map(({ art, likePoint }) => ({ ...art, likePoint }))
+    return recommendArts.map(({ art, likePoint, userId }) => ({ ...art, likePoint, userId }))
 }

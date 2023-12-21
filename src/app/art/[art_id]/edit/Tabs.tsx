@@ -27,7 +27,7 @@ const EditTabs: FC<EditTabsProps> = ({ artId }) => {
                     </Link>
                     <Link href={`/art/${artId}/edit/appeal`}>
                         <Tabs.Tab value="appeal">
-                            detail
+                            appeal
                         </Tabs.Tab>
                     </Link>
                 </Tabs.List>
