@@ -147,11 +147,18 @@ model RelatedArt {
 }
 
 model ArtTag {
-  artId String
-  tag   String
-  art   Art    @relation(fields: [artId], references: [artId])
+  artId   String
+  tagType ArtTagType
+  tag     String
+  art     Art        @relation(fields: [artId], references: [artId])
 
   @@id([artId, tag])
+}
+
+enum ArtTagType {
+  MEDIA
+  GENRE
+  OTHER
 }
 
 model InterestTag {
