@@ -123,7 +123,6 @@ model Art {
   title                  String
   imageUrl               String
   description            String
-  relatedArt             RelatedArt[]
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
   reccomendUsers         RecommendArt[]
@@ -140,21 +139,32 @@ model RelatedArt {
   userId       String
   artId        String
   relatedArtId String
-  user         User    @relation(fields: [userId], references: [id])
-  art          Art     @relation("art", fields: [artId], references: [artId])
-  relatedArt   Art     @relation("relatedArt", fields: [relatedArtId], references: [artId])
-  Art          Art?    @relation(fields: [artArtId], references: [artId])
-  artArtId     String?
+  type         RelatedArtType
+  user         User           @relation(fields: [userId], references: [id])
+  art          Art            @relation("art", fields: [artId], references: [artId])
+  relatedArt   Art            @relation("relatedArt", fields: [relatedArtId], references: [artId])
 
   @@id([artId, relatedArtId])
 }
 
+enum RelatedArtType {
+  PREV // 前に見た作品
+  NEXT // 後に見た作品
+}
+
 model ArtTag {
-  artId String
-  tag   String
-  art   Art    @relation(fields: [artId], references: [artId])
+  artId   String
+  tagType ArtTagType
+  tag     String
+  art     Art        @relation(fields: [artId], references: [artId])
 
   @@id([artId, tag])
+}
+
+enum ArtTagType {
+  MEDIA
+  GENRE
+  OTHER
 }
 
 model InterestTag {

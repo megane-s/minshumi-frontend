@@ -1,4 +1,6 @@
 import { prisma } from "@/prisma"
+// eslint-disable-next-line no-restricted-imports
+import { RelatedArt } from "@/prisma/generated"
 import { UserId } from "@/user/type"
 import { notImplementError } from "@/util/notImplement"
 // eslint-disable-next-line no-restricted-imports
@@ -20,29 +22,28 @@ export const addLikeArt = async (newArtSession: NewArtSession, by: UserId) => {
             }
         })
 
-        const inputRelatedArts: InputRelatedArt[] = [...newArtSession.prevArts, ...newArtSession.nextArts]
-        const relatedArts = await Promise.all((inputRelatedArts).map(async relatedArt => {
-            if ("artId" in relatedArt) {
-                const art = await prisma.art.findUnique({
-                    where: { artId: relatedArt.artId },
-                })
-                if (!art) throw notImplementError(`invalid related artId :${relatedArt.artId}`)
-                return art
-            }
-            return await prisma.art.create({
-                data: {
-                    title: relatedArt.title,
-                    description: relatedArt.description,
-                    imageUrl: relatedArt.imageUrl,
-                },
-            })
-        }))
+        const relatedArts = await Promise.all([
+            ...newArtSession.prevArts.map(async (input): Promise<RelatedArt> => {
+                const prevRelatedArt = await createOrGetRelatedArt(prisma, input)
+                return {
+                    artId: art.artId,
+                    relatedArtId: prevRelatedArt.artId,
+                    userId: by,
+                    type: "PREV",
+                }
+            }),
+            ...newArtSession.nextArts.map(async (input): Promise<RelatedArt> => {
+                const prevRelatedArt = await createOrGetRelatedArt(prisma, input)
+                return {
+                    artId: art.artId,
+                    relatedArtId: prevRelatedArt.artId,
+                    userId: by,
+                    type: "NEXT",
+                }
+            }),
+        ])
         await prisma.relatedArt.createMany({
-            data: relatedArts.map(relatedArt => ({
-                artId: art.artId,
-                relatedArtId: relatedArt.artId,
-                userId: by,
-            })),
+            data: relatedArts,
         })
         return [art, relatedArts] as const
     })
@@ -63,7 +64,6 @@ const createOrGetArt = async (
     const title = newArtSession.title
     const description = newArtSession.description
     const imageUrl = newArtSession.imageUrl
-    const tags = [...newArtSession.mediaTags ?? [], ...newArtSession.genreTags ?? [], ...newArtSession.otherTags ?? []]
     if (typeof title === "undefined" || typeof description === "undefined" || typeof imageUrl === "undefined") {
         throw notImplementError(`invalid input :${JSON.stringify(newArtSession)}`)
     }
@@ -73,11 +73,35 @@ const createOrGetArt = async (
             description: description,
             imageUrl: imageUrl,
             tags: {
-                create: tags.map(tag => ({ tag })),
+                create: [
+                    ...(newArtSession.mediaTags?.map(tag => ({ tag, tagType: "MEDIA" } as const)) ?? []),
+                    ...(newArtSession.genreTags?.map(tag => ({ tag, tagType: "GENRE" } as const)) ?? []),
+                    ...(newArtSession.otherTags?.map(tag => ({ tag, tagType: "OTHER" } as const)) ?? []),
+                ],
             },
             userId: by,
         },
         include: { tags: true },
     })
     return newArt
+}
+
+const createOrGetRelatedArt = async (
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
+    relatedArt: InputRelatedArt,
+) => {
+    if ("artId" in relatedArt) {
+        const art = await prisma.art.findUnique({
+            where: { artId: relatedArt.artId },
+        })
+        if (!art) throw notImplementError(`invalid related artId :${relatedArt.artId}`)
+        return art
+    }
+    return await prisma.art.create({
+        data: {
+            title: relatedArt.title,
+            description: relatedArt.description,
+            imageUrl: relatedArt.imageUrl,
+        },
+    })
 }

@@ -30,9 +30,9 @@ export const UserRankScalarFieldEnumSchema = z.enum(['userId','rank']);
 
 export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl','description','userId']);
 
-export const RelatedArtScalarFieldEnumSchema = z.enum(['userId','artId','relatedArtId','artArtId']);
+export const RelatedArtScalarFieldEnumSchema = z.enum(['userId','artId','relatedArtId','type']);
 
-export const ArtTagScalarFieldEnumSchema = z.enum(['artId','tag']);
+export const ArtTagScalarFieldEnumSchema = z.enum(['artId','tagType','tag']);
 
 export const InterestTagScalarFieldEnumSchema = z.enum(['userId','tag']);
 
@@ -63,6 +63,15 @@ export const SortOrderSchema = z.enum(['asc','desc']);
 export const QueryModeSchema = z.enum(['default','insensitive']);
 
 export const NullsOrderSchema = z.enum(['first','last']);
+
+export const RelatedArtTypeSchema = z.enum(['PREV','NEXT']);
+
+export type RelatedArtTypeType = `${z.infer<typeof RelatedArtTypeSchema>}`
+
+export const ArtTagTypeSchema = z.enum(['MEDIA','GENRE','OTHER']);
+
+export type ArtTagTypeType = `${z.infer<typeof ArtTagTypeSchema>}`
+
 /////////////////////////////////////////
 // MODELS
 /////////////////////////////////////////
@@ -192,10 +201,10 @@ export type Art = z.infer<typeof ArtSchema>
 /////////////////////////////////////////
 
 export const RelatedArtSchema = z.object({
+  type: RelatedArtTypeSchema,
   userId: z.string(),
   artId: z.string(),
   relatedArtId: z.string(),
-  artArtId: z.string().nullable(),
 })
 
 export type RelatedArt = z.infer<typeof RelatedArtSchema>
@@ -205,6 +214,7 @@ export type RelatedArt = z.infer<typeof RelatedArtSchema>
 /////////////////////////////////////////
 
 export const ArtTagSchema = z.object({
+  tagType: ArtTagTypeSchema,
   artId: z.string(),
   tag: z.string(),
 })

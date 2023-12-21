@@ -3,9 +3,8 @@
 import {
     Art as GeneratedArt,
     ArtSchema as GeneratedArtSchema,
-    ArtTag as GeneratedArtTag,
     ArtTagSchema as GeneratedArtTagSchema,
-    RecommendArtSchema as GeneratedRecommendArtSchema,
+    RecommendArtSchema as GeneratedRecommendArtSchema
 } from "@/prisma/generated"
 import { z } from "zod"
 
@@ -16,7 +15,10 @@ export const ArtIdSchema = ArtSchema.shape.artId
 export type ArtId = Art["artId"]
 
 export const ArtTagSchema = GeneratedArtTagSchema.shape.tag
-export type ArtTag = GeneratedArtTag["tag"]
+export type ArtTag = z.infer<typeof ArtTagSchema>
+
+export const ArtTagTypeSchema = GeneratedArtTagSchema.shape.tagType
+export type ArtTagType = z.infer<typeof ArtTagTypeSchema>
 
 export const RecommendArtSchema = GeneratedArtSchema.extend(
     GeneratedRecommendArtSchema.pick({ likePoint: true }).shape
