@@ -36,6 +36,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
                         label={tag}
                         component={Link}
                         href={`/tag/${tag}`}
+                        onClick={close}
                     />
                 )}
                 {session && <>
@@ -45,22 +46,25 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
                         rightSection={<EditIcon />}
                         component={Link}
                         href="/art/new"
+                        onClick={close}
                     />
                     <NavLink
                         label="通知"
                         rightSection={<NotificationIcon />}
                         component={Link}
                         href="/notification"
+                        onClick={close}
                     />
                     <NavLink
                         label="設定"
                         rightSection={<SettingsIcon />}
                         component={Link}
                         href="/settings"
+                        onClick={close}
                     />
                     <NavLink
                         label="ログアウト"
-                        onClick={() => void logout()}
+                        onClick={() => logout()}
                     />
                 </>}
             </Drawer>
