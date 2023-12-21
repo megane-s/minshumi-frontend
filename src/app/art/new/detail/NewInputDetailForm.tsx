@@ -26,7 +26,7 @@ const NewInputDetailForm: FC<NewInputDetailFormProps> = ({ defaultValues }) => {
             actions={
                 <NewArtNavigation
                     prevHref="/art/new/title#"
-                    nextHref={isValid ? "#" : "/art/new/tag#"}
+                    nextHref={!isValid ? "#" : "/art/new/tag#"}
                     nextButtonProps={{
                         disabled: !isValid,
                     }}

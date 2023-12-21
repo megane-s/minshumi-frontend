@@ -2,7 +2,7 @@ import { PageTitle } from "@/components/PageTitle"
 import { ReactNode } from "react"
 import EditTabs from "./Tabs"
 import { ArtId } from "@/art/type"
-import { Space } from "@mantine/core"
+import { Box } from "@mantine/core"
 
 interface PageProps {
     children: ReactNode
@@ -15,8 +15,9 @@ const ArtEditLayout = ({ children, params: { art_id } }: PageProps) => {
                 作品の編集
             </PageTitle>
             <EditTabs artId={art_id} />
-            <Space h="1rem" />
-            {children}
+            <Box mt="md" mb="xl">
+                {children}
+            </Box>
         </div>
     )
 }
