@@ -52,4 +52,4 @@ jobs:
       - name: Run build
         run: yarn build
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          COCKROACH_DATABASE_URL: ${{ secrets.COCKROACH_DATABASE_URL }}

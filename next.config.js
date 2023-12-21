@@ -9,7 +9,8 @@ const nextConfig = {
                 pathname: "/minshumi-user-content/**",
             },
         ]
-    }
+    },
+    output: "standalone",
 }
 
 module.exports = nextConfig
