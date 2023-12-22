@@ -17,17 +17,17 @@ const EditTabs: FC<EditTabsProps> = ({ artId }) => {
                 <Tabs.List>
                     <Link href={`/art/${artId}/edit/detail`}>
                         <Tabs.Tab value="detail">
-                            detail
+                            作品の詳細
                         </Tabs.Tab>
                     </Link>
                     <Link href={`/art/${artId}/edit/tag`}>
                         <Tabs.Tab value="tag">
-                            tag
+                            タグ
                         </Tabs.Tab>
                     </Link>
                     <Link href={`/art/${artId}/edit/appeal`}>
                         <Tabs.Tab value="appeal">
-                            appeal
+                            アピール
                         </Tabs.Tab>
                     </Link>
                 </Tabs.List>
