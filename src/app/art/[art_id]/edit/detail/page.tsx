@@ -12,6 +12,7 @@ const ArtDetailEditPage = async ({ params: { art_id } }: PageProps) => {
     return (
         <div>
             <EditInputDetailForm
+                artId={art_id}
                 defaultValues={art}
             />
         </div>
