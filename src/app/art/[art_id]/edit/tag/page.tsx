@@ -17,6 +17,7 @@ const ArtEditTagPage = async ({ params: { art_id } }: PageProps) => {
     return (
         <div>
             <EditArtTagForm
+                artId={art_id}
                 defaultValues={{
                     mediaTags,
                     genreTags,

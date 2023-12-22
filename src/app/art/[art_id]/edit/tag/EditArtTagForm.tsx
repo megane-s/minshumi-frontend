@@ -2,27 +2,32 @@
 
 import { ArtTagForm } from "@/art/components/tag/ArtTagForm"
 import { getGenreTags, medias, others } from "@/art/components/tag/tags"
-import { ArtTag } from "@/art/type"
+import { ArtId, ArtTag } from "@/art/type"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
-import { sleep } from "@/util/sleep"
 import { Flex } from "@mantine/core"
 import { FC, useState } from "react"
+import { handleSaveArtTags } from "./actions"
 
 interface EditArtTagFormProps {
+    artId: ArtId
     defaultValues: {
         mediaTags: ArtTag[]
         genreTags: ArtTag[]
         otherTags: ArtTag[]
     }
 }
-export const EditArtTagForm: FC<EditArtTagFormProps> = ({ defaultValues }) => {
+export const EditArtTagForm: FC<EditArtTagFormProps> = ({ artId, defaultValues }) => {
     const [selectedMedias, setSelectedMedias] = useState(defaultValues.mediaTags)
     const [selectedGenres, setSelectedGenres] = useState(defaultValues.genreTags)
     const [selectedOthers, setSelectedOthers] = useState(defaultValues.otherTags)
 
     const handleSave = useMutate(async () => {
-        await sleep(1000)
+        await handleSaveArtTags(artId, {
+            medias: selectedMedias,
+            genres: selectedGenres,
+            others: selectedOthers,
+        })
     }, {
         onSuccess: { toast: "更新しました！" },
         onError: { toast: "更新できませんでした..." },
