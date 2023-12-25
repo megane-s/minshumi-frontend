@@ -30,4 +30,8 @@ export const options: NextAuthOptions = {
             return session
         },
     },
+    pages: {
+        signIn: "/login",
+        newUser: "/profile/new",
+    }
 }
