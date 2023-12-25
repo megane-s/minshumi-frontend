@@ -3,7 +3,8 @@
 import React, { Suspense } from 'react';
 import { SearchResultList } from './SearchResultList';
 import { Loader } from '@/components/Loader';
-import { Box, Center } from '@mantine/core';
+import { Center } from '@mantine/core';
+import { css } from 'styled-system/css';
 
 interface PageProps {
     searchParams: {
@@ -15,7 +16,7 @@ interface PageProps {
 const ArtSearchPage = async ({ searchParams }: PageProps) => {
     const query = searchParams.q ?? ""
     return (
-        <Box my="md">
+        <div className={css({ my: "md" })}>
             {query.length >= 1
                 ? <Suspense key={query} fallback={
                     <Center>
@@ -26,7 +27,7 @@ const ArtSearchPage = async ({ searchParams }: PageProps) => {
                 </Suspense>
                 : <div>検索文字列を入れて下さい。</div>
             }
-        </Box>
+        </div>
     );
 };
 

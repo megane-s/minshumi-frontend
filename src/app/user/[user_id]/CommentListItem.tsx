@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react"
 import { BusinessCardComment } from "@/businessCard/comment/type"
-import { ActionIcon, Avatar, Box, Divider, Flex, Menu } from "@mantine/core"
+import { ActionIcon, Avatar, Divider, Flex, Menu } from "@mantine/core"
 import { LikeButton } from "./LikeButton"
 import { Textarea } from "@/components/Textarea"
 import { IoMdMore } from "react-icons/io";
@@ -13,10 +13,10 @@ import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { updateComment as updateCommentAction, deleteComment as deleteCommentAction, handleGood, handleCancelGood } from "./actions"
 import { Dialog, useDialog } from "@/components/Dialog"
-import styles from "./styles.module.css"
 import { login } from "@/auth/client/login"
 import { User } from "next-auth"
 import { DeleteConfirmCommentDialog } from "./DeleteConfirmCommentDialog"
+import { css } from "styled-system/css"
 
 interface CommentListItemProps {
     comment: BusinessCardComment
@@ -79,47 +79,49 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
     if (isDeleted) return
     return (
         <div>
-            <Box py="md">
+            <div className={css({ py: "md" })}>
                 <Flex justify="space-between" gap="xs" align="center">
-                    <Flex gap="xs" className={`${styles.fill}`}>
+                    <Flex gap="xs" className={`${css({ flexGrow: 1, flexShrink: 1 })}`}>
                         <Avatar
                             src={commentUser.image}
                             alt={commentUser.name ?? "コメントしたユーザ"}
-                            className={styles.circle}
+                            className={css({ borderRadius: "9999px" })}
                         />
                         {commentUser.name}
                     </Flex>
-                    <div>
+                    <span>
                         {"2023/12/04"}
-                    </div>
+                    </span>
                 </Flex>
 
-                {mode === "view"
-                    ? editingComment
-                    : <>
-                        <Textarea
-                            size='xs'
-                            value={editingComment}
-                            onChange={e => setEditingComment(e.target.value)}
-                            disabled={updateComment.isLoading}
-                        />
-                        <Flex justify="flex-end" my="xs" gap="xs">
-                            <Button
-                                onClick={() => {
-                                    setMode("view")
-                                    setEditingComment(comment.content)
-                                }}
-                            >
-                                キャンセル
-                            </Button>
-                            <MutateButton mutation={updateComment} variant="filled">
-                                更新
-                            </MutateButton>
-                        </Flex>
-                    </>
-                }
+                <div className={css({ py: "sm" })}>
+                    {mode === "view"
+                        ? editingComment
+                        : <>
+                            <Textarea
+                                size='xs'
+                                value={editingComment}
+                                onChange={e => setEditingComment(e.target.value)}
+                                disabled={updateComment.isLoading}
+                            />
+                            <Flex justify="flex-end" my="xs" gap="xs">
+                                <Button
+                                    onClick={() => {
+                                        setMode("view")
+                                        setEditingComment(comment.content)
+                                    }}
+                                >
+                                    キャンセル
+                                </Button>
+                                <MutateButton mutation={updateComment} variant="filled">
+                                    更新
+                                </MutateButton>
+                            </Flex>
+                        </>
+                    }
+                </div>
 
-                <Flex justify="space-between">
+                <Flex justify="flex-end">
                     <LikeButton
                         isGooded={isGooded}
                         onClick={() => void handleGoodClick.mutate(null)}
@@ -150,7 +152,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                     {...deleteConfirmDialog.dialogProps}
                 />
 
-            </Box>
+            </div>
             <Divider />
         </div>
 

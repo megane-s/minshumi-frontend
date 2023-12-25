@@ -1,12 +1,12 @@
-import { FC, ReactNode } from "react"
-import styles from "./FullWidth.module.css"
+import { ComponentProps, FC, ReactNode } from "react"
+import { css, cx } from "styled-system/css"
 
-interface FullWidthProps {
+interface FullWidthProps extends ComponentProps<"div"> {
     children: ReactNode
 }
-const FullWidth: FC<FullWidthProps> = ({ children }) => {
+const FullWidth: FC<FullWidthProps> = ({ className, children }) => {
     return (
-        <div className={styles.fullWidth}>
+        <div className={cx(css({ marginX: "calc(50% - 50vw)" }), className)}>
             {children}
         </div>
     )

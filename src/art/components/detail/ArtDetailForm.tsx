@@ -2,13 +2,13 @@
 
 import { FC, Fragment, ReactNode } from "react"
 import { Flex, Indicator, Stack, TextInput } from "@mantine/core"
-import styles from "./ArtDetailForm.module.css"
 import { Textarea } from "@/components/Textarea"
 import Image from "next/image"
 import { MdOutlineEdit } from "react-icons/md";
 import { uploadFile } from "@/file-upload/client"
 import { useMutate } from "@/util/client/useMutate"
 import { Art } from "../../type"
+import { css } from "styled-system/css"
 
 interface ArtDetailFormProps {
     title: string
@@ -52,7 +52,7 @@ const ArtDetailForm: FC<ArtDetailFormProps> = ({
                         size={24}
                         position="bottom-end"
                         h="fit-content"
-                        classNames={{ indicator: styles.imageIndicator }}
+                        classNames={{ indicator: css({ right: "8px", bottom: "8px", cursor: "pointer" }) }}
                         onClick={handleUpload.mutate}
                     >
                         <Image
@@ -65,7 +65,7 @@ const ArtDetailForm: FC<ArtDetailFormProps> = ({
                     </Indicator>
                 </Flex>
 
-                <Stack className={`${styles.flexGrow} ${styles.flexShrink}`}>
+                <Stack className={css({ flexGrow: 1, flexShrink: 1 })}>
                     <TextInput
                         value={title}
                         onChange={e => onChangeTitle(e.target.value)}

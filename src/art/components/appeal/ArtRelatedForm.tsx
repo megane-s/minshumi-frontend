@@ -6,13 +6,13 @@ import { ActionIcon } from "@/components/ActionIcon"
 import { Textarea } from "@/components/Textarea"
 import { Center, Stack, Text } from "@mantine/core"
 import { FC, ReactNode, useState } from "react"
-import styles from "./ArtRelatedForm.module.css"
 import { useDialog } from "@/components/Dialog"
 import { IoMdAdd } from "react-icons/io"
 import RelatedArtListItem from "./RelatedArtListItem"
 import Image from "next/image"
 import EditArtDialog from "./EditArtDialog/EditArtDialog"
 import { InputRelatedArt } from "@/art/newArtSession/type"
+import { css } from "styled-system/css"
 
 interface ArtRelatedFormProps {
     title: string
@@ -63,7 +63,7 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
             <Text ta="center">前後に見た作品</Text>
             <FullWidth>
                 <Center>
-                    <CenterizedScroll className={styles.arts}>
+                    <CenterizedScroll className={css({ transition: "opacity 0.3s", paddingX: "var(--mantine-spacing-lg)" })}>
                         <ActionIcon
                             onClick={() => {
                                 setAddTarget("prev")
@@ -75,13 +75,14 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
                         {prevArts.map((art, index) =>
                             <RelatedArtListItem
                                 key={"artId" in art ? art.artId : art.title}
+                                className={css({ flexShrink: 0 })}
                                 artInput={art}
                                 onEditConfirm={(input) => onUpdatePrevArt(index, input)}
                                 onDelete={() => onDeletePrevArt(index)}
                             />
                         )}
-                        <CenterizedScrollTarget>
-                            <Stack align="center" gap="xs" ta="center">
+                        <CenterizedScrollTarget className={css({ flexShrink: 0 })}>
+                            <Stack align="center" gap="xs" ta="center" style={{ flexShrink: 0 }}>
                                 <Image
                                     src="/placeholder/300x200_red.png"
                                     alt="テスト"
@@ -95,6 +96,7 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
                         {nextArts.map((art, index) =>
                             <RelatedArtListItem
                                 key={index}
+                                className={css({ flexShrink: 0 })}
                                 artInput={art}
                                 onEditConfirm={(input) => onUpdateNextArt(index, input)}
                                 onDelete={() => onDeleteNextArt(index)}

@@ -7,6 +7,8 @@ import type { Metadata } from 'next'
 import { Providers } from "./provider"
 import BaseLayout from "./BaseLayout/BaseLayout"
 
+import "@/style/globals.css"
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

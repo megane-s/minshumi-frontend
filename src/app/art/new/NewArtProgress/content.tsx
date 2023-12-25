@@ -1,30 +1,48 @@
-import { Affix, Box, Flex, Progress, Text } from "@mantine/core"
-import styles from "./styles.module.css"
+import { Affix, Flex, Progress } from "@mantine/core"
 import { FC } from "react"
+import { css } from "styled-system/css"
 
 interface NewArtProgressContentProps {
     now: number
     total: number
 }
+
 const NewArtProgressContent: FC<NewArtProgressContentProps> = ({ now, total }) => {
     return (
         <Affix position={{ left: 0, right: 0, bottom: 0 }} w="100%">
             <Flex w="100%" h={0} align="flex-end">
-                <Box p="md" className={`${styles.flexGrow} ${styles.flexShrink}`} bg="background.2">
+                <div className={css({ p: "md", flexGrow: 1, flexShrink: 1, bg: "background.2" })}>
                     <Progress
                         value={now / total * 100}
-                        classNames={{ section: styles.progressSection }}
+                        classNames={{ section: css({ transition: "0.5s" }) }}
                     />
-                </Box>
-                <Box className={`${styles.square} ${styles.progressText} ${styles.progressTextBorder}`} bg="background.2" p="sm">
-                    <Text c="primary" component="span" fw="bold" className={styles.progressTextLg}>
+                </div>
+                <div
+                    className={css({
+                        width: "fit-content",
+                        height: "auto",
+                        aspectRatio: "1 / 1",
+                        fontSize: "16px",
+                        borderTop: "solid 1px var(--mantine-color-gray-3)",
+                        borderLeft: "solid 1px var(--mantine-color-gray-3)",
+                        bg: "background.2",
+                        p: "sm",
+                    })}
+                >
+                    <span
+                        className={css({
+                            color: "primary.0",
+                            fontSize: "4xl",
+                            fontWeight: "bold",
+                        })}
+                    >
                         {now}
-                    </Text>
+                    </span>
                     {" "}
                     /
                     {" "}
                     {total}
-                </Box>
+                </div>
             </Flex>
         </Affix>
     )

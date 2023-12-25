@@ -3,9 +3,9 @@ import React from 'react';
 import { FC } from 'react';
 import { Flex } from '@mantine/core';
 import Link from 'next/link';
-import styles from './UserListItem.module.css';
 import { Avatar } from '@/components/Avatar';
 import { User } from '@/user/type';
+import { css } from 'styled-system/css';
 
 
 interface UserListItemProps {
@@ -13,10 +13,13 @@ interface UserListItemProps {
 }
 
 const UserListItem: FC<UserListItemProps> = ({ user }) => (
-    <Link href={`/user/${user.id}`} className={styles.link}>
+    <Link
+        href={`/user/${user.id}`}
+        className={css({ color: "inherit", textDecoration: "inherit" })}
+    >
         <Flex key={user.id} p="sm" gap="md">
             <Avatar
-                className={styles.listItemImage}
+                className={css({ height: "fit-content", aspectRatio: "1 / 1", objectFit: "cover" })}
                 src={user.image ?? "/placeholder/300x200_red.png"}
                 alt={user.name ?? "名無し"}
                 size="md"
@@ -26,4 +29,4 @@ const UserListItem: FC<UserListItemProps> = ({ user }) => (
     </Link>
 );
 
-export default UserListItem;
+export default UserListItem

@@ -26,8 +26,8 @@ export const FollowButton: FC<FollowButtonProps> = ({ userId, defaultIsLoginUser
         }
 
     }, {
-        onSuccess: { toast: "フォローを押しました" },
-        onError: { toast: "フォローを押せませんでした" },
+        onSuccess: { toast: isLoginUserFollow ? "フォロー解除しました" : "フォローしました" },
+        onError: { toast: "エラー" },
     }
     )
 

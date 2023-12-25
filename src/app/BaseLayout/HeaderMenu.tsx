@@ -2,7 +2,6 @@
 
 import { Divider, Drawer, Flex, NavLink } from "@mantine/core"
 import { FC } from "react"
-import styles from "./Header.module.css"
 import { useDisclosure } from '@mantine/hooks';
 import Logo from "./Logo";
 import Link from "next/link";
@@ -13,6 +12,7 @@ import { logout } from "@/auth/client/logout";
 import { EditIcon } from "@/components/icon/Edit";
 import { NotificationIcon } from "@/components/icon/Notification";
 import { SettingsIcon } from "@/components/icon/Settings";
+import { css } from "styled-system/css";
 
 interface HeaderMenuProps {
     session: Session | null
@@ -21,7 +21,11 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
     const [opened, { toggle, close }] = useDisclosure();
     return (
         <>
-            <Flex className={styles.menu} align="center" onClick={toggle} >
+            <Flex
+                className={css({ cursor: "pointer", position: "relative", width: "fit-content" })}
+                align="center"
+                onClick={toggle}
+            >
                 <Burger opened={opened} onClick={toggle} aria-label="Toggle navigation" />
             </Flex>
             <Drawer

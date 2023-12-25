@@ -5,10 +5,10 @@ import { Card } from "@/components/Card"
 import { TextInput } from "@/components/TextInput"
 import { Center, Loader } from "@mantine/core"
 import { FC, useState } from "react"
-import styles from "./SelectArt.module.css"
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useDebounce } from "react-use"
 import { Art, ArtId, ArtSchema } from "@/art/type"
+import { css } from "styled-system/css"
 
 interface SelectArtProps {
     selectArtId: ArtId | null
@@ -43,7 +43,7 @@ const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelect
             <Center mb="lg" mx="xl">
                 <TextInput
                     bg="background.2"
-                    classNames={{ input: styles.textAlignCenter }}
+                    classNames={{ input: css({ textAlign: "center" }) }}
                     value={title} onChange={e => setTitle(e.target.value)}
                     autoFocus={autoFocus}
                     w="300px"

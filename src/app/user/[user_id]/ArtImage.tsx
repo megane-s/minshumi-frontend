@@ -7,8 +7,8 @@ import { Flex } from "@mantine/core"
 import Image from "next/image"
 import Link from "next/link"
 import { FC } from "react"
-import styles from "./styles.module.css"
 import LinkButton from "@/components/LinkButton"
+import { css } from "styled-system/css"
 
 interface ArtImageProps {
     art: Art
@@ -17,19 +17,29 @@ export const ArtImage: FC<ArtImageProps> = ({ art }) => {
     const dialog = useDialog()
     return (
         <>
-            <Flex direction="column" align="center" w="min-content">
+            <div className={css({ width: "min-content", flexShrink: 0 })}>
                 <Image
                     src={art.imageUrl}
                     alt={art.title}
                     width={200}
                     height={100}
-                    style={{ width: "auto", height: 100, objectFit: "cover", cursor: "pointer" }}
+                    className={css({
+                        w: "fit-content",
+                        minW: "fit-content",
+                        maxW: "fit-content",
+                        height: 100,
+                    })}
                     onClick={() => dialog.onOpen()}
                 />
-                <div className={styles.taCenter}>
+                <div className={css({
+                    w: "100%",
+                    maxW: "100%",
+                    wordBreak: "break-all",
+                    textAlign: "center",
+                })}>
                     {art.title}
                 </div>
-            </Flex>
+            </div>
 
             <Dialog {...dialog.dialogProps}>
                 <Link href={`/art/${art.artId}`} >
@@ -38,7 +48,7 @@ export const ArtImage: FC<ArtImageProps> = ({ art }) => {
                         alt={art.title}
                         width={200}
                         height={100}
-                        style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                        className={css({ width: "100%", height: "auto", objectFit: "cover" })}
                     />
                 </Link>
 

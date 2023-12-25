@@ -69,9 +69,18 @@ const shape = {
     lg: 15,
 } as const
 
+const spacing = {
+    xs: 0.625 * 16,
+    sm: 0.750 * 16,
+    md: 1.000 * 16,
+    lg: 1.250 * 16,
+    xl: 2.000 * 16,
+}
+
 export const minshumiTheme = {
     colors,
     shape,
+    spacing,
 } as const
 
 export type MinshumiTheme = typeof minshumiTheme
