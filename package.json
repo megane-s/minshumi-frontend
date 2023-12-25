@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "panda codegen",
     "postinstall": "prisma generate",
-    "dev": "next dev",
+    "dev": "rm -rf .next && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
