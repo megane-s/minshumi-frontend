@@ -2,20 +2,24 @@
 
 import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm"
 import { InputRelatedArt } from "@/art/newArtSession/type"
-import { RecommendArt } from "@/art/type"
+import { ArtId, RecommendArt } from "@/art/type"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
-import { sleep } from "@/util/sleep"
 import { Flex } from "@mantine/core"
 import { FC, useState } from "react"
+import { handleSaveAppeal } from "./actions"
 
 interface EditArtRelatedFormProps {
+    artId: ArtId
+    title: string
     defaultValues: Pick<RecommendArt, "likePoint"> & {
         prevArts: InputRelatedArt[]
         nextArts: InputRelatedArt[]
     }
 }
 export const EditArtRelatedForm: FC<EditArtRelatedFormProps> = ({
+    artId,
+    title,
     defaultValues,
 }) => {
     const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
@@ -28,7 +32,11 @@ export const EditArtRelatedForm: FC<EditArtRelatedFormProps> = ({
     } = useInputRelatedArts(defaultValues)
 
     const handleSave = useMutate(async () => {
-        await sleep(1000)
+        await handleSaveAppeal(artId, {
+            likePoint,
+            prevArts,
+            nextArts,
+        })
     }, {
         loading: { toast: "更新中..." },
         onSuccess: { toast: "更新しました！" },
@@ -37,6 +45,7 @@ export const EditArtRelatedForm: FC<EditArtRelatedFormProps> = ({
 
     return (
         <ArtRelatedForm
+            title={title}
             likePoint={likePoint}
             onChangeLikePoint={setLikePoint}
             prevArts={prevArts}

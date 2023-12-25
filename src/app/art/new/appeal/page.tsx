@@ -16,6 +16,7 @@ const NewArtRelatedArtPage = async () => {
             </NewArtSectionTitle>
 
             <NewArtRelatedForm
+                title={title}
                 defaultValues={{
                     prevArts: newArtSession?.prevArts ?? [],
                     nextArts: newArtSession?.nextArts ?? [],

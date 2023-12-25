@@ -9,9 +9,10 @@ import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm";
 import Navigation from "./Navigation";
 
 interface NewArtRelatedFormProps {
+    title: string
     defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts" | "artId">
 }
-const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ defaultValues }) => {
+const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, defaultValues }) => {
     const [likePoint, setLikePoint] = useInputNewArtSessionField<"likePoint", string>("likePoint", "", "/new/art/appeal")
 
     const {
@@ -23,6 +24,7 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ defaultValues }) => {
 
     return (
         <ArtRelatedForm
+            title={title}
             likePoint={likePoint}
             onChangeLikePoint={setLikePoint}
             prevArts={prevArts}

@@ -15,6 +15,8 @@ import EditArtDialog from "./EditArtDialog/EditArtDialog"
 import { InputRelatedArt } from "@/art/newArtSession/type"
 
 interface ArtRelatedFormProps {
+    title: string
+
     likePoint: string
     onChangeLikePoint: (likePoint: string) => void
 
@@ -31,6 +33,7 @@ interface ArtRelatedFormProps {
     actions: ReactNode
 }
 export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
+    title,
     likePoint, onChangeLikePoint,
     prevArts, onAddPrevArt, onUpdatePrevArt, onDeletePrevArt,
     nextArts, onAddNextArt, onUpdateNextArt, onDeleteNextArt,
@@ -86,7 +89,7 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
                                     height={100 * 1.2}
                                     style={{ width: 150 * 1.2, height: "auto" }}
                                 />
-                                鬼滅の刃
+                                {title}
                             </Stack>
                         </CenterizedScrollTarget>
                         {nextArts.map((art, index) =>
