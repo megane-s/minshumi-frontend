@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "panda codegen",
     "postinstall": "prisma generate",
-    "dev": "rm -rf .next && next dev",
-    "build": "next build",
+    "dev": "rm -rf .next && panda codegen && next dev",
+    "build": "panda codegen && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ."
