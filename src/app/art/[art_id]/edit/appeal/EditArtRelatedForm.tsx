@@ -1,0 +1,107 @@
+"use client"
+
+import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm"
+import { InputRelatedArt } from "@/art/newArtSession/type"
+import { ArtId, RecommendArt } from "@/art/type"
+import MutateButton from "@/components/MutateButton"
+import { useMutate } from "@/util/client/useMutate"
+import { Flex } from "@mantine/core"
+import { FC, useState } from "react"
+import { handleSaveAppeal } from "./actions"
+
+interface EditArtRelatedFormProps {
+    artId: ArtId
+    title: string
+    defaultValues: Pick<RecommendArt, "likePoint"> & {
+        prevArts: InputRelatedArt[]
+        nextArts: InputRelatedArt[]
+    }
+}
+export const EditArtRelatedForm: FC<EditArtRelatedFormProps> = ({
+    artId,
+    title,
+    defaultValues,
+}) => {
+    const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
+
+    const {
+        prevArts, nextArts,
+        addPrevArts, addNextArts,
+        updatePrevArt, updateNextArt,
+        deletePrevArt, deleteNextArt,
+    } = useInputRelatedArts(defaultValues)
+
+    const handleSave = useMutate(async () => {
+        await handleSaveAppeal(artId, {
+            likePoint,
+            prevArts,
+            nextArts,
+        })
+    }, {
+        loading: { toast: "更新中..." },
+        onSuccess: { toast: "更新しました！" },
+        onError: { toast: "更新できませんでした..." },
+    })
+
+    return (
+        <ArtRelatedForm
+            title={title}
+            likePoint={likePoint}
+            onChangeLikePoint={setLikePoint}
+            prevArts={prevArts}
+            nextArts={nextArts}
+            onAddPrevArt={addPrevArts}
+            onAddNextArt={addNextArts}
+            onUpdatePrevArt={updatePrevArt}
+            onUpdateNextArt={updateNextArt}
+            onDeletePrevArt={deletePrevArt}
+            onDeleteNextArt={deleteNextArt}
+            actions={<Flex mt="lg" justify="center">
+                <MutateButton variant="filled" size="lg" mutation={handleSave}>
+                    更新
+                </MutateButton>
+            </Flex>}
+        />
+    )
+}
+
+export const useInputRelatedArts = (defaultValues: EditArtRelatedFormProps["defaultValues"]) => {
+    const [prevArts, setPrevArts] = useState(defaultValues.prevArts)
+    const [nextArts, setNextArts] = useState(defaultValues.nextArts)
+    const addPrevArts = (art: InputRelatedArt) => {
+        setPrevArts(p => [art, ...p])
+    }
+    const addNextArts = (art: InputRelatedArt) => {
+        setNextArts(p => [...p, art])
+    }
+    const updatePrevArt = (index: number, art: InputRelatedArt) => {
+        setPrevArts(p => {
+            const newState = [...p]
+            newState[index] = art
+            return newState
+        })
+    }
+    const updateNextArt = (index: number, art: InputRelatedArt) => {
+        setNextArts(p => {
+            const newState = [...p]
+            newState[index] = art
+            return newState
+        })
+    }
+    const deletePrevArt = (index: number) => {
+        setPrevArts(p => p.filter((_, i) => i !== index))
+    }
+    const deleteNextArt = (index: number) => {
+        setNextArts(p => p.filter((_, i) => i !== index))
+    }
+    return {
+        prevArts,
+        nextArts,
+        addPrevArts,
+        addNextArts,
+        updatePrevArt,
+        updateNextArt,
+        deletePrevArt,
+        deleteNextArt
+    }
+}

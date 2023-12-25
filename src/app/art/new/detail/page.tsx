@@ -1,7 +1,7 @@
 import { getNewArtSession } from "@/art/newArtSession/cookies"
 import NewArtProgress from "../NewArtProgress"
 import NewArtSectionTitle from "../NewArtSectionTitle"
-import InputDetailForm from "./InputDetailForm"
+import InputDetailForm from "./NewInputDetailForm"
 
 const NewArtDetailPage = async () => {
     const newArtSession = await getNewArtSession()

@@ -1,12 +1,10 @@
 "use client"
 import { FC } from "react"
-import TagSelect from "@/components/TagSelect"
-import { SectionTitle } from "@/components/SectionTitle"
 import NewArtNavigation from "../Navigation"
-import { Space } from "@mantine/core"
-import { medias, others, getGenreTags } from "./tags"
+import { medias, others, getGenreTags } from "@/art/components/tag/tags"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { NewArtSession } from "@/art/newArtSession/type"
+import { ArtTagForm } from "@/art/components/tag/ArtTagForm"
 
 
 interface NewArtTagFormProps {
@@ -17,44 +15,23 @@ const NewArtTagForm: FC<NewArtTagFormProps> = ({ defaultValues }) => {
     const [selectedGenres, setSelectedGenres] = useInputNewArtSessionField("genreTags", defaultValues.genreTags ?? [], "")
     const [selectedOthers, setSelectedOthers] = useInputNewArtSessionField("otherTags", defaultValues.otherTags ?? [], "")
     return (
-        <div>
-            <SectionTitle my="md">
-                メディア
-            </SectionTitle>
-
-            <TagSelect
-                tags={medias}
-                selectedTags={selectedMedias}
-                onChangeSelected={setSelectedMedias}
-            />
-
-            <SectionTitle my="md">
-                ジャンル
-            </SectionTitle>
-
-            <TagSelect
-                tags={getGenreTags(selectedMedias)}
-                selectedTags={selectedGenres}
-                onChangeSelected={setSelectedGenres}
-            />
-
-            <SectionTitle my="md">
-                その他
-            </SectionTitle>
-
-            <TagSelect
-                tags={others}
-                selectedTags={selectedOthers}
-                onChangeSelected={setSelectedOthers}
-            />
-
-            <Space h="50px" />
-
-            <NewArtNavigation
-                prevHref="/art/new/detail#"
-                nextHref="/art/new/appeal#"
-            />
-        </div>
+        <ArtTagForm
+            mediaTags={medias}
+            genreTags={getGenreTags(medias)}
+            otherTags={others}
+            selectedMediaTags={selectedMedias}
+            selectedGenreTags={selectedGenres}
+            selectedOtherTags={selectedOthers}
+            onChangeSelectedMediaTags={setSelectedMedias}
+            onChangeSelectedGenreTags={setSelectedGenres}
+            onChangeSelectedOtherTags={setSelectedOthers}
+            actions={
+                <NewArtNavigation
+                    prevHref="/art/new/detail#"
+                    nextHref="/art/new/appeal#"
+                />
+            }
+        />
     )
 }
 

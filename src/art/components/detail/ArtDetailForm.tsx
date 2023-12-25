@@ -1,32 +1,41 @@
 "use client"
 
-import { FC, Fragment } from "react"
+import { FC, Fragment, ReactNode } from "react"
 import { Flex, Indicator, Stack, TextInput } from "@mantine/core"
-import styles from "./styles.module.css"
+import styles from "./ArtDetailForm.module.css"
 import { Textarea } from "@/components/Textarea"
 import Image from "next/image"
 import { MdOutlineEdit } from "react-icons/md";
 import { uploadFile } from "@/file-upload/client"
-import { NewArtSession } from "@/art/newArtSession/type"
-import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { useMutate } from "@/util/client/useMutate"
-import NewArtNavigation from "../Navigation"
-import { Art } from "@/art/type"
+import { Art } from "../../type"
 
-interface InputDetailFormProps {
-    defaultValues: Pick<NewArtSession, "title" | "description" | "imageUrl">
+interface ArtDetailFormProps {
+    title: string
+    onChangeTitle: (title: string) => void
+    titleErrors: string[]
+
+    description: string
+    onChangeDescription: (description: string) => void
+
+    imageUrl: string
+    onChangeImageUrl: (imageUrl: string) => void
+
+    isValid: boolean
+
+    actions: ReactNode
 }
-const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
-    const [title, setTitle] = useInputNewArtSessionField("title", defaultValues.title ?? "", "/art/new/detail")
-    const titleErrors = getTitleErrors(title)
-    const [description, setDescription] = useInputNewArtSessionField("description", defaultValues.description ?? "", "/art/new/detail")
-    const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl ?? "/placeholder/300x200_red.png", "/art/new/detail")
-
-    const isValid = titleErrors.length >= 1
+const ArtDetailForm: FC<ArtDetailFormProps> = ({
+    title, onChangeTitle, titleErrors,
+    description, onChangeDescription,
+    imageUrl, onChangeImageUrl,
+    isValid,
+    actions,
+}) => {
 
     const handleUpload = useMutate(async () => {
         const { publicUrl } = await uploadFile()
-        setImageUrl(publicUrl)
+        onChangeImageUrl(publicUrl)
     }, {
         loading: { button: "アップロード中..." },
         onSuccess: { toast: "アップロードしました！" },
@@ -59,13 +68,13 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
                 <Stack className={`${styles.flexGrow} ${styles.flexShrink}`}>
                     <TextInput
                         value={title}
-                        onChange={e => setTitle(e.target.value)}
+                        onChange={e => onChangeTitle(e.target.value)}
                         label="タイトル"
-                        error={isValid ? titleErrors.map((err, i) => <Fragment key={i}>{err}<br /></Fragment>) : null}
+                        error={!isValid && titleErrors.map((err, i) => <Fragment key={i}>{err}<br /></Fragment>)}
                     />
                     <Textarea
                         value={description}
-                        onChange={e => setDescription(e.target.value)}
+                        onChange={e => onChangeDescription(e.target.value)}
                         label="作品の概要"
                         rows={5}
                     />
@@ -73,20 +82,16 @@ const InputDetailForm: FC<InputDetailFormProps> = ({ defaultValues }) => {
 
             </Flex>
 
-            <NewArtNavigation
-                prevHref="/art/new/title#"
-                nextHref={isValid ? "#" : "/art/new/tag#"}
-                nextButtonProps={{
-                    disabled: isValid,
-                }}
-            />
+            <div>
+                {actions}
+            </div>
         </div>
     )
 }
 
-export default InputDetailForm
+export default ArtDetailForm
 
-const getTitleErrors = (title: Art["title"]) => {
+export const getTitleErrors = (title: Art["title"]) => {
     const errors: string[] = []
     if (title.trim().length === 0) errors.push("タイトルは必須です。")
     return errors

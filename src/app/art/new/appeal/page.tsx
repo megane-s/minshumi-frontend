@@ -1,9 +1,6 @@
 import NewArtProgress from "../NewArtProgress"
 import NewArtSectionTitle from "../NewArtSectionTitle"
 import NewArtRelatedForm from "./NewArtRelatedForm"
-import { Box } from "@mantine/core"
-import FullWidth from "@/app/BaseLayout/FullWidth"
-import Navigation from "./Navigation"
 import { getNewArtSession } from "@/art/newArtSession/cookies"
 import { getArt } from "@/art/get"
 import { redirect } from "next/navigation"
@@ -19,19 +16,12 @@ const NewArtRelatedArtPage = async () => {
             </NewArtSectionTitle>
 
             <NewArtRelatedForm
+                title={title}
                 defaultValues={{
                     prevArts: newArtSession?.prevArts ?? [],
                     nextArts: newArtSession?.nextArts ?? [],
                 }}
             />
-
-            <FullWidth>
-                <Box py="xl">
-                    <Navigation
-                        artId={newArtSession?.artId ?? null}
-                    />
-                </Box>
-            </FullWidth>
 
             <NewArtProgress now={3} />
         </div>

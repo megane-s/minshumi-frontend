@@ -1,6 +1,6 @@
-import { notImplementWarn } from "@/util/notImplement";
+import { prisma } from "@/prisma";
 import "server-only";
-import { Art, ArtId } from "./type";
+import { ArtId, RelatedArt } from "./type";
 
 /**
  * 未実装。
@@ -10,7 +10,13 @@ import { Art, ArtId } from "./type";
  */
 // 未実装のためdisable。実装し次第外す。
 // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-export const getRelatedArts = async (artId: ArtId): Promise<Art[]> => {
-    notImplementWarn("getRelatedArtsはまだ実装されていません。関連作品として空の配列がreturnされます。")
-    return []
+export const getRelatedArts = async (artId: ArtId): Promise<RelatedArt[]> => {
+    const relatedArts = await prisma.relatedArt.findMany({
+        where: { artId },
+        include: { relatedArt: true },
+    })
+    return relatedArts.map(relatedArt => ({
+        ...relatedArt.relatedArt,
+        type: relatedArt.type,
+    }))
 }

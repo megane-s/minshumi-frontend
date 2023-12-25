@@ -1,7 +1,7 @@
 "use client"
 
 import { FC } from "react"
-import SelectArt from "./InputTitle"
+import SelectArt from "@/art/components/SelectArt"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { NewArtSession } from "@/art/newArtSession/type"
 import { Button } from "@/components/Button"
