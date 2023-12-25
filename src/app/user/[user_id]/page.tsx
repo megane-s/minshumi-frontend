@@ -70,7 +70,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 height={675 * 800 / 1200}
                 style={{ width: "100%", height: "auto" }}
             />
-            <Flex justify="space-between" >
+            <Flex justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
                 <PageTitle>
                     {user.name}
                 </PageTitle>
@@ -97,7 +97,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
             <SectionTitle mt="md">
                 今見ている作品
             </SectionTitle>
-            <div className={css({ display: "flex", gap: "xs", my: "xl", rowGap: "100px", columnGap: "sm", w: "100%", overflow: "auto" })}>
+            <div className={css({ display: "flex", gap: "xs", my: "xl", w: "100%", overflow: "auto" })}>
                 {WatchingArts.map(art =>
                     <ArtImage
                         key={art.artId}
@@ -122,7 +122,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
             </div>
 
             {comments && <>
-                <Divider />
+                <Divider className={css({ my: "md" })} />
                 コメント {comments.length}件
 
                 {businessCard &&

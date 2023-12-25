@@ -1,3 +1,5 @@
+"use client"
+
 import { Flex, FlexProps, Skeleton } from "@mantine/core"
 import { ComponentProps, FC, MutableRefObject, ReactNode, createContext, useContext, useEffect, useRef, useState } from "react"
 import { notImplementError } from "@/util/notImplement"
@@ -12,6 +14,7 @@ const CenterizedScroll: FC<CenterizedScrollProps> = ({ children, className, ...p
     const [prepared, setPrepared] = useState(false)
     const centerRef = useRef<null | HTMLDivElement>(null)
     useEffect(() => {
+        console.log(centerRef.current)
         centerRef.current?.scrollIntoView({ block: "end", inline: "center", behavior: "instant" })
         setPrepared(true)
     }, [])
@@ -19,10 +22,13 @@ const CenterizedScroll: FC<CenterizedScrollProps> = ({ children, className, ...p
         <Flex
             component={Skeleton}
             visible={!prepared}
-            direction="row"
-            align="center"
-            gap="md"
-            className={cx(css({ width: "fit-content", overflowX: prepared ? "auto" : "hidden" }), className)}
+            className={cx(css({
+                width: "fit-content",
+                overflowX: prepared ? "auto" : "hidden",
+                gap: "md",
+                alignItems: "center",
+                flexDirection: "row",
+            }), className)}
             {...props}
         >
             <centerTargetContext.Provider value={centerRef}>

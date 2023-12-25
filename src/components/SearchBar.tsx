@@ -24,11 +24,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "", type }) => {
                 size='xs'
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
+                classNames={{
+                    root: css({ height: "full" }),
+                    input: css({ height: "full" }),
+                }}
+                styles={{ input: { borderTopRightRadius: 0, borderBottomRightRadius: 0 } }}
             />
             <Link href={`/search/${type}?q=${searchInput}`}>
                 <ActionIcon
-                    className={css({ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 })}
                     disabled={!isValidSearchInput}
+                    size="md"
+                    styles={{
+                        root: { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
+                    }}
                 >
                     <SearchIcon />
                 </ActionIcon>

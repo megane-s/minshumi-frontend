@@ -75,13 +75,14 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
                         {prevArts.map((art, index) =>
                             <RelatedArtListItem
                                 key={"artId" in art ? art.artId : art.title}
+                                className={css({ flexShrink: 0 })}
                                 artInput={art}
                                 onEditConfirm={(input) => onUpdatePrevArt(index, input)}
                                 onDelete={() => onDeletePrevArt(index)}
                             />
                         )}
-                        <CenterizedScrollTarget>
-                            <Stack align="center" gap="xs" ta="center">
+                        <CenterizedScrollTarget className={css({ flexShrink: 0 })}>
+                            <Stack align="center" gap="xs" ta="center" style={{ flexShrink: 0 }}>
                                 <Image
                                     src="/placeholder/300x200_red.png"
                                     alt="テスト"
@@ -95,6 +96,7 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
                         {nextArts.map((art, index) =>
                             <RelatedArtListItem
                                 key={index}
+                                className={css({ flexShrink: 0 })}
                                 artInput={art}
                                 onEditConfirm={(input) => onUpdateNextArt(index, input)}
                                 onDelete={() => onDeleteNextArt(index)}

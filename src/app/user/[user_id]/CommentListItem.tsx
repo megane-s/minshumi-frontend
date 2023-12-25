@@ -89,37 +89,39 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                         />
                         {commentUser.name}
                     </Flex>
-                    <div>
+                    <span>
                         {"2023/12/04"}
-                    </div>
+                    </span>
                 </Flex>
 
-                {mode === "view"
-                    ? editingComment
-                    : <>
-                        <Textarea
-                            size='xs'
-                            value={editingComment}
-                            onChange={e => setEditingComment(e.target.value)}
-                            disabled={updateComment.isLoading}
-                        />
-                        <Flex justify="flex-end" my="xs" gap="xs">
-                            <Button
-                                onClick={() => {
-                                    setMode("view")
-                                    setEditingComment(comment.content)
-                                }}
-                            >
-                                キャンセル
-                            </Button>
-                            <MutateButton mutation={updateComment} variant="filled">
-                                更新
-                            </MutateButton>
-                        </Flex>
-                    </>
-                }
+                <div className={css({ py: "sm" })}>
+                    {mode === "view"
+                        ? editingComment
+                        : <>
+                            <Textarea
+                                size='xs'
+                                value={editingComment}
+                                onChange={e => setEditingComment(e.target.value)}
+                                disabled={updateComment.isLoading}
+                            />
+                            <Flex justify="flex-end" my="xs" gap="xs">
+                                <Button
+                                    onClick={() => {
+                                        setMode("view")
+                                        setEditingComment(comment.content)
+                                    }}
+                                >
+                                    キャンセル
+                                </Button>
+                                <MutateButton mutation={updateComment} variant="filled">
+                                    更新
+                                </MutateButton>
+                            </Flex>
+                        </>
+                    }
+                </div>
 
-                <Flex justify="space-between">
+                <Flex justify="flex-end">
                     <LikeButton
                         isGooded={isGooded}
                         onClick={() => void handleGoodClick.mutate(null)}

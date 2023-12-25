@@ -10,8 +10,9 @@ interface RelatedArtListItemProps {
     artInput: InputRelatedArt
     onEditConfirm: (artInput: InputRelatedArt) => void
     onDelete: () => void
+    className?: string
 }
-const RelatedArtListItem: FC<RelatedArtListItemProps> = ({ size = "md", artInput, onEditConfirm, onDelete }) => {
+const RelatedArtListItem: FC<RelatedArtListItemProps> = ({ size = "md", artInput, onEditConfirm, onDelete, className }) => {
     const editDialog = useDialog()
     return (
         <>
@@ -20,6 +21,7 @@ const RelatedArtListItem: FC<RelatedArtListItemProps> = ({ size = "md", artInput
                 gap="xs"
                 ta="center"
                 onClick={editDialog.onOpen}
+                className={className}
             >
                 <Image
                     src={artInput.imageUrl}
