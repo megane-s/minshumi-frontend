@@ -7,8 +7,8 @@ import { Flex } from "@mantine/core"
 import Image from "next/image"
 import Link from "next/link"
 import { FC } from "react"
-import styles from "./styles.module.css"
 import LinkButton from "@/components/LinkButton"
+import { css } from "styled-system/css"
 
 interface ArtImageProps {
     art: Art
@@ -26,7 +26,7 @@ export const ArtImage: FC<ArtImageProps> = ({ art }) => {
                     style={{ width: "auto", height: 100, objectFit: "cover", cursor: "pointer" }}
                     onClick={() => dialog.onOpen()}
                 />
-                <div className={styles.taCenter}>
+                <div className={css({ textAlign: "center" })}>
                     {art.title}
                 </div>
             </Flex>

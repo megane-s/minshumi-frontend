@@ -6,13 +6,13 @@ import { ActionIcon } from "@/components/ActionIcon"
 import { Textarea } from "@/components/Textarea"
 import { Center, Stack, Text } from "@mantine/core"
 import { FC, ReactNode, useState } from "react"
-import styles from "./ArtRelatedForm.module.css"
 import { useDialog } from "@/components/Dialog"
 import { IoMdAdd } from "react-icons/io"
 import RelatedArtListItem from "./RelatedArtListItem"
 import Image from "next/image"
 import EditArtDialog from "./EditArtDialog/EditArtDialog"
 import { InputRelatedArt } from "@/art/newArtSession/type"
+import { css } from "styled-system/css"
 
 interface ArtRelatedFormProps {
     title: string
@@ -63,7 +63,7 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
             <Text ta="center">前後に見た作品</Text>
             <FullWidth>
                 <Center>
-                    <CenterizedScroll className={styles.arts}>
+                    <CenterizedScroll className={css({ transition: "opacity 0.3s", paddingX: "var(--mantine-spacing-lg)" })}>
                         <ActionIcon
                             onClick={() => {
                                 setAddTarget("prev")

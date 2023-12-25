@@ -3,7 +3,6 @@
 import { Textarea } from "@/components/Textarea"
 import { ActionIcon, Flex } from "@mantine/core"
 import { FC, useState } from "react"
-import styles from "./styles.module.css"
 import { postComment } from "./actions"
 import { BusinessCardId } from "@/businessCard/type"
 import { useMutate } from "@/util/client/useMutate"
@@ -11,6 +10,7 @@ import { IoSendOutline } from "react-icons/io5"
 import { Loader } from "@/components/Loader"
 import { Button } from "@/components/Button"
 import { login } from "@/auth/client/login"
+import { css } from "styled-system/css"
 
 interface CommentFormProps {
     businessCardId: BusinessCardId
@@ -27,12 +27,10 @@ export const CommentForm: FC<CommentFormProps> = ({ businessCardId, isLogin, }) 
         onError: { toast: "コメントを送信できませんでした..." },
     })
 
-
-
     return isLogin ? (
         <Flex justify="left" align="center" gap="xs">
             <Textarea
-                className={styles.textarea}
+                className={css({ flexGrow: 1 })}
                 size='xs'
                 value={comment}
                 onChange={e => setComment(e.target.value)}
@@ -40,7 +38,6 @@ export const CommentForm: FC<CommentFormProps> = ({ businessCardId, isLogin, }) 
                 placeholder="コメントを入力"
             />
             <ActionIcon
-                className={styles.actionIcon}
                 onClick={() => void handleClickPostButton.mutate(null)}
                 size='md'
                 disabled={!isOkComment || handleClickPostButton.isLoading}

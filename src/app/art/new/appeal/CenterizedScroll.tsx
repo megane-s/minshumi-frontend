@@ -1,7 +1,7 @@
 import { Flex, FlexProps, Skeleton } from "@mantine/core"
 import { ComponentProps, FC, MutableRefObject, ReactNode, createContext, useContext, useEffect, useRef, useState } from "react"
-import styles from "./CenterizedScroll.module.css"
 import { notImplementError } from "@/util/notImplement"
+import { css, cx } from "styled-system/css"
 
 const centerTargetContext = createContext<MutableRefObject<HTMLDivElement | null> | null>(null)
 
@@ -22,7 +22,7 @@ const CenterizedScroll: FC<CenterizedScrollProps> = ({ children, className, ...p
             direction="row"
             align="center"
             gap="md"
-            className={`${styles.root} ${prepared ? styles.overflowXAuto : styles.overflowXHidden} ${className}`}
+            className={cx(css({ width: "fit-content", overflowX: prepared ? "auto" : "hidden" }), className)}
             {...props}
         >
             <centerTargetContext.Provider value={centerRef}>

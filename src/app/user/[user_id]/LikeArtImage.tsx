@@ -5,8 +5,8 @@ import { useDialog } from "@/components/Dialog"
 import { Flex } from "@mantine/core"
 import Image from "next/image"
 import { FC } from "react"
-import styles from "./styles.module.css"
 import { ArtDetailDialog } from "./ArtDetailDialog"
+import { css } from "styled-system/css"
 
 interface LikeArtImageProps {
     art: RecommendArt
@@ -24,7 +24,7 @@ export const LikeArtImage: FC<LikeArtImageProps> = ({ art }) => {
                     style={{ width: "auto", height: 100, objectFit: "cover", cursor: "pointer" }}
                     onClick={() => dialog.onOpen()}
                 />
-                <div className={styles.taCenter}>
+                <div className={css({ textAlign: "center" })}>
                     {art.title}
                 </div>
             </Flex>

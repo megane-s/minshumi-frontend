@@ -13,7 +13,6 @@ import { CommentListItem } from "./CommentListItem";
 import { getFollowers } from "@/user/follow/getFollowers";
 import { getFollowings } from "@/user/follow/getFollowings";
 import { getSession } from "@/auth/server/auth";
-import styles from "./styles.module.css"
 import { User } from "@/user/type";
 import { isBusinessCardCommentGooded } from "@/businessCard/comment/good/isGooded";
 import { SectionTitle } from "@/components/SectionTitle";
@@ -21,6 +20,7 @@ import { PageTitle } from "@/components/PageTitle";
 import Image from "next/image";
 import { BusinessCard } from "@/businessCard/type";
 import { FollowButton } from "./FollowButton";
+import { css } from "styled-system/css";
 
 
 
@@ -97,7 +97,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
             <SectionTitle mt="md">
                 今見ている作品
             </SectionTitle>
-            <Flex gap="xs" my="xl" rowGap="100px" columnGap="sm" w="100%" className={styles.overflowAuto}>
+            <Flex gap="xs" my="xl" rowGap="100px" columnGap="sm" w="100%" className={css({ overflow: "auto" })}>
                 {WatchingArts.map(art =>
                     <ArtImage
                         key={art.artId}
@@ -111,7 +111,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 好きな作品
             </SectionTitle>
             {/* TODO 作品表示の部分をカルーセルを使う */}
-            <Flex gap="xs" my="xl" rowGap="100px" columnGap="sm" w="100%" className={styles.overflowAuto}>
+            <Flex gap="xs" my="xl" rowGap="100px" columnGap="sm" w="100%" className={css({ overflow: "auto" })}>
                 {recommendArts.map(art =>
                     <LikeArtImage
                         key={art.artId}

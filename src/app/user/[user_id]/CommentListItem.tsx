@@ -13,10 +13,10 @@ import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { updateComment as updateCommentAction, deleteComment as deleteCommentAction, handleGood, handleCancelGood } from "./actions"
 import { Dialog, useDialog } from "@/components/Dialog"
-import styles from "./styles.module.css"
 import { login } from "@/auth/client/login"
 import { User } from "next-auth"
 import { DeleteConfirmCommentDialog } from "./DeleteConfirmCommentDialog"
+import { css } from "styled-system/css"
 
 interface CommentListItemProps {
     comment: BusinessCardComment
@@ -81,11 +81,11 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
         <div>
             <Box py="md">
                 <Flex justify="space-between" gap="xs" align="center">
-                    <Flex gap="xs" className={`${styles.fill}`}>
+                    <Flex gap="xs" className={`${css({ flexGrow: 1, flexShrink: 1 })}`}>
                         <Avatar
                             src={commentUser.image}
                             alt={commentUser.name ?? "コメントしたユーザ"}
-                            className={styles.circle}
+                            className={css({ borderRadius: "9999px" })}
                         />
                         {commentUser.name}
                     </Flex>

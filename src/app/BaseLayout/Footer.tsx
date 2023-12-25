@@ -3,7 +3,7 @@ import { Box, Container, Divider, Flex, Stack } from "@mantine/core"
 import { FC } from "react"
 import Logo from "./Logo"
 import { Link } from "@/components/Link"
-import styles from "./Footer.module.css"
+import { css } from "styled-system/css"
 
 interface FooterProps {
 }
@@ -11,7 +11,7 @@ const Footer: FC<FooterProps> = () => {
     return (
         <Box
             component="footer"
-            className={styles["footer"]}
+            className={css({ borderTop: "1px solid var(--mantine-color-gray-3)" })}
             bg="background.0"
             pt="md" pb="xl"
         >

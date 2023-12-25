@@ -7,7 +7,7 @@ import { useSelectedLayoutSegment } from "next/navigation"
 import { ReactNode } from "react"
 import { MdStarBorder } from "react-icons/md";
 import { LiaGrinStarsSolid } from "react-icons/lia";
-import styles from "./layout.module.css"
+import { css } from "styled-system/css"
 
 interface PageProps {
     children: ReactNode
@@ -22,13 +22,13 @@ const SaearchLayout = ({ children }: PageProps) => {
             <Tabs variant="default" radius="md" value={segment}>
                 <Tabs.List justify="center">
                     <Link href="/search/art">
-                        <Tabs.Tab value="art" leftSection={<MdStarBorder />} className={styles.tab} >
+                        <Tabs.Tab value="art" leftSection={<MdStarBorder />} className={css({ fontSize: "16px" })} >
                             作品
                         </Tabs.Tab>
                     </Link>
                     <Space w="1rem" />
                     <Link href="/search/user">
-                        <Tabs.Tab value="user" leftSection={<LiaGrinStarsSolid />} className={styles.tab}>
+                        <Tabs.Tab value="user" leftSection={<LiaGrinStarsSolid />} className={css({ fontSize: "16px" })}>
                             ユーザー
                         </Tabs.Tab>
                     </Link>

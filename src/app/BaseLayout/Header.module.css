@@ -1,7 +1,0 @@
-.menu {
-  cursor: pointer;
-  position: relative;
-  /* left: var(--mantine-spacing-sm);
-  top: var(--mantine-spacing-sm); */
-  width: fit-content;
-}

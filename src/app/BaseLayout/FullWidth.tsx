@@ -1,12 +1,12 @@
 import { FC, ReactNode } from "react"
-import styles from "./FullWidth.module.css"
+import { css } from "styled-system/css"
 
 interface FullWidthProps {
     children: ReactNode
 }
 const FullWidth: FC<FullWidthProps> = ({ children }) => {
     return (
-        <div className={styles.fullWidth}>
+        <div className={css({ marginX: "calc(50% - 50vw)" })}>
             {children}
         </div>
     )

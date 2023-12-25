@@ -2,7 +2,7 @@ import Image, { ImageProps } from "next/image"
 import Link from "next/link"
 import { FC } from "react"
 import LogoImage from "@/../public/placeholder/150x60_red.png"
-import styles from "./Logo.module.css"
+import { css, cx } from "styled-system/css"
 
 const logoSizes = {
     sm: { width: 100, height: 40 },
@@ -18,10 +18,11 @@ interface LogoProps {
 }
 const Logo: FC<LogoProps> = ({ size = "md", imageProps = {} }) => {
     return (
-        <Link href="/" className={styles.link}>
+        <Link href="/" className={css({})}>
+
             <Image
                 {...imageProps}
-                className={styles.image + " " + imageProps.className}
+                className={cx(css({ display: "block" }), imageProps.className)}
                 src={LogoImage}
                 alt="みんしゅみ"
                 {...logoSizes[size]}
