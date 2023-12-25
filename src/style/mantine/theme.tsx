@@ -1,6 +1,7 @@
 import { DEFAULT_THEME, createTheme, mergeMantineTheme } from "@mantine/core"
 import { MinshumiTheme, minshumiTheme } from "../theme"
 import { components } from "./components"
+import { spacing } from "./spacing"
 
 const mTheme = minshumiTheme
 const mColors = mTheme.colors
@@ -44,6 +45,7 @@ const themeOverride = createTheme({
         deg: 90,
     },
     components,
+    spacing,
 })
 
 export const mantineTheme = mergeMantineTheme(DEFAULT_THEME, themeOverride)
