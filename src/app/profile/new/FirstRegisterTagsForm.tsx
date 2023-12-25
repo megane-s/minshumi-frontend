@@ -5,22 +5,24 @@ import { getGenreTags, medias, others } from "@/art/components/tag/tags"
 import { ArtTag } from "@/art/type"
 import MutateButton from "@/components/MutateButton"
 import { CheckIcon } from "@/components/icon/Check"
-import { UserId } from "@/user/type"
 import { useMutate } from "@/util/client/useMutate"
 import { Center, Space } from "@mantine/core"
 import { useRouter } from "next/navigation"
 import { FC, useState } from "react"
+import { handleFirstRegister } from "./actions"
 
 interface FirstRegisterTagsFormProps {
-    userId: UserId
 }
-export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = ({ userId }) => {
+export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = () => {
     const [selectedMedias, setSelectedMedias] = useState<ArtTag[]>([])
     const [selectedGenres, setSelectedGenres] = useState<ArtTag[]>([])
     const [selectedOthers, setSelectedOthers] = useState<ArtTag[]>([])
 
     const router = useRouter()
     const save = useMutate(async () => {
+        await handleFirstRegister({
+            interestTags: [...selectedMedias, ...selectedGenres, ...selectedOthers],
+        })
         router.push(`/`)
     }, {
         loading: { toast: "設定中..." },

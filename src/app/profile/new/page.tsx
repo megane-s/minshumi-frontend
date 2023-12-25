@@ -14,9 +14,7 @@ const FirstRegisterPage = async () => {
                 興味のあるタグを選んでください
             </PageTitle>
 
-            <FirstRegisterTagsForm
-                userId={userId}
-            />
+            <FirstRegisterTagsForm />
         </div>
     )
 }
