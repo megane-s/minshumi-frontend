@@ -1,5 +1,5 @@
 import LinkButton from "@/components/LinkButton"
-import { Box, Divider, Flex } from "@mantine/core"
+import { Divider, Flex } from "@mantine/core"
 import { notFound } from "next/navigation"
 import { LikeArtImage } from "./LikeArtImage";
 import { getUser } from "@/user/get";
@@ -88,7 +88,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
             <Flex w="100%" justify="flex-start">
                 {userFollowingsCount}
                 フォロー
-                <Box w="1em" />
+                <div className={css({ w: "1em" })} />
                 {userFollowersCount}
                 フォロワー
             </Flex>
@@ -97,7 +97,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
             <SectionTitle mt="md">
                 今見ている作品
             </SectionTitle>
-            <Flex gap="xs" my="xl" rowGap="100px" columnGap="sm" w="100%" className={css({ overflow: "auto" })}>
+            <div className={css({ display: "flex", gap: "xs", my: "xl", rowGap: "100px", columnGap: "sm", w: "100%", overflow: "auto" })}>
                 {WatchingArts.map(art =>
                     <ArtImage
                         key={art.artId}
@@ -105,13 +105,13 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 )}
                 {/* TODO 0件の時の表示 */}
-            </Flex>
+            </div>
 
             <SectionTitle mt="md">
                 好きな作品
             </SectionTitle>
             {/* TODO 作品表示の部分をカルーセルを使う */}
-            <Flex gap="xs" my="xl" rowGap="100px" columnGap="sm" w="100%" className={css({ overflow: "auto" })}>
+            <div className={css({ display: "flex", gap: "xs", my: "xl", rowGap: "100px", columnGap: "sm", w: "100%", overflow: "auto" })}>
                 {recommendArts.map(art =>
                     <LikeArtImage
                         key={art.artId}
@@ -119,7 +119,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 )}
                 {/* TODO 0件の時の表示 */}
-            </Flex>
+            </div>
 
             {comments && <>
                 <Divider />

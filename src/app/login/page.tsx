@@ -1,9 +1,10 @@
 import { Card } from "@/components/Card"
 import { List, ListItem } from "@/components/List"
 import { PageTitle } from "@/components/PageTitle"
-import { Box, Center, Stack, Text } from "@mantine/core"
+import { Center, Stack, Text } from "@mantine/core"
 import LoginButton from "./LoginButton"
 import AlreadyLoginedAlert from "./AlreadyLoginedAlert"
+import { css } from "styled-system/css"
 
 const LoginPage = async () => {
     return (
@@ -16,7 +17,7 @@ const LoginPage = async () => {
                     <PageTitle ta="center" mt="md">
                         ログイン
                     </PageTitle>
-                    <Box my="md">
+                    <div className={css({ my: "md" })}>
                         ログインすると、
                         <List my="md">
                             <ListItem>
@@ -34,7 +35,7 @@ const LoginPage = async () => {
                             </ListItem>
                         </List>
                         などの機能を利用できるようになります。
-                    </Box>
+                    </div>
                     <LoginButton />
                 </Card>
 

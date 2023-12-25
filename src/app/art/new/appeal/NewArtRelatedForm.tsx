@@ -1,12 +1,12 @@
 "use client"
 
-import { Box } from "@mantine/core"
 import { FC } from "react"
 import FullWidth from "@/app/BaseLayout/FullWidth";
 import { InputRelatedArt, NewArtSessionInput } from "@/art/newArtSession/type";
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField";
 import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm";
 import Navigation from "./Navigation";
+import { css } from "styled-system/css";
 
 interface NewArtRelatedFormProps {
     title: string
@@ -37,11 +37,11 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, defaultValues })
             onDeleteNextArt={deleteNextArt}
             actions={
                 <FullWidth>
-                    <Box py="xl">
+                    <div className={css({ py: "xl" })}>
                         <Navigation
                             artId={defaultValues.artId ?? null}
                         />
-                    </Box>
+                    </div>
                 </FullWidth>
             }
         />

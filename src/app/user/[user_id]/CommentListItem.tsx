@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react"
 import { BusinessCardComment } from "@/businessCard/comment/type"
-import { ActionIcon, Avatar, Box, Divider, Flex, Menu } from "@mantine/core"
+import { ActionIcon, Avatar, Divider, Flex, Menu } from "@mantine/core"
 import { LikeButton } from "./LikeButton"
 import { Textarea } from "@/components/Textarea"
 import { IoMdMore } from "react-icons/io";
@@ -79,7 +79,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
     if (isDeleted) return
     return (
         <div>
-            <Box py="md">
+            <div className={css({ py: "md" })}>
                 <Flex justify="space-between" gap="xs" align="center">
                     <Flex gap="xs" className={`${css({ flexGrow: 1, flexShrink: 1 })}`}>
                         <Avatar
@@ -150,7 +150,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                     {...deleteConfirmDialog.dialogProps}
                 />
 
-            </Box>
+            </div>
             <Divider />
         </div>
 

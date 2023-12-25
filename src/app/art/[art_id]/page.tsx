@@ -1,6 +1,6 @@
 import { Badge } from "@/components/Badge"
 import { PageTitle } from "@/components/PageTitle"
-import { Box, Divider, Flex } from "@mantine/core"
+import { Container, Divider, Flex } from "@mantine/core"
 import Image from "next/image"
 import Link from "next/link"
 import { GoodButton } from "./GoodButton"
@@ -10,6 +10,7 @@ import FullWidth from "@/app/BaseLayout/FullWidth"
 import { getSession } from "@/auth/server/auth"
 import { isArtGooded } from "@/art/good/isGooded"
 import { getTags } from "@/art/tag/getTags"
+import { css } from "styled-system/css"
 
 
 interface ArtDetailPageProps {
@@ -38,32 +39,32 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                 />
             </FullWidth>
 
-            <Box bg="background.2" px="sm" py="md">
-                <PageTitle>
-                    {art.title}
-                </PageTitle>
-                {/* <div>
-                    <Button variant="light">
-                        ブックマーク
-                    </Button>
-                </div> */}
-                <Flex gap="xs" py="md" wrap="wrap" rowGap="0px" columnGap="xs">
-                    {tags.map(tag =>
-                        <Link href={`/tag/${tag}`} key={tag}>
-                            <Badge>
-                                {tag}
-                            </Badge>
-                        </Link>
-                    )}
-                </Flex>
-            </Box>
+            <FullWidth className={css({ bg: "background.2" })}>
+                <Container className={css({ py: "md" })}>
+                    <PageTitle>
+                        {art.title}
+                    </PageTitle>
+                    {/* <div>
+                        <Button variant="light">
+                            ブックマーク
+                        </Button>
+                    </div> */}
+                    <Flex gap="xs" py="md" wrap="wrap" rowGap="0px" columnGap="xs">
+                        {tags.map(tag =>
+                            <Link href={`/tag/${tag}`} key={tag}>
+                                <Badge>
+                                    {tag}
+                                </Badge>
+                            </Link>
+                        )}
+                    </Flex>
+                </Container>
+                <Divider />
+            </FullWidth>
 
-            <Divider />
-
-            <Box p="md">
+            <div className={css({ py: "md" })}>
                 {art.description}
-            </Box>
-
+            </div>
 
             <GoodButton artId={artId} isGooded={isGooded} isLogined={isLogined} />
 
