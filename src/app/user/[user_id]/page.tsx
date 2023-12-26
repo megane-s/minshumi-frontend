@@ -1,14 +1,12 @@
 import LinkButton from "@/components/LinkButton"
 import { Divider, Flex } from "@mantine/core"
 import { notFound } from "next/navigation"
-import { LikeArtImage } from "./LikeArtImage";
 import { getUser } from "@/user/get";
 import { getWatchingArts } from "@/art/watching/get";
 import { getBusinessCardByUser } from "@/businessCard/getByUser";
 import { CommentForm } from "./CommentForm";
 import { getCommentsByBusinessCard } from "@/businessCard/comment/getByBusinessCard";
 import { getRecommendArtsByUser } from "@/art/recommend/getByUser";
-import { ArtImage } from "./ArtImage";
 import { CommentListItem } from "./CommentListItem";
 import { getFollowers } from "@/user/follow/getFollowers";
 import { getFollowings } from "@/user/follow/getFollowings";
@@ -21,8 +19,8 @@ import Image from "next/image";
 import { BusinessCard } from "@/businessCard/type";
 import { FollowButton } from "./FollowButton";
 import { css } from "styled-system/css";
-
-
+import { WatchingArtList } from "./WatchingArtList";
+import { LikeArtList } from "./LikeArtList";
 
 interface PageProps {
     params: { user_id: string }
@@ -36,7 +34,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
     if (!user) notFound()
 
     const recommendArts = await getRecommendArtsByUser(userId)
-    const WatchingArts = await getWatchingArts(userId)
+    const watchingArts = await getWatchingArts(userId)
     const businessCards = await getBusinessCardByUser(userId)
     const businessCard = businessCards[0] as BusinessCard | null
     const comments = businessCard && await getCommentsByBusinessCard(businessCard.businessCardId)
@@ -94,32 +92,19 @@ const UserProfilePage = async ({ params }: PageProps) => {
             </Flex>
 
             {/* TODO 作品表示の部分をカルーセルを使う */}
-            <SectionTitle mt="md">
+            <SectionTitle my="md">
                 今見ている作品
             </SectionTitle>
-            <div className={css({ display: "flex", gap: "xs", my: "xl", w: "100%", overflow: "auto" })}>
-                {WatchingArts.map(art =>
-                    <ArtImage
-                        key={art.artId}
-                        art={art}
-                    />
-                )}
-                {/* TODO 0件の時の表示 */}
-            </div>
+            <WatchingArtList arts={watchingArts} />
+            {/* TODO 0件の時の表示 */}
 
-            <SectionTitle mt="md">
+            <SectionTitle my="md">
                 好きな作品
             </SectionTitle>
-            {/* TODO 作品表示の部分をカルーセルを使う */}
-            <div className={css({ display: "flex", gap: "xs", my: "xl", rowGap: "100px", columnGap: "sm", w: "100%", overflow: "auto" })}>
-                {recommendArts.map(art =>
-                    <LikeArtImage
-                        key={art.artId}
-                        art={art}
-                    />
-                )}
-                {/* TODO 0件の時の表示 */}
-            </div>
+            <LikeArtList
+                arts={recommendArts}
+            />
+            {/* TODO 0件の時の表示 */}
 
             {comments && <>
                 <Divider className={css({ my: "md" })} />

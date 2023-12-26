@@ -4,7 +4,7 @@ import { RecommendArt } from "@/art/type"
 import { useDialog } from "@/components/Dialog"
 import Image from "next/image"
 import { FC } from "react"
-import { ArtDetailDialog } from "./ArtDetailDialog"
+import { ArtDetailDialog } from "../ArtDetailDialog"
 import { css } from "styled-system/css"
 
 interface LikeArtImageProps {
