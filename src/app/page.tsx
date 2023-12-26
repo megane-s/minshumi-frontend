@@ -5,6 +5,8 @@ import React from 'react';
 import { getArtsWithTag } from '@/art/tag/getArts';
 import { tags } from './tags';
 import SearchBar from '@/components/SearchBar';
+import FullWidth from './BaseLayout/FullWidth';
+import { TopNews } from "./TopNews"
 
 const TopPage = async () => {
   const tagArts = await Promise.all(
@@ -19,9 +21,9 @@ const TopPage = async () => {
       {/* 検索バー */}
       <SearchBar type="art" />
 
-      {/* ここに作品登録を促す画面やおすすめ作品を出す画面 */}
-
-      {/* カルーセルここに入れる */}
+      <FullWidth>
+        <TopNews />
+      </FullWidth>
 
       {/* 下部の空白 */}
       <div style={{ marginBottom: '20px' }}>
