@@ -7,6 +7,9 @@ import { tags } from './tags';
 import SearchBar from '@/components/SearchBar';
 import FullWidth from './BaseLayout/FullWidth';
 import { TopNews } from "./TopNews"
+import { css } from 'styled-system/css';
+import { Link } from '@/components/Link';
+import { ArtsList } from './ArtsList';
 
 const TopPage = async () => {
   const tagArts = await Promise.all(
@@ -25,22 +28,23 @@ const TopPage = async () => {
         <TopNews />
       </FullWidth>
 
-      {/* 下部の空白 */}
-      <div style={{ marginBottom: '20px' }}>
-      </div>
+      <div style={{ marginBottom: '20px' }} />
 
       {tagArts.map(({ tag, arts }) => (
-        <div key={tag}>
-          <SectionTitle>{tag}</SectionTitle>
-          {arts.map((art) => (
-            <div key={art.artId}>
-
-              {/* カルーセルここに入れる */}
-            </div>
-          ))}
+        arts.length >= 1 &&
+        <div key={tag} className={css({ my: "lg !important" })}>
+          <SectionTitle className={css({ my: "md !important" })}>
+            <Link href={`/tag/${tag}`}>
+              {tag}
+            </Link>
+          </SectionTitle>
+          <ArtsList
+            tag={tag}
+            arts={arts}
+          />
         </div>
       ))}
-    </div>
+    </div >
   );
 };
 
