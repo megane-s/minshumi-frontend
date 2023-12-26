@@ -52,7 +52,7 @@ export const ArtImage: FC<ArtImageProps> = ({ art }) => {
                     />
                 </Link>
 
-                <SectionTitle>
+                <SectionTitle className={css({ my: "md !important" })}>
                     <Flex w="100%" justify="space-between" align="center">
                         <div>
                             {art.title}

@@ -5,6 +5,11 @@ import React from 'react';
 import { getArtsWithTag } from '@/art/tag/getArts';
 import { tags } from './tags';
 import SearchBar from '@/components/SearchBar';
+import FullWidth from './BaseLayout/FullWidth';
+import { TopNews } from "./TopNews"
+import { css } from 'styled-system/css';
+import { Link } from '@/components/Link';
+import { ArtsList } from './ArtsList';
 
 const TopPage = async () => {
   const tagArts = await Promise.all(
@@ -19,26 +24,27 @@ const TopPage = async () => {
       {/* 検索バー */}
       <SearchBar type="art" />
 
-      {/* ここに作品登録を促す画面やおすすめ作品を出す画面 */}
+      <FullWidth>
+        <TopNews />
+      </FullWidth>
 
-      {/* カルーセルここに入れる */}
-
-      {/* 下部の空白 */}
-      <div style={{ marginBottom: '20px' }}>
-      </div>
+      <div style={{ marginBottom: '20px' }} />
 
       {tagArts.map(({ tag, arts }) => (
-        <div key={tag}>
-          <SectionTitle>{tag}</SectionTitle>
-          {arts.map((art) => (
-            <div key={art.artId}>
-
-              {/* カルーセルここに入れる */}
-            </div>
-          ))}
+        arts.length >= 1 &&
+        <div key={tag} className={css({ my: "lg !important" })}>
+          <SectionTitle className={css({ my: "md !important" })}>
+            <Link href={`/tag/${tag}`}>
+              {tag}
+            </Link>
+          </SectionTitle>
+          <ArtsList
+            tag={tag}
+            arts={arts}
+          />
         </div>
       ))}
-    </div>
+    </div >
   );
 };
 

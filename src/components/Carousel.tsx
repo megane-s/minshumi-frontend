@@ -6,3 +6,5 @@ import { Carousel as MCarousel } from "@mantine/carousel"
 
 // TODO オートプレイ機能
 export const Carousel = MCarousel
+
+export const CarouselSlide = MCarousel.Slide
