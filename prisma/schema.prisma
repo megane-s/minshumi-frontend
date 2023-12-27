@@ -221,6 +221,7 @@ model BusinessCard {
   backgroundImageUrl String
   canComment         Boolean
   imageUrl           String
+  isPublish          Boolean                @default(false)
   user               User                   @relation(fields: [userId], references: [id])
   likeArts           BusinessCardLikeArt[]
   comments           BusinessCardComment[]
