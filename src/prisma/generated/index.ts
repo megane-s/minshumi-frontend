@@ -46,7 +46,7 @@ export const BookmarkArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
 export const BusinessCardScalarFieldEnumSchema = z.enum(['businessCardId','userId','type','name','rank','themeColor','imageUrl','backgroundImageUrl','isPublish','canComment']);
 
-export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId','likeArtTitle']);
+export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId','likeArtTitle','artArtId']);
 
 export const BusinessCardInterestTagScalarFieldEnumSchema = z.enum(['businessCardId','tag']);
 
@@ -304,6 +304,7 @@ export type BusinessCard = z.infer<typeof BusinessCardSchema>
 export const BusinessCardLikeArtSchema = z.object({
   businessCardId: z.string(),
   likeArtTitle: z.string(),
+  artArtId: z.string().nullable(),
 })
 
 export type BusinessCardLikeArt = z.infer<typeof BusinessCardLikeArtSchema>
