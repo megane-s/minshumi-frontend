@@ -30,7 +30,7 @@ interface BusinessCardEditorProps {
     defaultValues: BusinessCard & { tags: ArtTag[], arts: Art["title"][] }
     businessCardId: BusinessCardId
 }
-export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues, user, ranks, tags, likeArts, businessCardId }) => {
+export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues, user, ranks, tags, businessCardId }) => {
     const [name, setName] = useState(defaultValues.name ?? user?.name ?? "")
 
     const [icon, setIcon] = useState(defaultValues.imageUrl)
