@@ -216,31 +216,40 @@ model BookmarkArt {
 // BusinessCard
 
 model BusinessCard {
-  businessCardId     String                 @id @default(cuid())
+  businessCardId     String                    @id @default(cuid())
   userId             String
-  backgroundImageUrl String
-  canComment         Boolean
+  type               String
+  name               String
+  rank               String?
+  themeColor         String
   imageUrl           String
-  user               User                   @relation(fields: [userId], references: [id])
+  backgroundImageUrl String
+  isPublish          Boolean                   @default(false)
+  canComment         Boolean
+  user               User                      @relation(fields: [userId], references: [id])
   likeArts           BusinessCardLikeArt[]
+  interestTags       BusinessCardInterestTag[]
   comments           BusinessCardComment[]
   goodUsers          BusinessCardGoodUser[]
 }
 
 model BusinessCardLikeArt {
   businessCardId String
-  likeArtId      String
+  likeArtTitle   String
   businessCard   BusinessCard @relation(fields: [businessCardId], references: [businessCardId])
-  likeArt        Art          @relation(fields: [likeArtId], references: [artId])
+  Art            Art?         @relation(fields: [artArtId], references: [artId])
+  artArtId       String?
 
-  @@id([businessCardId, likeArtId])
+  @@id([businessCardId, likeArtTitle])
 }
 
-model BusinessCardRank {
+model BusinessCardInterestTag {
   businessCardId String
-  rank           String
+  tag            String
 
-  @@id([businessCardId, rank])
+  BusinessCard BusinessCard @relation(fields: [businessCardId], references: [businessCardId])
+
+  @@id([businessCardId, tag])
 }
 
 model BusinessCardComment {

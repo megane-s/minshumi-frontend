@@ -44,11 +44,11 @@ export const WatchingArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
 export const BookmarkArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
-export const BusinessCardScalarFieldEnumSchema = z.enum(['businessCardId','userId','backgroundImageUrl','canComment','imageUrl']);
+export const BusinessCardScalarFieldEnumSchema = z.enum(['businessCardId','userId','type','name','rank','themeColor','imageUrl','backgroundImageUrl','isPublish','canComment']);
 
-export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId','likeArtId']);
+export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId','likeArtTitle','artArtId']);
 
-export const BusinessCardRankScalarFieldEnumSchema = z.enum(['businessCardId','rank']);
+export const BusinessCardInterestTagScalarFieldEnumSchema = z.enum(['businessCardId','tag']);
 
 export const BusinessCardCommentScalarFieldEnumSchema = z.enum(['commentId','businessCardId','content','commentUserId','createAt','updateAt']);
 
@@ -285,9 +285,14 @@ export type BookmarkArt = z.infer<typeof BookmarkArtSchema>
 export const BusinessCardSchema = z.object({
   businessCardId: z.string().cuid(),
   userId: z.string(),
-  backgroundImageUrl: z.string(),
-  canComment: z.boolean(),
+  type: z.string(),
+  name: z.string(),
+  rank: z.string().nullable(),
+  themeColor: z.string(),
   imageUrl: z.string(),
+  backgroundImageUrl: z.string(),
+  isPublish: z.boolean(),
+  canComment: z.boolean(),
 })
 
 export type BusinessCard = z.infer<typeof BusinessCardSchema>
@@ -298,21 +303,22 @@ export type BusinessCard = z.infer<typeof BusinessCardSchema>
 
 export const BusinessCardLikeArtSchema = z.object({
   businessCardId: z.string(),
-  likeArtId: z.string(),
+  likeArtTitle: z.string(),
+  artArtId: z.string().nullable(),
 })
 
 export type BusinessCardLikeArt = z.infer<typeof BusinessCardLikeArtSchema>
 
 /////////////////////////////////////////
-// BUSINESS CARD RANK SCHEMA
+// BUSINESS CARD INTEREST TAG SCHEMA
 /////////////////////////////////////////
 
-export const BusinessCardRankSchema = z.object({
+export const BusinessCardInterestTagSchema = z.object({
   businessCardId: z.string(),
-  rank: z.string(),
+  tag: z.string(),
 })
 
-export type BusinessCardRank = z.infer<typeof BusinessCardRankSchema>
+export type BusinessCardInterestTag = z.infer<typeof BusinessCardInterestTagSchema>
 
 /////////////////////////////////////////
 // BUSINESS CARD COMMENT SCHEMA

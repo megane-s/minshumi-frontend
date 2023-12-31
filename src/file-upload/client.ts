@@ -27,6 +27,9 @@ export const selectFile = ({ accept = "*/*", }: Partial<{ accept: string }> = {}
             reject()
         }
     })
+    input.addEventListener("cancel", () => {
+        reject()
+    })
     input.click()
 })
 

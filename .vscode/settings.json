@@ -22,11 +22,13 @@
   },
   "cSpell.words": [
     "buildx",
+    "businesscard",
     "Centerized",
     "Mantine",
     "megane-s",
     "minshumi",
-    "tbsten"
+    "tbsten",
+    "unoptimized"
   ],
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"

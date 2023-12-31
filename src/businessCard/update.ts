@@ -1,9 +1,15 @@
+import { Art, ArtSchema, ArtTag, ArtTagSchema } from "@/art/type";
 import { prisma } from "@/prisma";
+// eslint-disable-next-line no-restricted-imports
+import { PrismaClient } from "@prisma/client";
 import "server-only";
 import { z } from 'zod';
 import { BusinessCardId, BusinessCardSchema } from "./type";
 
-export const UpdateBusinessCardParamsSchema = BusinessCardSchema.partial()
+export const UpdateBusinessCardParamsSchema = BusinessCardSchema.extend({
+    interestTags: ArtTagSchema.array(),
+    likeArts: ArtSchema.shape.title.array(),
+}).partial()
 export type UpdateBusinessCardParams = z.infer<typeof UpdateBusinessCardParamsSchema>
 
 /**
@@ -12,8 +18,53 @@ export type UpdateBusinessCardParams = z.infer<typeof UpdateBusinessCardParamsSc
  * @param params 更新後の名刺の内容。
  */
 export const updateBusinessCard = async (businessCardId: BusinessCardId, params: UpdateBusinessCardParams): Promise<void> => {
-    await prisma.businessCard.update({
-        where: { businessCardId },
-        data: params,
+    const { interestTags, likeArts, ...businessCardParams } = params
+    await prisma.$transaction(async (prisma) => {
+        await prisma.businessCard.update({
+            where: { businessCardId },
+            data: businessCardParams,
+        })
+        await Promise.all([
+            interestTags && updateBusinessCardInterestTags(prisma, businessCardId, interestTags),
+            likeArts && updateBusinessCardLikeArts(prisma, businessCardId, likeArts),
+        ])
     })
+}
+
+const updateBusinessCardInterestTags = async (
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
+    businessCardId: BusinessCardId,
+    interestTags: ArtTag[],
+) => {
+    await prisma.businessCardInterestTag.deleteMany({
+        where: { businessCardId },
+    })
+    await Promise.all(
+        interestTags.map(async (tag) => {
+            await prisma.businessCardInterestTag.upsert({
+                where: { businessCardId_tag: { businessCardId, tag } },
+                create: { tag, businessCardId, },
+                update: { tag, businessCardId, },
+            })
+        })
+    )
+}
+
+const updateBusinessCardLikeArts = async (
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
+    businessCardId: BusinessCardId,
+    likeArts: Art["title"][],
+) => {
+    await prisma.businessCardLikeArt.deleteMany({
+        where: { businessCardId },
+    })
+    await Promise.all(
+        likeArts?.map(async (artTitle) => {
+            await prisma.businessCardLikeArt.upsert({
+                where: { businessCardId_likeArtTitle: { businessCardId, likeArtTitle: artTitle } },
+                create: { businessCardId, likeArtTitle: artTitle },
+                update: { businessCardId, likeArtTitle: artTitle },
+            })
+        })
+    )
 }

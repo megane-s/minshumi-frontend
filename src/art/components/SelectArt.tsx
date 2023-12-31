@@ -17,26 +17,7 @@ interface SelectArtProps {
 }
 const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelectArt }) => {
     const [title, setTitle] = useState("")
-    const [debouncedTitle, setDebouncedTitle] = useState(title)
-    useDebounce(() => {
-        setDebouncedTitle(title)
-    }, 500, [title])
-
-    const queryClient = useQueryClient()
-    const suggestions = useQuery({
-        queryKey: ["art", "suggestions", debouncedTitle],
-        queryFn: async ({ signal }) => {
-            const suggestions = await fetch(`/api/art/suggest?q=${title}`, { signal })
-                .then(r => r.json())
-                .then(r => ArtSchema.array().parse(r))
-            suggestions.forEach(suggest => {
-                queryClient.setQueryData(["art", suggest.artId], suggest)
-            })
-            return suggestions
-        },
-        placeholderData: keepPreviousData,
-        throwOnError: true,
-    })
+    const suggestions = useSuggestTitle(title)
 
     return (
         <div>
@@ -76,3 +57,27 @@ const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelect
 }
 
 export default SelectArt
+
+export const useSuggestTitle = (title: string, { debounce = 500 }: { debounce?: number } = {}) => {
+    const [debouncedTitle, setDebouncedTitle] = useState(title)
+    useDebounce(() => {
+        setDebouncedTitle(title)
+    }, debounce, [title])
+
+    const queryClient = useQueryClient()
+    const suggestions = useQuery({
+        queryKey: ["art", "suggestions", debouncedTitle],
+        queryFn: async ({ signal }) => {
+            const suggestions = await fetch(`/api/art/suggest?q=${title}`, { signal })
+                .then(r => r.json())
+                .then(r => ArtSchema.array().parse(r))
+            suggestions.forEach(suggest => {
+                queryClient.setQueryData(["art", suggest.artId], suggest)
+            })
+            return suggestions
+        },
+        placeholderData: keepPreviousData,
+        throwOnError: true,
+    })
+    return suggestions
+}

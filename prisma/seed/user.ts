@@ -12,12 +12,13 @@ export const seedUser = async () => {
 }
 
 export const newSeedUser = async (id: string, businessCardCount: number) => {
+    const name = faker.person.fullName()
     await prisma.user.upsert({
         where: { id },
         update: {},
         create: {
             id,
-            name: faker.person.fullName(),
+            name,
             image: faker.image.url(),
             email: faker.internet.email(),
             emailVerified: faker.date.anytime(),
@@ -42,9 +43,23 @@ export const newSeedUser = async (id: string, businessCardCount: number) => {
                 create: Array.from({ length: businessCardCount }, (_, i) => i)
                     .map(i => ({
                         businessCardId: `business-card-${id}-${i}`,
+                        imageUrl: faker.image.url({ width: 1200, height: 675 }),
                         backgroundImageUrl: faker.image.url(),
                         canComment: faker.datatype.boolean(),
-                        imageUrl: faker.image.url({ width: 1200, height: 675 }),
+                        isPublish: false,
+                        name,
+                        rank: Math.random() >= 0.5 ? "アクションマスター" : null,
+                        themeColor: "red",
+                        type: "1",
+                        interestTags: {
+                            createMany: {
+                                data: faker.helpers.arrayElements([
+                                    { tag: "アクション" },
+                                    { tag: "SF" },
+                                    { tag: "ジャンプ" },
+                                ]),
+                            },
+                        }
                     })),
             },
             ranks: {
