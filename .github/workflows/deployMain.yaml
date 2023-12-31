@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature/docker-deploy # 検証用
 
 permissions:
   contents: write
@@ -22,6 +21,9 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      COCKROACH_DATABASE_URL: ${{ secrets.COCKROACH_DATABASE_URL }}
+      BUSINESS_CARD_IMAGE_SERVER: ${{ secrets.BUSINESS_CARD_IMAGE_SERVER }}
     steps:
       - uses: 'actions/checkout@v4'
       - uses: 'google-github-actions/auth@v2'
@@ -33,7 +35,10 @@ jobs:
       - name: Authorize Docker push
         run: gcloud auth configure-docker
       - name: Build Docker image
-        run: docker build -t asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} .
+        run: | 
+          echo "COCKROACH_DATABASE_URL=$COCKROACH_DATABASE_URL" >> .env
+          echo "BUSINESS_CARD_IMAGE_SERVER=$BUSINESS_CARD_IMAGE_SERVER" >> .env
+          docker build -t asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} .
       - name: Push Docker Image
         run: docker push asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }}
       - name: Deploy to Cloud Run
@@ -42,7 +47,7 @@ jobs:
             --project=$PROJECT_ID \
             --image=asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} \
             --region=asia-northeast1 \
-            --set-secrets=COCKROACH_DATABASE_URL=cockroach-db-prod-url:1,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:1,GOOGLE_AUTH_CLIENT_SECRET=google-auth-client-secret:1,NEXTAUTH_SECRET=nextauth-secret:1,REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:1 \
+            --set-secrets=COCKROACH_DATABASE_URL=cockroach-db-prod-url:1,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:1,GOOGLE_AUTH_CLIENT_SECRET=google-auth-client-secret:1,NEXTAUTH_SECRET=nextauth-secret:1,REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:1,BUSINESS_CARD_IMAGE_SERVER=business-card-image-server:1 \
             --allow-unauthenticated \
             --service-account=minshumi-frontend-prod-service@megane-s-gcp.iam.gserviceaccount.com \
           &>> ./deploy.log
