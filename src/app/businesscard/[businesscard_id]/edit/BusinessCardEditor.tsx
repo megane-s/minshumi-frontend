@@ -12,15 +12,15 @@ import { css } from "styled-system/css"
 import { center, container, flex } from "styled-system/patterns"
 import { colors } from "./colors"
 import { BusinessCardPreview } from "./BusinessCardPreview"
-import { useMediaQuery } from "@mantine/hooks"
 import { InputImages } from "./InputImages"
 import TagSelect from "@/components/TagSelect"
 import { Art, ArtTag } from "@/art/type"
 import { InputArtTitle } from "./InputArtTitle"
-import { CheckIcon } from "@/components/icon/Check"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { handleSaveBusinessCard } from "./actions"
+import { Button } from "@/components/Button"
+import Link from "next/link"
 
 
 interface BusinessCardEditorProps {
@@ -64,7 +64,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
         })
     })
 
-    const largeScreen = useMediaQuery(`(min-width: 768px)`)
     return (
         <FullWidth className={flex({
             base: { flexDir: "column", alignItems: "stretch" },
@@ -181,15 +180,30 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 </div>
             </div>
 
-            <MutateButton
-                mutation={save}
-                className={css({ position: "fixed !important", bottom: 2, right: 4, zIndex: 1, shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
-                size={largeScreen ? "xl" : "md"}
-                leftSection={<CheckIcon />}
-                variant="filled"
-            >
-                保存
-            </MutateButton>
+            <div className={flex({
+                position: "fixed !important", bottom: 2, right: 4, zIndex: 1,
+                gap: "sm",
+                base: { flexDir: "column", alignItems: "flex-end" },
+                sm: { flexDir: "row" },
+            })}>
+                <MutateButton
+                    mutation={save}
+                    className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
+                    size="md"
+                    variant="default"
+                >
+                    保存
+                </MutateButton>
+                <Button
+                    className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
+                    size="md"
+                    variant="filled"
+                    component={Link}
+                    href={`/businesscard/${businessCardId}/settings`}
+                >
+                    公開設定
+                </Button>
+            </div>
 
         </FullWidth >
     )
