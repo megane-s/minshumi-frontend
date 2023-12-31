@@ -53,3 +53,4 @@ jobs:
         run: yarn build
         env:
           COCKROACH_DATABASE_URL: ${{ secrets.COCKROACH_DATABASE_URL }}
+          BUSINESS_CARD_IMAGE_SERVER: ${{ secrets.BUSINESS_CARD_IMAGE_SERVER }}
