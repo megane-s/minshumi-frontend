@@ -8,12 +8,7 @@ export interface Env {
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		const requestUrl = new URL(request.url)
-		const originServerUrl = new URL(env.ORIGIN_SERVER_URL)
-		originServerUrl.pathname = requestUrl.pathname
-		originServerUrl.search = requestUrl.search
-		originServerUrl.hash = requestUrl.hash
-		const originServerRes = await fetch(originServerUrl)
-		return originServerRes
+		const reqUrl = new URL(request.url)
+		return fetch(`${env.ORIGIN_SERVER_URL}${reqUrl.pathname}${reqUrl.search}`, request)
 	},
 }
