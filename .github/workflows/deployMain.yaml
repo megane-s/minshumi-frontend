@@ -57,7 +57,7 @@ jobs:
             --image=asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} \
             --region=asia-northeast1 \
             --set-secrets="$SET_SECRETS" \
-            --set-env-vars "NEXTAUTH_URL=https://minshumi.com"
+            --set-env-vars "NEXTAUTH_URL=https://minshumi.com" \
             --allow-unauthenticated \
             --service-account=minshumi-frontend-prod-service@megane-s-gcp.iam.gserviceaccount.com \
           &>> ./deploy.log
