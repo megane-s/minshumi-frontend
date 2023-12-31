@@ -4,6 +4,7 @@ import { ArtTag } from "@/art/type"
 import { FC, memo } from "react"
 import { Flex, FlexProps } from "@mantine/core"
 import { Button } from "./Button"
+import { CheckIcon } from "./icon/Check"
 
 const toggleTag = (prevTags: ArtTag[], tag: ArtTag) => {
     const newTags = [...prevTags]
@@ -50,6 +51,7 @@ const TagSelectItem: FC<TagSelectItemProps> = ({ tag, isSelected, onClick }) => 
             size="compact-sm"
             radius="xl"
             onClick={onClick}
+            leftSection={isSelected && <CheckIcon />}
         >
             {tag}
         </Button>
