@@ -45,7 +45,7 @@ jobs:
             --project=$PROJECT_ID \
             --image=asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} \
             --region=asia-northeast1 \
-            --set-secrets=COCKROACH_DATABASE_URL=cockroach-db-prod-url:1,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:1,GOOGLE_AUTH_CLIENT_SECRET=google-auth-client-secret:1,NEXTAUTH_SECRET=nextauth-secret:1,REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:1,BUSINESS_CARD_IMAGE_SERVER=business-card-image-server \
+            --set-secrets=COCKROACH_DATABASE_URL=cockroach-db-prod-url:1,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:1,GOOGLE_AUTH_CLIENT_SECRET=google-auth-client-secret:1,NEXTAUTH_SECRET=nextauth-secret:1,REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:1,BUSINESS_CARD_IMAGE_SERVER=business-card-image-server:1 \
             --allow-unauthenticated \
             --service-account=minshumi-frontend-prod-service@megane-s-gcp.iam.gserviceaccount.com \
           &>> ./deploy.log
