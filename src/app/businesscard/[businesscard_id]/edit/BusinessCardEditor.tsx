@@ -19,8 +19,7 @@ import { InputArtTitle } from "./InputArtTitle"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { handleSaveBusinessCard } from "./actions"
-import { Button } from "@/components/Button"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 
 interface BusinessCardEditorProps {
@@ -51,7 +50,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const isValid = isValidArts && isValidThemeColor
 
     const save = useMutate(async () => {
-        console.log("save")
         if (!isValid) throw new Error(`入力値が不正です`)
         await handleSaveBusinessCard(businessCardId, {
             name,
@@ -62,6 +60,29 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
             backgroundImageUrl: backgroundImage,
             themeColor,
         })
+    }, {
+        loading: { toast: "保存しています..." },
+        onSuccess: { toast: "保存しました" },
+        onError: { toast: "保存できませんでした" },
+    })
+
+    const router = useRouter()
+    const gotoSettings = useMutate(async () => {
+        if (!isValid) throw new Error(`入力値が不正です`)
+        await handleSaveBusinessCard(businessCardId, {
+            name,
+            imageUrl: icon,
+            rank,
+            interestTags,
+            likeArts: arts,
+            backgroundImageUrl: backgroundImage,
+            themeColor,
+        })
+        router.push(`/businesscard/${businessCardId}/settings`)
+    }, {
+        loading: { toast: "保存しています..." },
+        onSuccess: { toast: "保存しました" },
+        onError: { toast: "保存できませんでした" },
     })
 
     return (
@@ -194,15 +215,14 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 >
                     保存
                 </MutateButton>
-                <Button
+                <MutateButton
                     className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
                     size="md"
                     variant="filled"
-                    component={Link}
-                    href={`/businesscard/${businessCardId}/settings`}
+                    mutation={gotoSettings}
                 >
                     公開設定
-                </Button>
+                </MutateButton>
             </div>
 
         </FullWidth >

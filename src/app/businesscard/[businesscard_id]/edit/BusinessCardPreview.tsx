@@ -1,9 +1,11 @@
+"use client"
+
 import { ArtTag } from "@/art/type"
 import { useImageLoading } from "@/util/client/useImageLoading"
 import Image from "next/image"
 import { FC, useState } from "react"
 import { useDebounce } from "react-use"
-import { css } from "styled-system/css"
+import { css, cx } from "styled-system/css"
 import { colors } from "./colors"
 import { Loader } from "@/components/Loader"
 
@@ -15,33 +17,37 @@ interface BusinessCardPreviewProps {
     arts: string[],
     backgroundImage: string,
     themeColor: string,
+    className?: string
 }
 export const BusinessCardPreview: FC<BusinessCardPreviewProps> = (props) => {
     const previewImageUrl = usePreviewImageUrl(props)
     const previewImage = useImageLoading({ src: previewImageUrl })
     return (
         <div
-            className={css({
-                position: "relative",
-                w: "min(600px, 100%)",
-                aspectRatio: "1200 / 675",
-                borderRadius: "xl",
-                overflow: "hidden",
-                base: {
-                    boxShadow: previewImage.isLoading
-                        ? "0px 0px 40px rgba(0, 0, 0, 0.25)"
-                        : "0px 10px 30px rgba(0, 0, 0, 0.25)",
-                },
-                md: {
-                    borderTop: "solid rgba(255, 255, 255, 0.02)",
-                    borderLeft: "solid rgba(255, 255, 255, 0.02)",
-                    boxShadow: previewImage.isLoading
-                        ? "5px 5px 10px rgba(0, 0, 0, 0.25)"
-                        : "20px 20px 30px rgba(0, 0, 0, 0.25)",
-                },
-                transform: previewImage.isLoading ? "scale(0.95)" : "scale(1.0)",
-                transition: "all 0.3s",
-            })}
+            className={cx(
+                css({
+                    position: "relative",
+                    w: "min(600px, 100%)",
+                    aspectRatio: "1200 / 675",
+                    borderRadius: "xl",
+                    overflow: "hidden",
+                    base: {
+                        boxShadow: previewImage.isLoading
+                            ? "0px 0px 40px rgba(0, 0, 0, 0.25)"
+                            : "0px 10px 30px rgba(0, 0, 0, 0.25)",
+                    },
+                    md: {
+                        borderTop: "solid rgba(255, 255, 255, 0.02)",
+                        borderLeft: "solid rgba(255, 255, 255, 0.02)",
+                        boxShadow: previewImage.isLoading
+                            ? "5px 5px 10px rgba(0, 0, 0, 0.25)"
+                            : "20px 20px 30px rgba(0, 0, 0, 0.25)",
+                    },
+                    transform: previewImage.isLoading ? "scale(0.95)" : "scale(1.0)",
+                    transition: "all 0.3s",
+                }),
+                props.className,
+            )}
         >
             <Image
                 {...previewImage.props}
