@@ -10,13 +10,17 @@ import { getArtAppealsByUser } from "@/art/appeal/getByUser"
 import { getBusinessCardInterestTags } from "@/businessCard/getInterestTags"
 import { getBusinessCardLikeArts } from "@/businessCard/getLikeArts"
 
+const defaultInstantBusinesscardTags = ["アクション", "SF"]
+const defaultInstantBusinesscardArts = ["作品1", "作品2", "作品3"]
+
 interface PageProps {
     params: { businesscard_id: string }
 }
 const EditBusinessCardPage = async ({ params: { businesscard_id } }: PageProps) => {
+    const isInstant = businesscard_id === "instant"
 
     const [businessCard, currentUser] = await Promise.all([
-        getBusinessCardData(businesscard_id),
+        getBusinessCardData(isInstant, businesscard_id),
         getCurrentUserData(),
     ])
 
@@ -27,20 +31,28 @@ const EditBusinessCardPage = async ({ params: { businesscard_id } }: PageProps) 
         <BusinessCardEditor
             user={businessCard.user}
             ranks={currentUser.ranks}
-            tags={currentUser.tags ?? []}
+            tags={currentUser.tags ?? defaultInstantBusinesscardTags}
             likeArts={Array(3).fill("").map((_, i) => currentUser.likeArts?.[i]?.title ?? "")}
             defaultValues={{
-                ...businessCard.businessCard,
-                tags: businessCard.tags ?? currentUser.tags ?? [],
-                arts: businessCard.arts ?? currentUser.likeArts ?? [],
+                ...businessCard.businessCard ?? {},
+                tags: businessCard.tags ?? currentUser.tags ?? defaultInstantBusinesscardTags,
+                arts: businessCard.arts ?? currentUser.likeArts ?? defaultInstantBusinesscardArts,
             }}
-            businessCardId={businessCard.businessCard.businessCardId}
+            businessCardId={businessCard.businessCard?.businessCardId ?? null}
         />
     )
 }
 export default EditBusinessCardPage
 
-const getBusinessCardData = async (businessCardId: BusinessCardId) => {
+const getBusinessCardData = async (isInstant: boolean, businessCardId: BusinessCardId) => {
+    if (isInstant) {
+        return {
+            businessCard: null,
+            tags: [],
+            arts: [],
+            user: await getSession().then(session => session?.user ?? null),
+        }
+    }
     const businessCard = await getBusinessCardById(businessCardId)
     if (!businessCard) return null
     const user = await getUser(businessCard.userId)

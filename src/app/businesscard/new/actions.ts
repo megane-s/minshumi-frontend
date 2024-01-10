@@ -2,6 +2,7 @@
 
 import { getSession } from "@/auth/server/auth"
 import { createBusinessCard } from "@/businessCard/create"
+import { defaultBusinessCard } from "@/businessCard/defaults"
 
 export const handleCreateBusinessCard = async (type: number) => {
     const session = await getSession()
@@ -10,14 +11,10 @@ export const handleCreateBusinessCard = async (type: number) => {
         return
     }
     const newBusinessCard = await createBusinessCard(session?.user.id ?? null, {
-        backgroundImageUrl: "https://storage.googleapis.com/minshumi-user-content/bg.png",
-        canComment: false,
-        imageUrl: "https://storage.googleapis.com/minshumi-user-content/tbsten500x500.png",
+        ...defaultBusinessCard,
         name: session.user.name ?? "",
-        rank: null,
-        isPublish: false,
-        themeColor: "red",
         type: String(type),
     })
     return newBusinessCard
 }
+

@@ -87,7 +87,7 @@ export const usePreviewImageUrl = (input: BusinessCardPreviewProps) => {
         background_image: input.backgroundImage,
         theme_color: input.themeColor,
     })
-    if (input.rank) params.append("rank", input.rank)
+    params.append("rank", input.rank ?? "")
 
     const previewImageUrl = `/api/businesscard/image?${params.toString()}`
     const [debouncedPreviewImageUrl, setDebouncedPreviewImageUrl] = useState(previewImageUrl)
