@@ -13,3 +13,5 @@ bin/
 obj/
 out/
 .next/
+
+prisma/seed/

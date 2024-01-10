@@ -63,7 +63,7 @@ model User {
   sessions                 Session[]
   interestTags             InterestTag[]
   goodArts                 ArtGoodUser[]
-  recommendedArts          RecommendArt[]
+  artAppeals               ArtAppeal[]
   watchingArts             WatchingArt[]
   bookmarkArts             BookmarkArt[]
   followers                Follower[]                    @relation("followers")
@@ -125,7 +125,7 @@ model Art {
   description            String
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
-  reccomendUsers         RecommendArt[]
+  appeals                ArtAppeal[]
   watchingUsers          WatchingArt[]
   bookmarkUsers          BookmarkArt[]
   useAsLikeBusinessCards BusinessCardLikeArt[]
@@ -185,7 +185,7 @@ model ArtGoodUser {
   @@id([artId, userId])
 }
 
-model RecommendArt {
+model ArtAppeal {
   userId    String
   artId     String
   likePoint String

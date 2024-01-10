@@ -38,7 +38,7 @@ export const InterestTagScalarFieldEnumSchema = z.enum(['userId','tag']);
 
 export const ArtGoodUserScalarFieldEnumSchema = z.enum(['artId','userId','artArtId']);
 
-export const RecommendArtScalarFieldEnumSchema = z.enum(['userId','artId','likePoint']);
+export const ArtAppealScalarFieldEnumSchema = z.enum(['userId','artId','likePoint']);
 
 export const WatchingArtScalarFieldEnumSchema = z.enum(['userId','artId']);
 
@@ -245,16 +245,16 @@ export const ArtGoodUserSchema = z.object({
 export type ArtGoodUser = z.infer<typeof ArtGoodUserSchema>
 
 /////////////////////////////////////////
-// RECOMMEND ART SCHEMA
+// ART APPEAL SCHEMA
 /////////////////////////////////////////
 
-export const RecommendArtSchema = z.object({
+export const ArtAppealSchema = z.object({
   userId: z.string(),
   artId: z.string(),
   likePoint: z.string(),
 })
 
-export type RecommendArt = z.infer<typeof RecommendArtSchema>
+export type ArtAppeal = z.infer<typeof ArtAppealSchema>
 
 /////////////////////////////////////////
 // WATCHING ART SCHEMA

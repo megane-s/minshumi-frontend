@@ -1,6 +1,6 @@
 import { seedArt } from "./art"
+import { seedArtAppeal } from "./artAppeal"
 import { prisma } from "./client"
-import { seedRecommendArt } from "./recommendArt"
 import { seedUser } from "./user"
 import { seedWatchingArt } from "./watchingArt"
 
@@ -10,7 +10,7 @@ const main = async () => {
         await seedArt()
         await seedUser()
         await Promise.all([
-            seedRecommendArt(),
+            seedArtAppeal(),
             seedWatchingArt(),
         ])
         console.log("✅ seed script finished ! check on prisma studio (`yarn prisma studio`)")
