@@ -1,3 +1,4 @@
+import { UserId } from '@/user/type';
 import "server-only";
 
 import { prisma } from "@/prisma";
@@ -19,4 +20,12 @@ export const updateArt = async (artId: ArtId, art: UpdateArtParams): Promise<Art
         data: art,
     })
     return result
+}
+
+export const canUpdateArt = async (by: UserId, prevArt: Art, input: UpdateArtParams) => {
+    // タイトルは作成者以外変更できない
+    if (input.title && by !== prevArt.userId) {
+        return false
+    }
+    return true
 }
