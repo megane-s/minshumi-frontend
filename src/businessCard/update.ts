@@ -1,10 +1,11 @@
 import { Art, ArtSchema, ArtTag, ArtTagSchema } from "@/art/type";
 import { prisma } from "@/prisma";
+import { UserId } from "@/user/type";
 // eslint-disable-next-line no-restricted-imports
 import { PrismaClient } from "@prisma/client";
 import "server-only";
 import { z } from 'zod';
-import { BusinessCardId, BusinessCardSchema } from "./type";
+import { BusinessCard, BusinessCardId, BusinessCardSchema } from "./type";
 
 export const UpdateBusinessCardParamsSchema = BusinessCardSchema.extend({
     interestTags: ArtTagSchema.array(),
@@ -67,4 +68,15 @@ const updateBusinessCardLikeArts = async (
             })
         })
     )
+}
+
+export const canUpdateBusinessCard = (
+    by: UserId,
+    prev: BusinessCard,
+) => {
+    // 作成者以外は更新できない
+    if (prev.userId !== by) {
+        return false
+    }
+    return true
 }
