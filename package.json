@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
-    "dev": "rm -rf .next && panda codegen && next dev",
+    "dev": "node ./tools/clear-next-cache.js && panda codegen && next dev",
     "build": "panda codegen && next build",
     "start": "next start",
     "lint": "next lint",
