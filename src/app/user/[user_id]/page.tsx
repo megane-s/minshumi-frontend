@@ -6,7 +6,7 @@ import { getWatchingArts } from "@/art/watching/get";
 import { getBusinessCardByUser } from "@/businessCard/getByUser";
 import { CommentForm } from "./CommentForm";
 import { getCommentsByBusinessCard } from "@/businessCard/comment/getByBusinessCard";
-import { getRecommendArtsByUser } from "@/art/recommend/getByUser";
+import { getArtAppealsByUser } from "@/art/appeal/getByUser";
 import { CommentListItem } from "./CommentListItem";
 import { getFollowers } from "@/user/follow/getFollowers";
 import { getFollowings } from "@/user/follow/getFollowings";
@@ -33,7 +33,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
     const user = await getUser(userId)
     if (!user) notFound()
 
-    const recommendArts = await getRecommendArtsByUser(userId)
+    const artAppeals = await getArtAppealsByUser(userId)
     const watchingArts = await getWatchingArts(userId)
     const businessCards = await getBusinessCardByUser(userId)
     const businessCard = businessCards[0] as BusinessCard | null
@@ -102,7 +102,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 好きな作品
             </SectionTitle>
             <LikeArtList
-                arts={recommendArts}
+                arts={artAppeals}
             />
             {/* TODO 0件の時の表示 */}
 

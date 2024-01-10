@@ -6,7 +6,7 @@ import { notImplementError } from "@/util/notImplement"
 import { notFound } from "next/navigation"
 import { BusinessCardEditor } from "./BusinessCardEditor"
 import "./style.css"
-import { getRecommendArtsByUser } from "@/art/recommend/getByUser"
+import { getArtAppealsByUser } from "@/art/appeal/getByUser"
 import { getBusinessCardInterestTags } from "@/businessCard/getInterestTags"
 import { getBusinessCardLikeArts } from "@/businessCard/getLikeArts"
 
@@ -55,6 +55,6 @@ const getCurrentUserData = async () => {
     const user = session.user
     const ranks = ["アクションマスター", "SFマスター", "初心者"] // TODO getRanks(user.id)
     const tags = ["アクション", "SF", "ジャンプ"] // TODO getTags(user.id)
-    const likeArts = await getRecommendArtsByUser(user.id)
+    const likeArts = await getArtAppealsByUser(user.id)
     return { user, ranks, tags, likeArts } as const
 }

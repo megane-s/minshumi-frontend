@@ -2,7 +2,7 @@
 
 import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm"
 import { InputRelatedArt } from "@/art/newArtSession/type"
-import { ArtId, RecommendArt } from "@/art/type"
+import { ArtId, ArtAppeal } from "@/art/type"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { Flex } from "@mantine/core"
@@ -12,7 +12,7 @@ import { handleSaveAppeal } from "./actions"
 interface EditArtRelatedFormProps {
     artId: ArtId
     title: string
-    defaultValues: Pick<RecommendArt, "likePoint"> & {
+    defaultValues: Pick<ArtAppeal, "likePoint"> & {
         prevArts: InputRelatedArt[]
         nextArts: InputRelatedArt[]
     }

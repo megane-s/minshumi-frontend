@@ -1,10 +1,10 @@
-import { RecommendArt } from "@/art/type"
+import { ArtAppeal } from "@/art/type"
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { FC } from "react"
 import { LikeArtImage } from "./LikeArtImage"
 
 interface LikeArtListProps {
-    arts: RecommendArt[]
+    arts: ArtAppeal[]
 }
 export const LikeArtList: FC<LikeArtListProps> = ({ arts }) => {
     return (

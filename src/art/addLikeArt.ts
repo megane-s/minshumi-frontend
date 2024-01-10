@@ -14,7 +14,7 @@ export const addLikeArt = async (newArtSession: NewArtSession, by: UserId) => {
         const art = await createOrGetArt(prisma, newArtSession, by)
 
         const likePoint = newArtSession.likePoint
-        await prisma.recommendArt.create({
+        await prisma.artAppeal.create({
             data: {
                 artId: art.artId,
                 userId: by,
