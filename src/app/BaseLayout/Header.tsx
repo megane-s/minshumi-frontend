@@ -9,7 +9,7 @@ import LinkButton from "@/components/LinkButton"
 import HeaderDrawerMenu from "./HeaderDrawerMenu"
 import { HeaderAvatar } from "./HeaderAvatar"
 import { ActionIcon } from "@/components/ActionIcon"
-import { InfoIcon } from "@/components/icon/Info"
+import { NotificationIcon } from "@/components/icon/Notification"
 
 interface HeaderProps {
 }
@@ -28,11 +28,11 @@ const Header: FC<HeaderProps> = async () => {
                         ? <>
                             <ActionIcon
                                 size="lg"
-                                variant="outline"
+                                variant="subtle"
                                 radius="xl"
-                                color="info.0"
+                                color="info"
                             >
-                                <InfoIcon />
+                                <NotificationIcon />
                             </ActionIcon>
                             <Space w="0.5em" />
                             <HeaderAvatar
