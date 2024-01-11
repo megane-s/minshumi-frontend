@@ -2,10 +2,13 @@
 
 import { FC } from "react"
 import { NewArtSession } from "@/art/newArtSession/type"
-import NewArtNavigation from "../Navigation"
 import InputDetailForm from "@/art/components/detail/ArtDetailForm"
 import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField"
 import { Art } from "@/art/type"
+import { flex } from "styled-system/patterns"
+import { IoCaretBack, IoCaretForward } from "react-icons/io5"
+import LinkButton from "@/components/LinkButton"
+import MutateButton from "@/components/MutateButton"
 
 interface NewInputDetailFormProps {
     defaultValues: Pick<NewArtSession, "title" | "description" | "imageUrl">
@@ -17,6 +20,7 @@ const NewInputDetailForm: FC<NewInputDetailFormProps> = ({ defaultValues }) => {
     const [imageUrl, setImageUrl] = useInputNewArtSessionField("imageUrl", defaultValues.imageUrl ?? "/placeholder/300x200_red.png", "/art/new/detail")
 
     const isValid = titleErrors.length === 0
+
     return (
         <InputDetailForm
             title={title} onChangeTitle={setTitle} titleErrors={titleErrors}
@@ -24,13 +28,24 @@ const NewInputDetailForm: FC<NewInputDetailFormProps> = ({ defaultValues }) => {
             imageUrl={imageUrl} onChangeImageUrl={setImageUrl}
             isValid={isValid}
             actions={
-                <NewArtNavigation
-                    prevHref="/art/new/title#"
-                    nextHref={!isValid ? "#" : "/art/new/tag#"}
-                    nextButtonProps={{
-                        disabled: !isValid,
-                    }}
-                />
+                <div className={flex({ justify: "space-between", my: "md", wrap: "wrap" })}>
+                    <LinkButton
+                        variant="default"
+                        leftSection={<IoCaretBack />}
+                        href="/art/detail"
+                        prefetch
+                    >
+                        戻る
+                    </LinkButton>
+                    <MutateButton
+                        mutation={save}
+                        variant="filled"
+                        rightSection={<IoCaretForward />}
+                    >
+                        登録する
+                    </MutateButton>
+                </div>
+
             }
         />
     )
