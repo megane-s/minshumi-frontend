@@ -1,7 +1,7 @@
 "use client"
 
 import FullWidth from "@/app/BaseLayout/FullWidth"
-import CenterizedScroll, { CenterizedScrollTarget } from "@/app/art/new/appeal/CenterizedScroll"
+import CenterizedScroll, { CenterizedScrollTarget } from "@/components/CenterizedScroll"
 import { ActionIcon } from "@/components/ActionIcon"
 import { Textarea } from "@/components/Textarea"
 import { Center, Stack, Text } from "@mantine/core"
