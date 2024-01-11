@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
 const NewArtPage = () => {
-    redirect("/art/new/title")
+    redirect("/art/new/detail#")
 }
 export default NewArtPage
