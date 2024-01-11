@@ -19,7 +19,7 @@ const Header: FC<HeaderProps> = async () => {
         <AppShellHeader>
 
             <Flex justify="space-between" align="center" px="sm">
-                <HeaderDrawerMenu session={session} />
+                <HeaderDrawerMenu />
                 <Logo
                     imageProps={{ priority: true }}
                 />
