@@ -93,17 +93,17 @@ const UserProfilePage = async ({ params }: PageProps) => {
 
             {/* TODO 作品表示の部分をカルーセルを使う */}
             <SectionTitle my="md">
-                今見ている作品
-            </SectionTitle>
-            <WatchingArtList arts={watchingArts} />
-            {/* TODO 0件の時の表示 */}
-
-            <SectionTitle my="md">
                 好きな作品
             </SectionTitle>
             <LikeArtList
                 arts={artAppeals}
             />
+            {/* TODO 0件の時の表示 */}
+
+            <SectionTitle my="md">
+                今見ている作品
+            </SectionTitle>
+            <WatchingArtList arts={watchingArts} />
             {/* TODO 0件の時の表示 */}
 
             {comments && <>
