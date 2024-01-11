@@ -4,11 +4,11 @@ import { FC } from "react"
 import Logo from "./Logo"
 import { AppShellHeader } from "./AppShell"
 import { Flex, Space } from "@mantine/core"
-import { Avatar } from "@/components/Avatar"
-import { ActionIcon } from "@/components/ActionIcon"
 import { getSession } from "@/auth/server/auth"
 import LinkButton from "@/components/LinkButton"
-import HeaderMenu from "./HeaderMenu"
+import HeaderDrawerMenu from "./HeaderDrawerMenu"
+import { HeaderAvatar } from "./HeaderAvatar"
+import { ActionIcon } from "@/components/ActionIcon"
 import { InfoIcon } from "@/components/icon/Info"
 
 interface HeaderProps {
@@ -35,9 +35,8 @@ const Header: FC<HeaderProps> = async () => {
                                 <InfoIcon />
                             </ActionIcon>
                             <Space w="0.5em" />
-                            <Avatar
-                                src={session.user.image}
-                                alt={session.user.name ?? "ユーザ"}
+                            <HeaderAvatar
+                                session={session}
                             />
                         </>
                         : <LinkButton href="/login" variant="outline">
@@ -45,8 +44,6 @@ const Header: FC<HeaderProps> = async () => {
                         </LinkButton>}
                 </Flex>
             </Flex>
-
-            {/* <HeaderMenu session={session} /> */}
 
         </AppShellHeader>
     )
