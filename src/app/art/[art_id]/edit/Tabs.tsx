@@ -25,11 +25,6 @@ const EditTabs: FC<EditTabsProps> = ({ artId }) => {
                             タグ
                         </Tabs.Tab>
                     </Link>
-                    <Link href={`/art/${artId}/edit/appeal`}>
-                        <Tabs.Tab value="appeal">
-                            アピール
-                        </Tabs.Tab>
-                    </Link>
                 </Tabs.List>
             </Tabs>
         </div>
