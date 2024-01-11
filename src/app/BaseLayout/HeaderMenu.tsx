@@ -13,6 +13,7 @@ import { EditIcon } from "@/components/icon/Edit";
 import { NotificationIcon } from "@/components/icon/Notification";
 import { SettingsIcon } from "@/components/icon/Settings";
 import { css } from "styled-system/css";
+import { CgProfile } from "react-icons/cg";
 
 interface HeaderMenuProps {
     session: Session | null
@@ -50,6 +51,13 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
                         rightSection={<EditIcon />}
                         component={Link}
                         href="/art/new"
+                        onClick={close}
+                    />
+                    <NavLink
+                        label="MYプロフィール"
+                        rightSection={<CgProfile />}
+                        component={Link}
+                        href={`/user/${session.user.id}`}
                         onClick={close}
                     />
                     <NavLink
