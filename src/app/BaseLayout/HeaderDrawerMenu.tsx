@@ -15,10 +15,10 @@ import { SettingsIcon } from "@/components/icon/Settings";
 import { css } from "styled-system/css";
 import { CgProfile } from "react-icons/cg";
 
-interface HeaderMenuProps {
+interface HeaderDrawerMenuProps {
     session: Session | null
 }
-const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
+const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = ({ session }) => {
     const [opened, { toggle, close }] = useDisclosure();
     return (
         <>
@@ -84,4 +84,4 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
     )
 }
 
-export default HeaderMenu
+export default HeaderDrawerMenu
