@@ -8,12 +8,12 @@ import Link from "next/link";
 import { Session } from "next-auth";
 import { tags } from "../tags";
 import { Burger } from '@mantine/core';
-import { logout } from "@/auth/client/logout";
 import { EditIcon } from "@/components/icon/Edit";
 import { NotificationIcon } from "@/components/icon/Notification";
 import { SettingsIcon } from "@/components/icon/Settings";
 import { css } from "styled-system/css";
 import { CgProfile } from "react-icons/cg";
+import { logout } from "@/auth/client/logout";
 
 interface HeaderMenuProps {
     session: Session | null
@@ -76,8 +76,9 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ session }) => {
                     />
                     <NavLink
                         label="ログアウト"
-                        onClick={() => logout()}
+                        onClick={() => logout({ callbackUrl: "/" })}
                     />
+
                 </>}
             </Drawer>
         </>
