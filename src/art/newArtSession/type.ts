@@ -22,9 +22,6 @@ export const NewArtSessionSchema = z.object({
     mediaTags: ArtTagSchema.array().optional(),
     genreTags: ArtTagSchema.array().optional(),
     otherTags: ArtTagSchema.array().optional(),
-    likePoint: z.string(),
-    prevArts: InputRelatedArtSchema.array(),
-    nextArts: InputRelatedArtSchema.array(),
 })
 export type NewArtSession = z.infer<typeof NewArtSessionSchema>
 export const NewArtSessionInputSchema = NewArtSessionSchema.partial()
