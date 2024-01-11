@@ -2,7 +2,7 @@ import { ArtId, RelatedArt } from "@/art/type"
 import { notFound } from "next/navigation"
 import { EditArtRelatedForm } from "./EditArtRelatedForm"
 import { getRelatedArts } from "@/art/getRelated"
-import { getRecommendArt } from "@/art/recommend/get"
+import { getArtAppeal } from "@/art/appeal/get"
 import { getSession } from "@/auth/server/auth"
 import { notImplementError } from "@/util/notImplement"
 
@@ -12,21 +12,21 @@ interface PageProps {
 const ArtAppealEditPage = async ({ params: { art_id } }: PageProps) => {
     const userId = await getSession().then(session => session?.user.id)
     if (!userId) throw notImplementError("invalid user id")
-    const [recommendArt, relatedArts] = await Promise.all([
-        getRecommendArt(art_id, userId),
+    const [artAppeal, relatedArts] = await Promise.all([
+        getArtAppeal(art_id, userId),
         getRelatedArts(art_id)
             .then(relatedArts => {
                 return splitPrevAndNext(relatedArts)
             }),
     ])
-    if (!recommendArt) notFound()
+    if (!artAppeal) notFound()
     return (
         <div>
             <EditArtRelatedForm
                 artId={art_id}
-                title={recommendArt.title}
+                title={artAppeal.title}
                 defaultValues={{
-                    likePoint: recommendArt.likePoint,
+                    likePoint: artAppeal.likePoint,
                     prevArts: relatedArts.prev,
                     nextArts: relatedArts.next,
                 }}

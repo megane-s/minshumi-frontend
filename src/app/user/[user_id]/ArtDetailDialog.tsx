@@ -1,4 +1,4 @@
-import { RecommendArt } from "@/art/type"
+import { ArtAppeal } from "@/art/type"
 import { Dialog, DialogProps } from "@/components/Dialog"
 import LinkButton from "@/components/LinkButton"
 import { SectionTitle } from "@/components/SectionTitle"
@@ -8,7 +8,7 @@ import { FC } from "react"
 import Image from "next/image"
 
 interface ArtDetailDialogProps extends DialogProps {
-    art: RecommendArt
+    art: ArtAppeal
 }
 export const ArtDetailDialog: FC<ArtDetailDialogProps> = ({ art, ...dialogProps }) => {
     return (

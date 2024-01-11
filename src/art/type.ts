@@ -2,9 +2,9 @@
 // eslint-disable-next-line no-restricted-imports
 import {
     Art as GeneratedArt,
+    ArtAppealSchema as GeneratedArtAppealSchema,
     ArtSchema as GeneratedArtSchema,
     ArtTagSchema as GeneratedArtTagSchema,
-    RecommendArtSchema as GeneratedRecommendArtSchema,
     RelatedArtSchema as GeneratedRelatedArtSchema,
 } from "@/prisma/generated"
 import { z } from "zod"
@@ -21,10 +21,10 @@ export type ArtTag = z.infer<typeof ArtTagSchema>
 export const ArtTagTypeSchema = GeneratedArtTagSchema.shape.tagType
 export type ArtTagType = z.infer<typeof ArtTagTypeSchema>
 
-export const RecommendArtSchema = GeneratedArtSchema.extend(
-    GeneratedRecommendArtSchema.pick({ likePoint: true, userId: true }).shape
+export const ArtAppealSchema = GeneratedArtSchema.extend(
+    GeneratedArtAppealSchema.pick({ likePoint: true, userId: true }).shape
 )
-export type RecommendArt = z.infer<typeof RecommendArtSchema>
+export type ArtAppeal = z.infer<typeof ArtAppealSchema>
 
 export const RelatedArtSchema = GeneratedArtSchema.extend(
     GeneratedRelatedArtSchema.pick({ type: true }).shape,

@@ -94,7 +94,7 @@ export const newSeedUser = async (id: string, businessCardCount: number) => {
                     { tag: "ジャンプ" },
                 ]),
             },
-            recommendedArts: {
+            artAppeals: {
                 create: faker.helpers.arrayElements([
                     { artId: "test-art-1", likePoint: faker.lorem.lines(1) },
                     { artId: "test-art-2", likePoint: faker.lorem.lines(2) },

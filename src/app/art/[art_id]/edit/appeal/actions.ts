@@ -1,7 +1,7 @@
 "use server"
 
+import { updateArtAppeal } from "@/art/appeal/update"
 import { InputRelatedArt } from "@/art/newArtSession/type"
-import { updateRecommendArt } from "@/art/recommend/update"
 import { updateRelatedArt } from "@/art/related/update"
 import { ArtId } from "@/art/type"
 import { getSession } from "@/auth/server/auth"
@@ -16,9 +16,9 @@ export const handleSaveAppeal = async (
     },
 ) => {
     const session = await getSession()
-    if (!session) throw notImplementError("ログインしないとRecommendArtを更新できません")
+    if (!session) throw notImplementError("ログインしないとArtAppealを更新できません")
     const userId = session.user.id
-    await updateRecommendArt(artId, userId, { likePoint: input.likePoint })
+    await updateArtAppeal(artId, userId, { likePoint: input.likePoint })
     await updateRelatedArt(artId, userId, {
         prevArts: input.prevArts,
         nextArts: input.nextArts,
