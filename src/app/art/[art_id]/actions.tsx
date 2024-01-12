@@ -5,6 +5,8 @@ import { goodToArt } from "@/art/good/good"
 import { ArtId } from "@/art/type"
 import { getSession } from "@/auth/server/auth"
 import { serverAction } from "@/util/serverAction"
+import { redirect } from "next/navigation"
+import { clearLastCreatedArtId } from "./cookie"
 
 
 export const handleGood = serverAction(async (artId: ArtId) => {
@@ -30,3 +32,8 @@ export const handleCancelGood = serverAction(async (artId: ArtId) => {
 
     await cancelGoodToArt(artId, userId)
 })
+
+export const handleGotoAppeal = (artId: ArtId) => {
+    clearLastCreatedArtId()
+    redirect(`/art/${artId}/appeal`)
+}

@@ -8,3 +8,6 @@ export const setLastCreatedArtId = (artId: ArtId) => {
 export const getLastCreatedArtId = () => {
     return cookies().get(key)?.value ?? null
 }
+export const clearLastCreatedArtId = () => {
+    cookies().delete(key)
+}
