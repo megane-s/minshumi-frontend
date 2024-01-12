@@ -9,7 +9,7 @@ const NewArtLayout = ({ children }: PageProps) => {
     return (
         <div>
             <PageTitle my="lg">
-                好きな作品の登録
+                作品の登録
             </PageTitle>
 
             <NewArtProgressProvider total={2}>

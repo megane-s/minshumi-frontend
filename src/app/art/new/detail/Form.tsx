@@ -8,6 +8,7 @@ import { CreateArtParamsSchema } from "@/art/type"
 import { useLocalStorage } from "@/util/client/useLocalStorage"
 import { z } from "zod"
 import { detailLocalStorageKey } from "./localStorage"
+import { css } from "styled-system/css"
 
 const formDefaultValues = {
     title: "",
@@ -28,7 +29,7 @@ const NewArtDetailForm: FC<NewArtDetailFormProps> = () => {
     const [defaultValues] = useLocalStorage(detailLocalStorageKey, CreateArtParamsDetailSchema)
     if (defaultValues.isLoading) {
         return (
-            <Loader />
+            <Loader className={css({ my: "md" })} />
         )
     }
     return <FormContent
