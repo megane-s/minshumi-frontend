@@ -4,8 +4,7 @@ import { notImplementError } from "@/util/notImplement"
 // eslint-disable-next-line no-restricted-imports
 import { PrismaClient, RelatedArt } from "@prisma/client"
 import "server-only"
-import { InputRelatedArt } from "../newArtSession/type"
-import { ArtId } from "../type"
+import { ArtId, InputRelatedArt } from "../type"
 
 export const updateRelatedArt = async (artId: ArtId, by: UserId, { prevArts, nextArts }: { prevArts: InputRelatedArt[], nextArts: InputRelatedArt[] }) => {
     const relatedArtModels = await Promise.all([

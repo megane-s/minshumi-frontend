@@ -4,15 +4,15 @@ import { FC, useState } from "react"
 import FullWidth from "@/app/BaseLayout/FullWidth";
 import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm";
 import Navigation from "./Navigation";
-import { ArtId, RelatedArt } from "@/art/type";
+import { ArtId, InputRelatedArt } from "@/art/type";
 
 interface NewArtRelatedFormProps {
     title: string
     artId: ArtId
     defaultValues: {
         likePoint: string
-        prev: RelatedArt[]
-        next: RelatedArt[]
+        prev: InputRelatedArt[]
+        next: InputRelatedArt[]
     }
 }
 const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, artId, defaultValues }) => {
@@ -57,20 +57,20 @@ export default NewArtRelatedForm
 export const useInputRelatedArts = (defaultValues: NewArtRelatedFormProps["defaultValues"]) => {
     const [prevArts, setPrevArts] = useState(defaultValues.prev ?? [])
     const [nextArts, setNextArts] = useState(defaultValues.next ?? [])
-    const addPrevArts = (art: RelatedArt) => {
+    const addPrevArts = (art: InputRelatedArt) => {
         setPrevArts(p => [art, ...p])
     }
-    const addNextArts = (art: RelatedArt) => {
+    const addNextArts = (art: InputRelatedArt) => {
         setNextArts(p => [...p, art])
     }
-    const updatePrevArt = (index: number, art: RelatedArt) => {
+    const updatePrevArt = (index: number, art: InputRelatedArt) => {
         setPrevArts(p => {
             const newState = [...p]
             newState[index] = art
             return newState
         })
     }
-    const updateNextArt = (index: number, art: RelatedArt) => {
+    const updateNextArt = (index: number, art: InputRelatedArt) => {
         setNextArts(p => {
             const newState = [...p]
             newState[index] = art

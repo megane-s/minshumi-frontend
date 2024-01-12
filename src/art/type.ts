@@ -42,3 +42,12 @@ export const CreateArtParamsSchema = ArtSchema.pick({
 })
 export type CreateArtParams = z.infer<typeof CreateArtParamsSchema>
 
+export const InputRelatedArtSchema = z.union([
+    ArtSchema,
+    CreateArtParamsSchema.pick({
+        title: true,
+        description: true,
+        imageUrl: true,
+    }),
+])
+export type InputRelatedArt = z.infer<typeof InputRelatedArtSchema>

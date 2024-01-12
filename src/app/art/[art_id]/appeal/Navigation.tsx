@@ -4,8 +4,7 @@ import { FC } from "react"
 import { useMutate } from "@/util/client/useMutate"
 import { flex } from "styled-system/patterns"
 import { handleAppeal } from "./actions"
-import { ArtId } from "@/art/type"
-import { InputRelatedArt } from "@/art/newArtSession/type"
+import { ArtId, InputRelatedArt } from "@/art/type"
 import MutateButton from "@/components/MutateButton"
 
 interface NavigationProps {

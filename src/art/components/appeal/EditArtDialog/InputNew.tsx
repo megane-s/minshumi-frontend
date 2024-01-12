@@ -6,7 +6,7 @@ import { FC, useState } from "react"
 import { EditArtDialogFooter } from "./Footer"
 import Image from "next/image"
 import { Button } from "@/components/Button"
-import { InputRelatedArt } from "@/art/newArtSession/type"
+import { InputRelatedArt } from "@/art/type"
 
 interface InputNewRelatedArtProps {
     defaultArt: Partial<InputRelatedArt>

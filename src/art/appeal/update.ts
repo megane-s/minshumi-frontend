@@ -3,13 +3,13 @@ import { UserId } from "@/user/type"
 import "server-only"
 import { z } from "zod"
 import { updateRelatedArt } from "../related/update"
-import { ArtAppealSchema, RelatedArtSchema } from "../type"
+import { ArtAppealSchema, InputRelatedArtSchema } from "../type"
 
 export const UpdateArtAppealParamsSchema = ArtAppealSchema.pick({
     likePoint: true,
 }).extend({
-    prevArts: RelatedArtSchema.array(),
-    nextArts: RelatedArtSchema.array(),
+    prevArts: InputRelatedArtSchema.array(),
+    nextArts: InputRelatedArtSchema.array(),
 })
 export type UpdateArtAppealParams = z.infer<typeof UpdateArtAppealParamsSchema>
 

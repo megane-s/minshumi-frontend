@@ -3,7 +3,7 @@ import { FC, memo } from "react"
 import Image from "next/image"
 import EditArtDialog from "./EditArtDialog/EditArtDialog"
 import { useDialog } from "@/components/Dialog"
-import { InputRelatedArt } from "@/art/newArtSession/type"
+import { InputRelatedArt } from "@/art/type"
 
 interface RelatedArtListItemProps {
     size?: "md" | "lg"

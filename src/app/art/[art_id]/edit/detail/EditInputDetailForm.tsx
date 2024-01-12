@@ -1,17 +1,16 @@
 "use client"
 
 import { FC, useState } from "react"
-import { NewArtSession } from "@/art/newArtSession/type"
 import InputDetailForm, { getTitleErrors } from "@/art/components/detail/ArtDetailForm"
 import { Flex } from "@mantine/core"
 import { useMutate } from "@/util/client/useMutate"
 import MutateButton from "@/components/MutateButton"
 import { handleSaveArtDetail } from "./actions"
-import { ArtId } from "@/art/type"
+import { ArtId, CreateArtParams } from "@/art/type"
 
 interface EditInputDetailFormProps {
     artId: ArtId
-    defaultValues: Pick<NewArtSession, "title" | "description" | "imageUrl">
+    defaultValues: Pick<CreateArtParams, "title" | "description" | "imageUrl">
 }
 const EditInputDetailForm: FC<EditInputDetailFormProps> = ({ artId, defaultValues }) => {
     const [title, setTitle] = useState(defaultValues.title ?? "")

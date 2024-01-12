@@ -19,7 +19,7 @@ const NewArtRelatedArtPage = async ({ params: { art_id } }: Props) => {
         return <PleaseLogin />
     }
     const [art, relatedArts] = await Promise.all([
-        getArtAppeal(session.user.id, art_id)
+        getArtAppeal(art_id, session.user.id)
             .then(async appeal => {
                 if (appeal) return appeal
                 const art = await getArt(art_id)
@@ -35,6 +35,7 @@ const NewArtRelatedArtPage = async ({ params: { art_id } }: Props) => {
                 return ans
             }, { PREV: [] as RelatedArt[], NEXT: [] as RelatedArt[] })),
     ])
+    console.log(art, relatedArts)
     if (!art) notFound()
     return (
         <div>

@@ -11,8 +11,8 @@ import { IoMdAdd } from "react-icons/io"
 import RelatedArtListItem from "./RelatedArtListItem"
 import Image from "next/image"
 import EditArtDialog from "./EditArtDialog/EditArtDialog"
-import { InputRelatedArt } from "@/art/newArtSession/type"
 import { css } from "styled-system/css"
+import { InputRelatedArt } from "@/art/type"
 
 interface ArtRelatedFormProps {
     title: string
