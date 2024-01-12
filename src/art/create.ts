@@ -1,6 +1,7 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
+import { UserId } from "@/user/type";
 import { Art, CreateArtParams } from "./type";
 // eslint-disable-next-line no-restricted-imports
 // eslint-disable-next-line no-restricted-imports
@@ -10,9 +11,12 @@ import { Art, CreateArtParams } from "./type";
  * @param params 追加する作品のtitleとimageUrlを指定する。
  * @returns 追加した作品
  */
-export const createArt = async ({ mediaTags, genreTags, otherTags, ...params }: CreateArtParams): Promise<Art> => {
+export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTags, ...params }: CreateArtParams): Promise<Art> => {
     const newArt = await prisma.art.create({
-        data: params,
+        data: {
+            ...params,
+            userId,
+        },
         include: {
             tags: true,
         }
