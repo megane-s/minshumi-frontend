@@ -11,6 +11,7 @@ import { getSession } from "@/auth/server/auth"
 import { isArtGooded } from "@/art/good/isGooded"
 import { getTags } from "@/art/tag/getTags"
 import { css } from "styled-system/css"
+import LinkButton from "@/components/LinkButton"
 
 
 interface ArtDetailPageProps {
@@ -23,6 +24,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
     const tags = await getTags(artId)
     const session = await getSession()
     const isLogined = !!session
+    const loginUser = session?.user
     const isGooded = session ? await isArtGooded(artId, session.user.id) : false
 
     if (!art) notFound()
@@ -57,8 +59,16 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                                 </Badge>
                             </Link>
                         )}
+
                     </Flex>
+                    {loginUser
+                        ? <LinkButton href={`${artId}/edit`}>
+                            編集する
+                        </LinkButton>
+                        : null
+                    }
                 </Container>
+
                 <Divider />
             </FullWidth>
 
