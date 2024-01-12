@@ -12,6 +12,7 @@ import { css } from "styled-system/css"
 import { Tags } from "@/art/tag/components/Tags"
 import { getLastCreatedArtId } from "./cookie"
 import AppealReminderDialog from "./AppealReminderDialog"
+import LinkButton from "@/components/LinkButton"
 
 
 interface ArtDetailPageProps {
@@ -57,6 +58,13 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                     <div className={css({ my: "md" })}>
                         <Tags tags={tags} />
                     </div>
+
+                    {isLogined
+                        ? <LinkButton href={`/art/${artId}/edit`}>
+                            編集する
+                        </LinkButton>
+                        : null
+                    }
                 </Container>
                 <Divider />
             </FullWidth>
