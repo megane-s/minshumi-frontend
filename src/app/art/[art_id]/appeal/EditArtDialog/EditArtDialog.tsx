@@ -4,11 +4,11 @@ import { SelectRelatedArt } from "./Select"
 import { InputNewRelatedArt } from "./InputNew"
 import { Divider, Flex, Space } from "@mantine/core"
 import ArtDeleteButton from "./DeleteButton"
-import { InputRelatedArt } from "@/art/newArtSession/type"
+import { RelatedArt } from "@/art/type"
 
 export interface EditArtDialogProps extends DialogProps {
-    defaultValues: Partial<InputRelatedArt & { mode: "select" | "new" }>
-    onEditConfirm: (art: InputRelatedArt) => void
+    defaultValues: Partial<RelatedArt & { mode: "select" | "new" }>
+    onEditConfirm: (art: RelatedArt) => void
     onDelete?: () => void
     withEditMenus?: boolean
 }

@@ -2,15 +2,14 @@ import { prisma } from "@/prisma"
 import { UserId } from "@/user/type"
 import "server-only"
 import { z } from "zod"
-import { InputRelatedArtSchema } from "../newArtSession/type"
 import { updateRelatedArt } from "../related/update"
-import { ArtAppealSchema } from "../type"
+import { ArtAppealSchema, RelatedArtSchema } from "../type"
 
 export const UpdateArtAppealParamsSchema = ArtAppealSchema.pick({
     likePoint: true,
 }).extend({
-    prevArts: InputRelatedArtSchema.array(),
-    nextArts: InputRelatedArtSchema.array(),
+    prevArts: RelatedArtSchema.array(),
+    nextArts: RelatedArtSchema.array(),
 })
 export type UpdateArtAppealParams = z.infer<typeof UpdateArtAppealParamsSchema>
 

@@ -1,13 +1,13 @@
 import { getRelatedArts } from "@/art/getRelated"
 import NewArtRelatedForm from "./NewArtRelatedForm"
 import { notFound } from "next/navigation"
-import { InputRelatedArt } from "@/art/newArtSession/type"
 import { getArtAppeal } from "@/art/appeal/get"
 import { getSession } from "@/auth/server/auth"
 import PleaseLogin from "./PleaseLogin"
 import { PageTitle } from "@/components/PageTitle"
 import { getArt } from "@/art/get"
 import { css } from "styled-system/css"
+import { RelatedArt } from "@/art/type"
 
 interface Props {
     params: { art_id: string }
@@ -33,7 +33,7 @@ const NewArtRelatedArtPage = async ({ params: { art_id } }: Props) => {
             .then(relatedArts => relatedArts.reduce((ans, art) => {
                 ans[art.type].push(art)
                 return ans
-            }, { PREV: [] as InputRelatedArt[], NEXT: [] as InputRelatedArt[] })),
+            }, { PREV: [] as RelatedArt[], NEXT: [] as RelatedArt[] })),
     ])
     if (!art) notFound()
     return (
