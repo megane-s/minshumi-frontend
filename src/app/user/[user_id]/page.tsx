@@ -97,8 +97,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     好きな作品
                 </SectionTitle>
                 {loginUser && (user.id === loginUser?.id
-                    /* TODO 編集ボタンを押すと該当のページ先に移動 */
-                    ? <LinkButton href="/settings">
+                    ? <LinkButton href="/settings/like-arts">
                         好きな作品を編集する
                     </LinkButton>
                     : null
@@ -115,8 +114,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     今見ている作品
                 </SectionTitle>
                 {loginUser && (user.id === loginUser?.id
-                    /* TODO 編集ボタンを押すと該当のページ先に移動 */
-                    ? <LinkButton href="/settings">
+                    ? <LinkButton href="/settings/watching-arts">
                         今見ている作品を編集する
                     </LinkButton>
                     : null
