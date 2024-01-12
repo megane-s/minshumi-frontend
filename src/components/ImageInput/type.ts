@@ -7,4 +7,5 @@ export interface ImageInputProps extends ComponentProps<"div"> {
     src: string
     alt: string
     onUpload: (src: string) => void
+    withIndicator?: boolean
 }
