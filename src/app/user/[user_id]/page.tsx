@@ -92,8 +92,8 @@ const UserProfilePage = async ({ params }: PageProps) => {
             </Flex>
 
             {/* TODO 作品表示の部分をカルーセルを使う */}
-            <Flex w="100%" justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
-                <SectionTitle my="md" >
+            <Flex w="100%" justify="space-between" >
+                <SectionTitle >
                     好きな作品
                 </SectionTitle>
                 {loginUser && (user.id === loginUser?.id
@@ -111,7 +111,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
             />
             {/* TODO 0件の時の表示 */}
             <Flex w="100%" justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
-                <SectionTitle my="md">
+                <SectionTitle >
                     今見ている作品
                 </SectionTitle>
                 {loginUser && (user.id === loginUser?.id
