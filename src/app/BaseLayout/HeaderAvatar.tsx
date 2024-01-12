@@ -2,6 +2,7 @@
 import { logout } from "@/auth/client/logout"
 import { Avatar } from "@/components/Avatar"
 import { EditIcon } from "@/components/icon/Edit"
+import { ExitIcon } from "@/components/icon/Exit"
 import { NotificationIcon } from "@/components/icon/Notification"
 import { SettingsIcon } from "@/components/icon/Settings"
 import { Menu } from "@mantine/core"
@@ -63,7 +64,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           </Menu.Item>
 
           <Menu.Item
-            leftSection={<SettingsIcon />}
+            leftSection={<ExitIcon />}
             onClick={() => logout()}
           >
             ログアウト
