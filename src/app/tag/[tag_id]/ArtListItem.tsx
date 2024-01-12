@@ -1,11 +1,11 @@
 import { Art } from "@/art/type"
 import { FC } from "react"
 import { Flex, Text } from "@mantine/core"
-import { Badge } from "@/components/Badge"
 import Image from "next/image"
 import Link from 'next/link'
 import { getTags } from "@/art/tag/getTags"
 import { css } from "styled-system/css"
+import { Tags } from "@/art/tag/components/Tags"
 
 interface ArtListItemProps {
     art: Art
@@ -32,16 +32,7 @@ export const ArtListItem: FC<ArtListItemProps> = async ({ art, maxTags = 5 }) =>
                         {art.title}
                     </Text>
                     <Flex gap="4px" wrap="wrap">
-                        {limitedTags.map(tag =>
-                            <Badge
-                                key={tag}
-                                variant="filled"
-                                color="primary.1"
-                                className={css({ fontSize: "xs !important", display: "block" })}
-                            >
-                                {tag}
-                            </Badge>
-                        )}
+                        <Tags tags={limitedTags} />
                     </Flex>
                 </div>
 

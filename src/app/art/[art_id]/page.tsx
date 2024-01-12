@@ -1,8 +1,6 @@
-import { Badge } from "@/components/Badge"
 import { PageTitle } from "@/components/PageTitle"
-import { Container, Divider, Flex } from "@mantine/core"
+import { Container, Divider } from "@mantine/core"
 import Image from "next/image"
-import Link from "next/link"
 import { GoodButton } from "./GoodButton"
 import { getArt } from "@/art/get"
 import { notFound } from "next/navigation"
@@ -11,6 +9,7 @@ import { getSession } from "@/auth/server/auth"
 import { isArtGooded } from "@/art/good/isGooded"
 import { getTags } from "@/art/tag/getTags"
 import { css } from "styled-system/css"
+import { Tags } from "@/art/tag/components/Tags"
 
 
 interface ArtDetailPageProps {
@@ -41,7 +40,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
 
             <FullWidth className={css({ bg: "background.2" })}>
                 <Container className={css({ py: "md" })}>
-                    <PageTitle>
+                    <PageTitle className={css({ fontSize: { base: "2xl !important", sm: "4xl !important" } })}>
                         {art.title}
                     </PageTitle>
                     {/* <div>
@@ -49,15 +48,9 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                             ブックマーク
                         </Button>
                     </div> */}
-                    <Flex gap="xs" py="md" wrap="wrap" rowGap="0px" columnGap="xs">
-                        {tags.map(tag =>
-                            <Link href={`/tag/${tag}`} key={tag}>
-                                <Badge>
-                                    {tag}
-                                </Badge>
-                            </Link>
-                        )}
-                    </Flex>
+                    <div className={css({ my: "md" })}>
+                        <Tags tags={tags} />
+                    </div>
                 </Container>
                 <Divider />
             </FullWidth>
