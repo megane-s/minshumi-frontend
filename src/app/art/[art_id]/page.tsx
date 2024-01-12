@@ -1,8 +1,6 @@
-import { Badge } from "@/components/Badge"
 import { PageTitle } from "@/components/PageTitle"
-import { Container, Divider, Flex } from "@mantine/core"
+import { Container, Divider } from "@mantine/core"
 import Image from "next/image"
-import Link from "next/link"
 import { GoodButton } from "./GoodButton"
 import { getArt } from "@/art/get"
 import { notFound } from "next/navigation"
@@ -11,7 +9,7 @@ import { getSession } from "@/auth/server/auth"
 import { isArtGooded } from "@/art/good/isGooded"
 import { getTags } from "@/art/tag/getTags"
 import { css } from "styled-system/css"
-import LinkButton from "@/components/LinkButton"
+import { Tags } from "@/art/tag/components/Tags"
 
 
 interface ArtDetailPageProps {
@@ -24,7 +22,6 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
     const tags = await getTags(artId)
     const session = await getSession()
     const isLogined = !!session
-    const loginUser = session?.user
     const isGooded = session ? await isArtGooded(artId, session.user.id) : false
 
     if (!art) notFound()
@@ -51,24 +48,10 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                             ブックマーク
                         </Button>
                     </div> */}
-                    <Flex gap="xs" py="md" wrap="wrap" rowGap="0px" columnGap="xs">
-                        {tags.map(tag =>
-                            <Link href={`/tag/${tag}`} key={tag}>
-                                <Badge>
-                                    {tag}
-                                </Badge>
-                            </Link>
-                        )}
-
-                    </Flex>
-                    {loginUser
-                        ? <LinkButton href={`/art/${artId}/edit`}>
-                            編集する
-                        </LinkButton>
-                        : null
-                    }
+                    <div className={css({ my: "md" })}>
+                        <Tags tags={tags} />
+                    </div>
                 </Container>
-
                 <Divider />
             </FullWidth>
 
