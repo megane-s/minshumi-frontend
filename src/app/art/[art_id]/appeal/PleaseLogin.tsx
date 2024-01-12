@@ -2,7 +2,7 @@
 "use client"
 
 import { Alert } from "@/components/Alert"
-import LinkButton from "@/components/LinkButton"
+import { LoginButton } from "@/components/LoginButton"
 import { ErrorIcon } from "@/components/icon/Error"
 import { center } from "styled-system/patterns"
 
@@ -14,9 +14,7 @@ const PleaseLogin = () => {
                 icon={<ErrorIcon />}
                 title="ログインが必要です"
             />
-            <LinkButton href="/login" variant="filled">
-                ログイン
-            </LinkButton>
+            <LoginButton variant="filled" />
         </div>
     )
 }
