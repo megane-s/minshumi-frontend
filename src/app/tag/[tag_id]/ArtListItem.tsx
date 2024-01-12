@@ -9,9 +9,11 @@ import { css } from "styled-system/css"
 
 interface ArtListItemProps {
     art: Art
+    maxTags?: number
 }
-export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
+export const ArtListItem: FC<ArtListItemProps> = async ({ art, maxTags = 5 }) => {
     const tags = await getTags(art.artId)
+    const limitedTags = tags.slice(0, maxTags)
     return (
         <Link href={`/art/${art.artId}`} className={css({ color: "inherit", textDecoration: "inherit" })}>
             <Flex key={art.artId} p="sm" gap="md">
@@ -30,7 +32,7 @@ export const ArtListItem: FC<ArtListItemProps> = async ({ art }) => {
                         {art.title}
                     </Text>
                     <Flex gap="xs" wrap={"wrap-reverse"}>
-                        {tags.map(tag =>
+                        {limitedTags.map(tag =>
                             <div key={tag}>
                                 <Badge key={tag} variant="filled" color="primary.1">
                                     {tag}
