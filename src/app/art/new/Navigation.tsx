@@ -1,33 +1,43 @@
 import { Button } from "@/components/Button"
 import { Flex } from "@mantine/core"
-import { ComponentProps, FC } from "react"
+import { ComponentProps, FC, ReactNode } from "react"
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
 import Link from "next/link"
 
-interface NewArtNavigationProps {
-    prevHref: string
-    nextHref: string
-    prevButtonProps?: Partial<ComponentProps<typeof Button<typeof Link>>>
-    nextButtonProps?: Partial<ComponentProps<typeof Button<typeof Link>>>
-    flexProps?: Partial<ComponentProps<typeof Flex<"div">>>
-    disabledPrev?: boolean
-    disabledNext?: boolean
+interface NewArtNavigationProps extends ComponentProps<typeof Flex<"div">> {
+    prev: ReactNode
+    next: ReactNode
 }
-const NewArtNavigation: FC<NewArtNavigationProps> = ({
-    prevHref, nextHref,
-    prevButtonProps, nextButtonProps,
-    flexProps = {},
-}) => {
+const NewArtNavigation: FC<NewArtNavigationProps> = ({ prev, next, ...props }) => {
     return (
-        <Flex justify="space-between" my="md" w="100%" wrap="wrap" gap="sm" {...flexProps}>
-            <Button variant="default" leftSection={<IoCaretBack />} component={Link} href={prevHref} prefetch {...prevButtonProps}>
-                {prevButtonProps?.children ?? "戻る"}
-            </Button>
-            <Button variant="filled" rightSection={<IoCaretForward />} component={Link} href={nextHref} prefetch {...nextButtonProps}>
-                {nextButtonProps?.children ?? "次へ"}
-            </Button>
+        <Flex justify="space-between" my="md" w="100%" wrap="wrap" gap="sm" {...props}>
+            <div>
+                {prev}
+            </div>
+            <div>
+                {next}
+            </div>
         </Flex>
     )
 }
-
 export default NewArtNavigation
+
+interface NewArtNavigationPrevButtonProps extends ComponentProps<typeof Button<typeof Link>> {
+}
+export const NewArtNavigationPrevButton: FC<NewArtNavigationPrevButtonProps> = (props) => {
+    return (
+        <Button variant="default" leftSection={<IoCaretBack />} component={Link} prefetch {...props}>
+            {props?.children ?? "戻る"}
+        </Button>
+    )
+}
+
+interface NewArtNavigationNextButtonProps extends ComponentProps<typeof Button<typeof Link>> {
+}
+export const NewArtNavigationNextButton: FC<NewArtNavigationNextButtonProps> = (props) => {
+    return (
+        <Button variant="filled" rightSection={<IoCaretForward />} component={Link} prefetch {...props}>
+            {props.children ?? "次へ"}
+        </Button>
+    )
+}

@@ -2,7 +2,7 @@
 
 import ArtDetailForm, { getTitleErrors } from "@/art/components/detail/ArtDetailForm"
 import { FC, useEffect, useState } from "react"
-import NewArtNavigation from "../Navigation"
+import NewArtNavigation, { NewArtNavigationNextButton } from "../Navigation"
 import { Loader } from "@/components/Loader"
 import { CreateArtParamsSchema } from "@/art/type"
 import { useLocalStorage } from "@/util/client/useLocalStorage"
@@ -43,7 +43,7 @@ interface FormContentProps {
 const FormContent: FC<FormContentProps> = ({ defaultValues }) => {
     const [input, setInput] = useState(defaultValues)
     useEffect(() => {
-        localStorage.setItem("minshumi.new-art-session", JSON.stringify(input))
+        localStorage.setItem("minshumi.new-art-session.detail", JSON.stringify(input))
     }, [input])
     const titleErrors = getTitleErrors(input.title)
     const isValidTitle = titleErrors.length === 0
@@ -57,8 +57,13 @@ const FormContent: FC<FormContentProps> = ({ defaultValues }) => {
                 isValid={isValid}
                 actions={
                     <NewArtNavigation
-                        nextHref="/art/new/tag#"
-                        disabledNext={!isValid}
+                        prev={null}
+                        next={
+                            <NewArtNavigationNextButton
+                                href="/art/new/tag#"
+                                disabled={!isValid}
+                            />
+                        }
                     />
                 }
             />
