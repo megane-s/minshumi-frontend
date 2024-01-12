@@ -65,7 +65,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
 
           <Menu.Item
             leftSection={<ExitIcon />}
-            onClick={() => logout()}
+            onClick={() => logout({ callbackUrl: "/" })}
           >
             ログアウト
           </Menu.Item>
