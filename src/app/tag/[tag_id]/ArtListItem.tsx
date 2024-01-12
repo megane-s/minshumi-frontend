@@ -34,7 +34,7 @@ export const ArtListItem: FC<ArtListItemProps> = async ({ art, maxTags = 5 }) =>
                     <Flex gap="xs" wrap={"wrap-reverse"}>
                         {limitedTags.map(tag =>
                             <div key={tag}>
-                                <Badge key={tag} variant="filled" color="primary.1">
+                                <Badge key={tag} variant="filled" color="primary.1" style={{ fontSize: "9px" }}>
                                     {tag}
                                 </Badge>
                             </div>
