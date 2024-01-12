@@ -4,12 +4,12 @@ import { FC } from "react"
 import Logo from "./Logo"
 import { AppShellHeader } from "./AppShell"
 import { Flex, Space } from "@mantine/core"
-import { Avatar } from "@/components/Avatar"
-import { ActionIcon } from "@/components/ActionIcon"
 import { getSession } from "@/auth/server/auth"
-import LinkButton from "@/components/LinkButton"
-import HeaderMenu from "./HeaderMenu"
-import { InfoIcon } from "@/components/icon/Info"
+import HeaderDrawerMenu from "./HeaderDrawerMenu"
+import { HeaderAvatar } from "./HeaderAvatar"
+import { ActionIcon } from "@/components/ActionIcon"
+import { NotificationIcon } from "@/components/icon/Notification"
+import { LoginButton } from "@/components/LoginButton"
 
 interface HeaderProps {
 }
@@ -19,7 +19,7 @@ const Header: FC<HeaderProps> = async () => {
         <AppShellHeader>
 
             <Flex justify="space-between" align="center" px="sm">
-                <HeaderMenu session={session} />
+                <HeaderDrawerMenu />
                 <Logo
                     imageProps={{ priority: true }}
                 />
@@ -28,25 +28,21 @@ const Header: FC<HeaderProps> = async () => {
                         ? <>
                             <ActionIcon
                                 size="lg"
-                                variant="outline"
+                                variant="subtle"
                                 radius="xl"
-                                color="info.0"
+                                color="info"
                             >
-                                <InfoIcon />
+                                <NotificationIcon />
                             </ActionIcon>
                             <Space w="0.5em" />
-                            <Avatar
-                                src={session.user.image}
-                                alt={session.user.name ?? "ユーザ"}
+                            <HeaderAvatar
+                                session={session}
                             />
                         </>
-                        : <LinkButton href="/login" variant="outline">
-                            ログイン
-                        </LinkButton>}
+                        : <LoginButton />
+                    }
                 </Flex>
             </Flex>
-
-            {/* <HeaderMenu session={session} /> */}
 
         </AppShellHeader>
     )

@@ -40,7 +40,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
 
             <FullWidth className={css({ bg: "background.2" })}>
                 <Container className={css({ py: "md" })}>
-                    <PageTitle className={css({ fontSize: { base: "2xl !important", sm: "4xl !important" } })}>
+                    <PageTitle>
                         {art.title}
                     </PageTitle>
                     {/* <div>
