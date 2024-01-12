@@ -92,17 +92,34 @@ const UserProfilePage = async ({ params }: PageProps) => {
             </Flex>
 
             {/* TODO 作品表示の部分をカルーセルを使う */}
-            <SectionTitle my="md">
-                好きな作品
-            </SectionTitle>
+            <Flex w="100%" justify="space-between" >
+                <SectionTitle >
+                    好きな作品
+                </SectionTitle>
+                {loginUser && (user.id === loginUser?.id
+                    ? <LinkButton href="/settings/like-arts">
+                        好きな作品を編集する
+                    </LinkButton>
+                    : null
+                )}
+
+            </Flex>
+
             <LikeArtList
                 arts={artAppeals}
             />
             {/* TODO 0件の時の表示 */}
-
-            <SectionTitle my="md">
-                今見ている作品
-            </SectionTitle>
+            <Flex w="100%" justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
+                <SectionTitle >
+                    今見ている作品
+                </SectionTitle>
+                {loginUser && (user.id === loginUser?.id
+                    ? <LinkButton href="/settings/watching-arts">
+                        今見ている作品を編集する
+                    </LinkButton>
+                    : null
+                )}
+            </Flex>
             <WatchingArtList arts={watchingArts} />
             {/* TODO 0件の時の表示 */}
 
