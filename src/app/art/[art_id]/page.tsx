@@ -62,7 +62,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
 
                     </Flex>
                     {loginUser
-                        ? <LinkButton href={`${artId}/edit`}>
+                        ? <LinkButton href={`/art/${artId}/edit`}>
                             編集する
                         </LinkButton>
                         : null
