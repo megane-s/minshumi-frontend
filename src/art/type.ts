@@ -30,3 +30,15 @@ export const RelatedArtSchema = GeneratedArtSchema.extend(
     GeneratedRelatedArtSchema.pick({ type: true }).shape,
 )
 export type RelatedArt = z.infer<typeof RelatedArtSchema>
+
+export const CreateArtParamsSchema = ArtSchema.pick({
+    title: true,
+    imageUrl: true,
+    description: true,
+}).extend({
+    mediaTags: ArtTagSchema.array(),
+    genreTags: ArtTagSchema.array(),
+    otherTags: ArtTagSchema.array(),
+})
+export type CreateArtParams = z.infer<typeof CreateArtParamsSchema>
+
