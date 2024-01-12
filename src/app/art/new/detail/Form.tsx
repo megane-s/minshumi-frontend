@@ -7,6 +7,7 @@ import { Loader } from "@/components/Loader"
 import { CreateArtParamsSchema } from "@/art/type"
 import { useLocalStorage } from "@/util/client/useLocalStorage"
 import { z } from "zod"
+import { detailLocalStorageKey } from "./localStorage"
 
 const formDefaultValues = {
     title: "",
@@ -14,7 +15,7 @@ const formDefaultValues = {
     imageUrl: "https://storage.googleapis.com/minshumi-user-content/placeholder_300x200.png",
 }
 
-const CreateArtParamsDetailSchema = CreateArtParamsSchema.pick({
+export const CreateArtParamsDetailSchema = CreateArtParamsSchema.pick({
     title: true,
     description: true,
     imageUrl: true,
@@ -24,7 +25,7 @@ type CreateArtParamsDetail = z.infer<typeof CreateArtParamsDetailSchema>
 interface NewArtDetailFormProps {
 }
 const NewArtDetailForm: FC<NewArtDetailFormProps> = () => {
-    const [defaultValues] = useLocalStorage("minshumi.new-art-session", CreateArtParamsDetailSchema)
+    const [defaultValues] = useLocalStorage(detailLocalStorageKey, CreateArtParamsDetailSchema)
     if (defaultValues.isLoading) {
         return (
             <Loader />
@@ -43,7 +44,7 @@ interface FormContentProps {
 const FormContent: FC<FormContentProps> = ({ defaultValues }) => {
     const [input, setInput] = useState(defaultValues)
     useEffect(() => {
-        localStorage.setItem("minshumi.new-art-session.detail", JSON.stringify(input))
+        localStorage.setItem(detailLocalStorageKey, JSON.stringify(input))
     }, [input])
     const titleErrors = getTitleErrors(input.title)
     const isValidTitle = titleErrors.length === 0
