@@ -22,7 +22,7 @@ const CenterizedScroll: FC<CenterizedScrollProps> = ({ children, className, ...p
             component={Skeleton}
             visible={!prepared}
             className={cx(css({
-                width: "fit-content",
+                width: "fit-content !important",
                 overflowX: prepared ? "auto" : "hidden",
                 gap: "md",
                 alignItems: "center",
