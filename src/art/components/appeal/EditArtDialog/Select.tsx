@@ -1,10 +1,9 @@
-import { Art, ArtId, ArtSchema } from "@/art/type"
+import { Art, ArtId, ArtSchema, InputRelatedArt } from "@/art/type"
 import { DialogProps } from "@/components/Dialog"
 import { Center, Button } from "@mantine/core"
 import { useQueryClient } from "@tanstack/react-query"
 import { FC, useState } from "react"
 import { EditArtDialogFooter } from "./Footer"
-import { InputRelatedArt } from "@/art/newArtSession/type"
 import SelectArt from "@/art/components/SelectArt"
 
 interface SelectRelatedArtProps {

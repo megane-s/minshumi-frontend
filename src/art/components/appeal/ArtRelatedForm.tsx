@@ -1,7 +1,7 @@
 "use client"
 
 import FullWidth from "@/app/BaseLayout/FullWidth"
-import CenterizedScroll, { CenterizedScrollTarget } from "@/app/art/new/appeal/CenterizedScroll"
+import CenterizedScroll, { CenterizedScrollTarget } from "@/components/CenterizedScroll"
 import { ActionIcon } from "@/components/ActionIcon"
 import { Textarea } from "@/components/Textarea"
 import { Center, Stack, Text } from "@mantine/core"
@@ -11,8 +11,8 @@ import { IoMdAdd } from "react-icons/io"
 import RelatedArtListItem from "./RelatedArtListItem"
 import Image from "next/image"
 import EditArtDialog from "./EditArtDialog/EditArtDialog"
-import { InputRelatedArt } from "@/art/newArtSession/type"
 import { css } from "styled-system/css"
+import { InputRelatedArt } from "@/art/type"
 
 interface ArtRelatedFormProps {
     title: string

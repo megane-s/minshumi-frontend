@@ -5,6 +5,8 @@ import { MouseEvent } from "react"
 import { css, cx } from "styled-system/css"
 import { Loader } from "../Loader"
 import { ImageInputProps } from "./type"
+import { Indicator } from "@mantine/core"
+import { MdOutlineEdit } from "react-icons/md"
 
 export const IconImageInput = ({
     className,
@@ -16,6 +18,7 @@ export const IconImageInput = ({
     src,
     alt,
     onUpload,
+    withIndicator = false,
     ...props
 }: ImageInputProps) => {
     const handleUploadImage = async (e: MouseEvent<HTMLImageElement>) => {
@@ -31,13 +34,14 @@ export const IconImageInput = ({
         onSuccess: { toast: "アップロードしました" },
         onError: { toast: "アップロードできませんでした" },
     })
-    return (
+    const content = (
         <div className={cx(css({ position: "relative", overflow: "hidden", rounded: "md" }), className)} onClick={handleUploadImage} {...props}>
             {/* eslint-disable-next-line jsx-a11y/alt-text */}
             <Image
                 src={src}
                 alt={alt}
                 className={cx(css({ w: "full", h: "full", objectFit: "cover" }), imageClassName)}
+                unoptimized
                 {...imageProps}
             />
             <div className={css({ position: "absolute", inset: 0, w: "full", h: "full", bg: "black", opacity: 0, transition: "opacity 0.2s", _hover: { opacity: 0.5, cursor: "pointer" } })} />
@@ -48,4 +52,20 @@ export const IconImageInput = ({
             }
         </div>
     )
+    if (withIndicator) {
+        return (
+            <Indicator
+                inline
+                label={<MdOutlineEdit />}
+                size={24}
+                position="bottom-end"
+                h="fit-content"
+                classNames={{ indicator: css({ right: "0px !important", bottom: "0px !important", cursor: "pointer" }) }}
+            >
+                {content}
+            </Indicator>
+        )
+    }
+    return content
+
 }

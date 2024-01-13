@@ -1,25 +1,17 @@
-import { getNewArtSession } from "@/art/newArtSession/cookies"
+import { SectionTitle } from "@/components/SectionTitle"
+import NewArtDetailForm from "./Form"
 import NewArtProgress from "../NewArtProgress"
-import NewArtSectionTitle from "../NewArtSectionTitle"
-import InputDetailForm from "./NewInputDetailForm"
 
-const NewArtDetailPage = async () => {
-    const newArtSession = await getNewArtSession()
+const NewArtDetailPage = () => {
     return (
         <div>
-            <NewArtSectionTitle>
+            <SectionTitle>
                 作品の詳細を入力
-            </NewArtSectionTitle>
+            </SectionTitle>
 
-            <InputDetailForm
-                defaultValues={{
-                    title: newArtSession?.title ?? "",
-                    description: newArtSession?.description ?? "",
-                    imageUrl: newArtSession?.imageUrl ?? "/placeholder/300x200_red.png",
-                }}
-            />
+            <NewArtDetailForm />
 
-            <NewArtProgress now={1} />
+            <NewArtProgress now={0} />
         </div>
     )
 }

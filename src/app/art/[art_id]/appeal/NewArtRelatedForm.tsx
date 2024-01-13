@@ -1,19 +1,21 @@
 "use client"
 
-import { FC } from "react"
-import FullWidth from "@/app/BaseLayout/FullWidth";
-import { InputRelatedArt, NewArtSessionInput } from "@/art/newArtSession/type";
-import { useInputNewArtSessionField } from "@/art/newArtSession/useInputNewArtSessionField";
+import { FC, useState } from "react"
 import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm";
 import Navigation from "./Navigation";
-import { css } from "styled-system/css";
+import { ArtId, InputRelatedArt } from "@/art/type";
 
 interface NewArtRelatedFormProps {
     title: string
-    defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts" | "artId">
+    artId: ArtId
+    defaultValues: {
+        likePoint: string
+        prev: InputRelatedArt[]
+        next: InputRelatedArt[]
+    }
 }
-const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, defaultValues }) => {
-    const [likePoint, setLikePoint] = useInputNewArtSessionField<"likePoint", string>("likePoint", "", "/new/art/appeal")
+const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, artId, defaultValues }) => {
+    const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
 
     const {
         prevArts, nextArts,
@@ -36,13 +38,12 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, defaultValues })
             onUpdateNextArt={updateNextArt}
             onDeleteNextArt={deleteNextArt}
             actions={
-                <FullWidth>
-                    <div className={css({ py: "xl" })}>
-                        <Navigation
-                            artId={defaultValues.artId ?? null}
-                        />
-                    </div>
-                </FullWidth>
+                <Navigation
+                    artId={artId}
+                    likePoint={likePoint}
+                    prevArts={prevArts}
+                    nextArts={nextArts}
+                />
             }
         />
     )
@@ -50,9 +51,9 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, defaultValues })
 
 export default NewArtRelatedForm
 
-export const useInputRelatedArts = (defaultValues: Pick<NewArtSessionInput, "prevArts" | "nextArts">) => {
-    const [prevArts, setPrevArts] = useInputNewArtSessionField("prevArts", defaultValues.prevArts ?? [], "/new/art/appeal")
-    const [nextArts, setNextArts] = useInputNewArtSessionField("nextArts", defaultValues.nextArts ?? [], "/new/art/appeal")
+export const useInputRelatedArts = (defaultValues: NewArtRelatedFormProps["defaultValues"]) => {
+    const [prevArts, setPrevArts] = useState(defaultValues.prev ?? [])
+    const [nextArts, setNextArts] = useState(defaultValues.next ?? [])
     const addPrevArts = (art: InputRelatedArt) => {
         setPrevArts(p => [art, ...p])
     }

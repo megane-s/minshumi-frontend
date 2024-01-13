@@ -10,6 +10,11 @@ import { isArtGooded } from "@/art/good/isGooded"
 import { getTags } from "@/art/tag/getTags"
 import { css } from "styled-system/css"
 import { Tags } from "@/art/tag/components/Tags"
+import { getLastCreatedArtId } from "./cookie"
+import AppealReminderDialog from "./AppealReminderDialog"
+import LinkButton from "@/components/LinkButton"
+import { flex } from "styled-system/patterns"
+import { getArtAppeal } from "@/art/appeal/get"
 
 
 interface ArtDetailPageProps {
@@ -18,13 +23,20 @@ interface ArtDetailPageProps {
 
 const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
     const artId = decodeURI(params.art_id)
-    const art = await getArt(artId)
-    const tags = await getTags(artId)
-    const session = await getSession()
+    const [art, tags, session] = await Promise.all([
+        getArt(artId),
+        getTags(artId),
+        getSession(),
+    ])
     const isLogined = !!session
-    const isGooded = session ? await isArtGooded(artId, session.user.id) : false
+    const [isGooded, appeal] = await Promise.all([
+        session ? isArtGooded(artId, session.user.id) : false,
+        session && getArtAppeal(artId, session.user.id),
+    ])
 
     if (!art) notFound()
+    const lastCreatedArtId = getLastCreatedArtId()
+
     return (
         <div>
 
@@ -51,6 +63,20 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                     <div className={css({ my: "md" })}>
                         <Tags tags={tags} />
                     </div>
+
+                    <div className={flex({ flexDir: "row", flexWrap: "wrap", gap: "sm" })}>
+                        {isLogined
+                            ? <LinkButton href={`/art/${artId}/edit`}>
+                                作品を編集
+                            </LinkButton>
+                            : null
+                        }
+                        {isLogined &&
+                            <LinkButton href={`/art/${artId}/appeal`} variant="gradient">
+                                {appeal ? "アピールを編集" : "アピールする"}
+                            </LinkButton>
+                        }
+                    </div>
                 </Container>
                 <Divider />
             </FullWidth>
@@ -63,6 +89,11 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
 
             {/* アイデア:ここにこの作品をお勧めしている人上位3人を出す */}
 
+            {lastCreatedArtId &&
+                <AppealReminderDialog
+                    art={art}
+                />
+            }
         </div>
     )
 }

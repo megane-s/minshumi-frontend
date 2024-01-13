@@ -1,27 +1,16 @@
-
-import { getNewArtSession } from "@/art/newArtSession/cookies"
+import { SectionTitle } from "@/components/SectionTitle"
+import NewArtTagForm from "./Form"
 import NewArtProgress from "../NewArtProgress"
-import NewArtSectionTitle from "../NewArtSectionTitle"
-import NewArtTagForm from "./NewArtTagForm"
 
-const NewArtTagPage = async () => {
-    const newArtSession = await getNewArtSession()
+const NewArtTagPage = () => {
     return (
         <div>
-            <NewArtSectionTitle>
-                タグを設定
-            </NewArtSectionTitle>
+            <SectionTitle>
+                作品のタグを選択
+            </SectionTitle>
+            <NewArtTagForm />
 
-            <NewArtTagForm
-                defaultValues={{
-                    mediaTags: newArtSession?.mediaTags ?? [],
-                    genreTags: newArtSession?.genreTags ?? [],
-                    otherTags: newArtSession?.otherTags ?? [],
-                }}
-            />
-
-            <NewArtProgress now={2} />
-
+            <NewArtProgress now={1} />
         </div>
     )
 }
