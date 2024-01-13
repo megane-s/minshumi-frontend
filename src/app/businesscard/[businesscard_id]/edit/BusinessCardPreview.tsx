@@ -8,6 +8,7 @@ import { useDebounce } from "react-use"
 import { css, cx } from "styled-system/css"
 import { colors } from "./colors"
 import { Loader } from "@/components/Loader"
+import { buildImageUrlParams } from "@/businessCard/buildImageUrlParams"
 
 interface BusinessCardPreviewProps {
     name: string,
@@ -78,15 +79,16 @@ export const BusinessCardPreview: FC<BusinessCardPreviewProps> = (props) => {
 
 
 export const usePreviewImageUrl = (input: BusinessCardPreviewProps) => {
-    const params = input && new URLSearchParams({
+    const params = input && new URLSearchParams(buildImageUrlParams({
         type: "1",
         username: input.name,
         icon: input.icon,
-        interest_tags: input.interestTags.join(","),
-        arts: input.arts.join(","),
-        background_image: input.backgroundImage,
-        theme_color: input.themeColor,
-    })
+        interestTags: input.interestTags,
+        arts: input.arts,
+        backgroundImage: input.backgroundImage,
+        themeColor: input.themeColor,
+        rank: input.rank,
+    }))
     params.append("rank", input.rank ?? "")
 
     const previewImageUrl = `/api/businesscard/image?${params.toString()}`
