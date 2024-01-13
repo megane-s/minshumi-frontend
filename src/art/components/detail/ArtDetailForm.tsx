@@ -11,6 +11,7 @@ interface ArtDetailFormProps {
     title: string
     onChangeTitle: (title: string) => void
     titleErrors: string[]
+    disableTitle: boolean
 
     description: string
     onChangeDescription: (description: string) => void
@@ -23,7 +24,7 @@ interface ArtDetailFormProps {
     actions: ReactNode
 }
 const ArtDetailForm: FC<ArtDetailFormProps> = ({
-    title, onChangeTitle, titleErrors,
+    title, onChangeTitle, titleErrors, disableTitle,
     description, onChangeDescription,
     imageUrl, onChangeImageUrl,
     isValid,
@@ -55,6 +56,8 @@ const ArtDetailForm: FC<ArtDetailFormProps> = ({
                         onChange={e => onChangeTitle(e.target.value)}
                         label="タイトル"
                         error={!isValid && titleErrors.map((err, i) => <Fragment key={i}>{err}<br /></Fragment>)}
+                        disabled={disableTitle}
+                        description={disableTitle && "タイトルは作品を登録した人のみ編集できます。"}
                     />
                     <Textarea
                         value={description}

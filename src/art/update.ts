@@ -22,9 +22,11 @@ export const updateArt = async (artId: ArtId, art: UpdateArtParams): Promise<Art
     return result
 }
 
-export const canUpdateArt = async (by: UserId, prevArt: Art, input: UpdateArtParams) => {
+export const canUpdateArt = async (by: UserId | null, prevArt: Art, input: UpdateArtParams) => {
+    if (!by) return false
     // タイトルは作成者以外変更できない
-    if (input.title && by !== prevArt.userId) {
+    const hasUpdateTitle = typeof input.title === "string" && prevArt.title !== input.title
+    if (hasUpdateTitle && by !== prevArt.userId) {
         return false
     }
     return true
