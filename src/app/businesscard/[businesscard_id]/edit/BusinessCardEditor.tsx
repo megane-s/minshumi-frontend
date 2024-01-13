@@ -22,6 +22,8 @@ import { handleSaveBusinessCard } from "./actions"
 import { useRouter } from "next/navigation"
 import { defaultBusinessCard } from "@/businessCard/defaults"
 import { User } from "next-auth"
+import LinkButton from "@/components/LinkButton"
+import { buildImageUrlParams } from "@/businessCard/buildImageUrlParams"
 
 
 interface BusinessCardEditorProps {
@@ -206,32 +208,117 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 </div>
             </div>
 
-            {!isInstant &&
-                <div className={flex({
-                    position: "fixed !important", bottom: 2, right: 4, zIndex: 1,
-                    gap: "sm",
-                    base: { flexDir: "column", alignItems: "flex-end" },
-                    sm: { flexDir: "row" },
-                })}>
-                    <MutateButton
-                        mutation={save}
-                        className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
-                        size="md"
-                        variant="default"
-                    >
-                        保存
-                    </MutateButton>
-                    <MutateButton
-                        className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
-                        size="md"
-                        variant="filled"
-                        mutation={gotoSettings}
-                    >
-                        公開設定
-                    </MutateButton>
-                </div>
-            }
+            <div className={flex({
+                position: "fixed !important", bottom: 2, right: 4, zIndex: 1,
+                gap: "sm",
+                base: { flexDir: "column", alignItems: "flex-end" },
+                sm: { flexDir: "row" },
+            })}>
+                {isInstant
+                    ?
+                    <DownloadButton
+                        {...isValid
+                            ? {
+                                name,
+                                icon,
+                                rank,
+                                interestTags,
+                                arts,
+                                backgroundImage,
+                                themeColor,
+                                isValid: true,
+                            }
+                            : {
+                                name,
+                                icon,
+                                rank: rank ?? undefined,
+                                interestTags,
+                                arts,
+                                backgroundImage,
+                                themeColor: themeColor ?? undefined,
+                                isValid: false,
+                            }
+                        }
+                    />
+                    : <>
+                        <MutateButton
+                            mutation={save}
+                            className={buttonShadow}
+                            size="md"
+                            variant="default"
+                        >
+                            保存
+                        </MutateButton>
+                        <MutateButton
+                            className={buttonShadow}
+                            size="md"
+                            variant="filled"
+                            mutation={gotoSettings}
+                        >
+                            公開設定
+                        </MutateButton>
+                    </>
+                }
+            </div>
 
         </FullWidth >
     )
 }
+
+const buttonShadow = css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })
+
+type DownloadButtonProps =
+    | (
+        {
+            name: string
+            icon: string
+            rank: string | null
+            interestTags: ArtTag[]
+            arts: string[]
+            backgroundImage: string
+            themeColor: string
+            isValid: true
+        }
+    )
+    | (
+        Partial<{
+            name: string
+            icon: string
+            rank: string | null
+            interestTags: ArtTag[]
+            arts: string[]
+            backgroundImage: string
+            themeColor: string
+        }> & {
+            isValid: false
+        }
+    )
+const DownloadButton: FC<DownloadButtonProps> = (props) => {
+    const params = props.isValid && new URLSearchParams(buildImageUrlParams({
+        type: "1",
+        username: props.name,
+        icon: props.icon,
+        interestTags: props.interestTags,
+        arts: props.arts,
+        backgroundImage: props.backgroundImage,
+        themeColor: props.themeColor,
+        rank: props.rank ?? "",
+    }))
+
+    const imageUrl = `/api/businesscard/image?${params.toString()}`
+
+    return (
+        <LinkButton
+            className={buttonShadow}
+            size="md"
+            variant="filled"
+            href={imageUrl}
+            download={props.name ? `${props.name}の名刺` : "名刺"}
+            target="_blank"
+        >
+            画像ダウンロード
+        </LinkButton>
+    )
+}
+
+export default DownloadButton
