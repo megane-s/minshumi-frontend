@@ -17,6 +17,7 @@ export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = () => {
     const [selectedMedias, setSelectedMedias] = useState<ArtTag[]>([])
     const [selectedGenres, setSelectedGenres] = useState<ArtTag[]>([])
     const [selectedOthers, setSelectedOthers] = useState<ArtTag[]>([])
+    const [originals, setOriginals] = useState<ArtTag[]>([])
 
     const router = useRouter()
     const save = useMutate(async () => {
@@ -37,9 +38,11 @@ export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = () => {
             selectedMediaTags={selectedMedias}
             selectedGenreTags={selectedGenres}
             selectedOtherTags={selectedOthers}
+            originalTags={originals}
             onChangeSelectedMediaTags={setSelectedMedias}
             onChangeSelectedGenreTags={setSelectedGenres}
             onChangeSelectedOtherTags={setSelectedOthers}
+            onChangeOriginalTags={setOriginals}
             actions={
                 <div>
                     <Center>

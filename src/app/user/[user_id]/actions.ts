@@ -1,22 +1,22 @@
 "use server"
 
+import { getSession } from "@/auth/server/auth"
 import { CreateBusinessCardCommentParams, createBusinessCardComment } from "@/businessCard/comment/create"
 import { deleteBusinessCardComment } from "@/businessCard/comment/delete"
+import { getBusinessCardComment } from "@/businessCard/comment/get"
 import { cancelGoodBusinessCardCommentGood } from "@/businessCard/comment/good/cancel"
+import { goodToBusinessCardCommentGood } from "@/businessCard/comment/good/good"
 import { BusinessCardComment, BusinessCardCommentId } from "@/businessCard/comment/type"
 import { UpdateBusinessCardComment, updateBusinessCardComment } from "@/businessCard/comment/update"
+import { getBusinessCardById } from "@/businessCard/getById"
+import { BusinessCardId } from "@/businessCard/type"
+import { cancelFollow } from "@/user/follow/cancel"
+import { follow } from "@/user/follow/follow"
+import { getFollowings } from "@/user/follow/getFollowings"
 import { UserId } from "@/user/type"
-import { goodToBusinessCardCommentGood } from "@/businessCard/comment/good/good"
+import { notImplementError } from "@/util/notImplement"
 import { serverAction } from "@/util/serverAction"
 import { revalidatePath } from "next/cache"
-import { getBusinessCardById } from "@/businessCard/getById"
-import { notImplementError } from "@/util/notImplement"
-import { BusinessCardId } from "@/businessCard/type"
-import { getSession } from "@/auth/server/auth"
-import { getBusinessCardComment } from "@/businessCard/comment/get"
-import { follow } from "@/user/follow/follow"
-import { cancelFollow } from "@/user/follow/cancel"
-import { getFollowings } from "@/user/follow/getFollowings"
 
 const revalidateByBusinessCardId = async (businessCardId: BusinessCardId) => {
     const businessCard = await getBusinessCardById(businessCardId)
@@ -88,7 +88,6 @@ export const handleFollow = async (followUserId: UserId) => {
     const isFollowing = (followings
         .map(user => user.id)
         .includes(followUserId))
-    console.log(followUserId, loginUserId, isFollowing)
     if (isFollowing) return
     await follow(loginUserId, followUserId)
     revalidatePath(`/user/${followUserId}`)
@@ -103,7 +102,6 @@ export const handleCancelFollow = async (followUserId: UserId) => {
     const isFollowing = (followings
         .map(user => user.id)
         .includes(followUserId))
-    console.log(followUserId, loginUserId, isFollowing)
     if (!isFollowing) return
     await cancelFollow(followUserId, loginUserId)
     revalidatePath(`/user/${followUserId}`)

@@ -68,7 +68,7 @@ export const RelatedArtTypeSchema = z.enum(['PREV','NEXT']);
 
 export type RelatedArtTypeType = `${z.infer<typeof RelatedArtTypeSchema>}`
 
-export const ArtTagTypeSchema = z.enum(['MEDIA','GENRE','OTHER']);
+export const ArtTagTypeSchema = z.enum(['MEDIA','GENRE','OTHER','CUSTOM']);
 
 export type ArtTagTypeType = `${z.infer<typeof ArtTagTypeSchema>}`
 

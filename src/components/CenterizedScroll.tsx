@@ -14,7 +14,6 @@ const CenterizedScroll: FC<CenterizedScrollProps> = ({ children, className, ...p
     const [prepared, setPrepared] = useState(false)
     const centerRef = useRef<null | HTMLDivElement>(null)
     useEffect(() => {
-        console.log(centerRef.current)
         centerRef.current?.scrollIntoView({ block: "end", inline: "center", behavior: "instant" })
         setPrepared(true)
     }, [])
@@ -23,7 +22,7 @@ const CenterizedScroll: FC<CenterizedScrollProps> = ({ children, className, ...p
             component={Skeleton}
             visible={!prepared}
             className={cx(css({
-                width: "fit-content",
+                width: "fit-content !important",
                 overflowX: prepared ? "auto" : "hidden",
                 gap: "md",
                 alignItems: "center",

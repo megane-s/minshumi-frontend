@@ -165,6 +165,7 @@ enum ArtTagType {
   MEDIA
   GENRE
   OTHER
+  CUSTOM
 }
 
 model InterestTag {
