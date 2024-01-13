@@ -53,7 +53,7 @@ const FormContent: FC<FormContentProps> = ({ defaultValues }) => {
     return (
         <div>
             <ArtDetailForm
-                title={input.title} onChangeTitle={title => setInput(p => ({ ...p, title }))} titleErrors={titleErrors}
+                title={input.title} onChangeTitle={title => setInput(p => ({ ...p, title }))} titleErrors={titleErrors} disableTitle={false}
                 description={input.description} onChangeDescription={description => setInput(p => ({ ...p, description }))}
                 imageUrl={input.imageUrl} onChangeImageUrl={imageUrl => setInput(p => ({ ...p, imageUrl }))}
                 isValid={isValid}
