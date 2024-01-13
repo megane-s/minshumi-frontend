@@ -7,7 +7,7 @@ export const medias: ArtTag[] = [
     // "イラストレーター", "ボードゲーム",
 ]
 
-export const genres: Record<(typeof medias)[number], string[]> = {
+const genres: Record<(typeof medias)[number], string[]> = {
     "アニメ": [
         "アクション", "ロマンス", "コメディ",
         "ファンタジー", "SF", "ホラー", "ミステリー", "スリラー",

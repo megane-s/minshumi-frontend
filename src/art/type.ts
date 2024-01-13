@@ -39,6 +39,7 @@ export const CreateArtParamsSchema = ArtSchema.pick({
     mediaTags: ArtTagSchema.array(),
     genreTags: ArtTagSchema.array(),
     otherTags: ArtTagSchema.array(),
+    originalTags: ArtTagSchema.array(),
 })
 export type CreateArtParams = z.infer<typeof CreateArtParamsSchema>
 

@@ -22,6 +22,7 @@ export const CreateArtParamsTagsSchema = CreateArtParamsSchema.pick({
     mediaTags: true,
     genreTags: true,
     otherTags: true,
+    originalTags: true,
 })
 type CreateArtParamsTags = z.infer<typeof CreateArtParamsTagsSchema>
 
@@ -39,6 +40,7 @@ const NewArtTagForm: FC<NewArtTagFormProps> = () => {
             mediaTags: [],
             genreTags: [],
             otherTags: [],
+            originalTags: [],
         }}
     />
 }
@@ -77,6 +79,7 @@ const FormContent: FC<FormContentProps> = ({ defaultValues }) => {
             selectedMediaTags={input.mediaTags} onChangeSelectedMediaTags={mediaTags => setInput(p => ({ ...p, mediaTags }))}
             selectedGenreTags={input.genreTags} onChangeSelectedGenreTags={genreTags => setInput(p => ({ ...p, genreTags }))}
             selectedOtherTags={input.otherTags} onChangeSelectedOtherTags={otherTags => setInput(p => ({ ...p, otherTags }))}
+            originalTags={input.originalTags} onChangeOriginalTags={otherTags => setInput(p => ({ ...p, otherTags }))}
             actions={
                 <NewArtNavigation
                     prev={

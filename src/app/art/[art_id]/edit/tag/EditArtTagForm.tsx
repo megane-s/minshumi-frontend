@@ -15,18 +15,21 @@ interface EditArtTagFormProps {
         mediaTags: ArtTag[]
         genreTags: ArtTag[]
         otherTags: ArtTag[]
+        originalTags: ArtTag[]
     }
 }
 export const EditArtTagForm: FC<EditArtTagFormProps> = ({ artId, defaultValues }) => {
     const [selectedMedias, setSelectedMedias] = useState(defaultValues.mediaTags)
     const [selectedGenres, setSelectedGenres] = useState(defaultValues.genreTags)
     const [selectedOthers, setSelectedOthers] = useState(defaultValues.otherTags)
+    const [originals, setOriginals] = useState(defaultValues.originalTags)
 
     const handleSave = useMutate(async () => {
         await handleSaveArtTags(artId, {
             medias: selectedMedias,
             genres: selectedGenres,
             others: selectedOthers,
+            originals,
         })
     }, {
         onSuccess: { toast: "更新しました！" },
@@ -41,9 +44,11 @@ export const EditArtTagForm: FC<EditArtTagFormProps> = ({ artId, defaultValues }
             selectedMediaTags={selectedMedias}
             selectedGenreTags={selectedGenres}
             selectedOtherTags={selectedOthers}
+            originalTags={originals}
             onChangeSelectedMediaTags={setSelectedMedias}
             onChangeSelectedGenreTags={setSelectedGenres}
             onChangeSelectedOtherTags={setSelectedOthers}
+            onChangeOriginalTags={setOriginals}
             actions={
                 <Flex mt="lg" justify="center">
                     <MutateButton variant="filled" size="lg" mutation={handleSave}>
