@@ -13,6 +13,8 @@ import { Tags } from "@/art/tag/components/Tags"
 import { getLastCreatedArtId } from "./cookie"
 import AppealReminderDialog from "./AppealReminderDialog"
 import LinkButton from "@/components/LinkButton"
+import { flex } from "styled-system/patterns"
+import { getArtAppeal } from "@/art/appeal/get"
 
 
 interface ArtDetailPageProps {
@@ -27,7 +29,10 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
         getSession(),
     ])
     const isLogined = !!session
-    const isGooded = session ? await isArtGooded(artId, session.user.id) : false
+    const [isGooded, appeal] = await Promise.all([
+        session ? isArtGooded(artId, session.user.id) : false,
+        session && getArtAppeal(artId, session.user.id),
+    ])
 
     if (!art) notFound()
     const lastCreatedArtId = getLastCreatedArtId()
@@ -59,12 +64,19 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                         <Tags tags={tags} />
                     </div>
 
-                    {isLogined
-                        ? <LinkButton href={`/art/${artId}/edit`}>
-                            編集する
-                        </LinkButton>
-                        : null
-                    }
+                    <div className={flex({ flexDir: "row", flexWrap: "wrap", gap: "sm" })}>
+                        {isLogined
+                            ? <LinkButton href={`/art/${artId}/edit`}>
+                                作品を編集
+                            </LinkButton>
+                            : null
+                        }
+                        {isLogined &&
+                            <LinkButton href={`/art/${artId}/appeal`} variant="gradient">
+                                {appeal ? "アピールを編集" : "アピールする"}
+                            </LinkButton>
+                        }
+                    </div>
                 </Container>
                 <Divider />
             </FullWidth>
