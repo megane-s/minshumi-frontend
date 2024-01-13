@@ -21,7 +21,7 @@ export const SelectType: FC<SelectTypeProps> = () => {
     const router = useRouter()
     const handleCreate = useMutate(async (type: number) => {
         const newBusinessCard = await handleCreateBusinessCard(type)
-        router.push(`/businesscard/${newBusinessCard.businessCardId}/edit`)
+        router.push(`/businesscard/${newBusinessCard?.businessCardId ?? "instant"}/edit`)
     })
     return (
         <div>

@@ -5,7 +5,7 @@ import { BusinessCard, BusinessCardId } from "@/businessCard/type"
 import { Alert } from "@/components/Alert"
 import { TextInput } from "@/components/TextInput"
 import { InfoIcon } from "@/components/icon/Info"
-import { User, UserRank } from "@/user/type"
+import { UserRank } from "@/user/type"
 import { InputWrapper, Select } from "@mantine/core"
 import { FC, useState } from "react"
 import { css } from "styled-system/css"
@@ -20,6 +20,8 @@ import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { handleSaveBusinessCard } from "./actions"
 import { useRouter } from "next/navigation"
+import { defaultBusinessCard } from "@/businessCard/defaults"
+import { User } from "next-auth"
 
 
 interface BusinessCardEditorProps {
@@ -27,30 +29,32 @@ interface BusinessCardEditorProps {
     ranks: UserRank[] | null
     tags: ArtTag[]
     likeArts: Art["title"][]
-    defaultValues: BusinessCard & { tags: ArtTag[], arts: Art["title"][] }
-    businessCardId: BusinessCardId
+    defaultValues: Partial<(BusinessCard) & { tags: ArtTag[], arts: Art["title"][] }>
+    businessCardId: BusinessCardId | null // nullの場合は保存できない
 }
 export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues, user, ranks, tags, businessCardId }) => {
+    const isInstant = businessCardId === null
     const [name, setName] = useState(defaultValues.name ?? user?.name ?? "")
 
-    const [icon, setIcon] = useState(defaultValues.imageUrl)
+    const [icon, setIcon] = useState(defaultValues.imageUrl ?? defaultBusinessCard.imageUrl)
 
-    const [rank, setRank] = useState<UserRank | null>(defaultValues.rank)
+    const [rank, setRank] = useState<UserRank | null>(defaultValues.rank ?? defaultBusinessCard.rank)
 
-    const [interestTags, setInterestTags] = useState(defaultValues.tags)
+    const [interestTags, setInterestTags] = useState(defaultValues.tags ?? [])
 
-    const [arts, setArts] = useState(defaultValues.arts)
+    const [arts, setArts] = useState(defaultValues.arts ?? [])
     const isValidArts = arts.length === 3
 
-    const [backgroundImage, setBackgroundImage] = useState(defaultValues.backgroundImageUrl)
+    const [backgroundImage, setBackgroundImage] = useState(defaultValues.backgroundImageUrl ?? defaultBusinessCard.backgroundImageUrl)
 
-    const [themeColor, setThemeColor] = useState<string | null>(defaultValues.themeColor)
+    const [themeColor, setThemeColor] = useState<string | null>(defaultValues.themeColor ?? defaultBusinessCard.themeColor)
     const isValidThemeColor = themeColor !== null
 
     const isValid = isValidArts && isValidThemeColor
 
     const save = useMutate(async () => {
         if (!isValid) throw new Error(`入力値が不正です`)
+        if (isInstant) throw new Error(`ログインしていない状態での名刺は保存できません。`)
         await handleSaveBusinessCard(businessCardId, {
             name,
             imageUrl: icon,
@@ -69,6 +73,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const router = useRouter()
     const gotoSettings = useMutate(async () => {
         if (!isValid) throw new Error(`入力値が不正です`)
+        if (isInstant) throw new Error(`ログインしていない状態での名刺は公開設定はできません。`)
         await handleSaveBusinessCard(businessCardId, {
             name,
             imageUrl: icon,
@@ -201,29 +206,31 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 </div>
             </div>
 
-            <div className={flex({
-                position: "fixed !important", bottom: 2, right: 4, zIndex: 1,
-                gap: "sm",
-                base: { flexDir: "column", alignItems: "flex-end" },
-                sm: { flexDir: "row" },
-            })}>
-                <MutateButton
-                    mutation={save}
-                    className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
-                    size="md"
-                    variant="default"
-                >
-                    保存
-                </MutateButton>
-                <MutateButton
-                    className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
-                    size="md"
-                    variant="filled"
-                    mutation={gotoSettings}
-                >
-                    公開設定
-                </MutateButton>
-            </div>
+            {!isInstant &&
+                <div className={flex({
+                    position: "fixed !important", bottom: 2, right: 4, zIndex: 1,
+                    gap: "sm",
+                    base: { flexDir: "column", alignItems: "flex-end" },
+                    sm: { flexDir: "row" },
+                })}>
+                    <MutateButton
+                        mutation={save}
+                        className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
+                        size="md"
+                        variant="default"
+                    >
+                        保存
+                    </MutateButton>
+                    <MutateButton
+                        className={css({ shadow: { base: "md", _active: "xs" }, transition: "box-shadow 0.3s" })}
+                        size="md"
+                        variant="filled"
+                        mutation={gotoSettings}
+                    >
+                        公開設定
+                    </MutateButton>
+                </div>
+            }
 
         </FullWidth >
     )

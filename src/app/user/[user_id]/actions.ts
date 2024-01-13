@@ -15,7 +15,6 @@ import { follow } from "@/user/follow/follow"
 import { getFollowings } from "@/user/follow/getFollowings"
 import { UserId } from "@/user/type"
 import { notImplementError } from "@/util/notImplement"
-import { serverAction } from "@/util/serverAction"
 import { revalidatePath } from "next/cache"
 
 const revalidateByBusinessCardId = async (businessCardId: BusinessCardId) => {
@@ -32,17 +31,9 @@ export const postComment = async (params: Omit<CreateBusinessCardCommentParams, 
     await revalidateByBusinessCardId(newBusinessCardComment.businessCardId)
 }
 
-export const goodComment = serverAction(async (commentId: BusinessCardCommentId, by: UserId) => {
-    await goodToBusinessCardCommentGood(commentId, by)
-})
-
-export const cancelGoodComment = serverAction(async (commentId: BusinessCardCommentId, by: UserId) => {
-    await cancelGoodBusinessCardCommentGood(commentId, by)
-})
-
 export const updateComment = async (commentId: BusinessCardCommentId, params: UpdateBusinessCardComment) => {
     const session = await getSession()
-    if (!session) throw notImplementError("ログインしていないユーザによるいいねです")
+    if (!session) throw notImplementError("ログインしていないユーザによる名刺の更新です")
 
     const loginUserId = session.user.id
     const comment = await getBusinessCardComment(commentId)
@@ -55,7 +46,7 @@ export const updateComment = async (commentId: BusinessCardCommentId, params: Up
 
 export const deleteComment = async (comment: BusinessCardComment) => {
     const session = await getSession()
-    if (!session) throw notImplementError("ログインしていないユーザによるいいねです")
+    if (!session) throw notImplementError("ログインしていないユーザによる名刺の削除「です")
 
     const loginUserId = session.user.id
     if (loginUserId !== comment?.commentUserId) throw notImplementError("作成者以外はコメントを編集・削除できません")
@@ -74,7 +65,7 @@ export const handleGood = async (commentId: BusinessCardCommentId) => {
 
 export const handleCancelGood = async (commentId: BusinessCardCommentId) => {
     const session = await getSession()
-    if (!session) throw notImplementError("ログインしていないユーザによるいいねです")
+    if (!session) throw notImplementError("ログインしていないユーザによるいいねのキャンセルです")
     const loginUserId = session.user.id
     await cancelGoodBusinessCardCommentGood(commentId, loginUserId)
 }

@@ -7,6 +7,9 @@ export const GET = async (req: NextRequest) => {
     const imageServerUrl = `${imageServerBaseUrl}?${req.nextUrl.searchParams.toString()}`
     const image = await fetch(imageServerUrl)
     const contentType = image.headers.get("Content-Type")
-    if (!contentType?.startsWith("image/")) throw notImplementError(`不正なcontent-type:${contentType}`)
+    if (!contentType?.startsWith("image/")) {
+        console.error("invalid businesscard image response", await image.text())
+        throw notImplementError(`不正なcontent-type:${contentType}`)
+    }
     return new NextResponse(image.body, { headers: { "Content-Type": contentType } })
 }

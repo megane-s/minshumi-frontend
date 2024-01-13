@@ -6,13 +6,14 @@ import { Flex } from "@mantine/core"
 import { useMutate } from "@/util/client/useMutate"
 import MutateButton from "@/components/MutateButton"
 import { handleSaveArtDetail } from "./actions"
-import { ArtId, CreateArtParams } from "@/art/type"
+import { Art, ArtId, CreateArtParams } from "@/art/type"
 
 interface EditInputDetailFormProps {
     artId: ArtId
     defaultValues: Pick<CreateArtParams, "title" | "description" | "imageUrl">
+    disableTitle: boolean
 }
-const EditInputDetailForm: FC<EditInputDetailFormProps> = ({ artId, defaultValues }) => {
+const EditInputDetailForm: FC<EditInputDetailFormProps> = ({ artId, defaultValues, disableTitle }) => {
     const [title, setTitle] = useState(defaultValues.title ?? "")
     const titleErrors = getTitleErrors(title)
     const [description, setDescription] = useState(defaultValues.description ?? "")
@@ -25,11 +26,14 @@ const EditInputDetailForm: FC<EditInputDetailFormProps> = ({ artId, defaultValue
         if (!isValid) {
             throw new Error("入力が不正です。")
         }
-        await handleSaveArtDetail(artId, {
-            title,
+        const input: Partial<Art> = {
             description,
             imageUrl,
-        })
+        }
+        if (!disableTitle) {
+            input.title = title
+        }
+        await handleSaveArtDetail(artId, input)
     }, {
         loading: { toast: "更新中" },
         onSuccess: { toast: "更新しました！" },
@@ -38,7 +42,7 @@ const EditInputDetailForm: FC<EditInputDetailFormProps> = ({ artId, defaultValue
 
     return (
         <InputDetailForm
-            title={title} onChangeTitle={setTitle} titleErrors={titleErrors}
+            title={title} onChangeTitle={setTitle} titleErrors={titleErrors} disableTitle={disableTitle}
             description={description} onChangeDescription={setDescription}
             imageUrl={imageUrl} onChangeImageUrl={setImageUrl}
             isValid={isValid}
