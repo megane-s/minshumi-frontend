@@ -12,7 +12,6 @@ interface PageProps {
 }
 const ArtEditLayout = async ({ children, params: { art_id } }: PageProps) => {
     const session = await getSession()
-    console.log(session)
     return (
         <div>
             <PageTitle my="lg">

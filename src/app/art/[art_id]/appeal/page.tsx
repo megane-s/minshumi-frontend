@@ -35,7 +35,6 @@ const NewArtRelatedArtPage = async ({ params: { art_id } }: Props) => {
                 return ans
             }, { PREV: [] as RelatedArt[], NEXT: [] as RelatedArt[] })),
     ])
-    console.log(art, relatedArts)
     if (!art) notFound()
     return (
         <div>

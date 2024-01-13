@@ -19,7 +19,6 @@ export const selectFile = ({ accept = "*/*", }: Partial<{ accept: string }> = {}
     input.accept = accept
     input.multiple = false
     input.addEventListener("change", () => {
-        console.log(input.files)
         const file = input.files?.item(0)
         if (file) {
             resolve(file)

@@ -8,7 +8,6 @@ import { UserId } from "../type"
  * @param followUser フォローを取り消すユーザのID。(byのフォロワーだったユーザ)
  */
 export const cancelFollow = async (by: UserId, followUser: UserId): Promise<void> => {
-    console.log(by, followUser)
     await prisma.follower.delete({
         where: { userId_followerId: { userId: by, followerId: followUser } }
     })

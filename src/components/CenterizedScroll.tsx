@@ -14,7 +14,6 @@ const CenterizedScroll: FC<CenterizedScrollProps> = ({ children, className, ...p
     const [prepared, setPrepared] = useState(false)
     const centerRef = useRef<null | HTMLDivElement>(null)
     useEffect(() => {
-        console.log(centerRef.current)
         centerRef.current?.scrollIntoView({ block: "end", inline: "center", behavior: "instant" })
         setPrepared(true)
     }, [])

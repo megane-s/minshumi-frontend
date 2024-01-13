@@ -7,7 +7,6 @@ export const dynamic = "force-dynamic"
 
 const FirstRegisterPage = async () => {
     const session = await getSession()
-    console.log("firt register", session)
     if (!session) redirect("/login")
     return (
         <div>
