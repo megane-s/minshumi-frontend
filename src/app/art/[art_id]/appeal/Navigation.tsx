@@ -26,7 +26,7 @@ const Navigation: FC<NavigationProps> = ({ artId, likePoint, prevArts, nextArts 
     })
     return (
         <div
-            className={flex({ w: "full", justifyContent: "center", my: "md" })}
+            className={flex({ w: "full", justifyContent: "center", my: "lg" })}
         >
             <MutateButton mutation={handleSubmit} variant="gradient" size="lg">
                 アピールを登録

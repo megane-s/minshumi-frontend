@@ -1,7 +1,6 @@
 "use client"
 
 import { FC, useState } from "react"
-import FullWidth from "@/app/BaseLayout/FullWidth";
 import { ArtRelatedForm } from "@/art/components/appeal/ArtRelatedForm";
 import Navigation from "./Navigation";
 import { ArtId, InputRelatedArt } from "@/art/type";
@@ -39,14 +38,12 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, artId, defaultVa
             onUpdateNextArt={updateNextArt}
             onDeleteNextArt={deleteNextArt}
             actions={
-                <FullWidth>
-                    <Navigation
-                        artId={artId}
-                        likePoint={likePoint}
-                        prevArts={prevArts}
-                        nextArts={nextArts}
-                    />
-                </FullWidth>
+                <Navigation
+                    artId={artId}
+                    likePoint={likePoint}
+                    prevArts={prevArts}
+                    nextArts={nextArts}
+                />
             }
         />
     )
