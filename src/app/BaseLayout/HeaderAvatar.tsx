@@ -44,7 +44,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
             component={Link}
             href="/art/new"
           >
-            好きな作品の登録
+            作品の登録
           </Menu.Item>
 
           <Menu.Item

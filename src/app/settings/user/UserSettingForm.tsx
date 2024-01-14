@@ -1,11 +1,11 @@
 "use client"
 
-import { BusinessCard } from "@/businessCard/type"
+import { BusinessCard, BusinessCardId } from "@/businessCard/type"
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { ImageInput } from "@/components/ImageInput"
 import { TextInput } from "@/components/TextInput"
 import { User } from "next-auth"
-import { InputWrapper } from "@mantine/core"
+import { InputWrapper, Text } from "@mantine/core"
 import { FC, useState } from "react"
 import { css } from "styled-system/css"
 import { center, flex } from "styled-system/patterns"
@@ -15,18 +15,22 @@ import LinkButton from "@/components/LinkButton"
 import { useMutate } from "@/util/client/useMutate"
 import MutateButton from "@/components/MutateButton"
 import { handleSaveUserSettings } from "./actions"
+import { CheckIcon } from "@/components/icon/Check"
 
 const imageSize = 80
 interface UserSettingFormProps {
     user: User
+    defaultPinnedBusinessCardId: BusinessCardId | null
     businessCards: BusinessCard[]
 }
-const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards }) => {
+const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaultPinnedBusinessCardId }) => {
     const [name, setName] = useState(user.name ?? "")
     const [image, setImage] = useState(user.image ?? "")
 
+    const [pinnedBusinessCardId, setPinnedBusinessCardId] = useState(defaultPinnedBusinessCardId)
+
     const save = useMutate(async () => {
-        await handleSaveUserSettings({ name, image })
+        await handleSaveUserSettings({ name, image, pinnedBusinessCardId })
     }, {
         loading: { toast: "保存中" },
         onSuccess: { toast: "保存しました" },
@@ -73,8 +77,24 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards }) => {
                                 alt={businessCard.name}
                                 width={1200 / 3}
                                 height={675 / 3}
-                                className={css({})}
+                                className={css(pinnedBusinessCardId === businessCard.businessCardId
+                                    ? { borderColor: "primary.0" }
+                                    : { borderColor: "transparent" },
+                                    {
+                                        borderRadius: "lg",
+                                        borderStyle: "solid",
+                                        borderWidth: "4px",
+                                        cursor: "pointer",
+                                    },
+                                )}
+                                onClick={() => setPinnedBusinessCardId(businessCard.businessCardId)}
                             />
+                            {pinnedBusinessCardId === businessCard.businessCardId &&
+                                <Text c="primary" className={flex({ my: "xs", gap: "xs", align: "center" })}>
+                                    <CheckIcon />
+                                    この名刺がプロフィールに表示されます
+                                </Text>
+                            }
                         </CarouselSlide>
                     )}
                 </Carousel>
