@@ -6,6 +6,7 @@ import { User, UserSchema } from "./type"
 export const UpdateUserParamsSchema = UserSchema.pick({
     image: true,
     name: true,
+    pinnedBusinessCardId: true,
 })
 export type UpdateUserParams = z.infer<typeof UpdateUserParamsSchema>
 
