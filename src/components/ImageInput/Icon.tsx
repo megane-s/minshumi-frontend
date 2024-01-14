@@ -1,7 +1,6 @@
 import { selectFile, uploadFile } from "@/file-upload/client"
 import { useMutate } from "@/util/client/useMutate"
 import Image from "next/image"
-import { MouseEvent } from "react"
 import { css, cx } from "styled-system/css"
 import { Loader } from "../Loader"
 import { ImageInputProps } from "./type"
@@ -21,10 +20,10 @@ export const IconImageInput = ({
     withIndicator = false,
     ...props
 }: ImageInputProps) => {
-    const handleUploadImage = async (e: MouseEvent<HTMLImageElement>) => {
+    const handleUploadImage = async () => {
         const file = await selectFile({ accept: "image/*" })
         await uploadImage.mutate(file)
-        onClick?.(e)
+        onClick?.()
     }
     const uploadImage = useMutate(async (file: File) => {
         const { publicUrl } = await uploadFile(file)
@@ -35,7 +34,16 @@ export const IconImageInput = ({
         onError: { toast: "アップロードできませんでした" },
     })
     const content = (
-        <div className={cx(css({ position: "relative", overflow: "hidden", rounded: "md" }), className)} onClick={handleUploadImage} {...props}>
+        <div
+            className={cx(css({ position: "relative", overflow: "hidden", rounded: "md" }), className)}
+            onClick={e => {
+                if (withIndicator) {
+                    e.stopPropagation()
+                }
+                void handleUploadImage()
+            }}
+            {...props}
+        >
             {/* eslint-disable-next-line jsx-a11y/alt-text */}
             <Image
                 src={src}
