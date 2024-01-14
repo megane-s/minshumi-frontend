@@ -61,6 +61,7 @@ export const IconImageInput = ({
                 position="bottom-end"
                 h="fit-content"
                 classNames={{ indicator: css({ right: "0px !important", bottom: "0px !important", cursor: "pointer" }) }}
+                onClick={handleUploadImage}
             >
                 {content}
             </Indicator>

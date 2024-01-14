@@ -10,7 +10,8 @@ import { colors } from "./colors"
 import { Loader } from "@/components/Loader"
 import { buildImageUrlParams } from "@/businessCard/buildImageUrlParams"
 
-interface BusinessCardPreviewProps {
+interface BusinessCardPreviewContentProps {
+    type: string
     name: string,
     icon: string,
     rank: string | null,
@@ -20,7 +21,10 @@ interface BusinessCardPreviewProps {
     themeColor: string,
     className?: string
 }
-export const BusinessCardPreview: FC<BusinessCardPreviewProps> = (props) => {
+interface BusinessCardPreviewProps {
+    className?: string
+}
+export const BusinessCardPreview: FC<(BusinessCardPreviewContentProps) & BusinessCardPreviewProps> = (props) => {
     const previewImageUrl = usePreviewImageUrl(props)
     const previewImage = useImageLoading({ src: previewImageUrl })
     return (
@@ -76,11 +80,9 @@ export const BusinessCardPreview: FC<BusinessCardPreviewProps> = (props) => {
     )
 }
 
-
-
-export const usePreviewImageUrl = (input: BusinessCardPreviewProps) => {
+export const usePreviewImageUrl = (input: BusinessCardPreviewContentProps) => {
     const params = input && new URLSearchParams(buildImageUrlParams({
-        type: "1",
+        type: input.type,
         username: input.name,
         icon: input.icon,
         interestTags: input.interestTags,
@@ -91,7 +93,7 @@ export const usePreviewImageUrl = (input: BusinessCardPreviewProps) => {
     }))
     params.append("rank", input.rank ?? "")
 
-    const previewImageUrl = `/api/businesscard/image?${params.toString()}`
+    const previewImageUrl = `/api/businesscard/preview?${params.toString()}`
     const [debouncedPreviewImageUrl, setDebouncedPreviewImageUrl] = useState(previewImageUrl)
     useDebounce(() => {
         setDebouncedPreviewImageUrl(previewImageUrl)

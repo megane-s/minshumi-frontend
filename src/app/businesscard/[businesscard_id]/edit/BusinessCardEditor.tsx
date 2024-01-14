@@ -101,6 +101,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
             <div className={center({ flexGrow: 1, p: "xl" })}>
                 {isValid
                     ? <BusinessCardPreview
+                        type={defaultValues.type ?? "1"}
                         name={name}
                         icon={icon}
                         rank={rank}
@@ -305,7 +306,7 @@ const DownloadButton: FC<DownloadButtonProps> = (props) => {
         rank: props.rank ?? "",
     }))
 
-    const imageUrl = `/api/businesscard/image?${params.toString()}`
+    const imageUrl = `/api/businesscard/preview?${params.toString()}`
 
     return (
         <LinkButton

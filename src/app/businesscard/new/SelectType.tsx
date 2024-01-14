@@ -10,6 +10,7 @@ import MutateButton from "@/components/MutateButton"
 import { Center } from "@mantine/core"
 import { CheckIcon } from "@/components/icon/Check"
 import { useRouter } from "next/navigation"
+import { notImplementError } from "@/util/notImplement"
 
 const types = [1, 2, 3, 4]
 
@@ -19,8 +20,9 @@ export const SelectType: FC<SelectTypeProps> = () => {
     const [selectedType, setSelectedType] = useState<number | null>(null)
     const isValidSelectedType = selectedType !== null
     const router = useRouter()
-    const handleCreate = useMutate(async (type: number) => {
-        const newBusinessCard = await handleCreateBusinessCard(type)
+    const handleCreate = useMutate(async () => {
+        if (!selectedType) throw notImplementError("タイプが選択されていません")
+        const newBusinessCard = await handleCreateBusinessCard(selectedType)
         router.push(`/businesscard/${newBusinessCard?.businessCardId ?? "instant"}/edit`)
     })
     return (
