@@ -16,7 +16,6 @@ import { isBusinessCardCommentGooded } from "@/businessCard/comment/good/isGoode
 import { SectionTitle } from "@/components/SectionTitle";
 import { PageTitle } from "@/components/PageTitle";
 import Image from "next/image";
-import { BusinessCard } from "@/businessCard/type";
 import { FollowButton } from "./FollowButton";
 import { css } from "styled-system/css";
 import { WatchingArtList } from "./WatchingArtList";
@@ -36,7 +35,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
     const artAppeals = await getArtAppealsByUser(userId)
     const watchingArts = await getWatchingArts(userId)
     const businessCards = await getBusinessCardByUser(userId)
-    const businessCard = businessCards[0] as BusinessCard | null
+    const businessCard = businessCards.find(b => b.businessCardId === user.pinnedBusinessCardId)
     const comments = businessCard && await getCommentsByBusinessCard(businessCard.businessCardId)
     const commentUsers = comments && await Promise.all(
         comments.map(comment => getUser(comment.commentUserId))
@@ -60,20 +59,23 @@ const UserProfilePage = async ({ params }: PageProps) => {
 
     return (
         <div>
-            {/* TODO 名刺を表示する */}
             <Image
-                src="/placeholder/1200x675_red.png"
+                src={businessCard
+                    ? `/api/businesscard/image?businesscard_id=${businessCard.businessCardId}`
+                    : "/default_user_image.png"
+                }
                 alt="名刺手s津尾"
                 width={800}
                 height={675 * 800 / 1200}
                 style={{ width: "100%", height: "auto" }}
+                priority
             />
             <Flex justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
                 <PageTitle>
                     {user.name}
                 </PageTitle>
                 {loginUser && (user.id === loginUser?.id
-                    ? <LinkButton href="/settings">
+                    ? <LinkButton href="/settings/user">
                         編集する
                     </LinkButton>
                     : <FollowButton
