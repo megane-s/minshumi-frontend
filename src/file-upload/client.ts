@@ -1,15 +1,19 @@
 import { useMutate } from "@/util/client/useMutate"
 import { useState } from "react"
+import { z } from "zod"
 
 const uploadServerUrl = "/api/upload"
+const UploadResponseSchema = z.object({
+    publicUrl: z.string(),
+})
 
 export const uploadFile = async (file: File | "select" = "select") => {
-    if (file === "select") file = await selectFile()
-    const res = await fetch(uploadServerUrl).then(r => r.json()) as { uploadUrl: string, publicUrl: string }
-    await fetch(res.uploadUrl, {
+    const res = await fetch(uploadServerUrl, {
         method: "PUT",
         body: file,
     })
+        .then(r => r.json())
+        .then(data => UploadResponseSchema.parse(data))
     return res
 }
 

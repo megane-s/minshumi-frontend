@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - feature/domain-setting # 検証用
+      - issue-146 # 検証用
 
 permissions:
   contents: write
@@ -36,13 +36,16 @@ jobs:
       - name: Authorize Docker push
         run: gcloud auth configure-docker
       - name: Build Docker image
-        run: | 
+        run: |
           echo "COCKROACH_DATABASE_URL=$COCKROACH_DATABASE_URL" >> .env
           echo "BUSINESS_CARD_IMAGE_SERVER=$BUSINESS_CARD_IMAGE_SERVER" >> .env
+          echo ${{ secrets.WEB_SERVER_SECRESTS_PROD }} >> .env
+          echo "$COCKROACH_DATABASE_URL"
           docker build -t asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} .
       - name: Push Docker Image
         run: docker push asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }}
       - name: Deploy to Cloud Run
+        continue-on-error: true
         run: |-
           SET_SECRETS="COCKROACH_DATABASE_URL=cockroach-db-prod-url:latest"
           SET_SECRETS="$SET_SECRETS,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:latest"
@@ -50,8 +53,7 @@ jobs:
           SET_SECRETS="$SET_SECRETS,NEXTAUTH_SECRET=nextauth-secret:latest"
           SET_SECRETS="$SET_SECRETS,REDIS_NEW_ART_SESSION_URL=redis-new-art-session-url:latest"
           SET_SECRETS="$SET_SECRETS,BUSINESS_CARD_IMAGE_SERVER=business-card-image-server:latest"
-          SET_SECRETS="$SET_SECRETS,BUSINESS_CARD_IMAGE_SERVER=business-card-image-server:latest"
-          echo "Set Secrets >> $SET_SECRETS"
+          SET_SECRETS="$SET_SECRETS,GCP_GCS_USER_CONTENT_BUCKET=gcp-gcs-user-content-bucket:latest"
           gcloud run deploy minshumi-frontend \
             --project=$PROJECT_ID \
             --image=asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }} \
@@ -78,3 +80,8 @@ jobs:
           echo "| | | "  >> $GITHUB_STEP_SUMMARY
           echo "|---|---|"  >> $GITHUB_STEP_SUMMARY
           echo "| Deploy Log | $DEPLOY_LOG_URL | "  >> $GITHUB_STEP_SUMMARY
+      - name: Error handling
+        if: ${{ job.status == 'failure' }}
+        run: |
+          echo "Error handling"
+          exit 1
