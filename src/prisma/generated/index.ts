@@ -18,7 +18,7 @@ export const AccountScalarFieldEnumSchema = z.enum(['id','userId','type','provid
 
 export const SessionScalarFieldEnumSchema = z.enum(['id','sessionToken','userId','expires']);
 
-export const UserScalarFieldEnumSchema = z.enum(['id','name','email','emailVerified','image']);
+export const UserScalarFieldEnumSchema = z.enum(['id','name','email','emailVerified','image','pinnedBusinessCardId']);
 
 export const VerificationTokenScalarFieldEnumSchema = z.enum(['identifier','token','expires']);
 
@@ -133,6 +133,7 @@ export const UserSchema = z.object({
   email: z.string().nullable(),
   emailVerified: z.coerce.date().nullable(),
   image: z.string().nullable(),
+  pinnedBusinessCardId: z.string().nullable(),
 })
 
 export type User = z.infer<typeof UserSchema>
