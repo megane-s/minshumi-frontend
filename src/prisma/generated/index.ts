@@ -20,6 +20,10 @@ export const SessionScalarFieldEnumSchema = z.enum(['id','sessionToken','userId'
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','email','emailVerified','image','pinnedBusinessCardId']);
 
+export const UserCommentScalarFieldEnumSchema = z.enum(['commentId','content','commentUserId','createAt','updateAt']);
+
+export const UserCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
+
 export const VerificationTokenScalarFieldEnumSchema = z.enum(['identifier','token','expires']);
 
 export const FollowerScalarFieldEnumSchema = z.enum(['userId','followerId']);
@@ -49,10 +53,6 @@ export const BusinessCardScalarFieldEnumSchema = z.enum(['businessCardId','userI
 export const BusinessCardLikeArtScalarFieldEnumSchema = z.enum(['businessCardId','likeArtTitle','artArtId']);
 
 export const BusinessCardInterestTagScalarFieldEnumSchema = z.enum(['businessCardId','tag']);
-
-export const BusinessCardCommentScalarFieldEnumSchema = z.enum(['commentId','businessCardId','content','commentUserId','createAt','updateAt']);
-
-export const BusinessCardCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
 
 export const BusinessCardGoodUserScalarFieldEnumSchema = z.enum(['businessCardId','userId']);
 
@@ -137,6 +137,31 @@ export const UserSchema = z.object({
 })
 
 export type User = z.infer<typeof UserSchema>
+
+/////////////////////////////////////////
+// USER COMMENT SCHEMA
+/////////////////////////////////////////
+
+export const UserCommentSchema = z.object({
+  commentId: z.string().cuid(),
+  content: z.string(),
+  commentUserId: z.string(),
+  createAt: z.coerce.date(),
+  updateAt: z.coerce.date(),
+})
+
+export type UserComment = z.infer<typeof UserCommentSchema>
+
+/////////////////////////////////////////
+// USER COMMENT GOOD USER SCHEMA
+/////////////////////////////////////////
+
+export const UserCommentGoodUserSchema = z.object({
+  commentId: z.string(),
+  goodUserId: z.string(),
+})
+
+export type UserCommentGoodUser = z.infer<typeof UserCommentGoodUserSchema>
 
 /////////////////////////////////////////
 // VERIFICATION TOKEN SCHEMA
@@ -320,32 +345,6 @@ export const BusinessCardInterestTagSchema = z.object({
 })
 
 export type BusinessCardInterestTag = z.infer<typeof BusinessCardInterestTagSchema>
-
-/////////////////////////////////////////
-// BUSINESS CARD COMMENT SCHEMA
-/////////////////////////////////////////
-
-export const BusinessCardCommentSchema = z.object({
-  commentId: z.string().cuid(),
-  businessCardId: z.string(),
-  content: z.string(),
-  commentUserId: z.string(),
-  createAt: z.coerce.date(),
-  updateAt: z.coerce.date(),
-})
-
-export type BusinessCardComment = z.infer<typeof BusinessCardCommentSchema>
-
-/////////////////////////////////////////
-// BUSINESS CARD COMMENT GOOD USER SCHEMA
-/////////////////////////////////////////
-
-export const BusinessCardCommentGoodUserSchema = z.object({
-  commentId: z.string(),
-  goodUserId: z.string(),
-})
-
-export type BusinessCardCommentGoodUser = z.infer<typeof BusinessCardCommentGoodUserSchema>
 
 /////////////////////////////////////////
 // BUSINESS CARD GOOD USER SCHEMA

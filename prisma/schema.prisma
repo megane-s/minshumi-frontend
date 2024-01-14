@@ -54,32 +54,51 @@ model Session {
 }
 
 model User {
-  id                       String                        @id @default(cuid())
-  name                     String?
-  email                    String?                       @unique
-  emailVerified            DateTime?
-  image                    String?
-  pinnedBusinessCardId     String?                       @unique
-  accounts                 Account[]
-  sessions                 Session[]
-  interestTags             InterestTag[]
-  goodArts                 ArtGoodUser[]
-  artAppeals               ArtAppeal[]
-  watchingArts             WatchingArt[]
-  bookmarkArts             BookmarkArt[]
-  followers                Follower[]                    @relation("followers")
-  following                Follower[]                    @relation("followings")
-  blockUsers               BlockUser[]                   @relation("blockUsers")
-  blocking                 BlockUser[]                   @relation("blocking")
-  businessCards            BusinessCard[]                @relation("user")
-  goodBusinessCardComments BusinessCardCommentGoodUser[]
-  goodBusinessCards        BusinessCardGoodUser[]
-  ranks                    UserRank[]
-  notifications            Notification[]
-  bussinessCardComments    BusinessCardComment[]
-  arts                     Art[]
-  RelatedArt               RelatedArt[]
-  pinnedBusinessCard       BusinessCard?                 @relation("pinned", fields: [pinnedBusinessCardId], references: [businessCardId])
+  id                   String                 @id @default(cuid())
+  name                 String?
+  email                String?                @unique
+  emailVerified        DateTime?
+  image                String?
+  pinnedBusinessCardId String?                @unique
+  accounts             Account[]
+  sessions             Session[]
+  interestTags         InterestTag[]
+  goodArts             ArtGoodUser[]
+  artAppeals           ArtAppeal[]
+  watchingArts         WatchingArt[]
+  bookmarkArts         BookmarkArt[]
+  followers            Follower[]             @relation("followers")
+  following            Follower[]             @relation("followings")
+  blockUsers           BlockUser[]            @relation("blockUsers")
+  blocking             BlockUser[]            @relation("blocking")
+  businessCards        BusinessCard[]         @relation("user")
+  goodBusinessCards    BusinessCardGoodUser[]
+  ranks                UserRank[]
+  notifications        Notification[]
+  arts                 Art[]
+  RelatedArt           RelatedArt[]
+  pinnedBusinessCard   BusinessCard?          @relation("pinned", fields: [pinnedBusinessCardId], references: [businessCardId])
+  comments             UserComment[]
+  commentGoodUsers     UserCommentGoodUser[]
+}
+
+model UserComment {
+  commentId     String                @id @default(cuid())
+  content       String
+  commentUserId String
+  commentUser   User                  @relation(fields: [commentUserId], references: [id])
+  goodUsers     UserCommentGoodUser[]
+  createAt      DateTime              @default(now())
+  updateAt      DateTime              @updatedAt
+}
+
+model UserCommentGoodUser {
+  commentId  String
+  goodUserId String
+  comment    UserComment @relation(fields: [commentId], references: [commentId], onDelete: Cascade)
+  goodUser   User        @relation(fields: [goodUserId], references: [id])
+
+  @@id([commentId, goodUserId])
 }
 
 model VerificationToken {
@@ -232,7 +251,6 @@ model BusinessCard {
   user               User                      @relation("user", fields: [userId], references: [id])
   likeArts           BusinessCardLikeArt[]
   interestTags       BusinessCardInterestTag[]
-  comments           BusinessCardComment[]
   goodUsers          BusinessCardGoodUser[]
   pinned             User?                     @relation("pinned")
 }
@@ -254,27 +272,6 @@ model BusinessCardInterestTag {
   BusinessCard BusinessCard @relation(fields: [businessCardId], references: [businessCardId])
 
   @@id([businessCardId, tag])
-}
-
-model BusinessCardComment {
-  commentId      String                        @id @default(cuid())
-  businessCardId String
-  content        String
-  commentUserId  String
-  commentUser    User                          @relation(fields: [commentUserId], references: [id])
-  businessCard   BusinessCard                  @relation(fields: [businessCardId], references: [businessCardId])
-  goodUsers      BusinessCardCommentGoodUser[]
-  createAt       DateTime                      @default(now())
-  updateAt       DateTime                      @updatedAt
-}
-
-model BusinessCardCommentGoodUser {
-  commentId  String
-  goodUserId String
-  comment    BusinessCardComment @relation(fields: [commentId], references: [commentId], onDelete: Cascade)
-  goodUser   User                @relation(fields: [goodUserId], references: [id])
-
-  @@id([commentId, goodUserId])
 }
 
 model BusinessCardGoodUser {
