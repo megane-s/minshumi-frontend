@@ -1,4 +1,3 @@
-import { credentials } from "@/gcp/credentials";
 import { randomId } from "@/util/random";
 import { Storage } from "@google-cloud/storage";
 import { NextRequest, NextResponse } from "next/server";
@@ -38,9 +37,7 @@ export const PUT = async (req: NextRequest) => {
             msg: `invalid content type :${contentType}`,
         }, { status: 400 })
     }
-    const storage = new Storage({
-        credentials,
-    })
+    const storage = new Storage()
     const bucket = storage.bucket(process.env.GCP_GCS_USER_CONTENT_BUCKET as string)
     const file = bucket.file(randomId())
     const publicUrl = file.publicUrl()
