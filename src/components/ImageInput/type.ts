@@ -1,5 +1,5 @@
 import { ImageProps } from "next/image"
-import { ComponentProps } from "react"
+import { ComponentProps, MouseEvent } from "react"
 
 export interface ImageInputProps extends ComponentProps<"div"> {
     type: "background" | "icon"
@@ -8,5 +8,5 @@ export interface ImageInputProps extends ComponentProps<"div"> {
     alt: string
     onUpload: (src: string) => void
     withIndicator?: boolean
-    onClick?: () => void
+    onClick?: (e: MouseEvent) => void
 }

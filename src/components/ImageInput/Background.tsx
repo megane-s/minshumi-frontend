@@ -6,6 +6,7 @@ import { Loader } from "../Loader"
 import { ImageInputProps } from "./type"
 import { Indicator } from "@mantine/core"
 import { MdOutlineEdit } from "react-icons/md"
+import { MouseEvent } from "react"
 
 export const BackgroundImageInput = ({
     className,
@@ -20,10 +21,10 @@ export const BackgroundImageInput = ({
     withIndicator = false,
     ...props
 }: ImageInputProps) => {
-    const handleUploadImage = async () => {
+    const handleUploadImage = async (e: MouseEvent) => {
         const file = await selectFile({ accept: "image/*" })
         await uploadImage.mutate(file)
-        onClick?.()
+        onClick?.(e)
     }
     const uploadImage = useMutate(async (file: File) => {
         const { publicUrl } = await uploadFile(file)
@@ -40,7 +41,7 @@ export const BackgroundImageInput = ({
                 if (withIndicator) {
                     e.stopPropagation()
                 }
-                void handleUploadImage()
+                void handleUploadImage(e)
             }}
             {...props}
         >
