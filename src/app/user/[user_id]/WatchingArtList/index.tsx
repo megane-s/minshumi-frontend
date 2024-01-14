@@ -1,7 +1,7 @@
 import { Art } from "@/art/type"
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { FC } from "react"
-import { ArtImage } from "./ArtImage"
+import { WatchingArtImage } from "./WatchingArtImage"
 
 interface WatchingArtListProps {
     arts: Art[]
@@ -16,7 +16,7 @@ export const WatchingArtList: FC<WatchingArtListProps> = ({ arts }) => {
         >
             {arts.map(art =>
                 <CarouselSlide key={art.artId}>
-                    <ArtImage
+                    <WatchingArtImage
                         art={art}
                     />
                 </CarouselSlide>

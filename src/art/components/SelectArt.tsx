@@ -9,6 +9,7 @@ import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-quer
 import { useDebounce } from "react-use"
 import { Art, ArtId, ArtSchema } from "@/art/type"
 import { css } from "styled-system/css"
+import { SearchIcon } from "@/components/icon/Search"
 
 interface SelectArtProps {
     selectArtId: ArtId | null
@@ -34,6 +35,7 @@ const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelect
                     w="300px"
                     maw="100%"
                     placeholder="タイトルを入力して作品を検索"
+                    leftSection={<SearchIcon />}
                 />
             </Center>
 
