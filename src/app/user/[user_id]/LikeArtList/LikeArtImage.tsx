@@ -40,7 +40,6 @@ export const LikeArtImage: FC<LikeArtImageProps> = ({ art }) => {
 
             <ArtDetailDialog art={art} {...dialog.dialogProps} />
 
-
         </ >
     )
 }

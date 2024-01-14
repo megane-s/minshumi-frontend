@@ -2,10 +2,10 @@ import { ArtAppeal } from "@/art/type"
 import { Dialog, DialogProps } from "@/components/Dialog"
 import LinkButton from "@/components/LinkButton"
 import { SectionTitle } from "@/components/SectionTitle"
-import { Flex } from "@mantine/core"
 import Link from "next/link"
 import { FC } from "react"
 import Image from "next/image"
+import { flex } from "styled-system/patterns"
 
 interface ArtDetailDialogProps extends DialogProps {
     art: ArtAppeal
@@ -24,14 +24,14 @@ export const ArtDetailDialog: FC<ArtDetailDialogProps> = ({ art, ...dialogProps 
             </Link>
 
             <SectionTitle>
-                <Flex w="100%" justify="space-between" align="center">
+                <div className={flex({ w: "100%", justify: "space-between", align: "center", my: "sm" })}>
                     <div>
                         {art.title}
                     </div>
                     <LinkButton variant="light" size="xs" href={`/art/${art.artId}`}>
                         作品のページへ
                     </LinkButton>
-                </Flex>
+                </div>
             </SectionTitle>
             {art.likePoint}
         </Dialog>

@@ -120,7 +120,9 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     : null
                 )}
             </Flex>
-            <WatchingArtList arts={watchingArts} />
+            <WatchingArtList
+                arts={watchingArts}
+            />
             {/* TODO 0件の時の表示 */}
 
             {comments && <>
