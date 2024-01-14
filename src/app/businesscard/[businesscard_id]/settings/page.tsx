@@ -31,6 +31,7 @@ const BusinessCardSettingsPage = async ({ params: { businesscard_id } }: PagePro
                 </ActionIcon>
             </div>
             <BusinessCardPreview
+                type={businessCard.type}
                 name={businessCard.name}
                 icon={businessCard.imageUrl}
                 rank={businessCard.rank}

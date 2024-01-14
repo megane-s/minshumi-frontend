@@ -1,3 +1,5 @@
+"use client"
+
 import { BackgroundImageInput } from "./Background";
 import { IconImageInput } from "./Icon";
 import { ImageInputProps } from "./type";
