@@ -11,6 +11,5 @@ export const GET = async (req: NextRequest) => {
         console.error("invalid businesscard image response", await image.text())
         throw notImplementError(`不正なcontent-type:${contentType}`)
     }
-    console.log("image>>", image)
     return new NextResponse(image.body, { headers: { "Content-Type": contentType } })
 }

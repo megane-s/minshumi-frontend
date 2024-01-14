@@ -27,7 +27,6 @@ export const GET = async (req: NextRequest) => {
         }, { status: 404 })
     }
     const params = buildImageUrlParamsFromBusinessCard(businessCard, interestTags, likeArts)
-    console.log(" * params", params)
 
     const imageServerBaseUrl = z.string({ invalid_type_error: "invalid " }).parse(process.env.BUSINESS_CARD_IMAGE_SERVER)
     const imageServerUrl = `${imageServerBaseUrl}?${new URLSearchParams(params).toString()}`

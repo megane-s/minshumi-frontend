@@ -5,7 +5,7 @@ import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { ImageInput } from "@/components/ImageInput"
 import { TextInput } from "@/components/TextInput"
 import { User } from "next-auth"
-import { InputWrapper } from "@mantine/core"
+import { InputWrapper, Text } from "@mantine/core"
 import { FC, useState } from "react"
 import { css } from "styled-system/css"
 import { center, flex } from "styled-system/patterns"
@@ -15,6 +15,7 @@ import LinkButton from "@/components/LinkButton"
 import { useMutate } from "@/util/client/useMutate"
 import MutateButton from "@/components/MutateButton"
 import { handleSaveUserSettings } from "./actions"
+import { CheckIcon } from "@/components/icon/Check"
 
 const imageSize = 80
 interface UserSettingFormProps {
@@ -88,6 +89,12 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                                 )}
                                 onClick={() => setPinnedBusinessCardId(businessCard.businessCardId)}
                             />
+                            {pinnedBusinessCardId === businessCard.businessCardId &&
+                                <Text c="primary" className={flex({ my: "xs", gap: "xs", align: "center" })}>
+                                    <CheckIcon />
+                                    この名刺がプロフィールに表示されます
+                                </Text>
+                            }
                         </CarouselSlide>
                     )}
                 </Carousel>
