@@ -48,7 +48,9 @@ jobs:
       - name: Generate Prisma client
         run: yarn prisma generate
       - name: Run build
-        run: yarn build
+        run: |
+          echo ${{ secrets.WEB_SERVER_SECRESTS_DEV }} > .env
+          yarn build
         env:
           COCKROACH_DATABASE_URL: ${{ secrets.COCKROACH_DATABASE_URL }}
           BUSINESS_CARD_IMAGE_SERVER: ${{ secrets.BUSINESS_CARD_IMAGE_SERVER }}
