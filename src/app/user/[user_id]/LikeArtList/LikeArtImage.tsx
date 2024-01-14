@@ -9,8 +9,9 @@ import { css } from "styled-system/css"
 
 interface LikeArtImageProps {
     art: ArtAppeal
+    editable?: boolean
 }
-export const LikeArtImage: FC<LikeArtImageProps> = ({ art }) => {
+export const LikeArtImage: FC<LikeArtImageProps> = ({ art, editable = false }) => {
     const dialog = useDialog()
     return (
         <>
@@ -38,7 +39,11 @@ export const LikeArtImage: FC<LikeArtImageProps> = ({ art }) => {
                 </div>
             </div>
 
-            <ArtDetailDialog art={art} {...dialog.dialogProps} />
+            <ArtDetailDialog
+                art={art}
+                editable={editable}
+                {...dialog.dialogProps}
+            />
 
         </ >
     )
