@@ -2,6 +2,7 @@
 
 import { deleteArtAppeal } from "@/art/appeal/delete"
 import { ArtId } from "@/art/type"
+import { removeWatchingArt } from "@/art/watching/remove"
 import { getSession } from "@/auth/server/auth"
 import { CreateBusinessCardCommentParams, createBusinessCardComment } from "@/businessCard/comment/create"
 import { deleteBusinessCardComment } from "@/businessCard/comment/delete"
@@ -104,5 +105,12 @@ export const handleDeleteAppeal = async (artId: ArtId) => {
     const session = await getSession()
     if (!session) throw notImplementError(`ログインする必要があります。`)
     await deleteArtAppeal(session.user.id, artId)
+    revalidatePath(`/user/${session.user.id}`)
+}
+
+export const handleDeleteWatchingArt = async (artId: ArtId) => {
+    const session = await getSession()
+    if (!session) throw notImplementError(`ログインする必要があります。`)
+    await removeWatchingArt(session.user.id, artId)
     revalidatePath(`/user/${session.user.id}`)
 }
