@@ -99,7 +99,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     アピール
                 </SectionTitle>
                 {loginUser && (user.id === loginUser?.id
-                    ? <LinkButton href="/settings/like-arts">
+                    ? <LinkButton href="/settings/appeals">
                         アピールを管理
                     </LinkButton>
                     : null
