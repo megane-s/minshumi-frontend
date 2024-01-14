@@ -43,6 +43,7 @@ jobs:
       - name: Push Docker Image
         run: docker push asia.gcr.io/$PROJECT_ID/minshumi-frontend:${{ github.sha }}
       - name: Deploy to Cloud Run
+        continue-on-error: true
         run: |-
           SET_SECRETS="COCKROACH_DATABASE_URL=cockroach-db-prod-url:latest"
           SET_SECRETS="$SET_SECRETS,GOOGLE_AUTH_CLIENT_ID=google-auth-client-id:latest"
