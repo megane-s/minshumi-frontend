@@ -6,12 +6,15 @@ import { ImageInput } from "@/components/ImageInput"
 import { TextInput } from "@/components/TextInput"
 import { User } from "next-auth"
 import { InputWrapper } from "@mantine/core"
-import { FC } from "react"
+import { FC, useState } from "react"
 import { css } from "styled-system/css"
-import { flex } from "styled-system/patterns"
+import { center, flex } from "styled-system/patterns"
 import Image from "next/image"
 import { AddIcon } from "@/components/icon/AddIcon"
 import LinkButton from "@/components/LinkButton"
+import { useMutate } from "@/util/client/useMutate"
+import MutateButton from "@/components/MutateButton"
+import { handleSaveUserSettings } from "./actions"
 
 const imageSize = 80
 interface UserSettingFormProps {
@@ -19,15 +22,25 @@ interface UserSettingFormProps {
     businessCards: BusinessCard[]
 }
 const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards }) => {
+    const [name, setName] = useState(user.name ?? "")
+    const [image, setImage] = useState(user.image ?? "")
+
+    const save = useMutate(async () => {
+        await handleSaveUserSettings({ name, image })
+    }, {
+        loading: { toast: "保存中" },
+        onSuccess: { toast: "保存しました" },
+        onError: { toast: "エラーが発生しました..." },
+    })
     return (
         <div>
             <div className={flex({ flexDir: { base: "column", sm: "row" }, w: "full", gap: "md" })}>
                 <div>
                     <ImageInput
                         className={css({ w: `${imageSize}px`, h: `${imageSize}px`, overflow: "hidden", borderRadius: "9999px" })}
-                        src="/placeholder/300x200_blue.png"
-                        alt=""
-                        onUpload={() => { }}
+                        src={image}
+                        alt={name + "の画像"}
+                        onUpload={(publicUrl) => setImage(publicUrl)}
                         type="icon"
                         imageProps={{
                             className: css({ objectFit: "contain" }),
@@ -41,6 +54,8 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards }) => {
                     <TextInput
                         label="ユーザ名"
                         className={css({ maxW: { sm: "sm" } })}
+                        value={name}
+                        onChange={e => setName(e.target.value)}
                     />
                 </div>
             </div>
@@ -49,7 +64,7 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards }) => {
                 label="名刺"
                 className={css({ my: "md" })}
             >
-                <Carousel slideSize="60%" align="start" slideGap="lg">
+                <Carousel slideSize="fit-content" align="start" slideGap="lg">
                     {/* TODO 0件表示 */}
                     {businessCards.map(businessCard =>
                         <CarouselSlide key={businessCard.businessCardId}>
@@ -69,6 +84,12 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards }) => {
                     </LinkButton>
                 </div>
             </InputWrapper>
+
+            <div className={center({ w: "full", my: "xl" })}>
+                <MutateButton mutation={save} variant="filled">
+                    プロフィールを保存
+                </MutateButton>
+            </div>
         </div>
     )
 }
