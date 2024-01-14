@@ -32,7 +32,7 @@ export const SelectRelatedArt: FC<SelectRelatedArtProps> = ({ defaultArtId, onGo
         <div>
             <SelectArt
                 selectArtId={selectedArtId}
-                onSelectArt={({ artId }) => setSelectedArtId(artId)}
+                onSelectArt={(art) => setSelectedArtId(art?.artId ?? null)}
                 autoFocus
             />
 

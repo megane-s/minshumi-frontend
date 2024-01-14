@@ -12,12 +12,16 @@ import { css } from "styled-system/css"
 
 interface SelectArtProps {
     selectArtId: ArtId | null
-    onSelectArt: (art: Art) => void
+    onSelectArt: (art: Art | null) => void
     autoFocus?: boolean
 }
 const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelectArt }) => {
     const [title, setTitle] = useState("")
-    const suggestions = useSuggestTitle(title)
+    const suggestions = useSuggestTitle(title, {
+        onStartSearch: () => {
+            onSelectArt(null)
+        },
+    })
 
     return (
         <div>
@@ -58,7 +62,13 @@ const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelect
 
 export default SelectArt
 
-export const useSuggestTitle = (title: string, { debounce = 500 }: { debounce?: number } = {}) => {
+export const useSuggestTitle = (
+    title: string,
+    { debounce = 500, onStartSearch }: {
+        debounce?: number
+        onStartSearch?: (query: string) => void,
+    } = {},
+) => {
     const [debouncedTitle, setDebouncedTitle] = useState(title)
     useDebounce(() => {
         setDebouncedTitle(title)
@@ -68,6 +78,7 @@ export const useSuggestTitle = (title: string, { debounce = 500 }: { debounce?: 
     const suggestions = useQuery({
         queryKey: ["art", "suggestions", debouncedTitle],
         queryFn: async ({ signal }) => {
+            onStartSearch?.(title)
             const suggestions = await fetch(`/api/art/suggest?q=${title}`, { signal })
                 .then(r => r.json())
                 .then(r => ArtSchema.array().parse(r))
