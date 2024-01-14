@@ -37,3 +37,7 @@ export const useMutate = <F extends ((...args: any[]) => Promise<any>)>(
     loading: options.loading,
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Mutation<Func extends ((...args: any[]) => Promise<any>) = (() => Promise<void>)> =
+  ReturnType<typeof useMutate<Func>>

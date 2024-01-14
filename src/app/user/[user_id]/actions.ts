@@ -1,5 +1,7 @@
 "use server"
 
+import { deleteArtAppeal } from "@/art/appeal/delete"
+import { ArtId } from "@/art/type"
 import { getSession } from "@/auth/server/auth"
 import { CreateBusinessCardCommentParams, createBusinessCardComment } from "@/businessCard/comment/create"
 import { deleteBusinessCardComment } from "@/businessCard/comment/delete"
@@ -96,4 +98,11 @@ export const handleCancelFollow = async (followUserId: UserId) => {
     if (!isFollowing) return
     await cancelFollow(followUserId, loginUserId)
     revalidatePath(`/user/${followUserId}`)
+}
+
+export const handleDeleteAppeal = async (artId: ArtId) => {
+    const session = await getSession()
+    if (!session) throw notImplementError(`ログインする必要があります。`)
+    await deleteArtAppeal(session.user.id, artId)
+    revalidatePath(`/user/${session.user.id}`)
 }
