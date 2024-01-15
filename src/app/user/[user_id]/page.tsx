@@ -5,14 +5,12 @@ import { getUser } from "@/user/get";
 import { getWatchingArts } from "@/art/watching/get";
 import { getBusinessCardByUser } from "@/businessCard/getByUser";
 import { CommentForm } from "./CommentForm";
-import { getCommentsByBusinessCard } from "@/businessCard/comment/getByBusinessCard";
 import { getArtAppealsByUser } from "@/art/appeal/getByUser";
 import { CommentListItem } from "./CommentListItem";
 import { getFollowers } from "@/user/follow/getFollowers";
 import { getFollowings } from "@/user/follow/getFollowings";
 import { getSession } from "@/auth/server/auth";
 import { User } from "@/user/type";
-import { isBusinessCardCommentGooded } from "@/businessCard/comment/good/isGooded";
 import { SectionTitle } from "@/components/SectionTitle";
 import { PageTitle } from "@/components/PageTitle";
 import Image from "next/image";
@@ -20,6 +18,8 @@ import { FollowButton } from "./FollowButton";
 import { css } from "styled-system/css";
 import { WatchingArtList } from "./WatchingArtList";
 import { LikeArtList } from "./LikeArtList";
+import { getUserCommentsByUserId } from "@/user/comment/get";
+import { isUserCommentGooded } from "@/user/comment/good/isGooded";
 
 interface PageProps {
     params: { user_id: string }
@@ -36,14 +36,14 @@ const UserProfilePage = async ({ params }: PageProps) => {
     const watchingArts = await getWatchingArts(userId)
     const businessCards = await getBusinessCardByUser(userId)
     const businessCard = businessCards.find(b => b.businessCardId === user.pinnedBusinessCardId)
-    const comments = businessCard && await getCommentsByBusinessCard(businessCard.businessCardId)
+    const comments = businessCard && await getUserCommentsByUserId(userId)
     const commentUsers = comments && await Promise.all(
         comments.map(comment => getUser(comment.commentUserId))
     ) as User[]
     const commentIsGoodeds = comments && await Promise.all(
         comments.map(comment =>
             loginUser
-                ? isBusinessCardCommentGooded(comment.commentId, loginUser.id)
+                ? isUserCommentGooded(comment.commentId, loginUser.id)
                 : false
         )
     )
@@ -133,7 +133,6 @@ const UserProfilePage = async ({ params }: PageProps) => {
 
                 {businessCard &&
                     <CommentForm
-                        businessCardId={businessCard.businessCardId}
                         isLogin={isLogin}
                     />
                 }

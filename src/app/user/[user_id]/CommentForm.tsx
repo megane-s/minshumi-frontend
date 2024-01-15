@@ -4,7 +4,6 @@ import { Textarea } from "@/components/Textarea"
 import { ActionIcon, Flex } from "@mantine/core"
 import { FC, useState } from "react"
 import { postComment } from "./actions"
-import { BusinessCardId } from "@/businessCard/type"
 import { useMutate } from "@/util/client/useMutate"
 import { IoSendOutline } from "react-icons/io5"
 import { Loader } from "@/components/Loader"
@@ -13,14 +12,13 @@ import { login } from "@/auth/client/login"
 import { css } from "styled-system/css"
 
 interface CommentFormProps {
-    businessCardId: BusinessCardId
     isLogin: boolean
 }
-export const CommentForm: FC<CommentFormProps> = ({ businessCardId, isLogin, }) => {
+export const CommentForm: FC<CommentFormProps> = ({ isLogin, }) => {
     const [comment, setComment] = useState("")
     const isOkComment = comment.trim().length >= 1
     const handleClickPostButton = useMutate(async () => {
-        await postComment({ businessCardId: businessCardId, content: comment })
+        await postComment({ content: comment })
         setComment("")
     }, {
         onSuccess: { toast: "コメントを追加しました！" },

@@ -1,7 +1,6 @@
 "use client"
 
 import { FC, useState } from "react"
-import { BusinessCardComment } from "@/businessCard/comment/type"
 import { ActionIcon, Avatar, Divider, Flex, Menu } from "@mantine/core"
 import { LikeButton } from "./LikeButton"
 import { Textarea } from "@/components/Textarea"
@@ -17,9 +16,10 @@ import { login } from "@/auth/client/login"
 import { User } from "next-auth"
 import { DeleteConfirmCommentDialog } from "./DeleteConfirmCommentDialog"
 import { css } from "styled-system/css"
+import { UserComment } from "@/user/comment/type"
 
 interface CommentListItemProps {
-    comment: BusinessCardComment
+    comment: UserComment
     commentUser: User
     defaultIsGooded: boolean
     isLogin: boolean
