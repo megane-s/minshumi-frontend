@@ -15,6 +15,9 @@ const SaearchLayout = ({ children }: PageProps) => {
     const segment = useSelectedLayoutSegment() as "art" | "user"
     return (
         <div>
+            <PageTitle my="md">
+                設定
+            </PageTitle>
             <Tabs variant="default" radius="md" value={segment}>
                 <Tabs.List justify="center" style={{ marginBottom: "10px" }}>
                     <Link href="/settings/user">
