@@ -3,7 +3,7 @@
 import { Textarea } from "@/components/Textarea"
 import { ActionIcon, Flex } from "@mantine/core"
 import { FC, useState } from "react"
-import { postComment } from "./actions"
+import { postComment } from "../actions"
 import { useMutate } from "@/util/client/useMutate"
 import { IoSendOutline } from "react-icons/io5"
 import { Loader } from "@/components/Loader"

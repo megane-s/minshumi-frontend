@@ -6,7 +6,7 @@ import { PageTitle } from "@/components/PageTitle"
 interface PageProps {
     params: { tag_id: string }
 }
-const pagePage = async ({ params }: PageProps) => {
+const TagDetailPage = async ({ params }: PageProps) => {
 
     const tag = decodeURI(params.tag_id)
 
@@ -29,4 +29,4 @@ const pagePage = async ({ params }: PageProps) => {
         </div>
     )
 }
-export default pagePage
+export default TagDetailPage

@@ -1,12 +1,14 @@
-import { Art } from "@/art/type"
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { FC } from "react"
 import { WatchingArtImage } from "./WatchingArtImage"
+import { getWatchingArts } from "@/art/watching/get"
+import { UserId } from "@/user/type"
 
 interface WatchingArtListProps {
-    arts: Art[]
+    userId: UserId
 }
-export const WatchingArtList: FC<WatchingArtListProps> = ({ arts }) => {
+export const WatchingArtList: FC<WatchingArtListProps> = async ({ userId }) => {
+    const arts = await getWatchingArts(userId)
     return (
         <Carousel
             slideSize="fit-content"
@@ -14,6 +16,7 @@ export const WatchingArtList: FC<WatchingArtListProps> = ({ arts }) => {
             align="start"
             controlsOffset="0"
         >
+            {/* TODO 0件の時の表示 */}
             {arts.map(art =>
                 <CarouselSlide key={art.artId}>
                     <WatchingArtImage
