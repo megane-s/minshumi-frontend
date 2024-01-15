@@ -4,10 +4,10 @@ import { FC } from "react"
 import { Dialog, DialogProps } from "@/components/Dialog"
 import { useMutate } from "@/util/client/useMutate"
 import { deleteComment as deleteCommentAction } from "./actions";
-import { BusinessCardComment } from "@/businessCard/comment/type"
+import { UserComment } from "@/user/comment/type"
 
 interface DeleteConfirmCommentDialogProps extends DialogProps {
-    comment: BusinessCardComment
+    comment: UserComment
 }
 export const DeleteConfirmCommentDialog: FC<DeleteConfirmCommentDialogProps> = ({ comment, ...dialogProps }) => {
     const deleteComment = useMutate(async () => {

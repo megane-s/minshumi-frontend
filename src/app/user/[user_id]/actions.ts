@@ -4,73 +4,72 @@ import { deleteArtAppeal } from "@/art/appeal/delete"
 import { ArtId } from "@/art/type"
 import { removeWatchingArt } from "@/art/watching/remove"
 import { getSession } from "@/auth/server/auth"
-import { CreateBusinessCardCommentParams, createBusinessCardComment } from "@/businessCard/comment/create"
-import { deleteBusinessCardComment } from "@/businessCard/comment/delete"
-import { getBusinessCardComment } from "@/businessCard/comment/get"
-import { cancelGoodBusinessCardCommentGood } from "@/businessCard/comment/good/cancel"
-import { goodToBusinessCardCommentGood } from "@/businessCard/comment/good/good"
-import { BusinessCardComment, BusinessCardCommentId } from "@/businessCard/comment/type"
-import { UpdateBusinessCardComment, updateBusinessCardComment } from "@/businessCard/comment/update"
-import { getBusinessCardById } from "@/businessCard/getById"
-import { BusinessCardId } from "@/businessCard/type"
+import { CreateUserCommentParams, createUserComment } from "@/user/comment/create"
+import { UserComment, UserCommentId } from "@/user/comment/type"
+import { UpdateUserComment, updateUserComment } from "@/user/comment/update"
 import { cancelFollow } from "@/user/follow/cancel"
 import { follow } from "@/user/follow/follow"
 import { getFollowings } from "@/user/follow/getFollowings"
+import { getUserComment } from "@/user/comment/get"
 import { UserId } from "@/user/type"
 import { notImplementError } from "@/util/notImplement"
 import { revalidatePath } from "next/cache"
+import { deleteUserComment } from "@/user/comment/delete"
+import { goodToUserCommentGood } from "@/user/comment/good/good"
+import { cancelGoodUserCommentGood } from "@/user/comment/good/cancel"
 
-const revalidateByBusinessCardId = async (businessCardId: BusinessCardId) => {
-    const businessCard = await getBusinessCardById(businessCardId)
-    if (!businessCard) throw notImplementError(`invalid businesscard (id=${businessCardId})`)
-    revalidatePath(`/user/${businessCard.userId}`)
+const revalidateSessionUserProfilePage = async () => {
+    const session = await getSession()
+    if (session) revalidatePath(`/user/${session.user.id}`)
 }
 
-export const postComment = async (params: Omit<CreateBusinessCardCommentParams, "commentUserId">) => {
+export const postComment = async (params: Omit<CreateUserCommentParams, "commentUserId">) => {
     const session = await getSession()
     const loginUserId = session?.user.id
     if (!loginUserId) throw notImplementError("ログインしていないユーザはコメントできません")
-    const newBusinessCardComment = await createBusinessCardComment({ ...params, commentUserId: loginUserId })
-    await revalidateByBusinessCardId(newBusinessCardComment.businessCardId)
+    const newUserComment = await createUserComment({ ...params, commentUserId: loginUserId })
+    await revalidateSessionUserProfilePage()
+    return newUserComment
 }
 
-export const updateComment = async (commentId: BusinessCardCommentId, params: UpdateBusinessCardComment) => {
+export const updateComment = async (commentId: UserCommentId, params: UpdateUserComment) => {
     const session = await getSession()
     if (!session) throw notImplementError("ログインしていないユーザによる名刺の更新です")
 
     const loginUserId = session.user.id
-    const comment = await getBusinessCardComment(commentId)
+    const comment = await getUserComment(commentId)
     if (loginUserId !== comment?.commentUserId) throw notImplementError("作成者以外はコメントを編集・削除できません")
 
-    const newComment = await updateBusinessCardComment(commentId, params)
+    const newComment = await updateUserComment(commentId, params)
 
-    await revalidateByBusinessCardId(newComment.businessCardId)
+    await revalidateSessionUserProfilePage()
+    return newComment
 }
 
-export const deleteComment = async (comment: BusinessCardComment) => {
+export const deleteComment = async (comment: UserComment) => {
     const session = await getSession()
     if (!session) throw notImplementError("ログインしていないユーザによる名刺の削除「です")
 
     const loginUserId = session.user.id
     if (loginUserId !== comment?.commentUserId) throw notImplementError("作成者以外はコメントを編集・削除できません")
 
-    await deleteBusinessCardComment(comment.commentId)
+    await deleteUserComment(comment.commentId)
 
-    await revalidateByBusinessCardId(comment.businessCardId)
+    await revalidateSessionUserProfilePage()
 }
 
-export const handleGood = async (commentId: BusinessCardCommentId) => {
+export const handleGood = async (commentId: UserCommentId) => {
     const session = await getSession()
     if (!session) throw notImplementError("ログインしていないユーザによるいいねです")
     const loginUserId = session.user.id
-    await goodToBusinessCardCommentGood(commentId, loginUserId)
+    await goodToUserCommentGood(commentId, loginUserId)
 }
 
-export const handleCancelGood = async (commentId: BusinessCardCommentId) => {
+export const handleCancelGood = async (commentId: UserCommentId) => {
     const session = await getSession()
     if (!session) throw notImplementError("ログインしていないユーザによるいいねのキャンセルです")
     const loginUserId = session.user.id
-    await cancelGoodBusinessCardCommentGood(commentId, loginUserId)
+    await cancelGoodUserCommentGood(commentId, loginUserId)
 }
 
 export const handleFollow = async (followUserId: UserId) => {
