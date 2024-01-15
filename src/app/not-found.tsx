@@ -8,14 +8,18 @@ export default function NotFound() {
                 src="/404.png"
                 alt='404'
                 width={800}
-                height={800}
+                height={400}
             />
 
-            <p>指定されたページが見つかりません</p>
-            <LinkButton href="/">
-                トップに戻る
-            </LinkButton>
+            <center>
+                <p style={{ color: 'red' }}>
+                    指定されたページが見つかりません
+                </p>
 
+                <LinkButton href="/">
+                    トップに戻る
+                </LinkButton>
+            </center>
         </div>
     )
 }
