@@ -1,16 +1,9 @@
 import LinkButton from "@/components/LinkButton"
-import { Divider, Flex } from "@mantine/core"
+import { Flex } from "@mantine/core"
 import { notFound } from "next/navigation"
 import { getUser } from "@/user/get";
-import { getWatchingArts } from "@/art/watching/get";
 import { getBusinessCardByUser } from "@/businessCard/getByUser";
-import { CommentForm } from "./CommentForm";
-import { getArtAppealsByUser } from "@/art/appeal/getByUser";
-import { CommentListItem } from "./CommentListItem";
-import { getFollowers } from "@/user/follow/getFollowers";
-import { getFollowings } from "@/user/follow/getFollowings";
 import { getSession } from "@/auth/server/auth";
-import { User } from "@/user/type";
 import { SectionTitle } from "@/components/SectionTitle";
 import { PageTitle } from "@/components/PageTitle";
 import Image from "next/image";
@@ -18,8 +11,10 @@ import { FollowButton } from "./FollowButton";
 import { css } from "styled-system/css";
 import { WatchingArtList } from "./WatchingArtList";
 import { LikeArtList } from "./LikeArtList";
-import { getUserCommentsByUserId } from "@/user/comment/get";
-import { isUserCommentGooded } from "@/user/comment/good/isGooded";
+import { Comments } from "./Comments/Comments";
+import { Suspense } from "react";
+import { Loader } from "@/components/Loader";
+import { CenterLoader } from "@/components/CenterLoader";
 
 interface PageProps {
     params: { user_id: string }
@@ -32,30 +27,12 @@ const UserProfilePage = async ({ params }: PageProps) => {
     const user = await getUser(userId)
     if (!user) notFound()
 
-    const artAppeals = await getArtAppealsByUser(userId)
-    const watchingArts = await getWatchingArts(userId)
-    const businessCards = await getBusinessCardByUser(userId)
+    const [
+        businessCards,
+    ] = await Promise.all([
+        getBusinessCardByUser(userId),
+    ])
     const businessCard = businessCards.find(b => b.businessCardId === user.pinnedBusinessCardId)
-    const comments = businessCard && await getUserCommentsByUserId(userId)
-    const commentUsers = comments && await Promise.all(
-        comments.map(comment => getUser(comment.commentUserId))
-    ) as User[]
-    const commentIsGoodeds = comments && await Promise.all(
-        comments.map(comment =>
-            loginUser
-                ? isUserCommentGooded(comment.commentId, loginUser.id)
-                : false
-        )
-    )
-    // TODO 数だけ取得するmodelを用意すべき
-    const userFollowings = await getFollowings(userId)
-    const userFollowingsCount = userFollowings.length
-    const userFollowers = await getFollowers(userId)
-    const userFollowersCount = userFollowers.length
-
-    // TODO フォローしているかどうかを判定する関数を用意する
-    const isLoginUserFollow = userFollowers
-        .some(userFollower => userFollower.id === loginUser?.id)
 
     return (
         <div>
@@ -64,7 +41,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     ? `/api/businesscard/image?businesscard_id=${businessCard.businessCardId}`
                     : "/default_user_image.png"
                 }
-                alt="名刺手s津尾"
+                alt="名刺"
                 width={800}
                 height={675 * 800 / 1200}
                 style={{ width: "100%", height: "auto" }}
@@ -78,22 +55,15 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     ? <LinkButton href="/settings/user">
                         編集する
                     </LinkButton>
-                    : <FollowButton
-                        userId={userId}
-                        defaultIsLoginUserFollow={isLoginUserFollow}
-                    />
+                    : <Suspense fallback={<Loader />}>
+                        <FollowButton
+                            userId={userId}
+                            loginUser={loginUser}
+                        />
+                    </Suspense>
                 )}
             </Flex>
 
-            <Flex w="100%" justify="flex-start">
-                {userFollowingsCount}
-                フォロー
-                <div className={css({ w: "1em" })} />
-                {userFollowersCount}
-                フォロワー
-            </Flex>
-
-            {/* TODO 作品表示の部分をカルーセルを使う */}
             <Flex w="100%" justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
                 <SectionTitle >
                     アピール
@@ -104,13 +74,11 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     </LinkButton>
                     : null
                 )}
-
             </Flex>
+            <Suspense fallback={<Loader />}>
+                <LikeArtList userId={userId} />
+            </Suspense>
 
-            <LikeArtList
-                arts={artAppeals}
-            />
-            {/* TODO 0件の時の表示 */}
             <Flex w="100%" justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
                 <SectionTitle >
                     今見ている作品
@@ -122,41 +90,18 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     : null
                 )}
             </Flex>
-            <WatchingArtList
-                arts={watchingArts}
-            />
-            {/* TODO 0件の時の表示 */}
+            <Suspense fallback={<Loader />}>
+                <WatchingArtList userId={userId} />
+            </Suspense>
 
-            {comments && <>
-                <Divider className={css({ my: "md" })} />
-                コメント {comments.length}件
-
-                {businessCard &&
-                    <CommentForm
-                        isLogin={isLogin}
-                    />
-                }
-
-                {commentUsers && commentIsGoodeds &&
-                    comments.map((comment, index) =>
-                        <CommentListItem
-                            key={comment.commentId}
-                            comment={comment}
-                            commentUser={commentUsers[index]}
-                            defaultIsGooded={commentIsGoodeds[index]}
-                            isLogin={isLogin}
-                            loginUser={loginUser ?? null}
-                        />
-                    )
-                }
-
-                {comments.length === 0 &&
-                    <Flex justify="center" align="center" p={50}>
-                        {/* TODO コメントない時に表示される内容を改善 */}
-                        コメントないぜ
-                    </Flex>
-                }
-            </>}
+            <Suspense fallback={<CenterLoader />}>
+                <Comments
+                    businessCard={businessCard}
+                    isLogin={isLogin}
+                    userId={userId}
+                    loginUser={loginUser}
+                />
+            </Suspense>
 
         </div >
     )
