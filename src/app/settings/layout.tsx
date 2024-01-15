@@ -16,7 +16,7 @@ const SaearchLayout = ({ children }: PageProps) => {
     return (
         <div>
             <Tabs variant="default" radius="md" value={segment}>
-                <Tabs.List justify="center">
+                <Tabs.List justify="center" style={{ marginBottom: "10px" }}>
                     <Link href="/settings/user">
                         <Tabs.Tab value="user" leftSection={<MdStarBorder />} className={css({ fontSize: "16px" })} >
                             ユーザー
