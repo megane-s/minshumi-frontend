@@ -11,7 +11,7 @@ const ErrorPage = () => {
                     src="/500.png"
                     alt='500'
                     width={800}
-                    height={800}
+                    height={400}
                 />
 
                 <p style={{ color: 'red' }}>
