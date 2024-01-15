@@ -6,17 +6,22 @@ import Image from 'next/image'
 const ErrorPage = () => {
     return (
         <div>
-            <Image
-                src="/500.png"
-                alt='500'
-                width={800}
-                height={800}
-            />
+            <center>
+                <Image
+                    src="/500.png"
+                    alt='500'
+                    width={800}
+                    height={800}
+                />
 
-            <p>指定されたページが表示できませんでした</p>
-            <LinkButton href="/">
-                トップに戻る
-            </LinkButton>
+                <p style={{ color: 'red' }}>
+                    指定されたページが表示できませんでした
+                </p>
+
+                <LinkButton href="/">
+                    トップに戻る
+                </LinkButton>
+            </center>
         </div>
     )
 }
