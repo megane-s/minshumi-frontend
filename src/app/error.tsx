@@ -1,6 +1,7 @@
 "use client"
 
 import LinkButton from "@/components/LinkButton"
+import { PageTitle } from "@/components/PageTitle"
 import Image from 'next/image'
 
 const ErrorPage = () => {
@@ -14,9 +15,9 @@ const ErrorPage = () => {
                     height={400}
                 />
 
-                <p style={{ color: 'red' }}>
+                <PageTitle style={{ color: 'red' }}>
                     指定されたページが表示できませんでした
-                </p>
+                </PageTitle>
 
                 <LinkButton href="/">
                     トップに戻る
