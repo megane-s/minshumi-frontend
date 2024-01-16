@@ -10,6 +10,7 @@ import { Session } from "next-auth"
 import Link from "next/link"
 import { FC } from "react"
 import { CgProfile } from "react-icons/cg"
+import { TiBusinessCard } from "react-icons/ti"
 
 interface HeaderAvatarProps {
   session: Session
@@ -45,6 +46,14 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
             href="/art/new"
           >
             作品の登録
+          </Menu.Item>
+
+          <Menu.Item
+            leftSection={<TiBusinessCard />}
+            component={Link}
+            href="/businesscard/new"
+          >
+            名刺の作成
           </Menu.Item>
 
           <Menu.Item
