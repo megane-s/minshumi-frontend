@@ -11,7 +11,7 @@ import { Art, CreateArtParams } from "./type";
  * @param params 追加する作品のtitleとimageUrlを指定する。
  * @returns 追加した作品
  */
-export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTags, ...params }: CreateArtParams): Promise<Art> => {
+export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTags, originalTags, ...params }: CreateArtParams): Promise<Art> => {
     const newArt = await prisma.art.create({
         data: {
             ...params,
@@ -26,6 +26,7 @@ export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTag
             ...mediaTags.map(tag => ({ artId: newArt.artId, tag, tagType: "MEDIA" }) as const),
             ...genreTags.map(tag => ({ artId: newArt.artId, tag, tagType: "GENRE" }) as const),
             ...otherTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
+            ...originalTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
         ]
         await prisma.artTag.createMany({
             data: tags,
