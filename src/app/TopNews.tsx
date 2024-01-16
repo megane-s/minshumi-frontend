@@ -2,7 +2,8 @@
 
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { useClientRendered } from "@/util/client/useClientRendered"
-import { Image } from "@mantine/core"
+import { Image, em } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import Link from "next/link"
 
 import { FC } from "react"
@@ -15,14 +16,16 @@ interface TopNewsProps {
 }
 export const TopNews: FC<TopNewsProps> = () => {
     const clientRendered = useClientRendered()
+    const isMobile = useMediaQuery(`(max-width: ${em(750)})`)
     return (
         <Carousel
             slideSize="100%"
             align="center"
-            controlSize={48}
+            controlSize={isMobile ? 40 : 64}
+            controlsOffset={isMobile ? 2 : "xl"}
             loop
             classNames={{
-                root: css({ h: [450, 350], opacity: clientRendered ? 1 : "0", transition: "opacity 0.1s" }),
+                root: css({ opacity: clientRendered ? 1 : "0", transition: "opacity 0.1s" }),
                 container: fullSize,
                 viewport: fullSize,
                 control: css({
@@ -35,36 +38,38 @@ export const TopNews: FC<TopNewsProps> = () => {
             }}
         >
             <CarouselSlide>
-                <Image
-                    src="/top_panel_0_lg.png"
-                    alt=""
-                    width={800}
-                    height={450}
-                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
-                />
+                <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
+                    <Image
+                        src="/top_panel_0_lg.png"
+                        alt=""
+                        width={800}
+                        height={450}
+                        style={{ width: "100%", objectFit: "contain", maxWidth: "700px" }}
+                    />
+                </div>
             </CarouselSlide>
             <CarouselSlide>
                 <Link href="/art/new/detail">
-                    <div className={flex({ flexDir: "column", justify: "center", align: "center", w: "full", h: "full" })}>
+                    <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
                         <Image
                             src="/top_panel_1_lg.png"
                             alt=""
                             width={800}
                             height={450}
-                            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                            style={{ width: "100%", height: "100%", objectFit: "contain", maxWidth: "700px" }}
                         />
                     </div>
                 </Link>
             </CarouselSlide>
             <CarouselSlide>
                 <Link href="/notification#recommendations">
-                    <div className={flex({ flexDir: "column", justify: "center", align: "center", w: "full", h: "full" })}>
+                    <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
                         <Image
                             src="/top_panel_2_lg.png"
                             alt=""
                             width={800}
                             height={450}
-                            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                            style={{ width: "100%", height: "100%", objectFit: "contain", maxWidth: "700px" }}
                         />
                     </div>
                 </Link>
