@@ -53,7 +53,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
             component={Link}
             href="/businesscard/new"
           >
-            名刺の登録
+            名刺の作成
           </Menu.Item>
 
           <Menu.Item
