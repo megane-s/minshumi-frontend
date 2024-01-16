@@ -2,7 +2,8 @@
 
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { useClientRendered } from "@/util/client/useClientRendered"
-import { Button, Image } from "@mantine/core"
+import { Image } from "@mantine/core"
+import Link from "next/link"
 
 import { FC } from "react"
 import { css } from "styled-system/css"
@@ -16,14 +17,12 @@ export const TopNews: FC<TopNewsProps> = () => {
     const clientRendered = useClientRendered()
     return (
         <Carousel
-            // slideGap="xl"
-            // slideSize="min(80%, 800px)"
             slideSize="100%"
-            // align="center"
+            align="center"
             controlSize={48}
             loop
             classNames={{
-                root: css({ h: [250, 350], opacity: clientRendered ? 1 : "0", transition: "opacity 0.1s" }),
+                root: css({ h: [450, 350], opacity: clientRendered ? 1 : "0", transition: "opacity 0.1s" }),
                 container: fullSize,
                 viewport: fullSize,
                 control: css({
@@ -45,48 +44,30 @@ export const TopNews: FC<TopNewsProps> = () => {
                 />
             </CarouselSlide>
             <CarouselSlide>
-                <div className={flex({ flexDir: "column", justify: "center", align: "center", w: "full", h: "full" })}>
-                    <Image
-                        src="/top_panel_1_lg.png"
-                        alt=""
-                        width={800}
-                        height={450}
-                        style={{ width: "100%", height: "auto", objectFit: "contain" }}
-                    />
-                    <Button
-                        variant="outline"
-                        bg="background.2"
-                        radius="xl"
-                        className={css()}
-                        style={{
-                            zIndex: 10000,
-                        }}
-                    >
-                        作品を登録する
-                    </Button>
-                </div>
+                <Link href="/art/new/detail">
+                    <div className={flex({ flexDir: "column", justify: "center", align: "center", w: "full", h: "full" })}>
+                        <Image
+                            src="/top_panel_1_lg.png"
+                            alt=""
+                            width={800}
+                            height={450}
+                            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                        />
+                    </div>
+                </Link>
             </CarouselSlide>
             <CarouselSlide>
-                <div className={flex({ flexDir: "column", justify: "center", align: "center", w: "full", h: "full" })}>
-                    <Image
-                        src="/top_panel_2_lg.png"
-                        alt=""
-                        width={800}
-                        height={450}
-                        style={{ width: "100%", height: "auto", objectFit: "contain" }}
-                    />
-                    <Button
-                        variant="outline"
-                        bg="background.2"
-                        radius="xl"
-                        className={css()}
-                        style={{
-                            zIndex: 10000,
-                        }}
-                    >
-                        届いた作品を見てみる
-                    </Button>
-                </div>
+                <Link href="/notification#recommendations">
+                    <div className={flex({ flexDir: "column", justify: "center", align: "center", w: "full", h: "full" })}>
+                        <Image
+                            src="/top_panel_2_lg.png"
+                            alt=""
+                            width={800}
+                            height={450}
+                            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                        />
+                    </div>
+                </Link>
             </CarouselSlide>
         </Carousel>
     )
