@@ -1,4 +1,5 @@
 import LinkButton from '@/components/LinkButton'
+import { PageTitle } from '@/components/PageTitle'
 import Image from 'next/image'
 
 export default function NotFound() {
@@ -13,9 +14,9 @@ export default function NotFound() {
                 />
 
 
-                <p style={{ color: 'red' }}>
+                <PageTitle style={{ color: 'red' }}>
                     指定されたページが見つかりません
-                </p>
+                </PageTitle>
 
                 <LinkButton href="/">
                     トップに戻る
