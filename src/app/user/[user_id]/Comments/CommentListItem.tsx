@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react"
 import { ActionIcon, Avatar, Divider, Flex, Menu } from "@mantine/core"
-import { LikeButton } from "./LikeButton"
+import { LikeButton } from "../LikeButton"
 import { Textarea } from "@/components/Textarea"
 import { IoMdMore } from "react-icons/io";
 import { PiPencilSimple } from "react-icons/pi"
@@ -10,7 +10,7 @@ import { BsTrash } from "react-icons/bs"
 import { Button } from "@/components/Button"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
-import { updateComment as updateCommentAction, deleteComment as deleteCommentAction, handleGood, handleCancelGood } from "./actions"
+import { updateComment as updateCommentAction, deleteComment as deleteCommentAction, handleGood, handleCancelGood } from "../actions"
 import { Dialog, useDialog } from "@/components/Dialog"
 import { login } from "@/auth/client/login"
 import { User } from "next-auth"
@@ -20,7 +20,7 @@ import { UserComment } from "@/user/comment/type"
 
 interface CommentListItemProps {
     comment: UserComment
-    commentUser: User
+    commentUser: User | null
     defaultIsGooded: boolean
     isLogin: boolean
     loginUser: User | null
@@ -83,11 +83,11 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                 <Flex justify="space-between" gap="xs" align="center">
                     <Flex gap="xs" className={`${css({ flexGrow: 1, flexShrink: 1 })}`}>
                         <Avatar
-                            src={commentUser.image}
-                            alt={commentUser.name ?? "コメントしたユーザ"}
+                            src={commentUser?.image}
+                            alt={commentUser?.name ?? "コメントしたユーザ"}
                             className={css({ borderRadius: "9999px" })}
                         />
-                        {commentUser.name}
+                        {commentUser?.name ?? "削除されたユーザです"}
                     </Flex>
                     <span>
                         {"2023/12/04"}

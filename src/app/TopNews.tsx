@@ -2,8 +2,13 @@
 
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { useClientRendered } from "@/util/client/useClientRendered"
+import { Image, em } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
+import Link from "next/link"
+
 import { FC } from "react"
 import { css } from "styled-system/css"
+import { flex } from "styled-system/patterns"
 
 const fullSize = css({ w: "full", h: "full !important" })
 
@@ -11,15 +16,16 @@ interface TopNewsProps {
 }
 export const TopNews: FC<TopNewsProps> = () => {
     const clientRendered = useClientRendered()
+    const isMobile = useMediaQuery(`(max-width: ${em(750)})`)
     return (
         <Carousel
-            slideGap="xl"
-            slideSize="min(80%, 800px)"
+            slideSize="100%"
             align="center"
-            controlSize={48}
+            controlSize={isMobile ? 40 : 64}
+            controlsOffset={isMobile ? 2 : "xl"}
             loop
             classNames={{
-                root: css({ h: [200, 350], opacity: clientRendered ? 1 : "0", transition: "opacity 0.1s" }),
+                root: css({ opacity: clientRendered ? 1 : "0", transition: "opacity 0.1s" }),
                 container: fullSize,
                 viewport: fullSize,
                 control: css({
@@ -31,21 +37,42 @@ export const TopNews: FC<TopNewsProps> = () => {
                 }),
             }}
         >
-            {/* TODO 各スライドの実装 */}
             <CarouselSlide>
-                <div className={css({ w: "full", h: "full", bg: "background.2" })}>
-                    panel 1
+                <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
+                    <Image
+                        src="/top_panel_0_lg.png"
+                        alt=""
+                        width={800}
+                        height={450}
+                        style={{ width: "100%", objectFit: "contain", maxWidth: "700px" }}
+                    />
                 </div>
             </CarouselSlide>
             <CarouselSlide>
-                <div className={css({ w: "full", h: "full", bg: "background.2" })}>
-                    panel 2
-                </div>
+                <Link href="/art/new/detail">
+                    <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
+                        <Image
+                            src="/top_panel_1_lg.png"
+                            alt=""
+                            width={800}
+                            height={450}
+                            style={{ width: "100%", height: "100%", objectFit: "contain", maxWidth: "700px" }}
+                        />
+                    </div>
+                </Link>
             </CarouselSlide>
             <CarouselSlide>
-                <div className={css({ w: "full", h: "full", bg: "background.2" })}>
-                    panel 3
-                </div>
+                <Link href="/notification#recommendations">
+                    <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
+                        <Image
+                            src="/top_panel_2_lg.png"
+                            alt=""
+                            width={800}
+                            height={450}
+                            style={{ width: "100%", height: "100%", objectFit: "contain", maxWidth: "700px" }}
+                        />
+                    </div>
+                </Link>
             </CarouselSlide>
         </Carousel>
     )

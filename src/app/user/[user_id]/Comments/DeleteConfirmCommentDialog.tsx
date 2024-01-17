@@ -3,7 +3,7 @@ import { Flex, Button } from "@mantine/core"
 import { FC } from "react"
 import { Dialog, DialogProps } from "@/components/Dialog"
 import { useMutate } from "@/util/client/useMutate"
-import { deleteComment as deleteCommentAction } from "./actions";
+import { deleteComment as deleteCommentAction } from "../actions";
 import { UserComment } from "@/user/comment/type"
 
 interface DeleteConfirmCommentDialogProps extends DialogProps {

@@ -55,9 +55,11 @@ const getBusinessCardData = async (isInstant: boolean, businessCardId: BusinessC
     }
     const businessCard = await getBusinessCardById(businessCardId)
     if (!businessCard) return null
-    const user = await getUser(businessCard.userId)
-    const tags = await getBusinessCardInterestTags(businessCardId)
-    const arts = await getBusinessCardLikeArts(businessCardId)
+    const [user, tags, arts] = await Promise.all([
+        getUser(businessCard.userId),
+        getBusinessCardInterestTags(businessCardId),
+        getBusinessCardLikeArts(businessCardId),
+    ])
     return { businessCard, user, tags, arts } as const
 }
 
