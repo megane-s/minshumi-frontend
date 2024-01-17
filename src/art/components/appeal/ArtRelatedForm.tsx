@@ -16,6 +16,7 @@ import { InputRelatedArt } from "@/art/type"
 
 interface ArtRelatedFormProps {
     title: string
+    imageUrl: string
 
     likePoint: string
     onChangeLikePoint: (likePoint: string) => void
@@ -34,6 +35,7 @@ interface ArtRelatedFormProps {
 }
 export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
     title,
+    imageUrl,
     likePoint, onChangeLikePoint,
     prevArts, onAddPrevArt, onUpdatePrevArt, onDeletePrevArt,
     nextArts, onAddNextArt, onUpdateNextArt, onDeleteNextArt,
@@ -84,8 +86,8 @@ export const ArtRelatedForm: FC<ArtRelatedFormProps> = ({
                         <CenterizedScrollTarget className={css({ flexShrink: 0 })}>
                             <Stack align="center" gap="xs" ta="center" style={{ flexShrink: 0 }}>
                                 <Image
-                                    src="/placeholder/300x200_red.png"
-                                    alt="テスト"
+                                    src={imageUrl}
+                                    alt={title}
                                     width={150 * 1.2}
                                     height={100 * 1.2}
                                     style={{ width: 150 * 1.2, height: "auto" }}

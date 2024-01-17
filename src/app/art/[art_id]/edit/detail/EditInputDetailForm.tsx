@@ -17,7 +17,7 @@ const EditInputDetailForm: FC<EditInputDetailFormProps> = ({ artId, defaultValue
     const [title, setTitle] = useState(defaultValues.title ?? "")
     const titleErrors = getTitleErrors(title)
     const [description, setDescription] = useState(defaultValues.description ?? "")
-    const [imageUrl, setImageUrl] = useState(defaultValues.imageUrl ?? "/placeholder/1200x675_red.png")
+    const [imageUrl, setImageUrl] = useState(defaultValues.imageUrl ?? "https://storage.googleapis.com/minshumi-user-content/logo-rect-1200x675.png")
 
     const errors = titleErrors
     const isValid = errors.length === 0

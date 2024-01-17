@@ -1,7 +1,6 @@
 import "server-only"
 
 import { FC } from "react"
-import Logo from "./Logo"
 import { AppShellHeader } from "./AppShell"
 import { Flex, Space } from "@mantine/core"
 import { getSession } from "@/auth/server/auth"
@@ -10,6 +9,8 @@ import { HeaderAvatar } from "./HeaderAvatar"
 import { ActionIcon } from "@/components/ActionIcon"
 import { NotificationIcon } from "@/components/icon/Notification"
 import { LoginButton } from "@/components/LoginButton"
+import Image from "next/image"
+import LogoImage from "@/../public/logo-rect.png"
 
 interface HeaderProps {
 }
@@ -17,11 +18,19 @@ const Header: FC<HeaderProps> = async () => {
     const session = await getSession()
     return (
         <AppShellHeader>
-
-            <Flex justify="space-between" align="center" px="sm">
+            <Flex justify="space-between" align="center" px="sm" h="100%">
                 <HeaderDrawerMenu />
-                <Logo
-                    imageProps={{ priority: true }}
+                {/* <Logo
+                    imageProps={{
+                        priority: true,
+                    }}
+                /> */}
+                <Image
+                    src={LogoImage}
+                    alt="みんしゅみ"
+                    width={100}
+                    height={50}
+                    style={{ height: "100%" }}
                 />
                 <Flex align="center">
                     {session

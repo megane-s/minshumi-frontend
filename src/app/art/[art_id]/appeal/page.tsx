@@ -45,6 +45,7 @@ const NewArtRelatedArtPage = async ({ params: { art_id } }: Props) => {
             <NewArtRelatedForm
                 artId={art.artId}
                 title={art.title}
+                imageUrl={art.imageUrl}
                 defaultValues={{
                     likePoint: art.likePoint ?? "",
                     prev: relatedArts.PREV ?? [],

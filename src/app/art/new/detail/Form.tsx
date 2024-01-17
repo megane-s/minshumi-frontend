@@ -13,7 +13,7 @@ import { css } from "styled-system/css"
 const formDefaultValues = {
     title: "",
     description: "",
-    imageUrl: "https://storage.googleapis.com/minshumi-user-content/placeholder_300x200.png",
+    imageUrl: "https://storage.googleapis.com/minshumi-user-content/logo-rect-1200x675.png",
 }
 
 export const CreateArtParamsDetailSchema = CreateArtParamsSchema.pick({

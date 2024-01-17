@@ -23,7 +23,7 @@ export const InputNewRelatedArt: FC<InputNewRelatedArtProps> = ({
     const defaultArt = {
         title: "",
         description: "",
-        imageUrl: "/placeholder/300x200_red.png",
+        imageUrl: "https://storage.googleapis.com/minshumi-user-content/logo-rect-1200x675.png",
         ...propsDefaultArt,
     }
     const [inputNewArt, setInputNewArt] = useState<InputRelatedArt>(defaultArt)

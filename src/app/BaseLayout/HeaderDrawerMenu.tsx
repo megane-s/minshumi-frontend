@@ -3,11 +3,12 @@
 import { Drawer, Flex, NavLink } from "@mantine/core"
 import { FC } from "react"
 import { useDisclosure } from '@mantine/hooks';
-import Logo from "./Logo";
 import Link from "next/link";
 import { tags } from "../tags";
 import { Burger } from '@mantine/core';
 import { css } from "styled-system/css";
+import Image from "next/image";
+import LogoImage from "@/../public/logo-rect.png"
 
 interface HeaderDrawerMenuProps {
 }
@@ -25,7 +26,15 @@ const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = () => {
             <Drawer
                 opened={opened}
                 onClose={close}
-                title={<Logo />}
+                title={
+                    <Image
+                        src={LogoImage}
+                        alt="みんしゅみ"
+                        width={150}
+                        height={100}
+                        style={{ objectFit: "contain" }}
+                    />
+                }
             >
                 {tags.map(tag =>
                     <NavLink
