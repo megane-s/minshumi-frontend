@@ -17,7 +17,6 @@ export const DeleteConfirmCommentDialog: FC<DeleteConfirmCommentDialogProps> = (
         onError: { toast: "コメントを削除できませんでした" },
     })
 
-
     return (
         <Dialog {...dialogProps}>
             コメントを
@@ -32,6 +31,7 @@ export const DeleteConfirmCommentDialog: FC<DeleteConfirmCommentDialogProps> = (
                 </Button>
                 <MutateButton
                     variant="filled"
+                    color="error"
                     mutation={deleteComment}
                 >
                     OK

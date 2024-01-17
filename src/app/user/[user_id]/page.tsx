@@ -58,7 +58,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
         .some(userFollower => userFollower.id === loginUser?.id)
 
     return (
-        <div>
+        <div className={css({ mb: "xl" })}>
             <Image
                 src={businessCard
                     ? `/api/businesscard/image?businesscard_id=${businessCard.businessCardId}`
@@ -70,7 +70,10 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 style={{ width: "100%", height: "auto" }}
                 priority
             />
-            <Flex justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
+            <Flex
+                justify="space-between"
+                className={css({ mt: "lg", mb: "sm", flexDir: { base: "column", md: "row" }, gap: "sm" })}
+            >
                 <PageTitle>
                     {user.name}
                 </PageTitle>
@@ -100,7 +103,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 </SectionTitle>
                 {loginUser && (user.id === loginUser?.id
                     ? <LinkButton href="/settings/appeals">
-                        アピールを管理
+                        アピールの管理
                     </LinkButton>
                     : null
                 )}
@@ -117,7 +120,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 </SectionTitle>
                 {loginUser && (user.id === loginUser?.id
                     ? <LinkButton href="/settings/watching-arts">
-                        今見ている作品を編集
+                        編集
                     </LinkButton>
                     : null
                 )}
