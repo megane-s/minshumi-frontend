@@ -144,6 +144,7 @@ model Art {
   title                  String
   imageUrl               String
   description            String
+  searchId               Int?                  @default(dbgenerated("NULL"))
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
   appeals                ArtAppeal[]
