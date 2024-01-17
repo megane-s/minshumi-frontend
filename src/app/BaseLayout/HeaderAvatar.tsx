@@ -69,7 +69,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           <Menu.Item
             leftSection={<SettingsIcon />}
             component={Link}
-            href="/settings"
+            href="/settings/user"
           >
             設定
           </Menu.Item>
