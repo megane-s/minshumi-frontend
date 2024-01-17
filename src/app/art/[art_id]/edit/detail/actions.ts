@@ -6,6 +6,8 @@ import { canUpdateArt, updateArt } from "@/art/update"
 import { getSession } from "@/auth/server/auth"
 import { notImplementError } from "@/util/notImplement"
 import { ValidationError } from "@/util/validation"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 export const handleSaveArtDetail = async (artId: ArtId, input: Partial<Art>) => {
     const [session, prevArt] = await Promise.all([
@@ -21,5 +23,8 @@ export const handleSaveArtDetail = async (artId: ArtId, input: Partial<Art>) => 
     if (!await canUpdateArt(session.user.id, prevArt, input)) {
         throw new ValidationError()
     }
-    return await updateArt(artId, input)
+    const res = await updateArt(artId, input)
+
+    revalidatePath(`/art/${res.artId}`)
+    redirect(`/art/${res.artId}`)
 }

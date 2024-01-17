@@ -2,6 +2,8 @@
 
 import { ArtId, ArtTag } from "@/art/type"
 import { prisma } from "@/prisma"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 export const handleSaveArtTags = async (
     artId: ArtId,
@@ -21,4 +23,7 @@ export const handleSaveArtTags = async (
             data: tags,
         })
     })
+
+    revalidatePath(`/art/${artId}`)
+    redirect(`/art/${artId}`)
 }
