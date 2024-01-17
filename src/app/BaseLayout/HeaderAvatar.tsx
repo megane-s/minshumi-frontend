@@ -23,6 +23,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           <Avatar
             src={session.user.image}
             alt={session.user.name ?? "ユーザ"}
+
           />
         </Menu.Target>
         <Menu.Dropdown>
@@ -67,7 +68,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           <Menu.Item
             leftSection={<SettingsIcon />}
             component={Link}
-            href="/settings"
+            href="/settings/user"
           >
             設定
           </Menu.Item>
