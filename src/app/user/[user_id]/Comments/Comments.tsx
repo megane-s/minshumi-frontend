@@ -21,13 +21,13 @@ export const Comments: FC<CommentsProps> = async ({ userId, businessCard, isLogi
     comments && <>
       <Divider />
 
+      コメント {comments.length}件
+
       {businessCard &&
         <CommentForm
           isLogin={isLogin}
         />
       }
-
-      コメント {comments.length}件
 
       <Suspense fallback={<CenterLoader className={css({ my: "md" })} />}>
         <CommentList
