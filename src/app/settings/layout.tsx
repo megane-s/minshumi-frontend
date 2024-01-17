@@ -35,7 +35,7 @@ const SaearchLayout = ({ children }: PageProps) => {
                     <Space w="1rem" />
                     <Link href="/settings/appeals">
                         <Tabs.Tab value="appeals" leftSection={<LiaGrinStarsSolid />} className={css({ fontSize: "16px" })}>
-                            好きな作品
+                            アピール作品
                         </Tabs.Tab>
                     </Link>
                     <Space w="1rem" />
