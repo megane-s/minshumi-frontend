@@ -12,7 +12,7 @@ import { CheckIcon } from "@/components/icon/Check"
 import { useRouter } from "next/navigation"
 import { notImplementError } from "@/util/notImplement"
 
-export const businessCardTypes = ["1", "2", "3", "4"]
+export const businessCardTypes = ["1", "2", "3"]
 
 interface SelectTypeProps {
 }
