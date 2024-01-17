@@ -4,7 +4,7 @@ import { getSession } from "@/auth/server/auth"
 import { createBusinessCard } from "@/businessCard/create"
 import { defaultBusinessCard } from "@/businessCard/defaults"
 
-export const handleCreateBusinessCard = async (type: number) => {
+export const handleCreateBusinessCard = async (type: string) => {
     const session = await getSession()
     if (!session) {
         // ログインしていない場合は名刺は保存しない
