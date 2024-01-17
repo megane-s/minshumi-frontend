@@ -12,12 +12,12 @@ import { CheckIcon } from "@/components/icon/Check"
 import { useRouter } from "next/navigation"
 import { notImplementError } from "@/util/notImplement"
 
-const types = [1, 2, 3, 4]
+export const businessCardTypes = ["1", "2", "3"]
 
 interface SelectTypeProps {
 }
 export const SelectType: FC<SelectTypeProps> = () => {
-    const [selectedType, setSelectedType] = useState<number | null>(null)
+    const [selectedType, setSelectedType] = useState<string | null>(null)
     const isValidSelectedType = selectedType !== null
     const router = useRouter()
     const handleCreate = useMutate(async () => {
@@ -28,7 +28,7 @@ export const SelectType: FC<SelectTypeProps> = () => {
     return (
         <div>
             <Carousel slideSize="min(600px, 60%)" slideGap="md">
-                {types.map((type, index) =>
+                {businessCardTypes.map((type, index) =>
                     <CarouselSlide key={type}>
                         <Image
                             src={`/businesscard/example/type_${type}_placeholder.png`}

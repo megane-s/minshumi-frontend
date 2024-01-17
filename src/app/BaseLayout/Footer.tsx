@@ -1,9 +1,10 @@
 "use client"
 import { Container, Divider, Flex, Stack } from "@mantine/core"
 import { FC } from "react"
-import Logo from "./Logo"
 import { Link } from "@/components/Link"
 import { css } from "styled-system/css"
+import Image from "next/image"
+import LogoImage from "@/../public/logo-rect.png"
 
 interface FooterProps {
 }
@@ -19,8 +20,12 @@ const Footer: FC<FooterProps> = () => {
         >
             <Flex justify="space-between" component={Container}>
                 <div>
-                    <Logo
-                        size="sm"
+                    <Image
+                        src={LogoImage}
+                        alt="みんしゅみ"
+                        width={150}
+                        height={100}
+                        style={{ objectFit: "contain", width: 120, height: "auto" }}
                     />
                 </div>
                 <div>

@@ -8,6 +8,8 @@ const UploadResponseSchema = z.object({
 })
 
 export const uploadFile = async (file: File | "select" = "select") => {
+    console.log("upload", file)
+    if (file === "select") file = await selectFile()
     const res = await fetch(uploadServerUrl, {
         method: "PUT",
         body: file,
@@ -40,9 +42,9 @@ export const useFileUpload = (selectParams: Parameters<typeof selectFile>[0] = {
     const [url, setUrl] = useState<string | null>(null)
     const upload = useMutate(async () => {
         const file = await selectFile(selectParams)
-        const res = await uploadFile(file)
-        setUrl(res.publicUrl)
-        return res
+        const { publicUrl } = await uploadFile(file)
+        setUrl(publicUrl)
+        return publicUrl
     }, {})
     return {
         upload: () => upload.mutate("select"),

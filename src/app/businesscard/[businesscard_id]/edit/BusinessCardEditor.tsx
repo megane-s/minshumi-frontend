@@ -24,6 +24,7 @@ import { defaultBusinessCard } from "@/businessCard/defaults"
 import { User } from "next-auth"
 import LinkButton from "@/components/LinkButton"
 import { buildImageUrlParams } from "@/businessCard/buildImageUrlParams"
+import { businessCardTypes } from "../../new/SelectType"
 
 
 interface BusinessCardEditorProps {
@@ -36,6 +37,10 @@ interface BusinessCardEditorProps {
 }
 export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues, user, ranks, tags, businessCardId }) => {
     const isInstant = businessCardId === null
+
+    const [type, setType] = useState<string | null>(defaultValues.type ?? "1")
+    const isValidType = type && businessCardTypes.includes(type)
+
     const [name, setName] = useState(defaultValues.name ?? user?.name ?? "")
 
     const [icon, setIcon] = useState(defaultValues.imageUrl ?? defaultBusinessCard.imageUrl)
@@ -52,12 +57,13 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const [themeColor, setThemeColor] = useState<string | null>(defaultValues.themeColor ?? defaultBusinessCard.themeColor)
     const isValidThemeColor = themeColor !== null
 
-    const isValid = isValidArts && isValidThemeColor
+    const isValid = isValidType && isValidArts && isValidThemeColor
 
     const save = useMutate(async () => {
         if (!isValid) throw new Error(`入力値が不正です`)
         if (isInstant) throw new Error(`ログインしていない状態での名刺は保存できません。`)
         await handleSaveBusinessCard(businessCardId, {
+            type,
             name,
             imageUrl: icon,
             rank,
@@ -77,6 +83,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
         if (!isValid) throw new Error(`入力値が不正です`)
         if (isInstant) throw new Error(`ログインしていない状態での名刺は公開設定はできません。`)
         await handleSaveBusinessCard(businessCardId, {
+            type,
             name,
             imageUrl: icon,
             rank,
@@ -101,7 +108,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
             <div className={center({ flexGrow: 1, p: "xl" })}>
                 {isValid
                     ? <BusinessCardPreview
-                        type={defaultValues.type ?? "1"}
+                        type={type ?? "1"}
                         name={name}
                         icon={icon}
                         rank={rank}
@@ -134,6 +141,14 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 bg: "background.2",
                 flexShrink: 0,
             })}>
+                <div className={css({ my: "md" })}>
+                    <Select
+                        value={type}
+                        onChange={(type) => setType(type)}
+                        label="名刺タイプ"
+                        data={businessCardTypes}
+                    />
+                </div>
                 <div className={container({ px: "" })}>
                     <InputImages
                         backgroundImage={backgroundImage}

@@ -31,6 +31,7 @@ export const DeleteConfirmCommentDialog: FC<DeleteConfirmCommentDialogProps> = (
                 </Button>
                 <MutateButton
                     variant="filled"
+                    color="error"
                     mutation={deleteComment}
                 >
                     OK

@@ -10,6 +10,7 @@ import { Session } from "next-auth"
 import Link from "next/link"
 import { FC } from "react"
 import { CgProfile } from "react-icons/cg"
+import { css } from "styled-system/css"
 import { TiBusinessCard } from "react-icons/ti"
 
 interface HeaderAvatarProps {
@@ -23,7 +24,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           <Avatar
             src={session.user.image}
             alt={session.user.name ?? "ユーザ"}
-
+            className={css({ _hover: { cursor: "pointer" } })}
           />
         </Menu.Target>
         <Menu.Dropdown>

@@ -121,7 +121,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                     }
                 </div>
 
-                <Flex justify="flex-end">
+                <Flex justify="flex-end" gap="sm" align="center">
                     <LikeButton
                         isGooded={isGooded}
                         onClick={() => void handleGoodClick.mutate(null)}

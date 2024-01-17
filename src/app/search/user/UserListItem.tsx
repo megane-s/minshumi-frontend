@@ -20,7 +20,7 @@ const UserListItem: FC<UserListItemProps> = ({ user }) => (
         <Flex key={user.id} p="sm" gap="md">
             <Avatar
                 className={css({ height: "fit-content", aspectRatio: "1 / 1", objectFit: "cover" })}
-                src={user.image ?? "/placeholder/300x200_red.png"}
+                src={user.image ?? "https://storage.googleapis.com/minshumi-user-content/logo-square-1080x1080.png"}
                 alt={user.name ?? "名無し"}
                 size="md"
             />

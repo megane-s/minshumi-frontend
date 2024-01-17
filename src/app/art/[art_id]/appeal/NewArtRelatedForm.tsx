@@ -7,6 +7,7 @@ import { ArtId, InputRelatedArt } from "@/art/type";
 
 interface NewArtRelatedFormProps {
     title: string
+    imageUrl: string
     artId: ArtId
     defaultValues: {
         likePoint: string
@@ -14,7 +15,7 @@ interface NewArtRelatedFormProps {
         next: InputRelatedArt[]
     }
 }
-const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, artId, defaultValues }) => {
+const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, imageUrl, artId, defaultValues }) => {
     const [likePoint, setLikePoint] = useState(defaultValues.likePoint)
 
     const {
@@ -27,6 +28,7 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, artId, defaultVa
     return (
         <ArtRelatedForm
             title={title}
+            imageUrl={imageUrl}
             likePoint={likePoint}
             onChangeLikePoint={setLikePoint}
             prevArts={prevArts}
