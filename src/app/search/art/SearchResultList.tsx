@@ -34,7 +34,7 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
                             height={400}
                         />
                         <PageTitle style={{ color: 'red' }}>
-                            検索結果はありません
+                            作品の検索結果はありません
                         </PageTitle>
                         <SectionTitle>
                             検索条件を変えて検索してみてください
