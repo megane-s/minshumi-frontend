@@ -25,7 +25,6 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
             )}
             {searchResult.length === 0 &&
                 <Flex justify="center" align="center" p={50}>
-                    {/* TODO コメントない時に表示される内容を改善 */}
                     <center>
                         <Image
                             src="/404-notext.png"
