@@ -33,7 +33,6 @@ const TagDetailPage = async ({ params }: PageProps) => {
 
             {arts.length === 0 &&
                 <Flex justify="center" align="center" p={50}>
-                    {/* TODO コメントない時に表示される内容を改善 */}
                     <center>
                         <Image
                             src="/cat.png"
