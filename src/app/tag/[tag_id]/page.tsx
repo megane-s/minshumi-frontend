@@ -2,6 +2,10 @@
 import { getArtsWithTag } from "@/art/tag/getArts"
 import { ArtListItem } from "./ArtListItem"
 import { PageTitle } from "@/components/PageTitle"
+import Image from 'next/image'
+import { Flex } from "@mantine/core"
+import { SectionTitle } from "@/components/SectionTitle"
+import LinkButton from "@/components/LinkButton"
 
 interface PageProps {
     params: { tag_id: string }
@@ -25,6 +29,28 @@ const TagDetailPage = async ({ params }: PageProps) => {
             {/* <button>
                 <CiCirclePlus size="2rem" />
             </button> */}
+
+
+            {arts.length === 0 &&
+                <Flex justify="center" align="center" p={50}>
+                    {/* TODO コメントない時に表示される内容を改善 */}
+                    <center>
+                        <Image
+                            src="/cat.png"
+                            alt='404'
+                            width={200}
+                            height={400}
+                        />
+                        <PageTitle >
+                            作品がまだ無いようです....
+                        </PageTitle>
+                        <SectionTitle>
+                            作品を追加してみよう<LinkButton href="/art/new" variant="gradient">作品追加</LinkButton>
+                        </SectionTitle>
+
+                    </center>
+                </Flex>
+            }
 
         </div>
     )
