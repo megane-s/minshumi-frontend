@@ -1,17 +1,17 @@
 import { useSuggestTitle } from "@/art/components/SelectArt"
-import { Loader } from "@/components/Loader"
+import { CenterLoader } from "@/components/CenterLoader"
 import { TextInput } from "@/components/TextInput"
 import { Combobox, useCombobox } from "@mantine/core"
 import { ComponentProps, FC } from "react"
-import { cx } from "styled-system/css"
 
-interface InputArtTitleProps extends ComponentProps<"div"> {
+interface InputArtTitleProps extends ComponentProps<typeof Combobox> {
     title: string
     onChangeTitle: (title: string) => void
 }
-export const InputArtTitle: FC<InputArtTitleProps> = ({ className, title, onChangeTitle, ...props }) => {
+export const InputArtTitle: FC<InputArtTitleProps> = ({ title, onChangeTitle, ...props }) => {
     const suggestions = useSuggestTitle(title)
-    const combobox = useCombobox();
+    console.log(suggestions.data)
+    const combobox = useCombobox()
     return (
         <Combobox
             onOptionSubmit={value => {
@@ -20,10 +20,10 @@ export const InputArtTitle: FC<InputArtTitleProps> = ({ className, title, onChan
             }}
             store={combobox}
             withinPortal={false}
+            {...props}
         >
             <Combobox.Target>
                 <TextInput
-                    className={cx(className)}
                     placeholder="作品名を入力"
                     value={title}
                     onChange={e => {
@@ -36,36 +36,22 @@ export const InputArtTitle: FC<InputArtTitleProps> = ({ className, title, onChan
                     onBlur={() => combobox.closeDropdown()}
                 />
             </Combobox.Target>
-            <Combobox.Dropdown>
+            <Combobox.Dropdown hidden={!(suggestions.isFetching || suggestions.data?.length !== 0)}>
                 <Combobox.Options>
-                    {/* {options.length === 0 ? <Combobox.Empty>Nothing found</Combobox.Empty> : options} */}
-                    {suggestions.data && <>
+                    {!!suggestions.data?.length && <>
                         <Combobox.Group label="🔍 もしかして ...">
                             {suggestions.data.map(suggest =>
                                 <Combobox.Option key={suggest.artId} value={suggest.title}>
                                     {suggest.title}
                                 </Combobox.Option>
                             )}
+                            {suggestions.isFetching &&
+                                <CenterLoader />
+                            }
                         </Combobox.Group>
                     </>}
-                    {suggestions.isFetching &&
-                        <Loader />
-                    }
                 </Combobox.Options>
             </Combobox.Dropdown>
         </Combobox>
-        // <Autocomplete
-        //     className={cx(className)}
-        //     data={Array.from(new Set(suggestions.data?.map(suggest => suggest.title))) ?? []}
-        //     value={title ?? ""}
-        //     onChange={(art) => onChangeTitle(art)}
-        //     placeholder="作品名を入力"
-        //     comboboxProps={{
-        //         portalProps: {
-        //             className: css({ bg: "red" })
-        //         }
-        //     }}
-        //     {...props}
-        // />
     )
 }
