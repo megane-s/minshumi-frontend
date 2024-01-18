@@ -3,7 +3,15 @@ import "server-only"
 import { FirstRegisterInput, UserId } from "./type"
 
 export const firstRegister = async (userId: UserId, input: FirstRegisterInput) => {
-    await prisma.interestTag.createMany({
-        data: input.interestTags.map((tag) => ({ userId, tag })),
+    await prisma.$transaction(async prisma => {
+        await Promise.all(
+            input.interestTags.map(async tag =>
+                await prisma.interestTag.upsert({
+                    where: { userId_tag: { userId, tag } },
+                    create: { userId, tag },
+                    update: { userId, tag },
+                })
+            )
+        )
     })
 }
