@@ -7,22 +7,22 @@ import { getSession } from "@/auth/server/auth";
 import { SectionTitle } from "@/components/SectionTitle";
 import { PageTitle } from "@/components/PageTitle";
 import Image from "next/image";
-import { FollowButton } from "./FollowButton";
 import { css } from "styled-system/css";
 import { WatchingArtList } from "./WatchingArtList";
 import { LikeArtList } from "./LikeArtList";
 import { Comments } from "./Comments/Comments";
-import { Suspense } from "react";
+import { FC, Suspense } from "react";
 import { Loader } from "@/components/Loader";
 import { CenterLoader } from "@/components/CenterLoader";
+import { FollowInfo } from "./FollowInfo";
+import { UserId } from "@/user/type";
+import { UserProfilePrimaryButton } from "./UserProfilePrimaryButton";
+import { EditWatchingButton } from "./EditWatchingButton";
 
 interface PageProps {
     params: { user_id: string }
 }
 const UserProfilePage = async ({ params }: PageProps) => {
-    const session = await getSession()
-    const loginUser = session?.user
-    const isLogin = !!loginUser
     const userId = params.user_id
     const user = await getUser(userId)
     if (!user) notFound()
@@ -54,29 +54,24 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 <PageTitle>
                     {user.name}
                 </PageTitle>
-                {loginUser && (user.id === loginUser?.id
-                    ? <LinkButton href="/settings/user">
-                        編集する
-                    </LinkButton>
-                    : <Suspense fallback={<Loader />}>
-                        <FollowButton
-                            userId={userId}
-                            loginUser={loginUser}
-                        />
-                    </Suspense>
-                )}
+                <Suspense>
+                    <UserProfilePrimaryButton userId={user.id} />
+                </Suspense>
             </Flex>
+
+            <Suspense>
+                <FollowInfo userId={user.id} />
+            </Suspense>
 
             <Flex w="100%" justify="space-between" className={css({ mt: "lg", mb: "sm" })}>
                 <SectionTitle >
                     アピール
                 </SectionTitle>
-                {loginUser && (user.id === loginUser?.id
-                    ? <LinkButton href="/settings/appeals">
-                        アピールの管理
-                    </LinkButton>
-                    : null
-                )}
+                <Suspense>
+                    <EditAppealButton
+                        userId={userId}
+                    />
+                </Suspense>
             </Flex>
             <Suspense fallback={<Loader />}>
                 <LikeArtList userId={userId} />
@@ -86,12 +81,11 @@ const UserProfilePage = async ({ params }: PageProps) => {
                 <SectionTitle >
                     今見ている作品
                 </SectionTitle>
-                {loginUser && (user.id === loginUser?.id
-                    ? <LinkButton href="/settings/watching-arts">
-                        編集
-                    </LinkButton>
-                    : null
-                )}
+                <Suspense>
+                    <EditWatchingButton
+                        userId={userId}
+                    />
+                </Suspense>
             </Flex>
             <Suspense fallback={<Loader />}>
                 <WatchingArtList userId={userId} />
@@ -100,13 +94,29 @@ const UserProfilePage = async ({ params }: PageProps) => {
             <Suspense fallback={<CenterLoader />}>
                 <Comments
                     businessCard={businessCard}
-                    isLogin={isLogin}
                     userId={userId}
-                    loginUser={loginUser}
                 />
             </Suspense>
 
         </div >
     )
 }
-export default UserProfilePage 
+export default UserProfilePage
+
+interface EditAppealButtonProps {
+    userId: UserId
+}
+const EditAppealButton: FC<EditAppealButtonProps> = async ({ userId }) => {
+    const session = await getSession()
+    const loginUser = session?.user
+    return (
+        <>
+            {loginUser && (userId === loginUser?.id
+                ? <LinkButton href="/settings/appeals">
+                    アピールの管理
+                </LinkButton>
+                : null
+            )}
+        </>
+    )
+}

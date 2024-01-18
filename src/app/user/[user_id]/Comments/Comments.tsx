@@ -5,17 +5,14 @@ import { Divider, Flex } from "@mantine/core"
 import { FC, Suspense } from "react"
 import { CommentForm } from "./CommentForm"
 import { CommentList } from "./CommentList"
-import { User } from "next-auth"
 import { CenterLoader } from "@/components/CenterLoader"
 import { css } from "styled-system/css"
 
 interface CommentsProps {
   userId: UserId
   businessCard: BusinessCard | undefined
-  isLogin: boolean
-  loginUser: User | undefined
 }
-export const Comments: FC<CommentsProps> = async ({ userId, businessCard, isLogin, loginUser }) => {
+export const Comments: FC<CommentsProps> = async ({ userId, businessCard }) => {
   const comments = businessCard && await getUserCommentsByUserId(userId)
   return (
     comments && <>
@@ -24,16 +21,12 @@ export const Comments: FC<CommentsProps> = async ({ userId, businessCard, isLogi
       コメント {comments.length}件
 
       {businessCard &&
-        <CommentForm
-          isLogin={isLogin}
-        />
+        <CommentForm />
       }
 
       <Suspense fallback={<CenterLoader className={css({ my: "md" })} />}>
         <CommentList
           userId={userId}
-          isLogin={isLogin}
-          loginUser={loginUser}
         />
       </Suspense>
 
