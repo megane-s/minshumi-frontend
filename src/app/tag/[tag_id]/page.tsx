@@ -36,7 +36,7 @@ const TagDetailPage = async ({ params }: PageProps) => {
                     <center>
                         <Image
                             src="/cat.png"
-                            alt='404'
+                            alt='none'
                             width={200}
                             height={400}
                         />
