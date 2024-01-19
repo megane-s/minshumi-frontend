@@ -225,9 +225,9 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                     </InputWrapper>
                 </div>
                 <div>
-                    <BusinessCardDelete>
-
-                    </BusinessCardDelete>
+                    {businessCardId &&
+                        <BusinessCardDelete businessCardId={businessCardId}></BusinessCardDelete>
+                    }
                 </div>
             </div>
 
