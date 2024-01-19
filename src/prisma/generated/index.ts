@@ -34,6 +34,14 @@ export const UserRankScalarFieldEnumSchema = z.enum(['userId','rank']);
 
 export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl','description','searchId','userId']);
 
+export const ArtEditHistoryScalarFieldEnumSchema = z.enum(['artId','updateAt','updateUserId']);
+
+export const ArtTitleEditHistoryScalarFieldEnumSchema = z.enum(['artId','updateAt','title']);
+
+export const ArtImageUrlEditHistoryScalarFieldEnumSchema = z.enum(['artId','updateAt','imageUrl']);
+
+export const ArtDescriptionEditHistoryScalarFieldEnumSchema = z.enum(['artId','updateAt','description']);
+
 export const RelatedArtScalarFieldEnumSchema = z.enum(['userId','artId','relatedArtId','type']);
 
 export const ArtTagScalarFieldEnumSchema = z.enum(['artId','tagType','tag']);
@@ -222,6 +230,54 @@ export const ArtSchema = z.object({
 })
 
 export type Art = z.infer<typeof ArtSchema>
+
+/////////////////////////////////////////
+// ART EDIT HISTORY SCHEMA
+/////////////////////////////////////////
+
+export const ArtEditHistorySchema = z.object({
+  artId: z.string(),
+  updateAt: z.coerce.date(),
+  updateUserId: z.string().nullable(),
+})
+
+export type ArtEditHistory = z.infer<typeof ArtEditHistorySchema>
+
+/////////////////////////////////////////
+// ART TITLE EDIT HISTORY SCHEMA
+/////////////////////////////////////////
+
+export const ArtTitleEditHistorySchema = z.object({
+  artId: z.string(),
+  updateAt: z.coerce.date(),
+  title: z.string(),
+})
+
+export type ArtTitleEditHistory = z.infer<typeof ArtTitleEditHistorySchema>
+
+/////////////////////////////////////////
+// ART IMAGE URL EDIT HISTORY SCHEMA
+/////////////////////////////////////////
+
+export const ArtImageUrlEditHistorySchema = z.object({
+  artId: z.string(),
+  updateAt: z.coerce.date(),
+  imageUrl: z.string(),
+})
+
+export type ArtImageUrlEditHistory = z.infer<typeof ArtImageUrlEditHistorySchema>
+
+/////////////////////////////////////////
+// ART DESCRIPTION EDIT HISTORY SCHEMA
+/////////////////////////////////////////
+
+export const ArtDescriptionEditHistorySchema = z.object({
+  artId: z.string(),
+  updateAt: z.coerce.date(),
+  description: z.string(),
+})
+
+export type ArtDescriptionEditHistory = z.infer<typeof ArtDescriptionEditHistorySchema>
 
 /////////////////////////////////////////
 // RELATED ART SCHEMA
