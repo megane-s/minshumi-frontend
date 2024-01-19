@@ -41,7 +41,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const [type, setType] = useState<string | null>(defaultValues.type ?? "1")
     const isValidType = type && businessCardTypes.includes(type)
 
-    const [name, setName] = useState(defaultValues.name ?? user?.name ?? "")
+    const [name, setName] = useState(defaultValues.name ?? user?.name ?? "名前")
 
     const [icon, setIcon] = useState(defaultValues.imageUrl ?? defaultBusinessCard.imageUrl)
 
@@ -49,7 +49,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
 
     const [interestTags, setInterestTags] = useState(defaultValues.tags ?? [])
 
-    const [arts, setArts] = useState(defaultValues.arts ?? [])
+    const [arts, setArts] = useState(() => defaultValues.arts?.length === 3 ? defaultValues.arts : ["", "", ""])
     const isValidArts = arts.length === 3
 
     const [backgroundImage, setBackgroundImage] = useState(defaultValues.backgroundImageUrl ?? defaultBusinessCard.backgroundImageUrl)
@@ -144,7 +144,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 <div className={css({ my: "md" })}>
                     <Select
                         value={type}
-                        onChange={(type) => setType(type)}
+                        onChange={(type) => type && setType(type)}
                         label="名刺タイプ"
                         data={businessCardTypes}
                     />
@@ -209,7 +209,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         {Array(3).fill("").map((_, i) =>
                             <InputArtTitle
                                 key={i}
-                                className={css({ my: "xs" })}
                                 title={arts[i] ?? ""}
                                 onChangeTitle={title => {
                                     setArts(p => {
