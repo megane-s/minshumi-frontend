@@ -29,7 +29,7 @@ const NewArtRelatedArtPage = async ({ params: { art_id } }: Props) => {
                     likePoint: null,
                 }
             }),
-        getRelatedArts(art_id)
+        getRelatedArts(art_id, session.user.id)
             .then(relatedArts => relatedArts.reduce((ans, art) => {
                 ans[art.type].push(art)
                 return ans

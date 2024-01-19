@@ -1,4 +1,5 @@
 import { prisma } from "@/prisma";
+import { UserId } from "@/user/type";
 import "server-only";
 import { ArtId, RelatedArt } from "./type";
 
@@ -10,9 +11,9 @@ import { ArtId, RelatedArt } from "./type";
  */
 // 未実装のためdisable。実装し次第外す。
 // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-export const getRelatedArts = async (artId: ArtId): Promise<RelatedArt[]> => {
+export const getRelatedArts = async (artId: ArtId, userId: UserId): Promise<RelatedArt[]> => {
     const relatedArts = await prisma.relatedArt.findMany({
-        where: { artId },
+        where: { artId, userId },
         include: { relatedArt: true },
     })
     return relatedArts.map(relatedArt => ({
