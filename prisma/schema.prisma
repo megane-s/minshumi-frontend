@@ -80,6 +80,7 @@ model User {
   pinnedBusinessCard   BusinessCard?          @relation("pinned", fields: [pinnedBusinessCardId], references: [businessCardId])
   comments             UserComment[]
   commentGoodUsers     UserCommentGoodUser[]
+  artEditHistory       ArtEditHistory[]
 }
 
 model UserComment {
@@ -155,7 +156,60 @@ model Art {
   userId                 String?
   relatedArtArt          RelatedArt[]          @relation("art")
   relatedArts            RelatedArt[]          @relation("relatedArt")
+  editHistory            ArtEditHistory[]
 }
+
+model ArtEditHistory {
+  artId    String
+  updateAt DateTime @default(now())
+  art      Art      @relation(fields: [artId], references: [artId], onDelete: Cascade)
+
+  // updateUserIdがNULLになるのはユーザが削除された場合
+  updateUserId String?
+  updateUser   User?   @relation(fields: [updateUserId], references: [id], onDelete: SetNull)
+
+  // 変更したデータ
+  title       ArtTitleEditHistory?
+  imageUrl    ArtImageUrlEditHistory?
+  description ArtDescriptionEditHistory?
+
+  @@id([artId, updateAt])
+}
+
+model ArtTitleEditHistory {
+  artId    String
+  updateAt DateTime @default(now())
+
+  title String
+
+  artEditHistory ArtEditHistory @relation(fields: [artId, updateAt], references: [artId, updateAt])
+
+  @@id([artId, updateAt])
+}
+
+model ArtImageUrlEditHistory {
+  artId    String
+  updateAt DateTime @default(now())
+
+  imageUrl String
+
+  artEditHistory ArtEditHistory @relation(fields: [artId, updateAt], references: [artId, updateAt])
+
+  @@id([artId, updateAt])
+}
+
+model ArtDescriptionEditHistory {
+  artId    String
+  updateAt DateTime @default(now())
+
+  description String
+
+  artEditHistory ArtEditHistory @relation(fields: [artId, updateAt], references: [artId, updateAt])
+
+  @@id([artId, updateAt])
+}
+
+// Art.searchIdはユーザから変更することはないので履歴を保持しない
 
 model RelatedArt {
   userId       String
