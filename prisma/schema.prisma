@@ -145,7 +145,7 @@ model Art {
   title                  String
   imageUrl               String
   description            String
-  searchId               Int?                  @default(dbgenerated("NULL"))
+  searchId               Int?
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
   appeals                ArtAppeal[]
@@ -172,13 +172,14 @@ model ArtEditHistory {
   title       ArtTitleEditHistory?
   imageUrl    ArtImageUrlEditHistory?
   description ArtDescriptionEditHistory?
+  tags        ArtTagsEditHistory[]
 
   @@id([artId, updateAt])
 }
 
 model ArtTitleEditHistory {
   artId    String
-  updateAt DateTime @default(now())
+  updateAt DateTime
 
   title String
 
@@ -189,7 +190,7 @@ model ArtTitleEditHistory {
 
 model ArtImageUrlEditHistory {
   artId    String
-  updateAt DateTime @default(now())
+  updateAt DateTime
 
   imageUrl String
 
@@ -200,9 +201,20 @@ model ArtImageUrlEditHistory {
 
 model ArtDescriptionEditHistory {
   artId    String
-  updateAt DateTime @default(now())
+  updateAt DateTime
 
   description String
+
+  artEditHistory ArtEditHistory @relation(fields: [artId, updateAt], references: [artId, updateAt])
+
+  @@id([artId, updateAt])
+}
+
+model ArtTagsEditHistory {
+  artId    String
+  updateAt DateTime
+
+  tags String[]
 
   artEditHistory ArtEditHistory @relation(fields: [artId, updateAt], references: [artId, updateAt])
 

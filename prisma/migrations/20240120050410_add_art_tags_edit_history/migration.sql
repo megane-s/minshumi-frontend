@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Art" ALTER COLUMN "searchId" SET DEFAULT NULL;

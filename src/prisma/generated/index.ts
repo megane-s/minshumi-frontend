@@ -42,6 +42,8 @@ export const ArtImageUrlEditHistoryScalarFieldEnumSchema = z.enum(['artId','upda
 
 export const ArtDescriptionEditHistoryScalarFieldEnumSchema = z.enum(['artId','updateAt','description']);
 
+export const ArtTagsEditHistoryScalarFieldEnumSchema = z.enum(['artId','updateAt','tags']);
+
 export const RelatedArtScalarFieldEnumSchema = z.enum(['userId','artId','relatedArtId','type']);
 
 export const ArtTagScalarFieldEnumSchema = z.enum(['artId','tagType','tag']);
@@ -278,6 +280,18 @@ export const ArtDescriptionEditHistorySchema = z.object({
 })
 
 export type ArtDescriptionEditHistory = z.infer<typeof ArtDescriptionEditHistorySchema>
+
+/////////////////////////////////////////
+// ART TAGS EDIT HISTORY SCHEMA
+/////////////////////////////////////////
+
+export const ArtTagsEditHistorySchema = z.object({
+  artId: z.string(),
+  updateAt: z.coerce.date(),
+  tags: z.string().array(),
+})
+
+export type ArtTagsEditHistory = z.infer<typeof ArtTagsEditHistorySchema>
 
 /////////////////////////////////////////
 // RELATED ART SCHEMA

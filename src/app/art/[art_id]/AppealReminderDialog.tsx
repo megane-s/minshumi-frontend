@@ -9,7 +9,7 @@ import { useDisclosure } from "@mantine/hooks"
 import { FC, useEffect } from "react"
 import { css } from "styled-system/css"
 import { flex } from "styled-system/patterns"
-import { handleGotoAppeal } from "./actions"
+import { handleClearLastCreatedArtId, handleGotoAppeal } from "./actions"
 
 interface AppealReminderDialogProps {
     art: Art
@@ -19,6 +19,7 @@ const AppealReminderDialog: FC<AppealReminderDialogProps> = ({ art }) => {
     useEffect(() => {
         void sleep(500)
             .then(open)
+        void handleClearLastCreatedArtId()
     }, [open])
     return (
         <Dialog opened={opened} onClose={close} className={css({ textAlign: "center" })}>
