@@ -147,6 +147,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         onChange={(type) => type && setType(type)}
                         label="名刺タイプ"
                         data={businessCardTypes}
+                        error={!isValidType && "選択してください"}
                     />
                 </div>
                 <div className={container({ px: "" })}>
@@ -217,6 +218,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                                         return newArts
                                     })
                                 }}
+                                error={!isValidArts && "作品を入力してください"}
                             />
                         )}
                     </InputWrapper>
@@ -234,6 +236,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                     <DownloadButton
                         {...isValid
                             ? {
+                                type,
                                 name,
                                 icon,
                                 rank,
@@ -244,6 +247,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                                 isValid: true,
                             }
                             : {
+                                type: type ?? undefined,
                                 name,
                                 icon,
                                 rank: rank ?? undefined,
@@ -285,6 +289,7 @@ const buttonShadow = css({ shadow: { base: "md", _active: "xs" }, transition: "b
 type DownloadButtonProps =
     | (
         {
+            type: string
             name: string
             icon: string
             rank: string | null
@@ -297,6 +302,7 @@ type DownloadButtonProps =
     )
     | (
         Partial<{
+            type: string
             name: string
             icon: string
             rank: string | null
@@ -310,7 +316,7 @@ type DownloadButtonProps =
     )
 const DownloadButton: FC<DownloadButtonProps> = (props) => {
     const params = props.isValid && new URLSearchParams(buildImageUrlParams({
-        type: "1",
+        type: props.type,
         username: props.name,
         icon: props.icon,
         interestTags: props.interestTags,

@@ -24,14 +24,23 @@ export type CreateBusinessParams = z.infer<typeof CreateBusinessParamsSchema>
  * @returns 作成した名刺。
  */
 export const createBusinessCard = async (authorId: UserId, params: CreateBusinessParams): Promise<BusinessCard> => {
-    const result = await prisma.$transaction(async (prisma) => {
-        const result = await prisma.businessCard.create({
+    const newBusinessCard = await prisma.$transaction(async (prisma) => {
+        const newBusinessCard = await prisma.businessCard.create({
             data: {
                 userId: authorId,
                 ...params,
+                likeArts: {
+                    createMany: {
+                        data: [
+                            { likeArtTitle: "" },
+                            { likeArtTitle: "" },
+                            { likeArtTitle: "" },
+                        ],
+                    },
+                },
             },
         })
-        return result
+        return newBusinessCard
     })
-    return result
+    return newBusinessCard
 }

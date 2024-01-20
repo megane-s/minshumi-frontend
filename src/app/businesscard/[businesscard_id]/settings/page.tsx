@@ -9,17 +9,21 @@ import { css } from "styled-system/css"
 import { ActionIcon } from "@/components/ActionIcon"
 import { ArrowLeftIcon } from "@/components/icon/ArrowLeft"
 import { BackButton } from "@/components/BackLink"
+import { getUser } from "@/user/get"
+import { notImplementError } from "@/util/notImplement"
 
 interface PageProps {
     params: { businesscard_id: string }
 }
 const BusinessCardSettingsPage = async ({ params: { businesscard_id } }: PageProps) => {
     const [businessCard, interestTags, likeArts] = await Promise.all([
-        await getBusinessCardById(businesscard_id),
-        await getBusinessCardInterestTags(businesscard_id),
-        await getBusinessCardLikeArts(businesscard_id),
+        getBusinessCardById(businesscard_id),
+        getBusinessCardInterestTags(businesscard_id),
+        getBusinessCardLikeArts(businesscard_id),
     ])
     if (!businessCard) return notFound()
+    const user = await getUser(businessCard.userId)
+    if (!user) notImplementError(`名刺の持ち主であるユーザが存在しません`)
     return (
         <div className={flex({ flexDir: "column", alignItems: "center", gap: "md", my: "md", w: "full", py: "md" })}>
             <div className={flex({ justify: "flex-start", w: "full" })}>
@@ -45,7 +49,7 @@ const BusinessCardSettingsPage = async ({ params: { businesscard_id } }: PagePro
                 className={css({ mt: "xl" })}
                 defaultValues={{
                     isPublish: businessCard.isPublish,
-                    canComment: businessCard.canComment,
+                    isPinned: user?.pinnedBusinessCardId === businesscard_id,
                 }}
             />
         </div>

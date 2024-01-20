@@ -27,7 +27,6 @@ export const updateArt = async (artId: ArtId, by: UserId, params: UpdateArtParam
         })
         if (!prevArt) throw notImplementError(`Art (artId=${artId}) is not exists`)
         // 変更履歴の追加
-        console.log("edit history", editLog, prevArt, art)
         if (editLog) {
             await createEditHistory(prisma, artId, by, prevArt, art)
         }
@@ -55,7 +54,6 @@ const createEditHistory = async (
     })
     const createEditDetailsPromises: Promise<unknown>[] = []
     if (art.title && art.title !== prevArt.title) {
-        console.log("update title")
         createEditDetailsPromises.push(
             prisma.artTitleEditHistory.create({
                 data: {
@@ -67,7 +65,6 @@ const createEditHistory = async (
         )
     }
     if (art.imageUrl && art.imageUrl !== prevArt.imageUrl) {
-        console.log("update imageUrl")
         createEditDetailsPromises.push(
             prisma.artImageUrlEditHistory.create({
                 data: {
@@ -79,7 +76,6 @@ const createEditHistory = async (
         )
     }
     if (art.description && art.description !== prevArt.description) {
-        console.log("update description")
         createEditDetailsPromises.push(
             prisma.artDescriptionEditHistory.create({
                 data: {

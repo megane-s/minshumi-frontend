@@ -13,14 +13,14 @@ import { handleSaveBusinessCard } from "../edit/actions"
 interface BusinessCardPublishFormProps {
     businessCardId: BusinessCardId
     className?: string
-    defaultValues: Pick<BusinessCard, "isPublish" | "canComment">
+    defaultValues: Pick<BusinessCard, "isPublish"> & { isPinned: boolean }
 }
 export const BusinessCardPublishForm: FC<BusinessCardPublishFormProps> = ({ businessCardId, className, defaultValues }) => {
     const [isPublish, setIsPublish] = useState(defaultValues.isPublish)
-    const [canComment, setCanComment] = useState(defaultValues.canComment)
+    const [isPinned, setIsPinned] = useState(defaultValues.isPinned)
 
     const publish = useMutate(async () => {
-        await handleSaveBusinessCard(businessCardId, { isPublish, canComment })
+        await handleSaveBusinessCard(businessCardId, { isPublish, isPinned: isPinned || undefined })
     }, {
         loading: { toast: isPublish ? "公開中" : "保存中" },
         onSuccess: { toast: isPublish ? "公開しました" : "保存しました" },
@@ -30,20 +30,22 @@ export const BusinessCardPublishForm: FC<BusinessCardPublishFormProps> = ({ busi
         <div className={cx(flex({ flexDir: "column", gap: "md" }), className)}>
             <Card>
                 <Switch
-                    label="名刺を公開する"
+                    label="名刺を公開"
                     description="名刺を公開すると自分以外の人も名刺を閲覧できるようになったり、プロフィール画面に表示することができるようになります。"
                     className={css({ my: "md" })}
                     checked={isPublish}
                     onChange={e => setIsPublish(e.target.checked)}
                 />
-                <Switch
-                    label="コメントを許可する"
-                    description="名刺の他のユーザがコメントできるようにします。"
-                    className={css({ my: "md" })}
-                    checked={isPublish && canComment}
-                    disabled={!isPublish}
-                    onChange={e => setCanComment(e.target.checked)}
-                />
+                {!defaultValues.isPinned &&
+                    <Switch
+                        label="プロフィールに表示"
+                        description="作成した名刺がプロフィール画面に表示されます。"
+                        className={css({ my: "md" })}
+                        checked={isPublish && isPinned}
+                        disabled={!isPublish}
+                        onChange={e => setIsPinned(e.target.checked)}
+                    />
+                }
             </Card>
             <div className={flex({ justify: "center" })}>
                 <MutateButton mutation={publish} variant="filled">
