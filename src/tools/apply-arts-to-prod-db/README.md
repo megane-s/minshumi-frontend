@@ -17,7 +17,7 @@ use "minshumi-dev";
 
 IMPORT INTO public."Art" ("artId", "title", "description", "imageUrl")
     CSV DATA (
-        'gs://minshumi-art-data/ArtTag.csv?AUTH=specified&CREDENTIALS=ENCODED_SERVICE_ACCOUNT_KEY_JSON'
+        'gs://minshumi-art-data/Art.csv?AUTH=specified&CREDENTIALS=ENCODED_SERVICE_ACCOUNT_KEY_JSON'
     )
     WITH skip = '1';
 
