@@ -37,3 +37,7 @@ export const handleGotoAppeal = (artId: ArtId) => {
     clearLastCreatedArtId()
     redirect(`/art/${artId}/appeal`)
 }
+
+export const handleClearLastCreatedArtId = () => {
+    clearLastCreatedArtId()
+}

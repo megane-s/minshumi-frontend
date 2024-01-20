@@ -23,7 +23,7 @@ export const handleSaveArtDetail = async (artId: ArtId, input: Partial<Art>) => 
     if (!await canUpdateArt(session.user.id, prevArt, input)) {
         throw new ValidationError()
     }
-    const res = await updateArt(artId, input)
+    const res = await updateArt(artId, session.user.id, input)
 
     revalidatePath(`/art/${res.artId}`)
     redirect(`/art/${res.artId}`)
