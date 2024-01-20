@@ -13,7 +13,8 @@ export const getArtsWithTag = async (tag: ArtTag): Promise<Art[]> => {
         where: { tag },
         include: {
             art: true,
-        }
+        },
+        take: 30, // TODO
     })
     return results.map(result =>
         result.art

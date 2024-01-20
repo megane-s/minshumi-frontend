@@ -1,9 +1,9 @@
-import { notImplementWarn } from "@/util/notImplement"
-import "server-only"
-import { Art } from "./type"
 import { prisma } from "@/prisma"
+import { notImplementWarn } from "@/util/notImplement"
 import { sleep } from "@/util/sleep"
 import { cache } from "react"
+import "server-only"
+import { Art } from "./type"
 
 /**
  * 未実装。
@@ -14,5 +14,5 @@ import { cache } from "react"
 export const searchArt = cache(async (query: string): Promise<Art[]> => {
     notImplementWarn(`searchArt(${query}) はまだ実装されていません。現状はからの配列を返します。`)
     await sleep(2000)
-    return (await prisma.art.findMany()).filter(()=> Math.random() >= 0.8)
+    return (await prisma.art.findMany({ take: 20 })).filter(() => Math.random() >= 0.8)
 })
