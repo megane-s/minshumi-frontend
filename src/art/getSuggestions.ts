@@ -7,6 +7,7 @@ export const getArtSuggestions = async (query: string): Promise<Art[]> => {
     if (query.length <= 0) return await prisma.art.findMany({ take: 5 })
     const arts = await prisma.art.findMany({
         where: { title: { startsWith: query } },
+        take: 30, // TODO
     })
     return arts
 }
