@@ -12,25 +12,59 @@ import { Art, CreateArtParams } from "./type";
  * @returns 追加した作品
  */
 export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTags, originalTags, ...params }: CreateArtParams): Promise<Art> => {
-    const newArt = await prisma.art.create({
-        data: {
-            ...params,
-            userId,
-        },
-        include: {
-            tags: true,
-        }
-    })
-    await prisma.$transaction(async prisma => {
+    return await prisma.$transaction(async prisma => {
         const tags = [
-            ...mediaTags.map(tag => ({ artId: newArt.artId, tag, tagType: "MEDIA" }) as const),
-            ...genreTags.map(tag => ({ artId: newArt.artId, tag, tagType: "GENRE" }) as const),
-            ...otherTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
-            ...originalTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
+            ...mediaTags.map(tag => ({ tag, tagType: "MEDIA" }) as const),
+            ...genreTags.map(tag => ({ tag, tagType: "GENRE" }) as const),
+            ...otherTags.map(tag => ({ tag, tagType: "OTHER" }) as const),
+            ...originalTags.map(tag => ({ tag, tagType: "OTHER" }) as const),
         ]
-        await prisma.artTag.createMany({
-            data: tags,
+        const newArt = await prisma.art.create({
+            data: {
+                ...params,
+                userId,
+                editHistory: {
+                    create: {
+                        updateUserId: userId,
+                        title: {
+                            create: { title: params.title },
+                        },
+                        description: {
+                            create: { description: params.description },
+                        },
+                        imageUrl: {
+                            create: { imageUrl: params.imageUrl },
+                        },
+                        tags: {
+                            create: {
+                                tags: tags.map((tag) => tag.tag),
+                            },
+                        }
+                    },
+                },
+                tags: {
+                    createMany: {
+                        data: tags,
+                    },
+                }
+            },
+            include: {
+                editHistory: true,
+            }
         })
+
+        // // タグ
+        // const tags = [
+        //     ...mediaTags.map(tag => ({ artId: newArt.artId, tag, tagType: "MEDIA" }) as const),
+        //     ...genreTags.map(tag => ({ artId: newArt.artId, tag, tagType: "GENRE" }) as const),
+        //     ...otherTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
+        //     ...originalTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
+        // ]
+        // await prisma.artTag.createMany({
+        //     data: tags,
+        // })
+
+        // 変更履歴
+        return newArt
     })
-    return newArt
 }
