@@ -2,15 +2,15 @@ import { useSuggestTitle } from "@/art/components/SelectArt"
 import { CenterLoader } from "@/components/CenterLoader"
 import { TextInput } from "@/components/TextInput"
 import { Combobox, useCombobox } from "@mantine/core"
-import { ComponentProps, FC } from "react"
+import { ComponentProps, FC, ReactNode } from "react"
 
 interface InputArtTitleProps extends ComponentProps<typeof Combobox> {
     title: string
     onChangeTitle: (title: string) => void
+    error?: ReactNode
 }
-export const InputArtTitle: FC<InputArtTitleProps> = ({ title, onChangeTitle, ...props }) => {
+export const InputArtTitle: FC<InputArtTitleProps> = ({ title, onChangeTitle, error, ...props }) => {
     const suggestions = useSuggestTitle(title)
-    console.log(suggestions.data)
     const combobox = useCombobox()
     return (
         <Combobox
@@ -34,6 +34,7 @@ export const InputArtTitle: FC<InputArtTitleProps> = ({ title, onChangeTitle, ..
                     onClick={() => combobox.openDropdown()}
                     onFocus={() => combobox.openDropdown()}
                     onBlur={() => combobox.closeDropdown()}
+                    error={error}
                 />
             </Combobox.Target>
             <Combobox.Dropdown hidden={!(suggestions.isFetching || suggestions.data?.length !== 0)}>

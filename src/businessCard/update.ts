@@ -10,6 +10,7 @@ import { BusinessCard, BusinessCardId, BusinessCardSchema } from "./type";
 export const UpdateBusinessCardParamsSchema = BusinessCardSchema.extend({
     interestTags: ArtTagSchema.array(),
     likeArts: ArtSchema.shape.title.array(),
+    isPinned: z.literal(true),
 }).partial()
 export type UpdateBusinessCardParams = z.infer<typeof UpdateBusinessCardParamsSchema>
 
@@ -18,17 +19,19 @@ export type UpdateBusinessCardParams = z.infer<typeof UpdateBusinessCardParamsSc
  * @param businessCardId 名刺の内容を更新する。
  * @param params 更新後の名刺の内容。
  */
-export const updateBusinessCard = async (businessCardId: BusinessCardId, params: UpdateBusinessCardParams): Promise<void> => {
-    const { interestTags, likeArts, ...businessCardParams } = params
-    await prisma.$transaction(async (prisma) => {
-        await prisma.businessCard.update({
+export const updateBusinessCard = async (businessCardId: BusinessCardId, userId: UserId, params: UpdateBusinessCardParams): Promise<BusinessCard> => {
+    const { interestTags, likeArts, isPinned, ...businessCardParams } = params
+    return await prisma.$transaction(async (prisma) => {
+        const newBusinessCard = await prisma.businessCard.update({
             where: { businessCardId },
             data: businessCardParams,
         })
         await Promise.all([
             interestTags && updateBusinessCardInterestTags(prisma, businessCardId, interestTags),
             likeArts && updateBusinessCardLikeArts(prisma, businessCardId, likeArts),
+            isPinned === true && pinBusinessCard(prisma, userId, businessCardId),
         ])
+        return newBusinessCard
     })
 }
 
@@ -61,13 +64,40 @@ const updateBusinessCardLikeArts = async (
     })
     await Promise.all(
         likeArts?.map(async (artTitle) => {
-            await prisma.businessCardLikeArt.upsert({
-                where: { businessCardId_likeArtTitle: { businessCardId, likeArtTitle: artTitle } },
-                create: { businessCardId, likeArtTitle: artTitle },
-                update: { businessCardId, likeArtTitle: artTitle },
-            })
+            const where = { businessCardId, likeArtTitle: artTitle }
+            const exists = await prisma.businessCardLikeArt.findFirst({
+                where,
+                take: 1,
+            }).then(likeArts => !!likeArts)
+            if (exists) {
+                await prisma.businessCardLikeArt.updateMany({
+                    where,
+                    data: [
+                        { businessCardId, likeArtTitle: artTitle },
+                    ],
+                })
+            } else {
+                await prisma.businessCardLikeArt.createMany({
+                    data: [
+                        { businessCardId, likeArtTitle: artTitle },
+                    ],
+                })
+            }
         })
     )
+}
+
+const pinBusinessCard = async (
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">,
+    userId: UserId,
+    businessCardId: BusinessCardId,
+) => {
+    await prisma.user.update({
+        where: { id: userId },
+        data: {
+            pinnedBusinessCardId: businessCardId,
+        },
+    })
 }
 
 export const canUpdateBusinessCard = (

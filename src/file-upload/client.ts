@@ -8,7 +8,6 @@ const UploadResponseSchema = z.object({
 })
 
 export const uploadFile = async (file: File | "select" = "select") => {
-    console.log("upload", file)
     if (file === "select") file = await selectFile()
     const res = await fetch(uploadServerUrl, {
         method: "PUT",

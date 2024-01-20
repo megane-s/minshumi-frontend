@@ -3,6 +3,10 @@ import { ArtListItem } from "@/app/tag/[tag_id]/ArtListItem"
 import { FC } from "react"
 import { searchArt } from "@/art/search"
 import { } from "next/navigation"
+import Image from 'next/image'
+import { Flex } from "@mantine/core"
+import { PageTitle } from "@/components/PageTitle"
+import { SectionTitle } from "@/components/SectionTitle"
 
 export const revalidate = 0
 
@@ -20,7 +24,23 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
                 />
             )}
             {searchResult.length === 0 &&
-                <div>検索結果が0件です。</div>
+                <Flex justify="center" align="center" p={50}>
+                    <center>
+                        <Image
+                            src="/404-notext.png"
+                            alt='none'
+                            width={200}
+                            height={400}
+                        />
+                        <PageTitle style={{ color: 'red' }}>
+                            作品の検索結果はありません
+                        </PageTitle>
+                        <SectionTitle>
+                            検索条件を変えて検索してみてください
+                        </SectionTitle>
+                    </center>
+
+                </Flex>
             }
         </div>
     )

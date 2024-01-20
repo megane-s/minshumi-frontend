@@ -3,7 +3,10 @@
 import { FC } from 'react';
 import { searchUser } from '@/user/search';
 import UserListItem from './UserListItem';
-
+import Image from 'next/image'
+import { PageTitle } from '@/components/PageTitle';
+import { SectionTitle } from '@/components/SectionTitle';
+import { Flex } from '@mantine/core';
 
 export const revalidate = 0;
 
@@ -22,7 +25,26 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
                     user={user}
                 />
             ))}
-            {searchResult.length === 0 && <div>検索結果が0件です。</div>}
+            {searchResult.length === 0 &&
+                <Flex justify="center" align="center" p={50}>
+                    <center>
+                        <Image
+                            src="/404-notext.png"
+                            alt='none'
+                            width={200}
+                            height={400}
+                        />
+                        <PageTitle style={{ color: 'red' }}>
+                            ユーザーの検索結果はありません
+                        </PageTitle>
+                        <SectionTitle>
+                            検索条件を変えて検索してみてください
+                        </SectionTitle>
+                    </center>
+
+                </Flex>
+
+            }
         </div>
     );
 };

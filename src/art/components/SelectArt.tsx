@@ -19,9 +19,8 @@ interface SelectArtProps {
 const SelectArt: FC<SelectArtProps> = ({ autoFocus = true, selectArtId, onSelectArt }) => {
     const [title, setTitle] = useState("")
     const suggestions = useSuggestTitle(title, {
-        onStartSearch: (title) => {
+        onStartSearch: () => {
             onSelectArt(null)
-            console.log("startArt", title)
         },
     })
 
