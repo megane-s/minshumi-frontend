@@ -324,12 +324,13 @@ model BusinessCard {
 
 model BusinessCardLikeArt {
   businessCardId String
+  no             String       @default(cuid()) // TODO @default(sequence()) にしたいがエラーが出るのでcuidにしている
   likeArtTitle   String
   businessCard   BusinessCard @relation(fields: [businessCardId], references: [businessCardId], onDelete: Cascade)
   Art            Art?         @relation(fields: [artArtId], references: [artId], onDelete: Cascade)
   artArtId       String?
 
-  @@id([businessCardId, likeArtTitle])
+  @@id([businessCardId, no])
 }
 
 model BusinessCardInterestTag {
