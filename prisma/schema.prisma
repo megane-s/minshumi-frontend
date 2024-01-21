@@ -141,22 +141,28 @@ model UserRank {
 // Art
 
 model Art {
-  artId                  String                @id @default(cuid()) /// @zod.custom.use(z.string())
-  title                  String
-  imageUrl               String
-  description            String
-  searchId               Int?
+  artId       String @id @default(cuid()) /// @zod.custom.use(z.string())
+  title       String
+  imageUrl    String
+  description String
+  searchId    Int?
+
   tags                   ArtTag[]
   goodUsers              ArtGoodUser[]
   appeals                ArtAppeal[]
   watchingUsers          WatchingArt[]
   bookmarkUsers          BookmarkArt[]
   useAsLikeBusinessCards BusinessCardLikeArt[]
-  user                   User?                 @relation(fields: [userId], references: [id])
-  userId                 String?
   relatedArtArt          RelatedArt[]          @relation("art")
   relatedArts            RelatedArt[]          @relation("relatedArt")
-  editHistory            ArtEditHistory[]
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  editHistory ArtEditHistory[]
+
+  createAt DateTime @default(now())
+  updateAt DateTime @default(now()) @updatedAt
 }
 
 model ArtEditHistory {
