@@ -93,7 +93,6 @@ const UserProfilePage = async ({ params }: PageProps) => {
 
             <Suspense fallback={<CenterLoader />}>
                 <Comments
-                    businessCard={businessCard}
                     userId={userId}
                 />
             </Suspense>

@@ -11,6 +11,6 @@ export const getUserComment = async (commentId: UserCommentId) => {
 
 export const getUserCommentsByUserId = async (userId: UserId) => {
     return await prisma.userComment.findMany({
-        where: { commentUserId: userId },
+        where: { targetUserId: userId },
     })
 }
