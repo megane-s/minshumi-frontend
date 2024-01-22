@@ -76,6 +76,8 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
         onError: { toast: "いいねを押せませんでした" },
     })
 
+    const today = new Date()
+
     if (isDeleted) return
     return (
         <div>
@@ -90,7 +92,11 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                         {commentUser?.name ?? "削除されたユーザです"}
                     </Flex>
                     <span>
-                        {"2023/12/04"}
+                        {today.getFullYear() !== comment.createAt.getFullYear() &&
+                            comment.createAt.getFullYear() + "年"
+                        }
+                        {comment.createAt.getMonth() + 1}月
+                        {comment.createAt.getDate()}日
                     </span>
                 </Flex>
 
