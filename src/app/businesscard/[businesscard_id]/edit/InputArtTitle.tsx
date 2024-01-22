@@ -3,6 +3,7 @@ import { CenterLoader } from "@/components/CenterLoader"
 import { TextInput } from "@/components/TextInput"
 import { Combobox, useCombobox } from "@mantine/core"
 import { ComponentProps, FC, ReactNode } from "react"
+import { css } from "styled-system/css"
 
 interface InputArtTitleProps extends ComponentProps<typeof Combobox> {
     title: string
@@ -37,7 +38,15 @@ export const InputArtTitle: FC<InputArtTitleProps> = ({ title, onChangeTitle, er
                     error={error}
                 />
             </Combobox.Target>
-            <Combobox.Dropdown hidden={!(suggestions.isFetching || suggestions.data?.length !== 0)}>
+            <Combobox.Dropdown
+                hidden={!(suggestions.isFetching || suggestions.data?.length !== 0)}
+                classNames={{
+                    dropdown: css({
+                        maxH: "250px",
+                        overflowY: "auto",
+                    }),
+                }}
+            >
                 <Combobox.Options>
                     {!!suggestions.data?.length && <>
                         <Combobox.Group label="🔍 もしかして ...">
