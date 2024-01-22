@@ -5,7 +5,7 @@ import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { ImageInput } from "@/components/ImageInput"
 import { TextInput } from "@/components/TextInput"
 import { User } from "next-auth"
-import { InputWrapper, Text } from "@mantine/core"
+import { Flex, InputWrapper, Text } from "@mantine/core"
 import { FC, useState } from "react"
 import { css } from "styled-system/css"
 import { center, flex } from "styled-system/patterns"
@@ -16,6 +16,7 @@ import { useMutate } from "@/util/client/useMutate"
 import MutateButton from "@/components/MutateButton"
 import { handleSaveUserSettings } from "./actions"
 import { CheckIcon } from "@/components/icon/Check"
+import { SectionTitle } from "@/components/SectionTitle"
 
 const imageSize = 80
 interface UserSettingFormProps {
@@ -69,7 +70,6 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                 className={css({ my: "md" })}
             >
                 <Carousel slideSize="fit-content" align="start" slideGap="lg">
-                    {/* TODO 0件表示 */}
                     {businessCards.map(businessCard =>
                         <CarouselSlide key={businessCard.businessCardId}>
                             <Image
@@ -95,9 +95,27 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                                     この名刺がプロフィールに表示されます
                                 </Text>
                             }
+
                         </CarouselSlide>
                     )}
+
                 </Carousel>
+                {businessCards.length === 0 &&
+                    <Flex p={1} justify={"center"}>
+                        <center>
+                            <Image
+                                src="/cat.png"
+                                alt='none'
+                                width={200}
+                                height={200}
+                            />
+                            <SectionTitle>
+                                名刺がまだ無いようです....
+                            </SectionTitle>
+
+                        </center>
+                    </Flex>
+                }
                 <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
                     <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`}>
                         名刺を作成

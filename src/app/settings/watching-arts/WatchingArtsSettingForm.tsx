@@ -5,8 +5,11 @@ import { Art } from "@/art/type"
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import LinkButton from "@/components/LinkButton"
 import { AddIcon } from "@/components/icon/AddIcon"
+import { Flex } from "@mantine/core"
 import { FC } from "react"
+import Image from "next/image"
 import { flex } from "styled-system/patterns"
+import { SectionTitle } from "@/components/SectionTitle"
 
 interface WatchingArtsSettingFormProps {
     watchingArts: Art[]
@@ -25,16 +28,40 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
                         <WatchingArtImage
                             art={art}
                             editable
+
                         />
                     </CarouselSlide>
-                )}
-                <CarouselSlide className={flex({ align: "center" })}>
-                    <LinkButton variant="outline" leftSection={<AddIcon />} href="/settings/watching-arts/new">
-                        追加
-                    </LinkButton>
-                </CarouselSlide>
-                {/* TODO 0件表示 */}
+
+                )
+
+                }
+
+
+
+
             </Carousel>
+
+            {watchingArts.length === 0 &&
+                <Flex p={1} justify={"center"} my="md">
+                    <center>
+                        <Image
+                            src="/cat.png"
+                            alt='none'
+                            width={200}
+                            height={200}
+                        />
+                        <SectionTitle my="md">
+                            今見ている作品がまだ無いようです....
+                        </SectionTitle>
+
+                    </center>
+                </Flex>
+            }
+            <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
+                <LinkButton variant="outline" leftSection={<AddIcon />} href={`/settings/watching-arts/new`}>
+                    作品を追加
+                </LinkButton>
+            </div>
         </div>
     )
 }

@@ -3,9 +3,11 @@ import React, { Suspense } from 'react';
 
 
 import { Loader } from '@/components/Loader';
-import { Center } from '@mantine/core';
+import { Center, Flex } from '@mantine/core';
 import { SearchResultList } from './SearchResultList';
 import { css } from 'styled-system/css';
+import Image from 'next/image'
+import { PageTitle } from '@/components/PageTitle';
 
 interface PageProps {
     searchParams: {
@@ -26,7 +28,22 @@ const UserSearchPage = async ({ searchParams }: PageProps) => {
                 } >
                     <SearchResultList query={query} />
                 </Suspense>
-                : <div>検索文字列を入れて下さい。</div>
+                : <div>
+                    <Flex justify="center" align="center" p={50} my="md">
+                        <center>
+                            <Image
+                                src="/cat.png"
+                                alt='none'
+                                width={200}
+                                height={400}
+                            />
+                            <PageTitle my="md">
+                                検索文字列を入れて下さい。
+                            </PageTitle>
+                        </center>
+
+                    </Flex>
+                </div>
             }
         </div>
     );

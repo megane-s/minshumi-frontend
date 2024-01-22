@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Flex } from "@mantine/core"
 import { SectionTitle } from "@/components/SectionTitle"
 import LinkButton from "@/components/LinkButton"
+import { AddIcon } from "@/components/icon/AddIcon"
 
 interface PageProps {
     params: { tag_id: string }
@@ -32,7 +33,7 @@ const TagDetailPage = async ({ params }: PageProps) => {
 
 
             {arts.length === 0 &&
-                <Flex justify="center" align="center" p={50}>
+                <Flex justify="center" align="center" p={50} my="md">
                     <center>
                         <Image
                             src="/cat.png"
@@ -40,13 +41,15 @@ const TagDetailPage = async ({ params }: PageProps) => {
                             width={200}
                             height={400}
                         />
-                        <PageTitle >
+                        <PageTitle my="md">
                             作品がまだ無いようです....
                         </PageTitle>
-                        <SectionTitle>
-                            作品を追加してみよう<LinkButton href="/art/new" variant="gradient">作品追加</LinkButton>
+                        <SectionTitle my="md">
+                            作品を追加してみよう
                         </SectionTitle>
-
+                        <LinkButton href="/art/new" leftSection={<AddIcon />} variant="gradient">
+                            作品追加
+                        </LinkButton>
                     </center>
                 </Flex>
             }
