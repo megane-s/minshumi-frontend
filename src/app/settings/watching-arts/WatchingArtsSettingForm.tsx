@@ -40,7 +40,6 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
 
 
                 </CarouselSlide>
-                {/* TODO 0件表示 */}
 
             </Carousel>
             {watchingArts.length === 0 &&
