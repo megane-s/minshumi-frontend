@@ -30,12 +30,6 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
                             editable
 
                         />
-                        <CarouselSlide className={flex({ align: "center" })}>
-
-                            <LinkButton variant="outline" leftSection={<AddIcon />} href="/settings/watching-arts/new">
-                                追加
-                            </LinkButton>
-                        </CarouselSlide>
                     </CarouselSlide>
 
                 )
