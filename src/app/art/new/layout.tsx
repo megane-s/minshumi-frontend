@@ -1,11 +1,17 @@
 import { PageTitle } from "@/components/PageTitle"
 import { ReactNode } from "react"
 import { NewArtProgressProvider } from "./NewArtProgress/provider"
+import { getSession } from "@/auth/server/auth"
+import PleaseLogin from "../[art_id]/appeal/PleaseLogin"
 
 interface PageProps {
     children: ReactNode
 }
-const NewArtLayout = ({ children }: PageProps) => {
+const NewArtLayout = async ({ children }: PageProps) => {
+    const session = await getSession()
+    if (!session) {
+        return <PleaseLogin />
+    }
     return (
         <div>
             <PageTitle my="lg">
