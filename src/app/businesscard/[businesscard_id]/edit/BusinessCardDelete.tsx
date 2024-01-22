@@ -1,17 +1,17 @@
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { FC } from "react"
+import { deleteBusinessCardAction } from "./actions";
 
 interface BusinessCardDeleteProps {
     businessCardId: string;
 }
-export const BusinessCardDelete: FC<BusinessCardDeleteProps> = () => {
+export const BusinessCardDelete: FC<BusinessCardDeleteProps> = ({ businessCardId }) => {
     const deleteBusinessCard = useMutate(async () => {
         // TODO サーバアクションを呼び出す
-        //後はここ
-        // await deleteBusinessCardAction(businessCardId)
+        await deleteBusinessCardAction(businessCardId)
     }, {
-        loading: { toast: "削除中", button: "削除してる" },
+        loading: { toast: "削除しています", button: "削除中" },
         onSuccess: { toast: "削除しました" },
         onError: { toast: "削除できませんでした" },
     })
