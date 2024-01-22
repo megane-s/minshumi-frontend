@@ -17,6 +17,7 @@ import MutateButton from "@/components/MutateButton"
 import { handleSaveUserSettings } from "./actions"
 import { CheckIcon } from "@/components/icon/Check"
 import { SectionTitle } from "@/components/SectionTitle"
+import { EditIcon } from "@/components/icon/Edit"
 
 const imageSize = 80
 interface UserSettingFormProps {
@@ -95,7 +96,11 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                                     この名刺がプロフィールに表示されます
                                 </Text>
                             }
-
+                            <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
+                                <LinkButton leftSection={<EditIcon />} href={`/businesscard/${businessCard.businessCardId}/edit`}>
+                                    名刺を編集
+                                </LinkButton>
+                            </div>
                         </CarouselSlide>
                     )}
 

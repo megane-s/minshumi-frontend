@@ -10,7 +10,8 @@ export const handleCreateBusinessCard = async (type: string) => {
         // ログインしていない場合は名刺は保存しない
         return
     }
-    const newBusinessCard = await createBusinessCard(session?.user.id ?? null, {
+
+    const newBusinessCard = await createBusinessCard(session.user.id, {
         ...defaultBusinessCard,
         name: session.user.name ?? "",
         type: String(type),

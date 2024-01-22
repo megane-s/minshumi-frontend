@@ -25,6 +25,7 @@ import { User } from "next-auth"
 import LinkButton from "@/components/LinkButton"
 import { buildImageUrlParams } from "@/businessCard/buildImageUrlParams"
 import { businessCardTypes } from "../../new/SelectType"
+import { BusinessCardDelete } from "./BusinessCardDelete"
 
 
 interface BusinessCardEditorProps {
@@ -222,6 +223,11 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                             />
                         )}
                     </InputWrapper>
+                </div>
+                <div>
+                    {businessCardId &&
+                        <BusinessCardDelete businessCardId={businessCardId}></BusinessCardDelete>
+                    }
                 </div>
             </div>
 
