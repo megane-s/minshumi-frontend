@@ -48,7 +48,7 @@ export const updateComment = async (commentId: UserCommentId, params: UpdateUser
 
 export const deleteComment = async (comment: UserComment) => {
     const session = await getSession()
-    if (!session) throw notImplementError("ログインしていないユーザによる名刺の削除「です")
+    if (!session) throw notImplementError("ログインしていないユーザによるコメントの削除です")
 
     const loginUserId = session.user.id
     if (loginUserId !== comment?.commentUserId) throw notImplementError("作成者以外はコメントを編集・削除できません")
