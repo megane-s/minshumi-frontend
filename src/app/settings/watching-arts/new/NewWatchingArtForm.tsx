@@ -10,6 +10,7 @@ import MutateButton from "@/components/MutateButton"
 import { Divider } from "@mantine/core"
 import { ArtId } from "@/art/type"
 import { Button } from "@/components/Button"
+import Link from "next/link"
 
 interface NewWatchingArtFormProps {
 }
@@ -38,8 +39,10 @@ const NewWatchingArtForm: FC<NewWatchingArtFormProps> = () => {
 
             <Divider />
 
-            <Button variant="subtle">
-                この中にない
+            <Button variant="subtle" >
+                <Link href="/art/new/detail">
+                    この中にない
+                </Link>
             </Button>
         </div>
     )
