@@ -26,7 +26,7 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
                 />
             ))}
             {searchResult.length === 0 &&
-                <Flex justify="center" align="center" p={50}>
+                <Flex justify="center" align="center" p={50} my="md">
                     <center>
                         <Image
                             src="/404-notext.png"
@@ -34,10 +34,10 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
                             width={200}
                             height={400}
                         />
-                        <PageTitle style={{ color: 'red' }}>
+                        <PageTitle my="md">
                             ユーザーの検索結果はありません
                         </PageTitle>
-                        <SectionTitle>
+                        <SectionTitle my="md">
                             検索条件を変えて検索してみてください
                         </SectionTitle>
                     </center>

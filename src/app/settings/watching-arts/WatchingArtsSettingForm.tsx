@@ -48,7 +48,7 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
             </Carousel>
 
             {watchingArts.length === 0 &&
-                <Flex p={1} justify={"center"}>
+                <Flex p={1} justify={"center"} my="md">
                     <center>
                         <Image
                             src="/cat.png"
@@ -56,7 +56,7 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
                             width={200}
                             height={200}
                         />
-                        <SectionTitle>
+                        <SectionTitle my="md">
                             今見ている作品がまだ無いようです....
                         </SectionTitle>
 

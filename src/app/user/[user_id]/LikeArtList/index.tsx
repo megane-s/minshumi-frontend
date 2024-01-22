@@ -32,7 +32,7 @@ export const LikeArtList: FC<LikeArtListProps> = async ({ userId }) => {
 
             </Carousel>
             {arts.length === 0 &&
-                <Flex p={1} justify={"space-evenly"}>
+                <Flex p={1} justify={"space-evenly"} my="md">
                     <center>
                         <Image
                             src="/cat.png"
@@ -40,7 +40,7 @@ export const LikeArtList: FC<LikeArtListProps> = async ({ userId }) => {
                             width={200}
                             height={200}
                         />
-                        <SectionTitle>
+                        <SectionTitle my="md">
                             アピール作品がまだ無いようです....
                         </SectionTitle>
 

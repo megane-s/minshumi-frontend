@@ -33,7 +33,7 @@ const AppealSettingForm: FC<AppealSettingFormProps> = ({ appeals }) => {
             </Carousel>
 
             {appeals.length === 0 &&
-                <Flex p={1} justify={"center"}>
+                <Flex p={1} justify={"center"} my="md">
                     <center>
                         <Image
                             src="/cat.png"
@@ -41,7 +41,7 @@ const AppealSettingForm: FC<AppealSettingFormProps> = ({ appeals }) => {
                             width={200}
                             height={200}
                         />
-                        <SectionTitle>
+                        <SectionTitle my="md">
                             アピール作品がまだ無いようです....
                         </SectionTitle>
 

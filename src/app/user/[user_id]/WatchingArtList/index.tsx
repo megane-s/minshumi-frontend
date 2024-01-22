@@ -19,7 +19,6 @@ export const WatchingArtList: FC<WatchingArtListProps> = async ({ userId }) => {
                 align="start"
                 controlsOffset="0"
             >
-                {/* TODO 0件の時の表示 */}
                 {arts.map(art =>
                     <CarouselSlide key={art.artId}>
                         <WatchingArtImage
@@ -29,7 +28,7 @@ export const WatchingArtList: FC<WatchingArtListProps> = async ({ userId }) => {
                 )}
             </Carousel>
             {arts.length === 0 &&
-                <Flex p={1} justify={"space-evenly"}>
+                <Flex p={1} justify={"space-evenly"} my="md">
                     <center>
                         <Image
                             src="/cat.png"
@@ -37,7 +36,7 @@ export const WatchingArtList: FC<WatchingArtListProps> = async ({ userId }) => {
                             width={200}
                             height={200}
                         />
-                        <SectionTitle>
+                        <SectionTitle my="md">
                             今見ている作品がまだ無いようです....
                         </SectionTitle>
 
