@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { SessionProvider } from "next-auth/react"
 import { Toaster } from "react-hot-toast"
 import StyleProvider from "@/style/provider"
+import { LazyMotion, domAnimation } from "framer-motion"
 
 const queryClient = new QueryClient()
 
@@ -19,7 +20,9 @@ export const Providers: FC<ProvidersProps> = ({ children }) => {
           <Toaster
             position="bottom-center"
           />
-          {children}
+          <LazyMotion features={domAnimation}>
+            {children}
+          </LazyMotion>
         </SessionProvider>
       </StyleProvider>
     </QueryClientProvider>

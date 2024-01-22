@@ -1,6 +1,6 @@
 import { getUserCommentsByUserId } from "@/user/comment/get"
 import { UserId } from "@/user/type"
-import { Divider, Flex } from "@mantine/core"
+import { Flex } from "@mantine/core"
 import { FC, Suspense } from "react"
 import { CommentForm } from "./CommentForm"
 import { CommentList } from "./CommentList"
@@ -17,7 +17,6 @@ export const Comments: FC<CommentsProps> = async ({ userId }) => {
   const comments = await getUserCommentsByUserId(userId)
   return (
     comments && <>
-      <Divider />
 
       コメント {comments.length}件
 
