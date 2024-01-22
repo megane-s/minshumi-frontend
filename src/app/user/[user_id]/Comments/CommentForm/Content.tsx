@@ -11,15 +11,17 @@ import { Loader } from "@/components/Loader"
 import { IoSendOutline } from "react-icons/io5"
 import { Button } from "@/components/Button"
 import { login } from "@/auth/client/login"
+import { UserId } from "@/user/type"
 
 interface CommentFormContentProps {
     isLogin: boolean
+    targetUserId: UserId
 }
-const CommentFormContent: FC<CommentFormContentProps> = ({ isLogin }) => {
+const CommentFormContent: FC<CommentFormContentProps> = ({ isLogin, targetUserId }) => {
     const [comment, setComment] = useState("")
     const isOkComment = comment.trim().length >= 1
     const handleClickPostButton = useMutate(async () => {
-        await postComment({ content: comment })
+        await postComment({ content: comment, targetUserId })
         setComment("")
     }, {
         onSuccess: { toast: "コメントを追加しました！" },

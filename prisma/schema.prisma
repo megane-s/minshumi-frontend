@@ -78,7 +78,8 @@ model User {
   arts                 Art[]
   RelatedArt           RelatedArt[]
   pinnedBusinessCard   BusinessCard?          @relation("pinned", fields: [pinnedBusinessCardId], references: [businessCardId])
-  comments             UserComment[]
+  targetComments       UserComment[]          @relation("target")
+  comments             UserComment[]          @relation("comment")
   commentGoodUsers     UserCommentGoodUser[]
   artEditHistory       ArtEditHistory[]
 }
@@ -86,8 +87,10 @@ model User {
 model UserComment {
   commentId     String                @id @default(cuid())
   content       String
+  targetUserId  String
+  targetUser    User                  @relation("target", fields: [targetUserId], references: [id])
   commentUserId String
-  commentUser   User                  @relation(fields: [commentUserId], references: [id])
+  commentUser   User                  @relation("comment", fields: [commentUserId], references: [id])
   goodUsers     UserCommentGoodUser[]
   createAt      DateTime              @default(now())
   updateAt      DateTime              @updatedAt

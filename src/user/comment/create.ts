@@ -7,6 +7,7 @@ export const CreateUserCommentParamsSchema = UserCommentSchema.pick({
     businessCardId: true,
     content: true,
     commentUserId: true,
+    targetUserId: true,
 })
 export type CreateUserCommentParams = z.infer<typeof CreateUserCommentParamsSchema>
 
@@ -17,7 +18,9 @@ export type CreateUserCommentParams = z.infer<typeof CreateUserCommentParamsSche
  */
 export const createUserComment = async (params: CreateUserCommentParams): Promise<UserComment> => {
     const result = await prisma.userComment.create({
-        data: params,
+        data: {
+            ...params,
+        },
     })
     return result
 }
