@@ -1,5 +1,5 @@
 import LinkButton from "@/components/LinkButton"
-import { Flex } from "@mantine/core"
+import { Divider, Flex } from "@mantine/core"
 import { notFound } from "next/navigation"
 import { getUser } from "@/user/get";
 import { getBusinessCardByUser } from "@/businessCard/getByUser";
@@ -90,6 +90,8 @@ const UserProfilePage = async ({ params }: PageProps) => {
             <Suspense fallback={<Loader />}>
                 <WatchingArtList userId={userId} />
             </Suspense>
+
+            <Divider my="lg" />
 
             <Suspense fallback={<CenterLoader />}>
                 <Comments

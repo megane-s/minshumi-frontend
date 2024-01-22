@@ -1,7 +1,7 @@
 import { BusinessCard } from "@/businessCard/type"
 import { getUserCommentsByUserId } from "@/user/comment/get"
 import { UserId } from "@/user/type"
-import { Divider, Flex } from "@mantine/core"
+import { Flex } from "@mantine/core"
 import { FC, Suspense } from "react"
 import { CommentForm } from "./CommentForm"
 import { CommentList } from "./CommentList"
@@ -19,7 +19,6 @@ export const Comments: FC<CommentsProps> = async ({ userId, businessCard }) => {
   const comments = businessCard && await getUserCommentsByUserId(userId)
   return (
     comments && <>
-      <Divider />
 
       コメント {comments.length}件
 
