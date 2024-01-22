@@ -20,7 +20,7 @@ export const SessionScalarFieldEnumSchema = z.enum(['id','sessionToken','userId'
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','email','emailVerified','image','pinnedBusinessCardId']);
 
-export const UserCommentScalarFieldEnumSchema = z.enum(['commentId','content','commentUserId','createAt','updateAt']);
+export const UserCommentScalarFieldEnumSchema = z.enum(['commentId','content','targetUserId','commentUserId','createAt','updateAt']);
 
 export const UserCommentGoodUserScalarFieldEnumSchema = z.enum(['commentId','goodUserId']);
 
@@ -155,6 +155,7 @@ export type User = z.infer<typeof UserSchema>
 export const UserCommentSchema = z.object({
   commentId: z.string().cuid(),
   content: z.string(),
+  targetUserId: z.string(),
   commentUserId: z.string(),
   createAt: z.coerce.date(),
   updateAt: z.coerce.date(),
