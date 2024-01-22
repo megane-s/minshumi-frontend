@@ -16,6 +16,7 @@ interface TopNewsProps {
 }
 export const TopNews: FC<TopNewsProps> = () => {
     const clientRendered = useClientRendered()
+
     const isMobile = useMediaQuery(`(max-width: ${em(750)})`)
     return (
         <Carousel
@@ -62,7 +63,7 @@ export const TopNews: FC<TopNewsProps> = () => {
                 </Link>
             </CarouselSlide>
             <CarouselSlide>
-                <Link href="/notification#recommendations">
+                <Link href="/businesscard/new">
                     <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
                         <Image
                             src="/top_panel_2_lg.png"
