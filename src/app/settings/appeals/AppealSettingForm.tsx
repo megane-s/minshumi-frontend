@@ -4,6 +4,10 @@ import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { FC } from "react"
 import Image from "next/image"
 import { Flex } from "@mantine/core"
+import { SectionTitle } from "@/components/SectionTitle"
+import LinkButton from "@/components/LinkButton"
+import { AddIcon } from "@/components/icon/AddIcon"
+import { flex } from "styled-system/patterns"
 
 interface AppealSettingFormProps {
     appeals: ArtAppeal[]
@@ -37,13 +41,18 @@ const AppealSettingForm: FC<AppealSettingFormProps> = ({ appeals }) => {
                             width={200}
                             height={200}
                         />
-                        <p >
+                        <SectionTitle>
                             アピール作品がまだ無いようです....
-                        </p>
+                        </SectionTitle>
 
                     </center>
                 </Flex>
             }
+            <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
+                <LinkButton variant="outline" leftSection={<AddIcon />} href={`/search/art`}>
+                    アピール作品を探す
+                </LinkButton>
+            </div>
         </div>
     )
 }

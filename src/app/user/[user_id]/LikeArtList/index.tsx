@@ -5,6 +5,7 @@ import { getArtAppealsByUser } from "@/art/appeal/getByUser"
 import { UserId } from "@/user/type"
 import { Flex } from "@mantine/core"
 import Image from "next/image";
+import { SectionTitle } from "@/components/SectionTitle"
 
 interface LikeArtListProps {
     userId: UserId
@@ -12,21 +13,24 @@ interface LikeArtListProps {
 export const LikeArtList: FC<LikeArtListProps> = async ({ userId }) => {
     const arts = await getArtAppealsByUser(userId)
     return (
+        <div>
+            <Carousel
+                slideSize="fit-content"
+                slideGap="sm"
+                align="start"
+                controlsOffset="0"
+            >
 
-        <Carousel
-            slideSize="fit-content"
-            slideGap="sm"
-            align="start"
-            controlsOffset="0"
-        >
+                {arts.map(art =>
+                    <CarouselSlide key={art.artId}>
+                        <LikeArtImage
+                            art={art}
+                        />
+                    </CarouselSlide>
+                )}
 
-            {arts.map(art =>
-                <CarouselSlide key={art.artId}>
-                    <LikeArtImage
-                        art={art}
-                    />
-                </CarouselSlide>
-            )}
+
+            </Carousel>
             {arts.length === 0 &&
                 <Flex p={1} justify={"space-evenly"}>
                     <center>
@@ -36,15 +40,13 @@ export const LikeArtList: FC<LikeArtListProps> = async ({ userId }) => {
                             width={200}
                             height={200}
                         />
-                        <p >
+                        <SectionTitle>
                             アピール作品がまだ無いようです....
-                        </p>
+                        </SectionTitle>
 
                     </center>
                 </Flex>
             }
-
-        </Carousel>
-
+        </div>
     )
 }

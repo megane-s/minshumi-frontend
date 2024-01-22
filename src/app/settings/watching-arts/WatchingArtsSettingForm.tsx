@@ -9,6 +9,7 @@ import { Flex } from "@mantine/core"
 import { FC } from "react"
 import Image from "next/image"
 import { flex } from "styled-system/patterns"
+import { SectionTitle } from "@/components/SectionTitle"
 
 interface WatchingArtsSettingFormProps {
     watchingArts: Art[]
@@ -29,19 +30,23 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
                             editable
 
                         />
-                        <LinkButton variant="outline" leftSection={<AddIcon />} href="/settings/watching-arts/new">
-                            追加
-                        </LinkButton>
+                        <CarouselSlide className={flex({ align: "center" })}>
+
+                            <LinkButton variant="outline" leftSection={<AddIcon />} href="/settings/watching-arts/new">
+                                追加
+                            </LinkButton>
+                        </CarouselSlide>
                     </CarouselSlide>
 
-                )}
+                )
 
-                <CarouselSlide className={flex({ align: "center" })}>
+                }
 
 
-                </CarouselSlide>
+
 
             </Carousel>
+
             {watchingArts.length === 0 &&
                 <Flex p={1} justify={"center"}>
                     <center>
@@ -51,15 +56,18 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
                             width={200}
                             height={200}
                         />
-                        <p >
-                            今見ている作品がまだ無いようです....                        <LinkButton variant="outline" leftSection={<AddIcon />} href="/settings/watching-arts/new">
-                                追加
-                            </LinkButton>
-                        </p>
+                        <SectionTitle>
+                            今見ている作品がまだ無いようです....
+                        </SectionTitle>
 
                     </center>
                 </Flex>
             }
+            <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
+                <LinkButton variant="outline" leftSection={<AddIcon />} href={`/settings/watching-arts/new`}>
+                    作品を追加
+                </LinkButton>
+            </div>
         </div>
     )
 }

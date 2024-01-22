@@ -16,6 +16,7 @@ import { useMutate } from "@/util/client/useMutate"
 import MutateButton from "@/components/MutateButton"
 import { handleSaveUserSettings } from "./actions"
 import { CheckIcon } from "@/components/icon/Check"
+import { SectionTitle } from "@/components/SectionTitle"
 
 const imageSize = 80
 interface UserSettingFormProps {
@@ -108,9 +109,9 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                                 width={200}
                                 height={200}
                             />
-                            <p >
+                            <SectionTitle>
                                 名刺がまだ無いようです....
-                            </p>
+                            </SectionTitle>
 
                         </center>
                     </Flex>
