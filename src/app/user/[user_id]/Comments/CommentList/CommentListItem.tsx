@@ -92,7 +92,11 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                         {commentUser?.name ?? "削除されたユーザです"}
                     </Flex>
                     <span>
-                        `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+                        {today.getFullYear() !== comment.createAt.getFullYear() &&
+                            comment.createAt.getFullYear() + "年"
+                        }
+                        {comment.createAt.getMonth() + 1}月
+                        {comment.createAt.getDate()}日
                     </span>
                 </Flex>
 
