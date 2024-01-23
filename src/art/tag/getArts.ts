@@ -20,3 +20,10 @@ export const getArtsWithTag = async (tag: ArtTag): Promise<Art[]> => {
         result.art
     )
 }
+
+export const getTagArtsCount = async (tag: ArtTag) => {
+    const results = await prisma.artTag.count({
+        where: { tag },
+    })
+    return results
+}

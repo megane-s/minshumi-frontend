@@ -3,6 +3,12 @@ import { ReactNode } from "react"
 import { NewArtProgressProvider } from "./NewArtProgress/provider"
 import { getSession } from "@/auth/server/auth"
 import PleaseLogin from "../[art_id]/appeal/PleaseLogin"
+import { Metadata } from "next"
+import { getMetadata } from "@/seo/getMetadata"
+
+export const metadata: Metadata = getMetadata({
+    title: "作品の登録 | みんしゅみ",
+})
 
 interface PageProps {
     children: ReactNode

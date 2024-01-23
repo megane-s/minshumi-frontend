@@ -9,6 +9,16 @@ import "./style.css"
 import { getArtAppealsByUser } from "@/art/appeal/getByUser"
 import { getBusinessCardInterestTags } from "@/businessCard/getInterestTags"
 import { getBusinessCardLikeArts } from "@/businessCard/getLikeArts"
+import { getMetadata } from "@/seo/getMetadata"
+
+export async function generateMetadata({ params: { businesscard_id } }: { params: { businesscard_id: string } }) {
+    const businesscard = await getBusinessCardById(businesscard_id)
+    if (!businesscard) notFound()
+    return getMetadata({
+        title: `${businesscard.name}の名刺 | みんしゅみ`,
+        image: businesscard.imageUrl,
+    })
+}
 
 const defaultInstantBusinesscardTags = ["アクション", "SF"]
 const defaultInstantBusinesscardArts = ["作品1", "作品2", "作品3"]

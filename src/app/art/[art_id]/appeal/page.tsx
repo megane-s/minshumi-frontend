@@ -8,6 +8,17 @@ import { PageTitle } from "@/components/PageTitle"
 import { getArt } from "@/art/get"
 import { css } from "styled-system/css"
 import { RelatedArt } from "@/art/type"
+import { getMetadata } from "@/seo/getMetadata"
+
+export async function generateMetadata({ params: { art_id } }: { params: { art_id: string } }) {
+    const art = await getArt(art_id)
+    if (!art) notFound()
+    return getMetadata({
+        title: `${art.title}のアピール | みんしゅみ`,
+        description: `${art.description}`,
+        image: art.imageUrl,
+    })
+}
 
 interface Props {
     params: { art_id: string }

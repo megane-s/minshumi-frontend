@@ -5,6 +5,12 @@ import { Center, Stack, Text } from "@mantine/core"
 import LoginButton from "./LoginButton"
 import AlreadyLoginedAlert from "./AlreadyLoginedAlert"
 import { css } from "styled-system/css"
+import { Metadata } from "next"
+import { getMetadata } from "@/seo/getMetadata"
+
+export const metadata: Metadata = getMetadata({
+    title: "ログイン | みんしゅみ",
+})
 
 const LoginPage = async () => {
     return (
