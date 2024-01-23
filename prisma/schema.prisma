@@ -94,6 +94,8 @@ model UserComment {
   goodUsers     UserCommentGoodUser[]
   createAt      DateTime              @default(now())
   updateAt      DateTime              @updatedAt
+
+  @@index([targetUserId])
 }
 
 model UserCommentGoodUser {
@@ -120,6 +122,8 @@ model Follower {
   follower   User   @relation("followings", fields: [followerId], references: [id])
 
   @@id([userId, followerId])
+  @@index([userId])
+  @@index([followerId])
 }
 
 model BlockUser {
@@ -241,7 +245,11 @@ model RelatedArt {
   art          Art            @relation("art", fields: [artId], references: [artId], onDelete: Cascade)
   relatedArt   Art            @relation("relatedArt", fields: [relatedArtId], references: [artId], onDelete: Cascade)
 
-  @@id([artId, relatedArtId])
+  // TODO index([artId, relatedArtId])
+
+  @@id([artId, relatedArtId]) // TODO userIdを追加
+  @@index([artId, userId])
+  @@index([artId])
 }
 
 enum RelatedArtType {
@@ -256,6 +264,7 @@ model ArtTag {
   art     Art        @relation(fields: [artId], references: [artId], onDelete: Cascade)
 
   @@id([artId, tag])
+  @@index([artId])
 }
 
 enum ArtTagType {
@@ -271,6 +280,7 @@ model InterestTag {
   user   User   @relation(fields: [userId], references: [id])
 
   @@id([userId, tag])
+  @@index([userId])
 }
 
 model ArtGoodUser {
@@ -281,6 +291,8 @@ model ArtGoodUser {
   user     User   @relation(fields: [userId], references: [id])
 
   @@id([artId, userId])
+  @@index([artId])
+  @@index([userId])
 }
 
 model ArtAppeal {
@@ -291,6 +303,8 @@ model ArtAppeal {
   art       Art    @relation(fields: [artId], references: [artId], onDelete: Cascade)
 
   @@id([userId, artId])
+  @@index([userId])
+  @@index([artId])
 }
 
 model WatchingArt {
@@ -300,6 +314,7 @@ model WatchingArt {
   art    Art    @relation(fields: [artId], references: [artId], onDelete: Cascade)
 
   @@id([userId, artId])
+  @@index([userId])
 }
 
 model BookmarkArt {
@@ -329,6 +344,8 @@ model BusinessCard {
   interestTags       BusinessCardInterestTag[]
   goodUsers          BusinessCardGoodUser[]
   pinned             User?                     @relation("pinned")
+
+  @@index([userId])
 }
 
 model BusinessCardLikeArt {
@@ -340,6 +357,7 @@ model BusinessCardLikeArt {
   artArtId       String?
 
   @@id([businessCardId, no])
+  @@index([businessCardId])
 }
 
 model BusinessCardInterestTag {
@@ -349,6 +367,7 @@ model BusinessCardInterestTag {
   BusinessCard BusinessCard @relation(fields: [businessCardId], references: [businessCardId], onDelete: Cascade)
 
   @@id([businessCardId, tag])
+  @@index([businessCardId])
 }
 
 model BusinessCardGoodUser {
@@ -368,4 +387,7 @@ model Notification {
   content        String
   type           String
   user           User   @relation(fields: [userId], references: [id])
+
+  @@index([userId, type, content])
+  @@index([userId])
 }
