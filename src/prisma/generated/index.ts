@@ -32,7 +32,7 @@ export const BlockUserScalarFieldEnumSchema = z.enum(['userId','blockUserId']);
 
 export const UserRankScalarFieldEnumSchema = z.enum(['userId','rank']);
 
-export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl','description','searchId','userId','createAt','updateAt']);
+export const ArtScalarFieldEnumSchema = z.enum(['artId','title','imageUrl','description','recommendId','userId','createAt','updateAt']);
 
 export const ArtEditHistoryScalarFieldEnumSchema = z.enum(['artId','updateAt','updateUserId']);
 
@@ -228,7 +228,7 @@ export const ArtSchema = z.object({
   title: z.string(),
   imageUrl: z.string(),
   description: z.string(),
-  searchId: z.number().int().nullable(),
+  recommendId: z.number().int().nullable(),
   userId: z.string().nullable(),
   createAt: z.coerce.date(),
   updateAt: z.coerce.date(),
