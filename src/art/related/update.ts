@@ -34,7 +34,8 @@ export const updateRelatedArt = async (artId: ArtId, by: UserId, { prevArts, nex
         await Promise.all(relatedArtModels.map(async (relatedArtModel) => {
             await prisma.relatedArt.upsert({
                 where: {
-                    artId_relatedArtId: {
+                    userId_artId_relatedArtId: {
+                        userId: by,
                         artId: relatedArtModel.artId,
                         relatedArtId: relatedArtModel.relatedArtId,
                     }
