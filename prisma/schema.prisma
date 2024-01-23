@@ -247,7 +247,7 @@ model RelatedArt {
 
   // TODO index([artId, relatedArtId])
 
-  @@id([artId, relatedArtId]) // TODO userIdを追加
+  @@id([userId, artId, relatedArtId]) // TODO userIdを追加
   @@index([artId, userId])
   @@index([artId])
 }
