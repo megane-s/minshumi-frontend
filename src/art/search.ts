@@ -1,8 +1,8 @@
-import { prisma } from "@/prisma"
-import { notImplementWarn } from "@/util/notImplement"
-import { sleep } from "@/util/sleep"
+import { searchApiClient } from "@/search/client"
+import { notImplementError } from "@/util/notImplement"
 import { cache } from "react"
 import "server-only"
+import { getArt } from "./get"
 import { Art } from "./type"
 
 /**
@@ -12,7 +12,16 @@ import { Art } from "./type"
  * @returns 検索結果の作品一覧。
  */
 export const searchArt = cache(async (query: string): Promise<Art[]> => {
-    notImplementWarn(`searchArt(${query}) はまだ実装されていません。現状はからの配列を返します。`)
-    await sleep(2000)
-    return (await prisma.art.findMany({ take: 20 })).filter(() => Math.random() >= 0.8)
+    const artIds = await searchApiClient.GET("/search/art", {
+        params: {
+            query: { q: query },
+        },
+    }).then(r => r.data)
+    if (!artIds) {
+        throw notImplementError("検索サーバのエラー")
+    }
+    const arts = await Promise.all(
+        artIds.map(artId => getArt(artId))
+    )
+    return arts.filter((art): art is Art => !!art)
 })
