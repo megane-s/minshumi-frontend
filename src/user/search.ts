@@ -1,8 +1,9 @@
-import { notImplementWarn } from "@/util/notImplement"
+import { searchApiClient } from "@/search/client"
+import { notImplementError } from "@/util/notImplement"
+import { cache } from "react"
 import "server-only"
+import { getUser } from "./get"
 import { User } from "./type"
-import { sleep } from "@/util/sleep"
-import { prisma } from "@/prisma"
 
 /**
  * 未実装。
@@ -10,9 +11,21 @@ import { prisma } from "@/prisma"
  * @param query 検索ワード。
  * @returns 検索結果のユーザ一覧。
  */
-export const searchUser = async (query: string): Promise<User[]> => {
-    notImplementWarn(`searchUser(${query}) はまだ実装されていません。現状はからの配列を返します。`)
-    await sleep(2000)
-    return (await prisma.user.findMany()).filter(() => Math.random() >= 0.8)
-}
+export const searchUser = cache(async (query: string): Promise<User[]> => {
+    const userIds = await searchApiClient.GET("/search/user", {
+        params: {
+            query: { q: query },
+        },
+    }).then(r => r.data)
+    if (!userIds) {
+        throw notImplementError("検索サーバのエラー")
+    }
+    console.log("query", query)
+    console.log("userIds", userIds)
+    const users = await Promise.all(
+        userIds.map(userId => getUser(userId))
+    )
+    return users.filter((user): user is User => !!user)
+})
+
 
