@@ -11,6 +11,15 @@ import { ArrowLeftIcon } from "@/components/icon/ArrowLeft"
 import { BackButton } from "@/components/BackLink"
 import { getUser } from "@/user/get"
 import { notImplementError } from "@/util/notImplement"
+import { getMetadata } from "@/seo/getMetadata"
+
+export async function generateMetadata({ params: { businesscard_id } }: { params: { businesscard_id: string } }) {
+    const businesscard = await getBusinessCardById(businesscard_id)
+    if (!businesscard) notFound()
+    return getMetadata({
+        image: businesscard.imageUrl,
+    })
+}
 
 interface PageProps {
     params: { businesscard_id: string }

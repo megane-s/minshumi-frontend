@@ -18,6 +18,18 @@ import { FollowInfo } from "./FollowInfo";
 import { UserId } from "@/user/type";
 import { UserProfilePrimaryButton } from "./UserProfilePrimaryButton";
 import { EditWatchingButton } from "./EditWatchingButton";
+import { getMetadata } from "@/seo/getMetadata";
+
+export async function generateMetadata({ params: { user_id } }: { params: { user_id: string } }) {
+    const user = await getUser(user_id)
+
+    if (!user) notFound()
+
+    return getMetadata({
+        title: `${user.name ?? "無名のユーザ"} | みんしゅみ`,
+        image: user.image ?? "https://storage.googleapis.com/minshumi-user-content/logo-square-1080x1080.png",
+    })
+}
 
 interface PageProps {
     params: { user_id: string }

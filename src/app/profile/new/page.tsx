@@ -2,6 +2,12 @@ import { PageTitle } from "@/components/PageTitle"
 import { FirstRegisterTagsForm } from "./FirstRegisterTagsForm"
 import { getSession } from "@/auth/server/auth"
 import { redirect } from "next/navigation"
+import { Metadata } from "next"
+import { getMetadata } from "@/seo/getMetadata"
+
+export const metadata: Metadata = getMetadata({
+    title: "新規登録 | みんしゅみ",
+})
 
 export const dynamic = "force-dynamic"
 

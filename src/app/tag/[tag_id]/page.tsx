@@ -1,5 +1,5 @@
 //タグごとの作品一覧
-import { getArtsWithTag } from "@/art/tag/getArts"
+import { getArtsWithTag, getTagArtsCount } from "@/art/tag/getArts"
 import { ArtListItem } from "./ArtListItem"
 import { PageTitle } from "@/components/PageTitle"
 import Image from 'next/image'
@@ -7,6 +7,19 @@ import { Flex } from "@mantine/core"
 import { SectionTitle } from "@/components/SectionTitle"
 import LinkButton from "@/components/LinkButton"
 import { AddIcon } from "@/components/icon/AddIcon"
+import { getMetadata } from "@/seo/getMetadata"
+
+export async function generateMetadata({ params: { tag_id } }: { params: { tag_id: string } }) {
+    const tag = decodeURI(tag_id)
+
+    const artsCount = await getTagArtsCount(tag)
+
+    return getMetadata({
+        title: `${tag} | みんしゅみ`,
+        description: `${artsCount}件の作品が登録されています。`,
+        // image: arts.imageUrl, // TODO 出来たら動的画像を生成したい
+    })
+}
 
 interface PageProps {
     params: { tag_id: string }

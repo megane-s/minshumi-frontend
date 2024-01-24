@@ -1,42 +1,17 @@
-"use client"
-
-import SearchBar from "@/components/SearchBar"
-import { Space, Tabs } from "@mantine/core"
-import Link from "next/link"
-import { useSelectedLayoutSegment } from "next/navigation"
 import { ReactNode } from "react"
-import { MdStarBorder } from "react-icons/md";
-import { LiaGrinStarsSolid } from "react-icons/lia";
-import { css } from "styled-system/css"
+import { getMetadata } from "@/seo/getMetadata"
+import { Metadata } from "next"
+
+export const metadata: Metadata = getMetadata({
+    title: "作品、ユーザー検索 | みんしゅみ",
+})
 
 interface PageProps {
     children: ReactNode
 }
-const SaearchLayout = ({ children }: PageProps) => {
-    const segment = useSelectedLayoutSegment() as "art" | "user"
+const SearchLayout = ({ children }: PageProps) => {
     return (
-        <div>
-            <SearchBar
-                type={segment}
-            />
-            <Tabs variant="default" radius="md" value={segment}>
-                <Tabs.List justify="center">
-                    <Link href="/search/art">
-                        <Tabs.Tab value="art" leftSection={<MdStarBorder />} className={css({ fontSize: "16px" })} >
-                            作品
-                        </Tabs.Tab>
-                    </Link>
-                    <Space w="1rem" />
-                    <Link href="/search/user">
-                        <Tabs.Tab value="user" leftSection={<LiaGrinStarsSolid />} className={css({ fontSize: "16px" })}>
-                            ユーザー
-                        </Tabs.Tab>
-                    </Link>
-                </Tabs.List>
-            </Tabs>
-
-            {children}
-        </div>
+        children
     )
 }
-export default SaearchLayout
+export default SearchLayout
