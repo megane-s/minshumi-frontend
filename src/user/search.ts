@@ -12,18 +12,20 @@ import { User } from "./type"
  * @returns 検索結果のユーザ一覧。
  */
 export const searchUser = cache(async (query: string): Promise<User[]> => {
-    const artIds = await searchApiClient.GET("/search/art", {
+    const userIds = await searchApiClient.GET("/search/user", {
         params: {
             query: { q: query },
         },
     }).then(r => r.data)
-    if (!artIds) {
+    if (!userIds) {
         throw notImplementError("検索サーバのエラー")
     }
-    const arts = await Promise.all(
-        artIds.map(artId => getUser(artId))
+    console.log("query", query)
+    console.log("userIds", userIds)
+    const users = await Promise.all(
+        userIds.map(userId => getUser(userId))
     )
-    return arts.filter((art): art is User => !!art)
+    return users.filter((user): user is User => !!user)
 })
 
 
