@@ -20,13 +20,16 @@ const Footer: FC<FooterProps> = () => {
         >
             <Flex justify="space-between" component={Container}>
                 <div>
-                    <Image
-                        src={LogoImage}
-                        alt="みんしゅみ"
-                        width={150}
-                        height={100}
-                        style={{ objectFit: "contain", width: 120, height: "auto" }}
-                    />
+                    <Link href={"/"}>
+                        <Image
+                            src={LogoImage}
+                            alt="みんしゅみ"
+                            width={150}
+                            height={100}
+                            style={{ objectFit: "contain", width: 120, height: "auto" }}
+
+                        />
+                    </Link>
                 </div>
                 <div>
                     <Stack align="flex-end" ta="end">

@@ -11,6 +11,7 @@ import { NotificationIcon } from "@/components/icon/Notification"
 import { LoginButton } from "@/components/LoginButton"
 import Image from "next/image"
 import LogoImage from "@/../public/logo-rect.png"
+import Link from "next/link"
 
 interface HeaderProps {
 }
@@ -25,13 +26,15 @@ const Header: FC<HeaderProps> = async () => {
                         priority: true,
                     }}
                 /> */}
-                <Image
-                    src={LogoImage}
-                    alt="みんしゅみ"
-                    width={100}
-                    height={50}
-                    style={{ height: "100%" }}
-                />
+                <Link href={"/"}>
+                    <Image
+                        src={LogoImage}
+                        alt="みんしゅみ"
+                        width={100}
+                        height={50}
+                        style={{ height: "100%" }}
+                    />
+                </Link>
                 <Flex align="center">
                     {session
                         ? <>
