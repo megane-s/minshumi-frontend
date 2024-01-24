@@ -27,14 +27,18 @@ const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = () => {
                 opened={opened}
                 onClose={close}
                 title={
-                    <Image
-                        src={LogoImage}
-                        alt="みんしゅみ"
-                        width={150}
-                        height={100}
-                        style={{ objectFit: "contain" }}
-                    />
+                    <Link href={"/"}>
+                        <Image
+                            src={LogoImage}
+                            alt="みんしゅみ"
+                            width={150}
+                            height={100}
+                            style={{ objectFit: "contain" }}
+                        />
+                    </Link>
+
                 }
+
             >
                 {tags.map(tag =>
                     <NavLink
