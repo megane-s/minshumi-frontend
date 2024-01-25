@@ -17,7 +17,7 @@ import { User } from "next-auth"
 import { DeleteConfirmCommentDialog } from "../DeleteConfirmCommentDialog"
 import { css } from "styled-system/css"
 import { UserComment } from "@/user/comment/type"
-import Link from "next/link"
+import { Link } from "@/components/Link"
 
 interface CommentListItemProps {
     comment: UserComment
