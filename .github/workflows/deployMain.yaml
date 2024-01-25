@@ -66,6 +66,7 @@ jobs:
             --set-env-vars "NEXTAUTH_URL=https://minshumi.com" \
             --allow-unauthenticated \
             --service-account=minshumi-frontend-prod-service@megane-s-gcp.iam.gserviceaccount.com \
+            --memory=1024Mi \
           &>> ./deploy.log
       - name: Send Deploy Log to Cloud Storage
         id: send-deploy-log
