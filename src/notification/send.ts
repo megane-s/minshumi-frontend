@@ -12,6 +12,7 @@ export const SendGoodCommentNotificationParamsSchema = z.object({
 export type SendGoodCommentNotificationParams = z.infer<typeof SendGoodCommentNotificationParamsSchema>
 
 export const sendGoodCommentNotification = async (params: SendGoodCommentNotificationParams): Promise<void> => {
+    if (params.targetUserId === params.sendUserId) return // 自分自身によるコメントのいいねは通知しない
     await prisma.notification.create({
         data: {
             type: "user-comment-good",
@@ -32,6 +33,7 @@ export const SendCommentNotificationParamsSchema = z.object({
 export type SendCommentNotificationParams = z.infer<typeof SendCommentNotificationParamsSchema>
 
 export const sendCommentNotification = async (params: SendCommentNotificationParams) => {
+    if (params.targetUserId === params.commentUserId) return // 自分自身によるコメントは通知しない
     await prisma.notification.create({
         data: {
             type: "comment",
@@ -51,6 +53,7 @@ export const SendFollowNotificationSchema = z.object({
 export type SendFollowNotification = z.infer<typeof SendFollowNotificationSchema>
 
 export const sendFollowNotification = async (params: SendFollowNotification) => {
+    if (params.targetUserId === params.followByUserId) return // 自分自身によるフォローは通知しない
     await prisma.notification.create({
         data: {
             type: "follow",
