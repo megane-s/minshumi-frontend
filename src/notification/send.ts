@@ -43,3 +43,19 @@ export const sendCommentNotification = async (params: SendCommentNotificationPar
         },
     })
 }
+
+export const SendFollowNotificationSchema = z.object({
+    targetUserId: UserIdSchema,
+    followByUserId: UserIdSchema,
+})
+export type SendFollowNotification = z.infer<typeof SendFollowNotificationSchema>
+
+export const sendFollowNotification = async (params: SendFollowNotification) => {
+    await prisma.notification.create({
+        data: {
+            type: "follow",
+            content: params.followByUserId,
+            userId: params.targetUserId,
+        },
+    })
+}
