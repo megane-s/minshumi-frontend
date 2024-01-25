@@ -11,10 +11,12 @@ export const handleCreateBusinessCard = async (type: string) => {
         return
     }
 
+    const defaults = getDefaultBusinessCard()
     const newBusinessCard = await createBusinessCard(session.user.id, {
-        ...getDefaultBusinessCard(),
+        ...defaults,
         name: session.user.name ?? "",
         type: String(type),
+        imageUrl: session.user.image ?? defaults.imageUrl,
     })
     return newBusinessCard
 }
