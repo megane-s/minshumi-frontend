@@ -1,10 +1,9 @@
 import PleaseLogin from "@/app/art/[art_id]/appeal/PleaseLogin"
 import { getNotifications } from "@/notification/get"
-import { getSession } from "next-auth/react"
+import { NotificationItem } from "../NotificationItem"
+import { getSession } from "@/auth/server/auth"
 
-interface PageProps {
-}
-const pagePage = async ({ }: PageProps) => {
+const RecommendationNotificationPage = async () => {
     const session = await getSession()
     if (!session) return <PleaseLogin />
     const { recommends } = await getNotifications(session.user.id, {
@@ -13,8 +12,13 @@ const pagePage = async ({ }: PageProps) => {
     })
     return (
         <div>
-
+            {recommends.map(recommend =>
+                <NotificationItem
+                    key={recommend.notificationId}
+                    notification={recommend}
+                />
+            )}
         </div>
     )
 }
-export default pagePage
+export default RecommendationNotificationPage
