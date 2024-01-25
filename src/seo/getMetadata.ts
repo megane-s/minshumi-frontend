@@ -3,7 +3,7 @@ import { Metadata } from "next"
 export const getMetadata = ({
     title = "みんしゅみ",
     description = "みんなの趣味部屋です。",
-    image,
+    image = "https://minshumi.com/logo-rect.png",
     twitter,
 }: Partial<{
     title: string
