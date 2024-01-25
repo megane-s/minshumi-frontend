@@ -388,6 +388,9 @@ model Notification {
   type           String
   user           User   @relation(fields: [userId], references: [id])
 
+  createAt DateTime @default(now())
+  updateAt DateTime @default(now()) @updatedAt
+
   @@index([userId, type, content])
   @@index([userId])
 }
