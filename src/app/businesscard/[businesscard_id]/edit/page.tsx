@@ -13,6 +13,9 @@ import { getMetadata } from "@/seo/getMetadata"
 import { getDefaultBusinessCard } from "@/businessCard/defaults"
 
 export async function generateMetadata({ params: { businesscard_id } }: { params: { businesscard_id: string } }) {
+    if (businesscard_id === "instant") {
+        return getMetadata()
+    }
     const businesscard = await getBusinessCardById(businesscard_id)
     if (!businesscard) notFound()
     return getMetadata({

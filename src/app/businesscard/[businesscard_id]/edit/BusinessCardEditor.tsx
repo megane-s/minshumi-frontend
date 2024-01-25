@@ -20,13 +20,14 @@ import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { handleSaveBusinessCard } from "./actions"
 import { useRouter } from "next/navigation"
-import { defaultBusinessCard } from "@/businessCard/defaults"
+import { getDefaultBusinessCard } from "@/businessCard/defaults"
 import { User } from "next-auth"
 import LinkButton from "@/components/LinkButton"
 import { buildImageUrlParams } from "@/businessCard/buildImageUrlParams"
 import { businessCardTypes } from "../../new/SelectType"
 import { BusinessCardDelete } from "./BusinessCardDelete"
 
+const defaultBusinessCard = getDefaultBusinessCard()
 
 interface BusinessCardEditorProps {
     user: User | null
