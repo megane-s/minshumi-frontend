@@ -17,6 +17,7 @@ import { User } from "next-auth"
 import { DeleteConfirmCommentDialog } from "../DeleteConfirmCommentDialog"
 import { css } from "styled-system/css"
 import { UserComment } from "@/user/comment/type"
+import { Link } from "@/components/Link"
 
 interface CommentListItemProps {
     comment: UserComment
@@ -83,14 +84,19 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
         <div>
             <div className={css({ py: "md" })}>
                 <Flex justify="space-between" gap="xs" align="center">
-                    <Flex gap="xs" className={`${css({ flexGrow: 1, flexShrink: 1 })}`}>
-                        <Avatar
-                            src={commentUser?.image}
-                            alt={commentUser?.name ?? "コメントしたユーザ"}
-                            className={css({ borderRadius: "9999px" })}
-                        />
-                        {commentUser?.name ?? "削除されたユーザです"}
-                    </Flex>
+                    <Link
+                        href={`/user/${commentUser?.id}`}
+                        className={css({ color: "inherit", textDecoration: "inherit" })}
+                    >
+                        <Flex gap="xs" className={`${css({ flexGrow: 1, flexShrink: 1 })}`}>
+                            <Avatar
+                                src={commentUser?.image}
+                                alt={commentUser?.name ?? "コメントしたユーザ"}
+                                className={css({ borderRadius: "9999px" })}
+                            />
+                            {commentUser?.name ?? "削除されたユーザです"}
+                        </Flex>
+                    </Link>
                     <span>
                         {today.getFullYear() !== comment.createAt.getFullYear() &&
                             comment.createAt.getFullYear() + "年"
