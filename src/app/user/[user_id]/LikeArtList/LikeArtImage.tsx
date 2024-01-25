@@ -26,6 +26,7 @@ export const LikeArtImage: FC<LikeArtImageProps> = ({ art, editable = false }) =
                         minW: "fit-content",
                         maxW: "fit-content",
                         height: 100,
+                        _hover: { cursor: "pointer" },
                     })}
                     onClick={() => dialog.onOpen()}
                 />
