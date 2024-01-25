@@ -27,7 +27,7 @@ const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = () => {
                 opened={opened}
                 onClose={close}
                 title={
-                    <Link href={"/"}>
+                    <Link href={"/"} onClick={close}>
                         <Image
                             src={LogoImage}
                             alt="みんしゅみ"
