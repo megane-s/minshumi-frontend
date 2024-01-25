@@ -19,6 +19,7 @@ import { UserProfilePrimaryButton } from "./UserProfilePrimaryButton";
 import { EditWatchingButton } from "./EditWatchingButton";
 import { getMetadata } from "@/seo/getMetadata";
 import ProfileBusinessCard, { ProfileBusinessCardPlaceholder } from "./ProfileBusinessCard";
+import { flex } from "styled-system/patterns";
 
 export async function generateMetadata({ params: { user_id } }: { params: { user_id: string } }) {
     const user = await getUser(user_id)
@@ -48,12 +49,18 @@ const UserProfilePage = async ({ params }: PageProps) => {
 
     return (
         <div className={css({ mb: "xl" })}>
-            {businessCard
-                ? <ProfileBusinessCard
-                    businessCard={businessCard}
-                />
-                : <ProfileBusinessCardPlaceholder />
-            }
+            <div className={flex({ justify: "center", align: "center", padding: ["8", "20"] })}>
+                {businessCard
+                    ?
+                    <ProfileBusinessCard
+                        businessCard={businessCard}
+                    />
+                    : <ProfileBusinessCardPlaceholder
+                        user={user}
+                    />
+                }
+            </div>
+
             <Flex
                 justify="space-between"
                 className={css({ mt: "lg", mb: "sm", flexDir: { base: "column", md: "row" }, gap: "sm" })}
