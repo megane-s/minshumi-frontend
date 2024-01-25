@@ -6,7 +6,6 @@ import { getBusinessCardByUser } from "@/businessCard/getByUser";
 import { getSession } from "@/auth/server/auth";
 import { SectionTitle } from "@/components/SectionTitle";
 import { PageTitle } from "@/components/PageTitle";
-import Image from "next/image";
 import { css } from "styled-system/css";
 import { WatchingArtList } from "./WatchingArtList";
 import { LikeArtList } from "./LikeArtList";
@@ -19,6 +18,8 @@ import { UserId } from "@/user/type";
 import { UserProfilePrimaryButton } from "./UserProfilePrimaryButton";
 import { EditWatchingButton } from "./EditWatchingButton";
 import { getMetadata } from "@/seo/getMetadata";
+import ProfileBusinessCard, { ProfileBusinessCardPlaceholder } from "./ProfileBusinessCard";
+import { flex } from "styled-system/patterns";
 
 export async function generateMetadata({ params: { user_id } }: { params: { user_id: string } }) {
     const user = await getUser(user_id)
@@ -48,17 +49,18 @@ const UserProfilePage = async ({ params }: PageProps) => {
 
     return (
         <div className={css({ mb: "xl" })}>
-            <Image
-                src={businessCard
-                    ? `/api/businesscard/image?businesscard_id=${businessCard.businessCardId}`
-                    : "/default_user_image.png"
+            <div className={flex({ justify: "center", align: "center", padding: ["8", "20"] })}>
+                {businessCard
+                    ?
+                    <ProfileBusinessCard
+                        businessCard={businessCard}
+                    />
+                    : <ProfileBusinessCardPlaceholder
+                        user={user}
+                    />
                 }
-                alt="名刺"
-                width={800}
-                height={675 * 800 / 1200}
-                style={{ width: "100%", height: "auto" }}
-                priority
-            />
+            </div>
+
             <Flex
                 justify="space-between"
                 className={css({ mt: "lg", mb: "sm", flexDir: { base: "column", md: "row" }, gap: "sm" })}
