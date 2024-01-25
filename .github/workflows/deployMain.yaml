@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - issue-39 # 検証用
+  workflow_dispatch:
 
 permissions:
   contents: write
