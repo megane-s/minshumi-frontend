@@ -81,7 +81,7 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
 
     if (isDeleted) return
     return (
-        <div>
+        <div id={`comment-${comment.commentId}`}>
             <div className={css({ py: "md" })}>
                 <Flex justify="space-between" gap="xs" align="center">
                     <Link

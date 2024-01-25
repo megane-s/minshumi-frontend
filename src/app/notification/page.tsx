@@ -13,6 +13,41 @@ import { SectionTitle } from "@/components/SectionTitle";
 
 interface PageProps { }
 
+const PagePage: React.FC<PageProps> = async () => {
+
+    const session = await getSession()
+    if (!session) return <PleaseLogin />
+    const { recommends, others } = await getNotifications(session.user.id)
+
+    return (
+        <div>
+            <h1>おすすめ</h1>
+            <Divider />
+            <div>
+                {/* 通知一覧を表示 */}
+                {recommends.map((notification) => (
+                    <NotificationItem key={notification.notificationId} notification={notification} />
+                ))}
+                <LinkButton href="/notification/recommendations">
+                    もっと見る
+                </LinkButton>
+            </div>
+            <h1>その他</h1>
+            <Divider />
+            <div>
+                {/* 通知一覧を表示 */}
+                {others.map((notification) => (
+                    <NotificationItem key={notification.notificationId} notification={notification} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default PagePage;
+
+
+
 const notificationIcons: Record<string, ReactNode> = {
     "recommend": <FaRegStar />,
     "good": <GoodIcon />,
@@ -31,14 +66,14 @@ const NotificationItem: React.FC<{ notification: Notification }> = ({ notificati
             {notification.type === "recommend" &&
                 <RecommendNotification notification={notification} />
             }
-            {notification.type === "good" &&
-                <div>いいね:{notification.content}</div>
+            {notification.type === "user-comment-good" &&
+                <OthersCommentGoodNotification notification={notification} />
             }
             {notification.type === "comment" &&
-                <div>コメント:{notification.content}</div>
+                <OthersCommentNotification notification={notification} />
             }
             {notification.type === "follow" &&
-                <div>フォロー:{notification.content}</div>
+                <OthersFollowNotification notification={notification} />
             }
         </div>
     )
@@ -47,6 +82,10 @@ const NotificationItem: React.FC<{ notification: Notification }> = ({ notificati
 import { FC } from "react"
 import { getArt } from "@/art/get";
 import { IoIosNotifications } from "react-icons/io";
+import { getUser } from "@/user/get";
+import { z } from "zod";
+import { Link } from "@/components/Link";
+import LinkButton from "@/components/LinkButton";
 
 interface RecommendNotificationProps {
     notification: Notification
@@ -67,56 +106,84 @@ export const RecommendNotification: FC<RecommendNotificationProps> = async ({ no
     )
 }
 
-
-const PagePage: React.FC<PageProps> = async () => {
-
-    const session = await getSession()
-    if (!session) return <PleaseLogin />
-    const notifications = await getNotifications(session.user.id)
-    const { recommends, others } = splitNotifications(notifications)
-
+interface OthersNotificationProps {
+    notification: Notification
+}
+export const OthersFollowNotification: FC<OthersNotificationProps> = async ({ notification }) => {
+    const userid = notification.content
+    const user = await getUser(userid)
+    if (!user) return // レコメンドサーバ側のミスで存在しない作品がおすすめされた場合
     return (
         <div>
-            <h1>おすすめ</h1>
-            <Divider />
+            <SectionTitle>
+                フォローされました！
+            </SectionTitle>
             <div>
-                {/* 通知一覧を表示 */}
-                {recommends.map((notification) => (
-                    <NotificationItem key={notification.notificationId} notification={notification} />
-                ))}
-            </div>
-            <h1>その他</h1>
-            <Divider />
-            <div>
-                {/* 通知一覧を表示 */}
-                {others.map((notification) => (
-                    <NotificationItem key={notification.notificationId} notification={notification} />
-                ))}
+                {user.name} さんがあなたを
+                <Link href={`/user/${userid}`}>
+                    フォロー
+                </Link>
+                しました。
             </div>
         </div>
-    );
-};
-
-export default PagePage;
+    )
+}
 
 
-const splitNotifications = (notifications: Notification[]) => {
-    const recommends: Notification[] = [];
-    const others: Notification[] = [];
+const OthersCommentNotificationSchema = z.object({
+    userId: z.string(),
+    commentId: z.string(),
+})
+interface OthersNotificationProps {
+    notification: Notification
+}
+export const OthersCommentNotification: FC<OthersNotificationProps> = async ({ notification }) => {
+    const { content, userId: targetUserId } = notification;
+    const { userId: commentUserId, commentId } = OthersCommentNotificationSchema.parse(JSON.parse(content))
 
-    notifications.forEach((notification) => {
-        switch (notification.type) {
-            case "recommend":
-                recommends.push(notification);
-                break;
-            default:
-                others.push(notification);
-                break;
-        }
-    });
+    const user = await getUser(commentUserId)
+    if (!user) return // レコメンドサーバ側のミスで存在しない作品がおすすめされた場合
+    return (
+        <div>
+            <SectionTitle>
+                コメントされました！
+            </SectionTitle>
+            <div>
+                {user.name} さんから
+                <Link href={`/user/${targetUserId}#comment-${commentId}`}>
+                    コメント
+                </Link>
+                が届きました。
+            </div>
+        </div>
+    )
+}
 
-    return {
-        recommends,
-        others,
-    };
-};
+const OthersCommentGoodNotificationSchema = z.object({
+    userId: z.string(),
+    commentId: z.string(),
+})
+interface OthersNotificationProps {
+    notification: Notification
+}
+export const OthersCommentGoodNotification: FC<OthersNotificationProps> = async ({ notification }) => {
+    const { content, userId: targetUserId } = notification;
+    const { userId: commentgoodUserId, commentId } = OthersCommentGoodNotificationSchema.parse(JSON.parse(content))
+
+    const user = await getUser(commentgoodUserId)
+    if (!user) return // レコメンドサーバ側のミスで存在しない作品がおすすめされた場合
+    return (
+        <div>
+            <SectionTitle>
+                コメントにいいねされました！
+            </SectionTitle>
+            <div>
+                {user.name} さんがあなたのコメントに
+                <Link href={`/user/${targetUserId}#comment-${commentId}`}>
+                    いいね
+                </Link>
+                しました。
+            </div>
+        </div>
+    )
+}

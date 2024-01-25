@@ -2,7 +2,7 @@ import "server-only"
 
 import { FC } from "react"
 import { AppShellHeader } from "./AppShell"
-import { Flex, Space } from "@mantine/core"
+import { Flex, Indicator, Space } from "@mantine/core"
 import { getSession } from "@/auth/server/auth"
 import HeaderDrawerMenu from "./HeaderDrawerMenu"
 import { HeaderAvatar } from "./HeaderAvatar"
@@ -38,18 +38,21 @@ const Header: FC<HeaderProps> = async () => {
                 <Flex align="center">
                     {session
                         ? <>
-                            <ActionIcon
-                                size="lg"
-                                variant="subtle"
-                                radius="xl"
-                                color="info"
-                            >
-                                <NotificationIcon />
-                            </ActionIcon>
-                            <Space w="0.5em" />
-                            <HeaderAvatar
-                                session={session}
-                            />
+                            <Indicator>
+                                <ActionIcon
+                                    size="lg"
+                                    variant="subtle"
+                                    radius="xl"
+                                    color="info"
+
+                                >
+                                    <NotificationIcon />
+                                </ActionIcon>
+                                <Space w="0.5em" />
+                                <HeaderAvatar
+                                    session={session}
+                                />
+                            </Indicator>
                         </>
                         : <LoginButton />
                     }
