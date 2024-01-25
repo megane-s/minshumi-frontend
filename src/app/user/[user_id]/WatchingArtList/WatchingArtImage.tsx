@@ -42,6 +42,7 @@ export const WatchingArtImage: FC<WatchingArtImageProps> = ({ art, editable = fa
                         minW: "fit-content",
                         maxW: "fit-content",
                         height: 100,
+                        _hover: { cursor: "pointer" },
                     })}
                     onClick={() => dialog.onOpen()}
                 />
