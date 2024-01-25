@@ -23,7 +23,7 @@ export const createUserComment = async (params: CreateUserCommentParams): Promis
             ...params,
         },
     })
-    sendCommentNotification({
+    await sendCommentNotification({
         commentId: result.commentId,
         commentUserId: result.commentUserId,
         targetUserId: result.targetUserId,
