@@ -16,7 +16,7 @@ export const buildImageUrlParams = ({
         type,
         username,
         icon,
-        interestTags: interestTags.join(","),
+        interest_tags: interestTags.join(","),
         arts: arts.join(","),
         background_image: backgroundImage,
         theme_color: themeColor,
