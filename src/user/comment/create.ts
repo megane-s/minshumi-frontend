@@ -2,6 +2,7 @@ import { prisma } from "@/prisma";
 import "server-only";
 import { z } from "zod";
 import { UserComment, UserCommentSchema } from "./type";
+import { sendCommentNotification } from "@/notification/send";
 
 export const CreateUserCommentParamsSchema = UserCommentSchema.pick({
     businessCardId: true,
@@ -21,6 +22,11 @@ export const createUserComment = async (params: CreateUserCommentParams): Promis
         data: {
             ...params,
         },
+    })
+    await sendCommentNotification({
+        commentId: result.commentId,
+        commentUserId: result.commentUserId,
+        targetUserId: result.targetUserId,
     })
     return result
 }
