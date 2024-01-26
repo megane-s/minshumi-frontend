@@ -2,7 +2,7 @@
 
 import { getSession } from "@/auth/server/auth"
 import { createBusinessCard } from "@/businessCard/create"
-import { defaultBusinessCard } from "@/businessCard/defaults"
+import { getDefaultBusinessCard } from "@/businessCard/defaults"
 
 export const handleCreateBusinessCard = async (type: string) => {
     const session = await getSession()
@@ -11,10 +11,12 @@ export const handleCreateBusinessCard = async (type: string) => {
         return
     }
 
+    const defaults = getDefaultBusinessCard()
     const newBusinessCard = await createBusinessCard(session.user.id, {
-        ...defaultBusinessCard,
+        ...defaults,
         name: session.user.name ?? "",
         type: String(type),
+        imageUrl: session.user.image ?? defaults.imageUrl,
     })
     return newBusinessCard
 }

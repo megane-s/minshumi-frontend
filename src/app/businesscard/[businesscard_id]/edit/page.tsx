@@ -10,8 +10,12 @@ import { getArtAppealsByUser } from "@/art/appeal/getByUser"
 import { getBusinessCardInterestTags } from "@/businessCard/getInterestTags"
 import { getBusinessCardLikeArts } from "@/businessCard/getLikeArts"
 import { getMetadata } from "@/seo/getMetadata"
+import { getDefaultBusinessCard } from "@/businessCard/defaults"
 
 export async function generateMetadata({ params: { businesscard_id } }: { params: { businesscard_id: string } }) {
+    if (businesscard_id === "instant") {
+        return getMetadata()
+    }
     const businesscard = await getBusinessCardById(businesscard_id)
     if (!businesscard) notFound()
     return getMetadata({
@@ -30,7 +34,16 @@ const EditBusinessCardPage = async ({ params: { businesscard_id } }: PageProps) 
     const isInstant = businesscard_id === "instant"
 
     const [businessCard, currentUser] = await Promise.all([
-        getBusinessCardData(isInstant, businesscard_id),
+        isInstant
+            ? {
+                businessCard: {
+                    ...getDefaultBusinessCard(),
+                    tags: defaultInstantBusinesscardTags,
+                    arts: defaultInstantBusinesscardArts,
+                },
+                user: null,
+            }
+            : getBusinessCardData(isInstant, businesscard_id),
         getCurrentUserData(),
     ])
 
@@ -44,11 +57,15 @@ const EditBusinessCardPage = async ({ params: { businesscard_id } }: PageProps) 
             tags={currentUser.tags ?? defaultInstantBusinesscardTags}
             likeArts={Array(3).fill("").map((_, i) => currentUser.likeArts?.[i]?.title ?? "")}
             defaultValues={{
-                ...businessCard.businessCard ?? {},
-                tags: businessCard.tags ?? currentUser.tags ?? defaultInstantBusinesscardTags,
-                arts: businessCard.arts ?? currentUser.likeArts ?? defaultInstantBusinesscardArts,
+                ...businessCard.businessCard,
+                tags: defaultInstantBusinesscardTags,
+                arts: defaultInstantBusinesscardArts,
             }}
-            businessCardId={businessCard.businessCard?.businessCardId ?? null}
+            businessCardId={
+                (businessCard.businessCard && "businessCardId" in businessCard.businessCard)
+                    ? businessCard.businessCard["businessCardId"]
+                    : null
+            }
         />
     )
 }
