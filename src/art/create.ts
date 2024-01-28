@@ -1,6 +1,7 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
+import { searchApiClient } from "@/search/client";
 import { UserId } from "@/user/type";
 import { Art, CreateArtParams } from "./type";
 // eslint-disable-next-line no-restricted-imports
@@ -12,7 +13,7 @@ import { Art, CreateArtParams } from "./type";
  * @returns 追加した作品
  */
 export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTags, originalTags, ...params }: CreateArtParams): Promise<Art> => {
-    return await prisma.$transaction(async prisma => {
+    const newArt = await prisma.$transaction(async prisma => {
         const tags = [
             ...mediaTags.map(tag => ({ tag, tagType: "MEDIA" }) as const),
             ...genreTags.map(tag => ({ tag, tagType: "GENRE" }) as const),
@@ -67,4 +68,6 @@ export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTag
         // 変更履歴
         return newArt
     })
+    void searchApiClient.POST("/search/art/index")
+    return newArt
 }
