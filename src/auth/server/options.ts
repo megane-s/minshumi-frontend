@@ -1,6 +1,7 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
+import { updateSearchUserIndex } from "@/user/search";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
@@ -21,6 +22,11 @@ export const options: NextAuthOptions = {
             },
         }),
     ],
+    events: {
+        createUser: async () => {
+            updateSearchUserIndex()
+        },
+    },
     session: { strategy: "database" },
     callbacks: {
         session: ({ session, user }) => {
