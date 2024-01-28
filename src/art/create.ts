@@ -54,17 +54,6 @@ export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTag
             }
         })
 
-        // // タグ
-        // const tags = [
-        //     ...mediaTags.map(tag => ({ artId: newArt.artId, tag, tagType: "MEDIA" }) as const),
-        //     ...genreTags.map(tag => ({ artId: newArt.artId, tag, tagType: "GENRE" }) as const),
-        //     ...otherTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
-        //     ...originalTags.map(tag => ({ artId: newArt.artId, tag, tagType: "OTHER" }) as const),
-        // ]
-        // await prisma.artTag.createMany({
-        //     data: tags,
-        // })
-
         // 変更履歴
         return newArt
     })
