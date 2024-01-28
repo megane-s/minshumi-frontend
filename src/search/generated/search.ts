@@ -9,13 +9,42 @@ export interface paths {
     /** Search Art Route */
     get: operations["search_art_route_search_art_get"];
   };
+  "/search/art/index": {
+    /** Get Search Art Index Route */
+    get: operations["get_search_art_index_route_search_art_index_get"];
+    /** Update Search Art Index Route */
+    post: operations["update_search_art_index_route_search_art_index_post"];
+  };
   "/search/user": {
     /** Search User Route */
     get: operations["search_user_route_search_user_get"];
   };
+  "/search/user/index": {
+    /** Search User Index Route */
+    get: operations["search_user_index_route_search_user_index_get"];
+    /** Update Search User Index Route */
+    post: operations["update_search_user_index_route_search_user_index_post"];
+  };
   "/recommend/art": {
-    /** Recommend Art Route */
+    /**
+     * Recommend Art Route
+     * @deprecated
+     */
     get: operations["recommend_art_route_recommend_art_get"];
+  };
+  "/recommend/tag": {
+    /**
+     * Recommend Tag Route
+     * @deprecated
+     */
+    get: operations["recommend_tag_route_recommend_tag_get"];
+  };
+  "/recommend/user": {
+    /**
+     * Recommend User Route
+     * @deprecated
+     */
+    get: operations["recommend_user_route_recommend_user_get"];
   };
   "/": {
     /** Test */
@@ -77,6 +106,28 @@ export interface operations {
       };
     };
   };
+  /** Get Search Art Index Route */
+  get_search_art_index_route_search_art_index_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
+  /** Update Search Art Index Route */
+  update_search_art_index_route_search_art_index_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
   /** Search User Route */
   search_user_route_search_user_get: {
     parameters: {
@@ -99,12 +150,87 @@ export interface operations {
       };
     };
   };
-  /** Recommend Art Route */
+  /** Search User Index Route */
+  search_user_index_route_search_user_index_get: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
+  /** Update Search User Index Route */
+  update_search_user_index_route_search_user_index_post: {
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
+  /**
+   * Recommend Art Route
+   * @deprecated
+   */
   recommend_art_route_recommend_art_get: {
     parameters: {
       query: {
         art_id: string;
         limit?: number;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Recommend Tag Route
+   * @deprecated
+   */
+  recommend_tag_route_recommend_tag_get: {
+    parameters: {
+      query: {
+        art_id: string;
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Recommend User Route
+   * @deprecated
+   */
+  recommend_user_route_recommend_user_get: {
+    parameters: {
+      query: {
+        user_id: string;
       };
     };
     responses: {
