@@ -2,8 +2,9 @@
 
 import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { useClientRendered } from "@/util/client/useClientRendered"
-import { Image, em } from "@mantine/core"
+import { em } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
+import Image from "next/image"
 import Link from "next/link"
 
 import { FC } from "react"
@@ -20,7 +21,7 @@ export const TopNews: FC<TopNewsProps> = () => {
     const isMobile = useMediaQuery(`(max-width: ${em(750)})`)
     return (
         <Carousel
-            slideSize="100%"
+            slideSize="min(900px, 70%)"
             align="center"
             controlSize={isMobile ? 40 : 64}
             controlsOffset={isMobile ? 2 : "xl"}
@@ -45,7 +46,7 @@ export const TopNews: FC<TopNewsProps> = () => {
                         alt=""
                         width={800}
                         height={450}
-                        style={{ width: "100%", objectFit: "contain", maxWidth: "700px" }}
+                        className={css({ width: "100%", height: "auto", objectFit: "contain" })}
                     />
                 </div>
             </CarouselSlide>
@@ -57,7 +58,7 @@ export const TopNews: FC<TopNewsProps> = () => {
                             alt=""
                             width={800}
                             height={450}
-                            style={{ width: "100%", height: "100%", objectFit: "contain", maxWidth: "700px" }}
+                            className={css({ width: "100%", height: "auto", objectFit: "contain" })}
                         />
                     </div>
                 </Link>
@@ -70,7 +71,7 @@ export const TopNews: FC<TopNewsProps> = () => {
                             alt=""
                             width={800}
                             height={450}
-                            style={{ width: "100%", height: "100%", objectFit: "contain", maxWidth: "700px" }}
+                            className={css({ width: "100%", height: "auto", objectFit: "contain" })}
                         />
                     </div>
                 </Link>
