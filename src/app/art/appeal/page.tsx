@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import AppealArtForm from "./AppealArt"
 
 export const metadata: Metadata = getMetadata({
-    title: "アピール作品の編集 | みんしゅみ",
+    title: "作品をアピールする | みんしゅみ",
 })
 const AppealSelectPage = () => {
 

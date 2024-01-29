@@ -12,7 +12,6 @@ interface AppealArtFormProps {
 const AppealArtForm: FC<AppealArtFormProps> = () => {
     const [selectArtId, setSelectArtId] = useState<null | ArtId>(null)
     const isValidSelectArtId = typeof selectArtId === "string"
-    const isValid = isValidSelectArtId
 
     return (
         <div className={flex({ flexDir: "column", align: "center", gap: "md", my: "lg" })}>
