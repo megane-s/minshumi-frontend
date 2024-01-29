@@ -196,17 +196,17 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                     />
                 </div>
                 <div>
-                    <InputWrapper
-                        label="興味のあるタグ"
-                    >
-                        {!isBusinessCard3 && (
+                    {!isBusinessCard3 && (
+                        <InputWrapper
+                            label="興味のあるタグ"
+                        >
                             <TagSelect
                                 tags={tags}
                                 selectedTags={interestTags}
                                 onChangeSelected={setInterestTags}
                             />
-                        )}
-                    </InputWrapper>
+                        </InputWrapper>
+                    )}
                 </div>
                 <div>
                     <InputWrapper
