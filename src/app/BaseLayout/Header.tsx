@@ -20,7 +20,9 @@ const Header: FC<HeaderProps> = async () => {
     return (
         <AppShellHeader>
             <Flex justify="space-between" align="center" px="sm" h="100%">
-                <HeaderDrawerMenu />
+                <HeaderDrawerMenu
+                    session={session}
+                />
                 {/* <Logo
                     imageProps={{
                         priority: true,
@@ -38,14 +40,17 @@ const Header: FC<HeaderProps> = async () => {
                 <Flex align="center">
                     {session
                         ? <>
-                            <ActionIcon
-                                size="lg"
-                                variant="subtle"
-                                radius="xl"
-                                color="info"
-                            >
-                                <NotificationIcon />
-                            </ActionIcon>
+                            <Link href={"/notification"}>
+                                <ActionIcon
+                                    size="lg"
+                                    variant="subtle"
+                                    radius="xl"
+                                    color="info"
+
+                                >
+                                    <NotificationIcon />
+                                </ActionIcon>
+                            </Link>
                             <Space w="0.5em" />
                             <HeaderAvatar
                                 session={session}

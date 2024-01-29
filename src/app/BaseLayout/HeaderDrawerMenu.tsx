@@ -1,6 +1,6 @@
 "use client"
 
-import { Drawer, Flex, NavLink } from "@mantine/core"
+import { Divider, Drawer, Flex, Menu, NavLink } from "@mantine/core"
 import { FC } from "react"
 import { useDisclosure } from '@mantine/hooks';
 import Link from "next/link";
@@ -9,10 +9,19 @@ import { Burger } from '@mantine/core';
 import { css } from "styled-system/css";
 import Image from "next/image";
 import LogoImage from "@/../public/logo-rect.png"
+import { logout } from "@/auth/client/logout";
+import { EditIcon } from "@/components/icon/Edit";
+import { ExitIcon } from "@/components/icon/Exit";
+import { SettingsIcon } from "@/components/icon/Settings";
+import { CgProfile } from "react-icons/cg";
+import { IoMdMegaphone } from "react-icons/io";
+import { TiBusinessCard } from "react-icons/ti";
+import { Session } from "next-auth";
 
 interface HeaderDrawerMenuProps {
+    session: Session | null
 }
-const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = () => {
+const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = ({ session }) => {
     const [opened, { toggle, close }] = useDisclosure();
     return (
         <>
@@ -50,6 +59,61 @@ const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = () => {
                         onClick={close}
                     />
                 )}
+
+                {session && <>
+                    <Divider />
+                    <NavLink
+                        leftSection={<CgProfile />}
+                        variant="light"
+                        component={Link}
+                        label="MYプロフィール"
+                        href={`/user/${session.user.id}`}
+                        onClick={close}
+                    />
+
+                    <NavLink
+                        leftSection={<EditIcon />}
+                        variant="light"
+                        component={Link}
+                        label="作品の登録"
+                        href={`/art/new`}
+                        onClick={close}
+                    />
+
+                    <NavLink
+                        leftSection={<IoMdMegaphone />}
+                        variant="light"
+                        component={Link}
+                        label="作品のアピール"
+                        href="/art/appeal"
+                        onClick={close}
+                    />
+
+                    <NavLink
+                        leftSection={<TiBusinessCard />}
+                        variant="light"
+                        component={Link}
+                        label="名刺の作成"
+                        href="/businesscard/new"
+                    />
+
+                    <NavLink
+                        leftSection={<SettingsIcon />}
+                        variant="light"
+                        component={Link}
+                        label="プロフィールの編集"
+                        href="/settings/user"
+                    />
+
+
+                    <NavLink
+                        leftSection={<ExitIcon />}
+                        variant="light"
+                        label="ログアウト"
+                        onClick={() => logout({ callbackUrl: "/" })}
+                    />
+
+                </>}
             </Drawer>
         </>
     )

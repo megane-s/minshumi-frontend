@@ -54,7 +54,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           <Menu.Item
             leftSection={<IoMdMegaphone />}
             component={Link}
-            href="/AppealSelect"
+            href="/art/appeal"
           >
             作品のアピール
           </Menu.Item>
@@ -72,7 +72,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
             component={Link}
             href="/settings/user"
           >
-            設定
+            プロフィールの編集
           </Menu.Item>
 
           <Menu.Item
