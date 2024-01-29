@@ -43,6 +43,8 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const [type, setType] = useState<string | null>(defaultValues.type ?? "1")
     const isValidType = type && businessCardTypes.includes(type)
 
+    // ビジネスカードのタイプが3の場合、称号とタグの選択を無効にする
+    const isBusinessCard3 = type === "3";
     const [name, setName] = useState(defaultValues.name ?? user?.name ?? "名前")
 
     const [icon, setIcon] = useState(defaultValues.imageUrl ?? defaultBusinessCard.imageUrl)
@@ -170,15 +172,15 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                     />
                 </div>
                 <div>
-                    {ranks &&
+                    {ranks && !isBusinessCard3 && (
                         <Select
                             label="称号"
                             data={[{ label: "称号なし", value: "" }, ...ranks]}
                             value={rank}
-                            onChange={rank => setRank(rank ?? "")}
+                            onChange={(rank) => setRank(rank ?? "")}
                             className={css({ my: "md" })}
                         />
-                    }
+                    )}
                 </div>
                 <div>
                     <Select
@@ -197,11 +199,13 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                     <InputWrapper
                         label="興味のあるタグ"
                     >
-                        <TagSelect
-                            tags={tags}
-                            selectedTags={interestTags}
-                            onChangeSelected={setInterestTags}
-                        />
+                        {!isBusinessCard3 && (
+                            <TagSelect
+                                tags={tags}
+                                selectedTags={interestTags}
+                                onChangeSelected={setInterestTags}
+                            />
+                        )}
                     </InputWrapper>
                 </div>
                 <div>
