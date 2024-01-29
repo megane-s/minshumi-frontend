@@ -28,4 +28,6 @@ export const searchUser = cache(async (query: string): Promise<User[]> => {
     return users.filter((user): user is User => !!user)
 })
 
-
+export const updateSearchUserIndex = () => {
+    void searchApiClient.POST("/search/user/index")
+}
