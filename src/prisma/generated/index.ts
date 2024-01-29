@@ -66,7 +66,7 @@ export const BusinessCardInterestTagScalarFieldEnumSchema = z.enum(['businessCar
 
 export const BusinessCardGoodUserScalarFieldEnumSchema = z.enum(['businessCardId','userId']);
 
-export const NotificationScalarFieldEnumSchema = z.enum(['notificationId','userId','content','type','createAt','updateAt']);
+export const NotificationScalarFieldEnumSchema = z.enum(['notificationId','userId','content','type','read','createAt','updateAt']);
 
 export const SortOrderSchema = z.enum(['asc','desc']);
 
@@ -441,6 +441,7 @@ export const NotificationSchema = z.object({
   userId: z.string(),
   content: z.string(),
   type: z.string(),
+  read: z.boolean(),
   createAt: z.coerce.date(),
   updateAt: z.coerce.date(),
 })

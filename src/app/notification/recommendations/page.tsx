@@ -9,6 +9,7 @@ const RecommendationNotificationPage = async () => {
     const { recommends } = await getNotifications(session.user.id, {
         recommend: { limit: 100 },
         others: { limit: 0 },
+        markAsRead: true,
     })
     return (
         <div>

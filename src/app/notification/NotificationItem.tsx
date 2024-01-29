@@ -23,7 +23,14 @@ const notificationIcons: Record<string, ReactNode> = {
 export const NotificationItem: React.FC<{ notification: Notification }> = ({ notification }) => {
     const notificationType = notification.type
     return (
-        <div className={flex({ p: "md", gap: "sm", align: "center" })}>
+        <div className={flex({
+            p: "md",
+            gap: "sm",
+            align: "center",
+            borderWidth: "2px",
+            borderStyle: "solid",
+            borderColor: notification.read ? "transparent" : "info.2",
+        })}>
             {notificationType in notificationIcons
                 ? notificationIcons[notificationType]
                 : <IoIosNotifications />

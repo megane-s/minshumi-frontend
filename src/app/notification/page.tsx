@@ -16,7 +16,9 @@ const NotificationPage: React.FC<PageProps> = async () => {
 
     const session = await getSession()
     if (!session) return <PleaseLogin />
-    const { recommends, others } = await getNotifications(session.user.id)
+    const { recommends, others } = await getNotifications(session.user.id, {
+        markAsRead: true,
+    })
 
     return (
         <div>

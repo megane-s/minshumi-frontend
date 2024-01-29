@@ -1,6 +1,6 @@
 import { prisma } from "@/prisma";
 import { UserId } from "@/user/type";
-import { Notification } from "./type";
+import { Notification, NotificationId } from "./type";
 
 /**
  * 指定したユーザに届いている通知一覧を取得する。
@@ -12,6 +12,7 @@ export const getNotifications = async (
     params: Partial<{
         recommend: Partial<{ limit: number }>
         others: Partial<{ limit: number }>
+        markAsRead?: true
     }> = {},
 ): Promise<{
     recommends: Notification[]
@@ -29,8 +30,44 @@ export const getNotifications = async (
             orderBy: { updateAt: "desc" },
         }),
     ])
+    if (params.markAsRead) {
+        await Promise.all([
+            ...recommends.map(recommend =>
+                markNotificationAsRead({
+                    userId, notificationId: recommend.notificationId,
+                }),
+            ),
+            ...others.map(recommend =>
+                markNotificationAsRead({
+                    userId, notificationId: recommend.notificationId,
+                }),
+            ),
+        ])
+    }
     return {
         recommends,
         others,
     }
+}
+
+export const getUnreadNotificationCount = async ({ max = 99, userId }: {
+    max: number
+    userId: UserId
+}) => {
+    return await prisma.notification.count({
+        where: { read: false, userId },
+        take: max,
+    })
+}
+
+export const markNotificationAsRead = async ({ userId, notificationId }: {
+    userId: UserId
+    notificationId: NotificationId
+}) => {
+    await prisma.notification.update({
+        where: { userId, notificationId },
+        data: {
+            read: true,
+        },
+    })
 }
