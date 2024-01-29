@@ -49,7 +49,7 @@ const AppealSettingForm: FC<AppealSettingFormProps> = ({ appeals }) => {
                 </Flex>
             }
             <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
-                <LinkButton variant="outline" leftSection={<AddIcon />} href={`/search/art`}>
+                <LinkButton variant="outline" leftSection={<AddIcon />} href={`/AppealSelect`}>
                     アピール作品を探す
                 </LinkButton>
             </div>
