@@ -4,7 +4,7 @@ import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { useClientRendered } from "@/util/client/useClientRendered"
 import { em } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
-import Image from "next/image"
+import Image, { ImageProps } from "next/image"
 import Link from "next/link"
 
 import { FC } from "react"
@@ -39,44 +39,53 @@ export const TopNews: FC<TopNewsProps> = () => {
                 }),
             }}
         >
-            <CarouselSlide>
-                <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
-                    <Image
-                        src="/top_panel_0_lg.png"
-                        alt=""
-                        width={800}
-                        height={450}
-                        className={css({ width: "100%", height: "auto", objectFit: "contain" })}
-                    />
-                </div>
-            </CarouselSlide>
-            <CarouselSlide>
-                <Link href="/art/new/detail">
-                    <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
-                        <Image
-                            src="/top_panel_1_lg.png"
-                            alt=""
-                            width={800}
-                            height={450}
-                            className={css({ width: "100%", height: "auto", objectFit: "contain" })}
-                        />
-                    </div>
-                </Link>
-            </CarouselSlide>
-            <CarouselSlide>
-                <Link href="/businesscard/new">
-                    <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
-                        <Image
-                            src="/top_panel_2_lg.png"
-                            alt=""
-                            width={800}
-                            height={450}
-                            className={css({ width: "100%", height: "auto", objectFit: "contain" })}
-                        />
-                    </div>
-                </Link>
-            </CarouselSlide>
+            <NewsSlide
+                src="/top_panel_0_lg.png"
+                alt="みんしゅみ"
+            />
+            <NewsSlide
+                src="/top_panel_1_lg.png"
+                alt="作品をアピールしよう"
+                href="/art/new/detail"
+            />
+            <NewsSlide
+                src="/top_panel_2_lg.png"
+                alt="名刺の作成"
+                href="/businesscard/new"
+            />
         </Carousel>
     )
 }
 
+interface NewsSlideProps {
+    href?: string
+    src: ImageProps["src"]
+    alt: string
+}
+const NewsSlide: FC<NewsSlideProps> = ({ href, src, alt }) => {
+    const content = (
+        <div className={flex({ flexDir: "column", justify: "center", align: "center" })}>
+            <Image
+                src={src}
+                alt={alt}
+                width={800}
+                height={450}
+                className={css({ width: "100%", height: "auto", objectFit: "contain" })}
+            />
+        </div>
+    )
+    if (href) {
+        return (
+            <CarouselSlide>
+                <Link href={href}>
+                    {content}
+                </Link>
+            </CarouselSlide>
+        )
+    }
+    return (
+        <CarouselSlide>
+            {content}
+        </CarouselSlide>
+    )
+}
