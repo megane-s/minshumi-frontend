@@ -29,25 +29,32 @@ export const Comments: FC<CommentsProps> = async ({ userId }) => {
           userId={userId}
         />
       </Suspense>
-
-      {comments.length === 0 &&
-        <Flex justify="center" align="center" p={50}>
-          <center>
-            <Image
-              src="/cat.png"
-              alt='none'
-              width={200}
-              height={400}
-            />
-            <PageTitle >
-              コメントがまだ無いようです...
-            </PageTitle>
-            <SectionTitle>
-              コメントを投稿してみましょう
-            </SectionTitle>
-          </center>
-        </Flex>
-      }
+      <div>
+        {comments.length === 0 &&
+          <Flex justify="center" align="center" p={50} my="xs" gap="xs" >
+            <center>
+              <Image
+                src="/cat.png"
+                alt='none'
+                width={200}
+                height={400}
+              />
+              <PageTitle>
+                <div className={css({ display: { base: "block", sm: "inline" } })}>
+                  コメントが
+                </div>
+                まだ無いようです
+              </PageTitle>
+              <SectionTitle>
+                <div className={css({ display: { base: "block", sm: "inline" } })}>
+                  コメントを
+                </div>
+                投稿してみましょう
+              </SectionTitle>
+            </center>
+          </Flex>
+        }
+      </div>
     </>
   )
 }
