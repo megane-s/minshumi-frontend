@@ -173,10 +173,16 @@ const useAppealAnimation = () => {
         }, { duration: 0.2 })
         // 直後にリセットするとなぜか上書きされるので少し待つ
         setTimeout(() => {
-            containerRef.current.style.display = "none"
-            birdRef.current.style.left = "-150px"
-            birdRef.current.style.top = "0"
-            birdRef.current.style.bottom = "4rem"
+            // ページ遷移後にcontainerRef等が見つからないエラーが出る可能性があるのでif文でガード
+            // TODO リファクタ
+            if (containerRef.current) {
+                containerRef.current.style.display = "none"
+            }
+            if (birdRef.current) {
+                birdRef.current.style.left = "-150px"
+                birdRef.current.style.top = "0"
+                birdRef.current.style.bottom = "4rem"
+            }
         }, 300)
     }, [animateBird, animateContainer, birdRef, containerRef, downRef, upRef])
     return {

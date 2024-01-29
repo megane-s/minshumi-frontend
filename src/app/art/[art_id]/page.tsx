@@ -16,6 +16,12 @@ import LinkButton from "@/components/LinkButton"
 import { flex } from "styled-system/patterns"
 import { getArtAppeal } from "@/art/appeal/get"
 
+// アピール済みアイコン
+const AppealedIcon = () => (
+    <span role="img" aria-label="Appealed" style={{ marginLeft: "0.5rem" }}>
+        ✅
+    </span>
+);
 
 interface ArtDetailPageProps {
     params: { art_id: string }
@@ -73,7 +79,14 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                         }
                         {isLogined &&
                             <LinkButton href={`/art/${artId}/appeal`} variant="gradient">
-                                {appeal ? "アピールを編集" : "アピールする"}
+                                {/* {appeal ? "アピールを編集" : "アピールする"}<AppealedIcon /> */}
+                                {appeal ? (
+                                    <>
+                                        アピールを編集 <AppealedIcon />
+                                    </>
+                                ) : (
+                                    "アピールする"
+                                )}
                             </LinkButton>
                         }
                     </div>
