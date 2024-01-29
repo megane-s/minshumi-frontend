@@ -382,11 +382,12 @@ model BusinessCardGoodUser {
 // Notification
 
 model Notification {
-  notificationId String @id @default(cuid())
+  notificationId String  @id @default(cuid())
   userId         String
   content        String
   type           String
-  user           User   @relation(fields: [userId], references: [id])
+  read           Boolean @default(false)
+  user           User    @relation(fields: [userId], references: [id])
 
   createAt DateTime @default(now())
   updateAt DateTime @default(now()) @updatedAt
