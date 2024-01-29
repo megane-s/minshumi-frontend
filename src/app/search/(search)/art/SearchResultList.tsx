@@ -35,7 +35,10 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
                         />
                         <PageTitle my="md">
                             <div className={css({ display: { base: "block", sm: "inline" } })}>
-                                作品の検索結果は
+                                作品の
+                            </div>
+                            <div className={css({ display: { base: "block", sm: "inline" } })}>
+                                検索結果は
                             </div>
                             ありません
                         </PageTitle>

@@ -37,7 +37,10 @@ const ArtSearchPage = async ({ searchParams }: PageProps) => {
                                 height={400}
                             />
                             <PageTitle my="md">
-                                検索文字列を入れて下さい。
+                                <div className={css({ display: { base: "block", sm: "inline" } })}>
+                                    検索文字列を
+                                </div>
+                                入れて下さい。
                             </PageTitle>
                         </center>
 

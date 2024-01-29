@@ -43,7 +43,7 @@ export const Comments: FC<CommentsProps> = async ({ userId }) => {
                 <div className={css({ display: { base: "block", sm: "inline" } })}>
                   コメントが
                 </div>
-                まだ無いようです
+                無いようです
               </PageTitle>
               <SectionTitle>
                 <div className={css({ display: { base: "block", sm: "inline" } })}>

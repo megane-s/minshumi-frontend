@@ -115,7 +115,7 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                                 height={200}
                             />
                             <SectionTitle>
-                                名刺がまだ無いようです....
+                                名刺が無いようです....
                             </SectionTitle>
 
                         </center>
