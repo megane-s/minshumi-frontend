@@ -32,25 +32,24 @@ export const InputImages: FC<InputImagesProps> = ({ onChangeBackgroundImage, onC
     return (
         <InputWrapper
             label="アイコンと背景"
+            className={flex({ w: "full", mt: "xs", gap: 1, flexWrap: "wrap" })}
         >
-            <div className={flex({ w: "full", mt: "xs", gap: 1, flexWrap: "wrap" })}>
-                <MutateButton
-                    variant="outline"
-                    size="xs"
-                    className={css({ flexGrow: 1, flexShrink: 1, w: "full !important" })}
-                    mutation={handleChangeIcon}
-                >
-                    アイコンを変更
-                </MutateButton>
-                <MutateButton
-                    variant="outline"
-                    size="xs"
-                    className={css({ flexGrow: 1, flexShrink: 1, w: "full !important" })}
-                    mutation={handleChangeBackgroundImage}
-                >
-                    背景を変更
-                </MutateButton>
-            </div>
+            <MutateButton
+                variant="outline"
+                size="xs"
+                className={css({ flexGrow: 1, flexShrink: 1, w: "full !important" })}
+                mutation={handleChangeIcon}
+            >
+                アイコンを変更
+            </MutateButton>
+            <MutateButton
+                variant="outline"
+                size="xs"
+                className={css({ flexGrow: 1, flexShrink: 1, w: "full !important" })}
+                mutation={handleChangeBackgroundImage}
+            >
+                背景を変更
+            </MutateButton>
         </InputWrapper>
 
     )
