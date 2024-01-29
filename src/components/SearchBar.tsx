@@ -3,12 +3,9 @@
 
 import React, { useState } from 'react';
 import { TextInput, ActionIcon } from '@mantine/core';
-import Link from 'next/link';
 import { SearchIcon } from '@/components/icon/Search';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
-import { useRouter } from 'next/navigation';
-import { Button } from './Button';
 
 // onSearchの型を定義
 interface SearchBarProps {
