@@ -4,8 +4,9 @@ import { FC } from "react"
 
 interface NotificationLoadingProps {
 }
-export const NotificationLoading: FC<NotificationLoadingProps> = () => {
+const NotificationLoading: FC<NotificationLoadingProps> = () => {
   return (
     <CenterLoader />
   )
 }
+export default NotificationLoading
