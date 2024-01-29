@@ -36,33 +36,6 @@ export const InputImages: FC<InputImagesProps> = ({ backgroundImage, onChangeBac
         <InputWrapper
             label="アイコンと背景"
         >
-            <div className={css({ position: "relative", px: "md" })}>
-                <ImageInput
-                    type="background"
-                    src={backgroundImage}
-                    alt="背景"
-                    imageProps={{
-                        width: 1200 / 4,
-                        height: 675 / 4,
-                    }}
-                    className={css({ w: "full", aspectRatio: "1200 / 675" })}
-                    onUpload={onChangeBackgroundImage}
-                    onClick={e => e.stopPropagation()}
-                />
-                <ImageInput
-                    type="icon"
-                    src={icon}
-                    alt="アイコン"
-                    imageProps={{
-                        width: 100,
-                        height: 100,
-                    }}
-                    className={circle({ position: "absolute", inset: 0, m: "auto", w: 100, h: 100, objectFit: "cover", rounded: "full" })}
-                    onUpload={onChangeIcon}
-                    onClick={e => e.stopPropagation()}
-                />
-                {/* ランダムに画像を設置するボタン */}
-            </div>
             <div className={flex({ w: "full", mt: "xs", gap: 1, flexWrap: "wrap" })}>
                 <MutateButton
                     variant="outline"
