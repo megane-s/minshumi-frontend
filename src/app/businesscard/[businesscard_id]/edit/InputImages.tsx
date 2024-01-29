@@ -1,21 +1,18 @@
 "use client"
 
-import { ImageInput } from "@/components/ImageInput"
 import MutateButton from "@/components/MutateButton"
 import { selectFile, uploadFile } from "@/file-upload/client"
 import { useMutate } from "@/util/client/useMutate"
 import { InputWrapper } from "@mantine/core"
 import { FC } from "react"
 import { css } from "styled-system/css"
-import { circle, flex } from "styled-system/patterns"
+import { flex } from "styled-system/patterns"
 
 interface InputImagesProps {
-    backgroundImage: string
     onChangeBackgroundImage: (backgroundImage: string) => void
-    icon: string
     onChangeIcon: (icon: string) => void
 }
-export const InputImages: FC<InputImagesProps> = ({ backgroundImage, onChangeBackgroundImage, icon, onChangeIcon }) => {
+export const InputImages: FC<InputImagesProps> = ({ onChangeBackgroundImage, onChangeIcon }) => {
     const handleChangeIcon = useMutate(async () => {
         const file = await selectFile({ accept: "image/*" })
         const { publicUrl } = await uploadFile(file)

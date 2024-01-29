@@ -153,9 +153,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 </div>
                 <div className={css({ my: "md" })}>
                     <InputImages
-                        backgroundImage={backgroundImage}
                         onChangeBackgroundImage={setBackgroundImage}
-                        icon={icon}
                         onChangeIcon={setIcon}
                     />
                 </div>
