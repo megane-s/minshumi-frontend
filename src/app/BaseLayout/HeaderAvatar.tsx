@@ -68,14 +68,6 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           </Menu.Item>
 
           <Menu.Item
-            leftSection={<NotificationIcon />}
-            component={Link}
-            href="/notification"
-          >
-            通知
-          </Menu.Item>
-
-          <Menu.Item
             leftSection={<SettingsIcon />}
             component={Link}
             href="/settings/user"
