@@ -2,10 +2,10 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Flex, TextInput, ActionIcon } from '@mantine/core';
-import Link from 'next/link';
+import { TextInput, ActionIcon } from '@mantine/core';
 import { SearchIcon } from '@/components/icon/Search';
 import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 // onSearchの型を定義
 interface SearchBarProps {
@@ -18,10 +18,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "", type }) => {
     const isValidSearchInput = searchInput.trim().length !== 0
 
     return (
-        <Flex justify="center" align="center" mt="xl" mb="xl">
+        <form
+            className={flex({ justify: "center", align: "center", mt: "xl", mb: "xl" })}
+            action={`/search/${type}`}
+        >
             <TextInput
                 placeholder="作品やユーザを検索"
                 size='xs'
+                name="q"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 classNames={{
@@ -30,18 +34,17 @@ const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "", type }) => {
                 }}
                 styles={{ input: { borderTopRightRadius: 0, borderBottomRightRadius: 0 } }}
             />
-            <Link href={`/search/${type}?q=${searchInput}`}>
-                <ActionIcon
-                    disabled={!isValidSearchInput}
-                    size="md"
-                    styles={{
-                        root: { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
-                    }}
-                >
-                    <SearchIcon />
-                </ActionIcon>
-            </Link>
-        </Flex >
+            <ActionIcon
+                disabled={!isValidSearchInput}
+                size="md"
+                styles={{
+                    root: { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
+                }}
+                type='submit'
+            >
+                <SearchIcon />
+            </ActionIcon>
+        </form>
     );
 };
 
