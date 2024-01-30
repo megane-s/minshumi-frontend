@@ -42,7 +42,7 @@ const AppealSettingForm: FC<AppealSettingFormProps> = ({ appeals }) => {
                             height={200}
                         />
                         <SectionTitle my="md">
-                            アピール作品がまだ無いようです....
+                            アピール作品が無いようです....
                         </SectionTitle>
 
                     </center>

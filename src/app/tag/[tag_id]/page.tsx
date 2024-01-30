@@ -8,7 +8,7 @@ import { SectionTitle } from "@/components/SectionTitle"
 import LinkButton from "@/components/LinkButton"
 import { AddIcon } from "@/components/icon/AddIcon"
 import { getMetadata } from "@/seo/getMetadata"
-
+import { css } from "styled-system/css"
 export async function generateMetadata({ params: { tag_id } }: { params: { tag_id: string } }) {
     const tag = decodeURI(tag_id)
 
@@ -55,7 +55,10 @@ const TagDetailPage = async ({ params }: PageProps) => {
                             height={400}
                         />
                         <PageTitle my="md">
-                            作品がまだ無いようです....
+                            <div className={css({ display: { base: "block", sm: "inline" } })}>
+                                作品が
+                            </div>
+                            無いようです....
                         </PageTitle>
                         <SectionTitle my="md">
                             作品を追加してみよう
