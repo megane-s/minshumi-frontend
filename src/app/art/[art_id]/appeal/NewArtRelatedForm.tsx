@@ -25,6 +25,10 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, imageUrl, artId,
         deletePrevArt, deleteNextArt,
     } = useInputRelatedArts(defaultValues)
 
+    // アピール文が存在するかどうかの判定
+    const hasAppeal = !!likePoint.trim() || prevArts.length > 0 || nextArts.length > 0;
+
+
     return (
         <ArtRelatedForm
             title={title}
@@ -45,6 +49,7 @@ const NewArtRelatedForm: FC<NewArtRelatedFormProps> = ({ title, imageUrl, artId,
                     likePoint={likePoint}
                     prevArts={prevArts}
                     nextArts={nextArts}
+                    hasAppeal={hasAppeal}
                 />
             }
         />

@@ -43,6 +43,8 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const [type, setType] = useState<string | null>(defaultValues.type ?? "1")
     const isValidType = type && businessCardTypes.includes(type)
 
+    // ビジネスカードのタイプが3の場合、称号とタグの選択を無効にする
+    const isBusinessCard3 = type === "3";
     const [name, setName] = useState(defaultValues.name ?? user?.name ?? "名前")
 
     const [icon, setIcon] = useState(defaultValues.imageUrl ?? defaultBusinessCard.imageUrl)
@@ -189,15 +191,17 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                     />
                 </div>
                 <div className={css({ my: "md" })}>
-                    <InputWrapper
-                        label="興味のあるタグ"
-                    >
-                        <TagSelect
-                            tags={tags}
-                            selectedTags={interestTags}
-                            onChangeSelected={setInterestTags}
-                        />
-                    </InputWrapper>
+                    {!isBusinessCard3 && (
+                        <InputWrapper
+                            label="興味のあるタグ"
+                        >
+                            <TagSelect
+                                tags={tags}
+                                selectedTags={interestTags}
+                                onChangeSelected={setInterestTags}
+                            />
+                        </InputWrapper>
+                    )}
                 </div>
                 <div className={css({ my: "md" })}>
                     <InputWrapper

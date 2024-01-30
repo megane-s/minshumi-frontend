@@ -19,11 +19,15 @@ interface NavigationProps {
     likePoint: string
     prevArts: InputRelatedArt[]
     nextArts: InputRelatedArt[]
+    hasAppeal: boolean
 }
-const Navigation: FC<NavigationProps> = ({ artId, likePoint, prevArts, nextArts }) => {
+const Navigation: FC<NavigationProps> = ({ artId, likePoint, prevArts, nextArts, hasAppeal }) => {
     const appealAnimation = useAppealAnimation()
     const router = useRouter()
     const handleSubmit = useMutate(async () => {
+        if (!hasAppeal) {
+            return;
+        }
         await Promise.all([
             appealAnimation.animate(),
             handleAppeal(artId, {
@@ -41,7 +45,7 @@ const Navigation: FC<NavigationProps> = ({ artId, likePoint, prevArts, nextArts 
         <div
             className={flex({ w: "full", justifyContent: "center", my: "lg" })}
         >
-            <MutateButton mutation={handleSubmit} variant="gradient" size="lg">
+            <MutateButton mutation={handleSubmit} variant="gradient" size="lg" disabled={!hasAppeal}>
                 アピールを登録
             </MutateButton>
 
