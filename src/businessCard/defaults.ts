@@ -1,7 +1,26 @@
 import { BusinessCard } from "./type";
 
 const bg = [
-    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-1.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-1-1.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-1-2.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-1-3.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-1-4.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-1-5.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-1-6.png",
+
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-2-1.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-2-2.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-2-3.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-2-4.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-2-5.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-2-6.png",
+
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-3-1.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-3-2.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-3-3.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-3-4.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-3-5.png",
+    "https://storage.googleapis.com/minshumi-user-content/businesscard-default/bg-3-6.png",
 ]
 const icon = [
     "https://storage.googleapis.com/minshumi-user-content/businesscard-default/icon-1.png",
