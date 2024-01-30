@@ -5,7 +5,7 @@ import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { ImageInput } from "@/components/ImageInput"
 import { TextInput } from "@/components/TextInput"
 import { User } from "next-auth"
-import { Flex, InputWrapper, Text } from "@mantine/core"
+import { Flex, InputWrapper, Space, Text } from "@mantine/core"
 import { FC, useState } from "react"
 import { css } from "styled-system/css"
 import { center, flex } from "styled-system/patterns"
@@ -101,10 +101,13 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                                     名刺を編集
                                 </LinkButton>
                             </div>
+
                         </CarouselSlide>
+
                     )}
 
                 </Carousel>
+
                 {businessCards.length === 0 &&
                     <Flex p={1} justify={"center"}>
                         <center>
@@ -116,18 +119,24 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                             />
                             <SectionTitle>
                                 名刺が無いようです....
+                                <>
+                                    <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`} >
+                                        名刺を作成
+                                    </LinkButton>
+                                </>
                             </SectionTitle>
 
                         </center>
                     </Flex>
                 }
+            </InputWrapper>
+            {businessCards.length > 0 &&
                 <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
                     <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`}>
                         名刺を作成
                     </LinkButton>
                 </div>
-            </InputWrapper>
-
+            }
             <div className={center({ w: "full", my: "xl" })}>
                 <MutateButton mutation={save} variant="filled">
                     プロフィールを保存
