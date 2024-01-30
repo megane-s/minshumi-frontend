@@ -44,7 +44,6 @@ const Header: FC<HeaderProps> = async () => {
                 <Flex align="center">
                     {session
                         ? <>
-                            {/* <Suspense></Suspense> */}
                             <NotificationButton
                                 userId={session.user.id}
                             />
