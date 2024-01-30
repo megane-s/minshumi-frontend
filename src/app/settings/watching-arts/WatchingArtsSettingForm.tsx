@@ -51,7 +51,7 @@ const WatchingArtsSettingForm: FC<WatchingArtsSettingFormProps> = ({ watchingArt
                             height={200}
                         />
                         <SectionTitle my="md">
-                            今見ている作品がまだ無いようです....
+                            今見ている作品が無いようです....
                         </SectionTitle>
 
                     </center>

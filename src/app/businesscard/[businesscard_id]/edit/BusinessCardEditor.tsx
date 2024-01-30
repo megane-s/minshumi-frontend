@@ -9,7 +9,7 @@ import { UserRank } from "@/user/type"
 import { InputWrapper, Select } from "@mantine/core"
 import { FC, useState } from "react"
 import { css } from "styled-system/css"
-import { center, container, flex } from "styled-system/patterns"
+import { center, flex } from "styled-system/patterns"
 import { colors } from "./colors"
 import { BusinessCardPreview } from "./BusinessCardPreview"
 import { InputImages } from "./InputImages"
@@ -138,7 +138,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 },
                 md: {
                     w: "300px",
-                    h: "100dvh",
                     overflowY: "auto",
                 },
                 p: "sm",
@@ -154,15 +153,13 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         error={!isValidType && "選択してください"}
                     />
                 </div>
-                <div className={container({ px: "" })}>
+                <div className={css({ my: "md" })}>
                     <InputImages
-                        backgroundImage={backgroundImage}
                         onChangeBackgroundImage={setBackgroundImage}
-                        icon={icon}
                         onChangeIcon={setIcon}
                     />
                 </div>
-                <div>
+                <div className={css({ my: "md" })}>
                     <TextInput
                         value={name}
                         onChange={e => setName(e.target.value)}
@@ -171,18 +168,17 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         maxLength={15}
                     />
                 </div>
-                <div>
-                    {ranks && !isBusinessCard3 && (
+                {ranks &&
+                    <div className={css({ my: "md" })}>
                         <Select
                             label="称号"
                             data={[{ label: "称号なし", value: "" }, ...ranks]}
                             value={rank}
-                            onChange={(rank) => setRank(rank ?? "")}
-                            className={css({ my: "md" })}
+                            onChange={rank => setRank(rank ?? "")}
                         />
-                    )}
-                </div>
-                <div>
+                    </div>
+                }
+                <div className={css({ my: "md" })}>
                     <Select
                         label="テーマカラー"
                         data={Object.keys(colors).map((color) => ({
@@ -192,10 +188,9 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         value={themeColor}
                         onChange={color => setThemeColor(color)}
                         placeholder="テーマカラーを選択してください"
-                        className={css({ my: "md" })}
                     />
                 </div>
-                <div>
+                <div className={css({ my: "md" })}>
                     {!isBusinessCard3 && (
                         <InputWrapper
                             label="興味のあるタグ"
@@ -208,24 +203,24 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         </InputWrapper>
                     )}
                 </div>
-                <div>
+                <div className={css({ my: "md" })}>
                     <InputWrapper
                         label="好きな作品"
-                        className={css({ my: "md" })}
                     >
                         {Array(3).fill("").map((_, i) =>
-                            <InputArtTitle
-                                key={i}
-                                title={arts[i] ?? ""}
-                                onChangeTitle={title => {
-                                    setArts(p => {
-                                        const newArts = [...p]
-                                        newArts[i] = title
-                                        return newArts
-                                    })
-                                }}
-                                error={!isValidArts && "作品を入力してください"}
-                            />
+                            <div key={i} className={css({ my: "xs" })}>
+                                <InputArtTitle
+                                    title={arts[i] ?? ""}
+                                    onChangeTitle={title => {
+                                        setArts(p => {
+                                            const newArts = [...p]
+                                            newArts[i] = title
+                                            return newArts
+                                        })
+                                    }}
+                                    error={!isValidArts && "作品を入力してください"}
+                                />
+                            </div>
                         )}
                     </InputWrapper>
                 </div>

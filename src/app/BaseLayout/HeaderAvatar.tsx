@@ -12,6 +12,7 @@ import { FC } from "react"
 import { CgProfile } from "react-icons/cg"
 import { css } from "styled-system/css"
 import { TiBusinessCard } from "react-icons/ti"
+import { IoMdMegaphone } from "react-icons/io";
 
 interface HeaderAvatarProps {
   session: Session
@@ -48,6 +49,14 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
             href="/art/new"
           >
             作品の登録
+          </Menu.Item>
+
+          <Menu.Item
+            leftSection={<IoMdMegaphone />}
+            component={Link}
+            href="/AppealSelect"
+          >
+            作品のアピール
           </Menu.Item>
 
           <Menu.Item

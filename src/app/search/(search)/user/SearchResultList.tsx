@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { PageTitle } from '@/components/PageTitle';
 import { SectionTitle } from '@/components/SectionTitle';
 import { Flex } from '@mantine/core';
+import { css } from "styled-system/css"
 
 export const revalidate = 0;
 
@@ -35,10 +36,19 @@ export const SearchResultList: FC<SearchResultListProps> = async ({ query }) => 
                             height={400}
                         />
                         <PageTitle my="md">
-                            ユーザーの検索結果はありません
+                            <div className={css({ display: { base: "block", sm: "inline" } })}>
+                                ユーザーの
+                            </div>
+                            <div className={css({ display: { base: "block", sm: "inline" } })}>
+                                検索結果は
+                            </div>
+                            ありません
                         </PageTitle>
                         <SectionTitle my="md">
-                            検索条件を変えて検索してみてください
+                            <div className={css({ display: { base: "block", sm: "inline" } })}>
+                                検索条件を変えて
+                            </div>
+                            検索してみてください
                         </SectionTitle>
                     </center>
 
