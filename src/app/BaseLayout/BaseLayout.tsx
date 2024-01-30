@@ -14,7 +14,7 @@ const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
             header={{ height: 60 }}
         >
             <Header />
-            <AppShellMain>
+            <AppShellMain style={{ paddingBottom: "100px" }}>
                 <Container className={css({ w: "full", minH: "full" })}>
                     {children}
                 </Container>
