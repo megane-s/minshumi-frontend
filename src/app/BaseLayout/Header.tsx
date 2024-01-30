@@ -1,6 +1,6 @@
 import "server-only"
 
-import { FC, Suspense } from "react"
+import { FC } from "react"
 import { AppShellHeader } from "./AppShell"
 import { Flex, Indicator, Space } from "@mantine/core"
 import { getSession } from "@/auth/server/auth"
@@ -14,7 +14,6 @@ import { NotificationIcon } from "@/components/icon/Notification"
 import { ActionIcon } from "@/components/ActionIcon"
 import { getUnreadNotificationCount } from "@/notification/get"
 import { UserId } from "@/user/type"
-import { css } from "styled-system/css"
 import { flex } from "styled-system/patterns"
 
 interface HeaderProps {

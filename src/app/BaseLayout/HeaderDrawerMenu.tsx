@@ -1,6 +1,6 @@
 "use client"
 
-import { Divider, Drawer, Flex, Menu, NavLink } from "@mantine/core"
+import { Divider, Drawer, Flex, NavLink } from "@mantine/core"
 import { FC } from "react"
 import { useDisclosure } from '@mantine/hooks';
 import Link from "next/link";
