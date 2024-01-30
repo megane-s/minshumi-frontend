@@ -15,6 +15,7 @@ import AppealReminderDialog from "./AppealReminderDialog"
 import LinkButton from "@/components/LinkButton"
 import { flex } from "styled-system/patterns"
 import { getArtAppeal } from "@/art/appeal/get"
+import Link from "next/link"
 
 // アピール済みアイコン
 const AppealedIcon = () => (
@@ -58,6 +59,19 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
 
             <FullWidth className={css({ bg: "background.2" })}>
                 <Container className={css({ py: "md" })}>
+                    {appeal && (
+                        <Link href="/settings/appeals"
+                            style={{
+                                textDecoration: "none",
+                                color: "#8FCC5A",
+                                cursor: "pointer",
+                                fontWeight: "bold",
+                                fontSize: "xl",
+                                marginBottom: "8px"
+                            }}>
+                            <AppealedIcon />アピールしています
+                        </Link>
+                    )}
                     <PageTitle>
                         {art.title}
                     </PageTitle>
@@ -79,10 +93,9 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                         }
                         {isLogined &&
                             <LinkButton href={`/art/${artId}/appeal`} variant="gradient">
-                                {/* {appeal ? "アピールを編集" : "アピールする"}<AppealedIcon /> */}
                                 {appeal ? (
                                     <>
-                                        アピールを編集 <AppealedIcon />
+                                        アピールを編集
                                     </>
                                 ) : (
                                     "アピールする"
