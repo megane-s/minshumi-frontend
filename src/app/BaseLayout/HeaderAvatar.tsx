@@ -3,7 +3,6 @@ import { logout } from "@/auth/client/logout"
 import { Avatar } from "@/components/Avatar"
 import { EditIcon } from "@/components/icon/Edit"
 import { ExitIcon } from "@/components/icon/Exit"
-import { NotificationIcon } from "@/components/icon/Notification"
 import { SettingsIcon } from "@/components/icon/Settings"
 import { Menu } from "@mantine/core"
 import { Session } from "next-auth"
@@ -54,7 +53,7 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           <Menu.Item
             leftSection={<IoMdMegaphone />}
             component={Link}
-            href="/AppealSelect"
+            href="/art/appeal"
           >
             作品のアピール
           </Menu.Item>
@@ -68,19 +67,11 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
           </Menu.Item>
 
           <Menu.Item
-            leftSection={<NotificationIcon />}
-            component={Link}
-            href="/notification"
-          >
-            通知
-          </Menu.Item>
-
-          <Menu.Item
             leftSection={<SettingsIcon />}
             component={Link}
             href="/settings/user"
           >
-            設定
+            プロフィールの編集
           </Menu.Item>
 
           <Menu.Item
