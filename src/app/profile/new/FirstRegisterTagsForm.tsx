@@ -7,7 +7,6 @@ import MutateButton from "@/components/MutateButton"
 import { CheckIcon } from "@/components/icon/Check"
 import { useMutate } from "@/util/client/useMutate"
 import { Center, Space } from "@mantine/core"
-import { useRouter } from "next/navigation"
 import { FC, useState } from "react"
 import { handleFirstRegister } from "./actions"
 
@@ -19,12 +18,10 @@ export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = () => {
     const [selectedOthers, setSelectedOthers] = useState<ArtTag[]>([])
     const [originals, setOriginals] = useState<ArtTag[]>([])
 
-    const router = useRouter()
     const save = useMutate(async () => {
         await handleFirstRegister({
             interestTags: [...selectedMedias, ...selectedGenres, ...selectedOthers],
         })
-        router.push(`/`)
     }, {
         loading: { toast: "設定中..." },
         onSuccess: { toast: "設定しました！" },

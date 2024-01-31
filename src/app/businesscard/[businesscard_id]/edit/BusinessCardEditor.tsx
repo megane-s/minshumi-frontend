@@ -19,7 +19,6 @@ import { InputArtTitle } from "./InputArtTitle"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { handleSaveBusinessCard } from "./actions"
-import { useRouter } from "next/navigation"
 import { getDefaultBusinessCard } from "@/businessCard/defaults"
 import { User } from "next-auth"
 import LinkButton from "@/components/LinkButton"
@@ -82,7 +81,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
         onError: { toast: "保存できませんでした" },
     })
 
-    const router = useRouter()
     const gotoSettings = useMutate(async () => {
         if (!isValid) throw new Error(`入力値が不正です`)
         if (isInstant) throw new Error(`ログインしていない状態での名刺は公開設定はできません。`)
@@ -96,7 +94,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
             backgroundImageUrl: backgroundImage,
             themeColor,
         })
-        router.push(`/businesscard/${businessCardId}/settings`)
     }, {
         loading: { toast: "保存しています..." },
         onSuccess: { toast: "保存しました" },
