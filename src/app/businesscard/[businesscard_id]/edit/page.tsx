@@ -11,6 +11,7 @@ import { getBusinessCardInterestTags } from "@/businessCard/getInterestTags"
 import { getBusinessCardLikeArts } from "@/businessCard/getLikeArts"
 import { getMetadata } from "@/seo/getMetadata"
 import { getDefaultBusinessCard } from "@/businessCard/defaults"
+import { getInterestTags } from "@/art/tag/interest/get"
 
 export async function generateMetadata({ params: { businesscard_id } }: { params: { businesscard_id: string } }) {
     if (businesscard_id === "instant") {
@@ -94,8 +95,11 @@ const getCurrentUserData = async () => {
     const session = await getSession()
     if (!session) return { currentUser: null, ranks: null, tags: null } as const
     const user = session.user
-    const ranks = ["アクションマスター", "SFマスター", "初心者"] // TODO getRanks(user.id)
-    const tags = ["アクション", "SF", "ジャンプ"] // TODO getTags(user.id)
+    const tags = await getInterestTags(user.id)
+    if (tags.length === 0) {
+        tags.push("アニメ", "映画", "マンガ", "アーティスト")
+    }
+    const ranks = ["初心者", "みんしゅみユーザ", ...tags.map(tag => `${tag}好き`)] // TODO getRanks(user.id)
     const likeArts = await getArtAppealsByUser(user.id)
     return { user, ranks, tags, likeArts } as const
 }
