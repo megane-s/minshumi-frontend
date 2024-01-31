@@ -10,13 +10,8 @@ import { css } from "styled-system/css";
 import Image from "next/image";
 import LogoImage from "@/../public/logo-rect.png"
 import { logout } from "@/auth/client/logout";
-import { EditIcon } from "@/components/icon/Edit";
-import { ExitIcon } from "@/components/icon/Exit";
-import { SettingsIcon } from "@/components/icon/Settings";
-import { CgProfile } from "react-icons/cg";
-import { IoMdMegaphone } from "react-icons/io";
-import { TiBusinessCard } from "react-icons/ti";
 import { Session } from "next-auth";
+import { menus } from "./menu";
 
 interface HeaderDrawerMenuProps {
     session: Session | null
@@ -62,56 +57,26 @@ const HeaderDrawerMenu: FC<HeaderDrawerMenuProps> = ({ session }) => {
 
                 {session && <>
                     <Divider />
-                    <NavLink
-                        leftSection={<CgProfile />}
-                        variant="light"
-                        component={Link}
-                        label="MYプロフィール"
-                        href={`/user/${session.user.id}`}
-                        onClick={close}
-                    />
 
-                    <NavLink
-                        leftSection={<EditIcon />}
-                        variant="light"
-                        component={Link}
-                        label="作品の登録"
-                        href={`/art/new`}
-                        onClick={close}
-                    />
-
-                    <NavLink
-                        leftSection={<IoMdMegaphone />}
-                        variant="light"
-                        component={Link}
-                        label="作品のアピール"
-                        href="/art/appeal"
-                        onClick={close}
-                    />
-
-                    <NavLink
-                        leftSection={<TiBusinessCard />}
-                        variant="light"
-                        component={Link}
-                        label="名刺の作成"
-                        href="/businesscard/new"
-                    />
-
-                    <NavLink
-                        leftSection={<SettingsIcon />}
-                        variant="light"
-                        component={Link}
-                        label="プロフィールの編集"
-                        href="/settings/user"
-                    />
-
-
-                    <NavLink
-                        leftSection={<ExitIcon />}
-                        variant="light"
-                        label="ログアウト"
-                        onClick={() => logout({ callbackUrl: "/" })}
-                    />
+                    {menus.map((menu, i) =>
+                        "href" in menu
+                            ? <NavLink
+                                key={i}
+                                leftSection={menu.icon}
+                                variant="light"
+                                component={Link}
+                                label={menu.label}
+                                href={menu.href.replaceAll("[session.user.id]", session.user.id)}
+                                onClick={close}
+                            />
+                            : <NavLink
+                                key={i}
+                                leftSection={menu.icon}
+                                variant="light"
+                                label={menu.label}
+                                onClick={() => menu.onClick === "logout" ? logout() : void 0}
+                            />
+                    )}
 
                 </>}
             </Drawer>

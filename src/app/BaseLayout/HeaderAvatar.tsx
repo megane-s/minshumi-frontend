@@ -1,17 +1,12 @@
 "use client"
 import { logout } from "@/auth/client/logout"
 import { Avatar } from "@/components/Avatar"
-import { EditIcon } from "@/components/icon/Edit"
-import { ExitIcon } from "@/components/icon/Exit"
-import { SettingsIcon } from "@/components/icon/Settings"
 import { Menu } from "@mantine/core"
 import { Session } from "next-auth"
 import Link from "next/link"
 import { FC } from "react"
-import { CgProfile } from "react-icons/cg"
 import { css } from "styled-system/css"
-import { TiBusinessCard } from "react-icons/ti"
-import { IoMdMegaphone } from "react-icons/io";
+import { menus } from "./menu"
 
 interface HeaderAvatarProps {
   session: Session
@@ -34,52 +29,24 @@ export const HeaderAvatar: FC<HeaderAvatarProps> = ({ session }) => {
             </Menu.Label>
           }
 
-          <Menu.Item
-            leftSection={<CgProfile />}
-            component={Link}
-            href={`/user/${session.user.id}`}
-          >
-            MYプロフィール
-          </Menu.Item>
-
-          <Menu.Item
-            leftSection={<EditIcon />}
-            component={Link}
-            href="/art/new"
-          >
-            作品の登録
-          </Menu.Item>
-
-          <Menu.Item
-            leftSection={<IoMdMegaphone />}
-            component={Link}
-            href="/art/appeal"
-          >
-            作品のアピール
-          </Menu.Item>
-
-          <Menu.Item
-            leftSection={<TiBusinessCard />}
-            component={Link}
-            href="/businesscard/new"
-          >
-            名刺の作成
-          </Menu.Item>
-
-          <Menu.Item
-            leftSection={<SettingsIcon />}
-            component={Link}
-            href="/settings/user"
-          >
-            プロフィールの編集
-          </Menu.Item>
-
-          <Menu.Item
-            leftSection={<ExitIcon />}
-            onClick={() => logout({ callbackUrl: "/" })}
-          >
-            ログアウト
-          </Menu.Item>
+          {menus.map((menu, i) =>
+            "href" in menu
+              ? <Menu.Item
+                key={i}
+                leftSection={menu.icon}
+                component={Link}
+                href={menu.href.replaceAll("[session.user.id]", session.user.id)}
+              >
+                {menu.label}
+              </Menu.Item>
+              : <Menu.Item
+                key={i}
+                leftSection={menu.icon}
+                onClick={() => menu.onClick === "logout" ? logout() : void 0}
+              >
+                {menu.label}
+              </Menu.Item>
+          )}
 
         </Menu.Dropdown>
       </Menu>
