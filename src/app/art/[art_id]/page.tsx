@@ -16,6 +16,12 @@ import LinkButton from "@/components/LinkButton"
 import { flex } from "styled-system/patterns"
 import { getArtAppeal } from "@/art/appeal/get"
 
+// アピール済みアイコン
+const AppealedIcon = () => (
+    <span role="img" aria-label="Appealed" style={{ marginLeft: "0.5rem" }}>
+        ✅
+    </span>
+);
 
 interface ArtDetailPageProps {
     params: { art_id: string }
@@ -52,6 +58,19 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
 
             <FullWidth className={css({ bg: "background.2" })}>
                 <Container className={css({ py: "md" })}>
+                    {appeal && (
+                        <div
+                            style={{
+                                textDecoration: "none",
+                                color: "#8FCC5A",
+                                cursor: "pointer",
+                                fontWeight: "bold",
+                                fontSize: "xl",
+                                marginBottom: "8px"
+                            }}>
+                            <AppealedIcon />アピールしています
+                        </div>
+                    )}
                     <PageTitle>
                         {art.title}
                     </PageTitle>
@@ -73,7 +92,13 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                         }
                         {isLogined &&
                             <LinkButton href={`/art/${artId}/appeal`} variant="gradient">
-                                {appeal ? "アピールを編集" : "アピールする"}
+                                {appeal ? (
+                                    <>
+                                        アピールを編集
+                                    </>
+                                ) : (
+                                    "アピールする"
+                                )}
                             </LinkButton>
                         }
                     </div>
