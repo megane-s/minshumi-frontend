@@ -1,6 +1,7 @@
 'use server'
+import { isDev } from '@/debug/isDebug'
 import { notFound } from 'next/navigation'
 
 export const onlyDevelopPage = () => {
-  if (process.env.NODE_ENV !== 'development') notFound()
+  if (!isDev) notFound()
 }
