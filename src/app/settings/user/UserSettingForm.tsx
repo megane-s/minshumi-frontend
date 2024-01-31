@@ -5,7 +5,7 @@ import { Carousel, CarouselSlide } from "@/components/Carousel"
 import { ImageInput } from "@/components/ImageInput"
 import { TextInput } from "@/components/TextInput"
 import { User } from "next-auth"
-import { Flex, InputWrapper, Text } from "@mantine/core"
+import { Flex, InputWrapper, Space, Text } from "@mantine/core"
 import { FC, useState } from "react"
 import { css } from "styled-system/css"
 import { center, flex } from "styled-system/patterns"
@@ -67,9 +67,18 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
             </div>
 
             <InputWrapper
-                label="名刺"
+                label={<>
+                    <span>名刺</span>
+                    <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`} variant="outline" >
+                        作成
+                    </LinkButton>
+                </>}
                 className={css({ my: "md" })}
+                classNames={{
+                    label: flex({ display: "flex !important", justify: "space-between", w: "full", align: "center", mb: "xs" }),
+                }}
             >
+                <Space h="1rem" />
                 <Carousel slideSize="fit-content" align="start" slideGap="lg">
                     {businessCards.map(businessCard =>
                         <CarouselSlide key={businessCard.businessCardId}>
@@ -119,24 +128,25 @@ const UserSettingForm: FC<UserSettingFormProps> = ({ user, businessCards, defaul
                             />
                             <SectionTitle>
                                 名刺が無いようです....
-                                <>
-                                    <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`} >
+                                <Space h="0.5em" />
+                                <div>
+                                    <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`} variant="outline">
+                                        名刺を作成する
+                                    </LinkButton>
+                                </div>
+                            </SectionTitle>
+                            {businessCards.length > 0 &&
+                                <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
+                                    <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`}>
                                         名刺を作成
                                     </LinkButton>
-                                </>
-                            </SectionTitle>
-
+                                </div>
+                            }
                         </center>
                     </Flex>
                 }
             </InputWrapper>
-            {businessCards.length > 0 &&
-                <div className={flex({ w: "full", justify: "flex-end", my: "sm" })}>
-                    <LinkButton leftSection={<AddIcon />} href={`/businesscard/new`}>
-                        名刺を作成
-                    </LinkButton>
-                </div>
-            }
+
             <div className={center({ w: "full", my: "xl" })}>
                 <MutateButton mutation={save} variant="filled">
                     プロフィールを保存
