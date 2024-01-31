@@ -33,7 +33,6 @@ interface BusinessCardEditorProps {
     user: User | null
     ranks: UserRank[] | null
     tags: ArtTag[]
-    likeArts: Art["title"][]
     defaultValues: Partial<(BusinessCard) & { tags: ArtTag[], arts: Art["title"][] }>
     businessCardId: BusinessCardId | null // nullの場合は保存できない
 }
