@@ -43,7 +43,8 @@ export const ArtsList: FC<ArtsListProps> = ({ tag, arts }) => {
                                 wordBreak: "break-all",
                                 textAlign: "center",
                             })}>
-                                {art.title}
+                                {art.title.substring(0, 20)}
+                                {art.title.length >= 20 && "..."}
                             </div>
                         </div>
                     </Link>
