@@ -1,6 +1,5 @@
 //タグごとの作品一覧
 import { getArtsWithTag, getTagArtsCount } from "@/art/tag/getArts"
-import { ArtListItem } from "./ArtListItem"
 import { PageTitle } from "@/components/PageTitle"
 import Image from 'next/image'
 import { Flex } from "@mantine/core"
@@ -9,6 +8,7 @@ import LinkButton from "@/components/LinkButton"
 import { AddIcon } from "@/components/icon/AddIcon"
 import { getMetadata } from "@/seo/getMetadata"
 import { css } from "styled-system/css"
+import ArtList from "./ArtList"
 export async function generateMetadata({ params: { tag_id } }: { params: { tag_id: string } }) {
     const tag = decodeURI(tag_id)
 
@@ -28,7 +28,7 @@ const TagDetailPage = async ({ params }: PageProps) => {
 
     const tag = decodeURI(params.tag_id)
 
-    const arts = await getArtsWithTag(tag)
+    const arts = await getArtsWithTag(tag, { offset: 0, limit: 10 })
 
     return (
         <div>
@@ -36,14 +36,10 @@ const TagDetailPage = async ({ params }: PageProps) => {
                 {tag}
             </PageTitle>
 
-            {arts.map(art =>
-                <ArtListItem key={art.artId} art={art} />
-            )}
-
-            {/* <button>
-                <CiCirclePlus size="2rem" />
-            </button> */}
-
+            <ArtList
+                tag={tag}
+                defaultArts={arts}
+            />
 
             {arts.length === 0 &&
                 <Flex justify="center" align="center" p={50} my="md">

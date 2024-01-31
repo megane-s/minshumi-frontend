@@ -1,5 +1,5 @@
 //検索結果画面
-import { ArtListItem } from "@/app/tag/[tag_id]/ArtListItem"
+import { ArtListItem } from "@/app/tag/[tag_id]/ArtListItem/server"
 import { FC } from "react"
 import { searchArt } from "@/art/search"
 import { } from "next/navigation"
