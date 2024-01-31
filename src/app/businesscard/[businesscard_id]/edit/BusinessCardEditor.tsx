@@ -43,7 +43,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const [type, setType] = useState<string | null>(defaultValues.type ?? "1")
     const isValidType = type && businessCardTypes.includes(type)
 
-    // ビジネスカードのタイプが3の場合、称号とタグの選択を無効にする
+    // ビジネスカードのタイプが3の場合、肩書きとタグの選択を無効にする
     const isBusinessCard3 = type === "3";
     const [name, setName] = useState(defaultValues.name ?? user?.name ?? "名前")
 
@@ -171,8 +171,8 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 {ranks &&
                     <div className={css({ my: "md" })}>
                         <Select
-                            label="称号"
-                            data={[{ label: "称号なし", value: "" }, ...ranks]}
+                            label="肩書き"
+                            data={[{ label: "肩書きなし", value: "" }, ...ranks]}
                             value={rank}
                             onChange={rank => setRank(rank ?? "")}
                         />
