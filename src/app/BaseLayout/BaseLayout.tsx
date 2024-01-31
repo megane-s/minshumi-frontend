@@ -2,7 +2,6 @@
 import { AppShell, Container } from "@mantine/core"
 import { FC, ReactNode } from "react"
 import Header from "./Header"
-import Footer from "./Footer"
 import { AppShellMain } from "./AppShell"
 import { css } from "styled-system/css"
 
@@ -15,12 +14,11 @@ const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
             header={{ height: 60 }}
         >
             <Header />
-            <AppShellMain>
+            <AppShellMain style={{ paddingBottom: "100px" }}>
                 <Container className={css({ w: "full", minH: "full" })}>
                     {children}
                 </Container>
             </AppShellMain>
-            <Footer />
         </AppShell>
     )
 }
