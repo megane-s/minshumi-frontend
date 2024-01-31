@@ -15,6 +15,9 @@ export const getArtsWithTag = async (tag: ArtTag): Promise<Art[]> => {
             art: true,
         },
         take: 30, // TODO
+        orderBy: {
+            art: { updateAt: "desc" },
+        },
     })
     return results.map(result =>
         result.art
