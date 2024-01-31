@@ -4,4 +4,4 @@ import "server-only"
 // eslint-disable-next-line no-restricted-imports
 import { PrismaClient } from '@prisma/client'
 
-export const prisma = new PrismaClient({ log: ["query"] })
+export const prisma = new PrismaClient({ log: process.env.PRISMA_LOG_QUERY === "true" ? ["query"] : [] })

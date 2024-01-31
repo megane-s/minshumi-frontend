@@ -4,12 +4,12 @@ import { Art } from "@/art/type"
 import { Button } from "@/components/Button"
 import { Dialog } from "@/components/Dialog"
 import { PageTitle } from "@/components/PageTitle"
-import { sleep } from "@/util/sleep"
 import { useDisclosure } from "@mantine/hooks"
 import { FC, useEffect } from "react"
 import { css } from "styled-system/css"
 import { flex } from "styled-system/patterns"
 import { handleClearLastCreatedArtId, handleGotoAppeal } from "./actions"
+import { sleep } from "@/util/sleep"
 
 interface AppealReminderDialogProps {
     art: Art
@@ -17,12 +17,15 @@ interface AppealReminderDialogProps {
 const AppealReminderDialog: FC<AppealReminderDialogProps> = ({ art }) => {
     const [opened, { close, open }] = useDisclosure(false)
     useEffect(() => {
-        void sleep(500)
+        void sleep(250)
             .then(open)
-        void handleClearLastCreatedArtId()
     }, [open])
+    const handleClose = () => {
+        close()
+        handleClearLastCreatedArtId()
+    }
     return (
-        <Dialog opened={opened} onClose={close} className={css({ textAlign: "center" })}>
+        <Dialog opened={opened} onClose={handleClose} className={css({ textAlign: "center" })}>
             <PageTitle className={css({ color: "primary.0" })}>
                 {art.title}をアピールしよう！
             </PageTitle>
@@ -34,7 +37,7 @@ const AppealReminderDialog: FC<AppealReminderDialogProps> = ({ art }) => {
                 <Button variant="gradient" size="lg" onClick={() => handleGotoAppeal(art.artId)}>
                     アピールする
                 </Button>
-                <Button onClick={close} variant="subtle">
+                <Button onClick={handleClose} variant="subtle">
                     今はやめておく
                 </Button>
             </div>
