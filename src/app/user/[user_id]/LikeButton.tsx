@@ -1,14 +1,16 @@
 "use client"
 
-import { ActionIcon } from "@mantine/core"
-import { FC } from "react"
-import { FaRegHeart } from "react-icons/fa"
+import { ActionIcon } from "@mantine/core";
+import { FC } from "react";
+import { FaRegHeart } from "react-icons/fa";
 
 interface LikeButtonProps {
-    isGooded: boolean
-    onClick: () => void
+    isGooded: boolean;
+    onClick: () => void;
+    likeCount: number; // 追加: いいね数
 }
-export const LikeButton: FC<LikeButtonProps> = ({ isGooded, onClick }) => {
+
+export const LikeButton: FC<LikeButtonProps> = ({ isGooded, onClick, likeCount }) => {
     return (
         <>
             <ActionIcon
@@ -19,6 +21,7 @@ export const LikeButton: FC<LikeButtonProps> = ({ isGooded, onClick }) => {
             >
                 <FaRegHeart />
             </ActionIcon>
+            {likeCount > 0 && <span style={{ marginLeft: "4px" }}>{likeCount}</span>}
         </>
-    )
-}
+    );
+};

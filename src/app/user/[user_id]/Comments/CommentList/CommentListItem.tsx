@@ -25,8 +25,9 @@ interface CommentListItemProps {
     defaultIsGooded: boolean
     isLogin: boolean
     loginUser: User | null
+    likeCount: number
 }
-export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser, defaultIsGooded, isLogin, loginUser }) => {
+export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser, defaultIsGooded, isLogin, loginUser, likeCount }) => {
     const [mode, setMode] = useState<"view" | "edit">("view")
     const handleToggleMode = () => {
         if (!isLogin) return pleaseLoginDialog.onOpen()
@@ -137,7 +138,9 @@ export const CommentListItem: FC<CommentListItemProps> = ({ comment, commentUser
                     <LikeButton
                         isGooded={isGooded}
                         onClick={() => void handleGoodClick.mutate(null)}
+                        likeCount={likeCount}
                     />
+
                     {loginUser?.id === comment.commentUserId &&
                         <CommentMenu
                             mode={mode}
