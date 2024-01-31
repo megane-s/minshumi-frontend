@@ -1,4 +1,3 @@
-import { EditIcon } from "@/components/icon/Edit";
 import { ExitIcon } from "@/components/icon/Exit";
 import { SettingsIcon } from "@/components/icon/Settings";
 import { ReactNode } from "react";
@@ -19,11 +18,6 @@ export const menus: MenuItem[] = [
         icon: <CgProfile />,
         href: "/user/[session.user.id]",
         label: "MYプロフィール",
-    },
-    {
-        icon: <EditIcon />,
-        href: "/art/new",
-        label: "作品の登録",
     },
     {
         icon: <IoMdMegaphone />,
