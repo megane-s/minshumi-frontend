@@ -29,3 +29,9 @@ export const getTagArtsCount = async (tag: ArtTag) => {
     })
     return results
 }
+
+export const getArtsWithTagCount = async (tag: ArtTag) => {
+    return await prisma.artTag.count({
+        where: { tag },
+    })
+}
