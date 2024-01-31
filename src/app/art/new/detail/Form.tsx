@@ -10,11 +10,34 @@ import { z } from "zod"
 import { detailLocalStorageKey } from "./localStorage"
 import { css } from "styled-system/css"
 
-const formDefaultValues = {
+const images = [
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-1-1.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-1-2.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-1-3.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-1-4.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-1-5.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-1-6.png",
+
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-2-1.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-2-2.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-2-3.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-2-4.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-2-5.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-2-6.png",
+
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-3-1.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-3-2.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-3-3.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-3-4.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-3-5.png",
+    "https://storage.googleapis.com/minshumi-user-content/art-default/type-3-6.png",
+]
+
+const getFormDefaultValues = () => ({
     title: "",
     description: "",
-    imageUrl: "https://storage.googleapis.com/minshumi-user-content/logo-rect-1200x675.png",
-}
+    imageUrl: images[Math.floor(Math.random() * images.length)],
+})
 
 export const CreateArtParamsDetailSchema = CreateArtParamsSchema.pick({
     title: true,
@@ -33,7 +56,10 @@ const NewArtDetailForm: FC<NewArtDetailFormProps> = () => {
         )
     }
     return <FormContent
-        defaultValues={defaultValues.data ?? formDefaultValues}
+        defaultValues={{
+            ...getFormDefaultValues(),
+            ...defaultValues.data,
+        }}
     />
 }
 
