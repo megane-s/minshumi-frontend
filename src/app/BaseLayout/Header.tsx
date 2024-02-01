@@ -26,11 +26,6 @@ const Header: FC<HeaderProps> = async () => {
                 <HeaderDrawerMenu
                     session={session}
                 />
-                {/* <Logo
-                    imageProps={{
-                        priority: true,
-                    }}
-                /> */}
                 <Link href={"/"}>
                     <Image
                         src={LogoImage}
@@ -38,6 +33,7 @@ const Header: FC<HeaderProps> = async () => {
                         width={100}
                         height={50}
                         style={{ height: "100%" }}
+                        priority
                     />
                 </Link>
                 <Flex align="center">

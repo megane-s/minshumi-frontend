@@ -42,7 +42,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ defaultValue = "", type }) => {
                 }}
                 type='submit'
             >
-                <SearchIcon />
+                <SearchIcon alt="検索" />
             </ActionIcon>
         </form>
     );

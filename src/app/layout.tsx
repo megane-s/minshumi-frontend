@@ -9,6 +9,7 @@ import BaseLayout from "./BaseLayout/BaseLayout"
 import { getMetadata } from "@/seo/getMetadata"
 
 import "@/style/globals.css"
+import DebugMarker from "@/debug/DebugMarker"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <BaseLayout>
             {children}
           </BaseLayout>
+          <DebugMarker />
         </Providers>
       </body>
     </html>

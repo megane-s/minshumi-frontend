@@ -11,10 +11,12 @@ import { css } from 'styled-system/css';
 import { Link } from '@/components/Link';
 import { ArtsList } from './ArtsList';
 
+export const revalidate = 12 * 3600 // キャッシュの有効期間を12時間とする
+
 const TopPage = async () => {
   const tagArts = await Promise.all(
     tags.map(async tag => {
-      const arts = await getArtsWithTag(tag)
+      const arts = await getArtsWithTag(tag, { limit: 7 })
       return { tag, arts }
     })
   )
@@ -30,7 +32,7 @@ const TopPage = async () => {
 
       <div style={{ marginBottom: '20px' }} />
 
-      {tagArts.map(({ tag, arts }) => (
+      {tagArts.map(({ tag, arts }, index) => (
         arts.length >= 1 &&
         <div key={tag} className={css({ my: "lg !important" })}>
           <SectionTitle className={css({ my: "md !important" })}>
@@ -41,6 +43,7 @@ const TopPage = async () => {
           <ArtsList
             tag={tag}
             arts={arts}
+            imagePriority={index <= 2}
           />
         </div>
       ))}
@@ -48,4 +51,4 @@ const TopPage = async () => {
   );
 };
 
-export default TopPage;
+export default TopPage

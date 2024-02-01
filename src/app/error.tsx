@@ -13,6 +13,7 @@ const ErrorPage = () => {
                     alt='500'
                     width={800}
                     height={400}
+                    priority
                 />
 
                 <PageTitle style={{ color: 'red' }}>

@@ -19,7 +19,6 @@ import { InputArtTitle } from "./InputArtTitle"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
 import { handleSaveBusinessCard } from "./actions"
-import { useRouter } from "next/navigation"
 import { getDefaultBusinessCard } from "@/businessCard/defaults"
 import { User } from "next-auth"
 import LinkButton from "@/components/LinkButton"
@@ -33,7 +32,6 @@ interface BusinessCardEditorProps {
     user: User | null
     ranks: UserRank[] | null
     tags: ArtTag[]
-    likeArts: Art["title"][]
     defaultValues: Partial<(BusinessCard) & { tags: ArtTag[], arts: Art["title"][] }>
     businessCardId: BusinessCardId | null // nullの場合は保存できない
 }
@@ -43,7 +41,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const [type, setType] = useState<string | null>(defaultValues.type ?? "1")
     const isValidType = type && businessCardTypes.includes(type)
 
-    // ビジネスカードのタイプが3の場合、称号とタグの選択を無効にする
+    // ビジネスカードのタイプが3の場合、肩書きとタグの選択を無効にする
     const isBusinessCard3 = type === "3";
     const [name, setName] = useState(defaultValues.name ?? user?.name ?? "名前")
 
@@ -82,7 +80,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
         onError: { toast: "保存できませんでした" },
     })
 
-    const router = useRouter()
     const gotoSettings = useMutate(async () => {
         if (!isValid) throw new Error(`入力値が不正です`)
         if (isInstant) throw new Error(`ログインしていない状態での名刺は公開設定はできません。`)
@@ -96,7 +93,6 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
             backgroundImageUrl: backgroundImage,
             themeColor,
         })
-        router.push(`/businesscard/${businessCardId}/settings`)
     }, {
         loading: { toast: "保存しています..." },
         onSuccess: { toast: "保存しました" },
@@ -171,8 +167,8 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                 {ranks &&
                     <div className={css({ my: "md" })}>
                         <Select
-                            label="称号"
-                            data={[{ label: "称号なし", value: "" }, ...ranks]}
+                            label="肩書き"
+                            data={[{ label: "肩書きなし", value: "" }, ...ranks]}
                             value={rank}
                             onChange={rank => setRank(rank ?? "")}
                         />

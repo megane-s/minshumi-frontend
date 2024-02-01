@@ -11,8 +11,9 @@ import { flex } from "styled-system/patterns"
 interface ArtsListProps {
     tag: ArtTag
     arts: Art[]
+    imagePriority?: boolean
 }
-export const ArtsList: FC<ArtsListProps> = ({ tag, arts }) => {
+export const ArtsList: FC<ArtsListProps> = ({ tag, arts, imagePriority = false }) => {
     return (
         <Carousel
             slideSize="fit-content"
@@ -36,6 +37,7 @@ export const ArtsList: FC<ArtsListProps> = ({ tag, arts }) => {
                                     height: 100,
                                     _hover: { cursor: "pointer" },
                                 })}
+                                priority={imagePriority}
                             />
                             <div className={css({
                                 w: "100%",
