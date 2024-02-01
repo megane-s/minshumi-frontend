@@ -4,8 +4,8 @@ import { WatchingArtImage } from "./WatchingArtImage"
 import { getWatchingArts } from "@/art/watching/get"
 import { UserId } from "@/user/type"
 import Image from "next/image";
-import { Flex } from "@mantine/core"
 import { SectionTitle } from "@/components/SectionTitle"
+import { flex } from "styled-system/patterns"
 interface WatchingArtListProps {
     userId: UserId
 }
@@ -16,7 +16,7 @@ export const WatchingArtList: FC<WatchingArtListProps> = async ({ userId }) => {
             <Carousel
                 slideSize="fit-content"
                 slideGap="sm"
-                align="start"
+                align={arts.length === 0 ? "center" : "start"}
                 controlsOffset="0"
             >
                 {arts.map(art =>
@@ -26,10 +26,8 @@ export const WatchingArtList: FC<WatchingArtListProps> = async ({ userId }) => {
                         />
                     </CarouselSlide>
                 )}
-            </Carousel>
-            {arts.length === 0 &&
-                <Flex p={1} justify={"space-evenly"} my="md">
-                    <center>
+                {arts.length === 0 &&
+                    <CarouselSlide className={flex({ flexDir: "column", w: "full", p: 1, justify: "space-evenly", align: "center", my: "md" })}>
                         <Image
                             src="/cat.png"
                             alt='none'
@@ -39,10 +37,9 @@ export const WatchingArtList: FC<WatchingArtListProps> = async ({ userId }) => {
                         <SectionTitle my="md">
                             今見ている作品が無いようです....
                         </SectionTitle>
-
-                    </center>
-                </Flex>
-            }
+                    </CarouselSlide>
+                }
+            </Carousel>
         </div>
     )
 }

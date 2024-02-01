@@ -3,9 +3,9 @@ import { FC } from "react"
 import { LikeArtImage } from "./LikeArtImage"
 import { getArtAppealsByUser } from "@/art/appeal/getByUser"
 import { UserId } from "@/user/type"
-import { Flex } from "@mantine/core"
 import Image from "next/image";
 import { SectionTitle } from "@/components/SectionTitle"
+import { flex } from "styled-system/patterns"
 
 interface LikeArtListProps {
     userId: UserId
@@ -17,7 +17,7 @@ export const LikeArtList: FC<LikeArtListProps> = async ({ userId }) => {
             <Carousel
                 slideSize="fit-content"
                 slideGap="sm"
-                align="start"
+                align={arts.length === 0 ? "center" : "start"}
                 controlsOffset="0"
             >
 
@@ -29,11 +29,8 @@ export const LikeArtList: FC<LikeArtListProps> = async ({ userId }) => {
                     </CarouselSlide>
                 )}
 
-
-            </Carousel>
-            {arts.length === 0 &&
-                <Flex p={1} justify={"space-evenly"} my="md">
-                    <center>
+                {arts.length === 0 &&
+                    <CarouselSlide className={flex({ flexDir: "column", w: "full", p: 1, justify: "space-evenly", align: "center", my: "md" })}>
                         <Image
                             src="/cat.png"
                             alt='none'
@@ -43,10 +40,10 @@ export const LikeArtList: FC<LikeArtListProps> = async ({ userId }) => {
                         <SectionTitle my="md">
                             アピール作品が無いようです....
                         </SectionTitle>
+                    </CarouselSlide>
+                }
 
-                    </center>
-                </Flex>
-            }
+            </Carousel>
         </div>
     )
 }

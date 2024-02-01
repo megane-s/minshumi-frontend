@@ -11,7 +11,6 @@ import { WatchingArtList } from "./WatchingArtList";
 import { LikeArtList } from "./LikeArtList";
 import { Comments } from "./Comments/Comments";
 import { FC, Suspense } from "react";
-import { Loader } from "@/components/Loader";
 import { CenterLoader } from "@/components/CenterLoader";
 import { FollowInfo } from "./FollowInfo";
 import { UserId } from "@/user/type";
@@ -87,7 +86,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 </Suspense>
             </Flex>
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<CenterLoader />}>
                 <LikeArtList userId={userId} />
             </Suspense>
 
@@ -101,7 +100,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 </Suspense>
             </Flex>
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<CenterLoader />}>
                 <WatchingArtList userId={userId} />
             </Suspense>
 
