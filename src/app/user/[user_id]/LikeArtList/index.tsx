@@ -3,7 +3,6 @@ import { FC } from "react"
 import { LikeArtImage } from "./LikeArtImage"
 import { getArtAppealsByUser } from "@/art/appeal/getByUser"
 import { UserId } from "@/user/type"
-import { Flex } from "@mantine/core"
 import Image from "next/image";
 import { SectionTitle } from "@/components/SectionTitle"
 import { flex } from "styled-system/patterns"

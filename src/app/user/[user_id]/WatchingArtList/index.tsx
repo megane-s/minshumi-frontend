@@ -4,7 +4,6 @@ import { WatchingArtImage } from "./WatchingArtImage"
 import { getWatchingArts } from "@/art/watching/get"
 import { UserId } from "@/user/type"
 import Image from "next/image";
-import { Flex } from "@mantine/core"
 import { SectionTitle } from "@/components/SectionTitle"
 import { flex } from "styled-system/patterns"
 interface WatchingArtListProps {

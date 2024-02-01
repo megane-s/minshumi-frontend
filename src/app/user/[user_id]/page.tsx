@@ -11,7 +11,6 @@ import { WatchingArtList } from "./WatchingArtList";
 import { LikeArtList } from "./LikeArtList";
 import { Comments } from "./Comments/Comments";
 import { FC, Suspense } from "react";
-import { Loader } from "@/components/Loader";
 import { CenterLoader } from "@/components/CenterLoader";
 import { FollowInfo } from "./FollowInfo";
 import { UserId } from "@/user/type";
