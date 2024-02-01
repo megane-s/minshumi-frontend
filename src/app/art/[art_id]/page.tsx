@@ -53,6 +53,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                     width={300}
                     height={200}
                     style={{ width: "100%", height: "auto", maxHeight: "50vh", objectFit: "cover" }}
+                    priority
                 />
             </FullWidth>
 

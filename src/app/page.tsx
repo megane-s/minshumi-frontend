@@ -30,7 +30,7 @@ const TopPage = async () => {
 
       <div style={{ marginBottom: '20px' }} />
 
-      {tagArts.map(({ tag, arts }) => (
+      {tagArts.map(({ tag, arts }, index) => (
         arts.length >= 1 &&
         <div key={tag} className={css({ my: "lg !important" })}>
           <SectionTitle className={css({ my: "md !important" })}>
@@ -41,6 +41,7 @@ const TopPage = async () => {
           <ArtsList
             tag={tag}
             arts={arts}
+            imagePriority={index <= 2}
           />
         </div>
       ))}

@@ -11,8 +11,9 @@ import { flex } from "styled-system/patterns"
 interface ArtsListProps {
     tag: ArtTag
     arts: Art[]
+    imagePriority?: boolean
 }
-export const ArtsList: FC<ArtsListProps> = ({ tag, arts }) => {
+export const ArtsList: FC<ArtsListProps> = ({ tag, arts, imagePriority = false }) => {
     return (
         <Carousel
             slideSize="fit-content"
@@ -29,6 +30,7 @@ export const ArtsList: FC<ArtsListProps> = ({ tag, arts }) => {
                             alt={art.title}
                             width={300}
                             height={200}
+                            priority={imagePriority}
                         />
                     </Link>
                 </CarouselSlide>

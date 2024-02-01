@@ -11,6 +11,7 @@ export default function NotFound() {
                     alt='404'
                     width={800}
                     height={400}
+                    priority
                 />
 
 

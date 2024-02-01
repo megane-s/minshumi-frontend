@@ -38,6 +38,7 @@ const Header: FC<HeaderProps> = async () => {
                         width={100}
                         height={50}
                         style={{ height: "100%" }}
+                        priority
                     />
                 </Link>
                 <Flex align="center">
