@@ -47,7 +47,7 @@ export const TopNews: FC<TopNewsProps> = () => {
             <NewsSlide
                 src="/top_panel_1_lg.png"
                 alt="作品をアピールしよう"
-                href="/art/new/detail"
+                href="/art/appeal"
                 priority
             />
             <NewsSlide
