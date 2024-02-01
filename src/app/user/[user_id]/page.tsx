@@ -87,7 +87,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 </Suspense>
             </Flex>
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<CenterLoader />}>
                 <LikeArtList userId={userId} />
             </Suspense>
 
@@ -101,7 +101,7 @@ const UserProfilePage = async ({ params }: PageProps) => {
                     />
                 </Suspense>
             </Flex>
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<CenterLoader />}>
                 <WatchingArtList userId={userId} />
             </Suspense>
 
