@@ -11,10 +11,12 @@ import { css } from 'styled-system/css';
 import { Link } from '@/components/Link';
 import { ArtsList } from './ArtsList';
 
+export const revalidate = 12 * 3600 // キャッシュの有効期間を12時間とする
+
 const TopPage = async () => {
   const tagArts = await Promise.all(
     tags.map(async tag => {
-      const arts = await getArtsWithTag(tag)
+      const arts = await getArtsWithTag(tag, { limit: 7 })
       return { tag, arts }
     })
   )
@@ -49,4 +51,4 @@ const TopPage = async () => {
   );
 };
 
-export default TopPage;
+export default TopPage

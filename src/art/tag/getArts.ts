@@ -1,6 +1,7 @@
 import "server-only"
 
 import { prisma } from "@/prisma"
+import { FindOptions } from "@/util/server/findUtil"
 import { Art, ArtTag } from "../type"
 
 /**
@@ -8,13 +9,14 @@ import { Art, ArtTag } from "../type"
  * @param tag 指定するタグ。
  * @returns タグが設定されている作品一覧。
  */
-export const getArtsWithTag = async (tag: ArtTag): Promise<Art[]> => {
+export const getArtsWithTag = async (tag: ArtTag, options: FindOptions = {}): Promise<Art[]> => {
     const results = await prisma.artTag.findMany({
         where: { tag },
         include: {
             art: true,
         },
-        take: 30, // TODO
+        skip: options.offset ?? 0,
+        take: options.limit ?? 30,
     })
     return results.map(result =>
         result.art
@@ -26,4 +28,10 @@ export const getTagArtsCount = async (tag: ArtTag) => {
         where: { tag },
     })
     return results
+}
+
+export const getArtsWithTagCount = async (tag: ArtTag) => {
+    return await prisma.artTag.count({
+        where: { tag },
+    })
 }
