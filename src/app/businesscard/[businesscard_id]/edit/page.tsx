@@ -27,11 +27,12 @@ export async function generateMetadata({ params: { businesscard_id } }: { params
 
 interface PageProps {
     params: { businesscard_id: string }
+    searchParams: { type?: string }
 }
-const EditBusinessCardPage = async ({ params: { businesscard_id } }: PageProps) => {
+const EditBusinessCardPage = async ({ params: { businesscard_id }, searchParams: { type = "1" } }: PageProps) => {
     const isInstant = businesscard_id === "instant"
 
-    const { businessCard, user, ranks, tags } = await getBusinessCardDefaultValues(isInstant, businesscard_id)
+    const { businessCard, user, ranks, tags } = await getBusinessCardDefaultValues(isInstant, businesscard_id, { type })
 
     if (!businessCard) notFound()
 
@@ -50,7 +51,7 @@ const EditBusinessCardPage = async ({ params: { businesscard_id } }: PageProps) 
 }
 export default EditBusinessCardPage
 
-const getBusinessCardDefaultValues = async (isInstant: boolean, businessCardId: BusinessCardId): Promise<{
+const getBusinessCardDefaultValues = async (isInstant: boolean, businessCardId: BusinessCardId, { type }: { type: string }): Promise<{
     businessCard: ComponentProps<typeof BusinessCardEditor>["defaultValues"]
     user: User | null
     ranks: ComponentProps<typeof BusinessCardEditor>["ranks"]
@@ -59,6 +60,7 @@ const getBusinessCardDefaultValues = async (isInstant: boolean, businessCardId: 
     const defaultResult = {
         businessCard: {
             ...getDefaultBusinessCard(),
+            type,
             arts: ["作品1", "作品2", "作品3"],
             tags: ["アニメ"],
         },
