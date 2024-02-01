@@ -90,8 +90,9 @@ const getBusinessCardDefaultValues = async (isInstant: boolean, businessCardId: 
                 if (businessCardTags.length >= 3) return [...businessCardTags].slice(0, 3)
                 const userTags = await getInterestTags(session.user.id)
                 if (userTags.length >= 3) return [...userTags].slice(0, 3)
-                return [...businessCardTags, ...userTags, "", "", ""]
-            }),
+                return [...businessCardTags, ...userTags]
+            })
+            .then(tags => Array.from(new Set(tags))),
         getBusinessCardLikeArts(businessCardId),
     ])
     const ranks = ["みんしゅみユーザ", "みんしゅみ初心者", ...tags.map(tag => `${tag}好き`)]
