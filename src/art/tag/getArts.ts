@@ -17,6 +17,9 @@ export const getArtsWithTag = async (tag: ArtTag, options: FindOptions = {}): Pr
         },
         skip: options.offset ?? 0,
         take: options.limit ?? 30,
+        orderBy: {
+            art: { updateAt: "desc" },
+        },
     })
     return results.map(result =>
         result.art

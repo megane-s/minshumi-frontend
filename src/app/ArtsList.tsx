@@ -24,14 +24,31 @@ export const ArtsList: FC<ArtsListProps> = ({ tag, arts, imagePriority = false }
             {arts.map(art =>
                 <CarouselSlide key={art.artId}>
                     <Link href={`/art/${art.artId}`}>
-                        <Image
-                            className={css({ w: "auto", h: { base: "80px", md: "120px", } })}
-                            src={art.imageUrl}
-                            alt={art.title}
-                            width={300}
-                            height={200}
-                            priority={imagePriority}
-                        />
+                        <div className={css({ width: "min-content", flexShrink: 0 })}>
+                            <Image
+                                src={art.imageUrl}
+                                alt={art.title}
+                                width={200}
+                                height={100}
+                                className={css({
+                                    w: "fit-content",
+                                    minW: "fit-content",
+                                    maxW: "fit-content",
+                                    height: 100,
+                                    _hover: { cursor: "pointer" },
+                                })}
+                                priority={imagePriority}
+                            />
+                            <div className={css({
+                                w: "100%",
+                                maxW: "100%",
+                                wordBreak: "break-all",
+                                textAlign: "center",
+                            })}>
+                                {art.title.substring(0, 20)}
+                                {art.title.length >= 20 && "..."}
+                            </div>
+                        </div>
                     </Link>
                 </CarouselSlide>
             )}
