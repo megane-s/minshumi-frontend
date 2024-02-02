@@ -107,7 +107,7 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                 <Divider />
             </FullWidth>
 
-            <div className={css({ py: "md" })}>
+            <div className={css({ py: "md", w: "full", wordBreak: "break-all" })}>
                 {art.description}
             </div>
 
