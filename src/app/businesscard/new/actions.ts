@@ -9,7 +9,7 @@ export const handleCreateBusinessCard = async (type: string) => {
     const session = await getSession()
     if (!session) {
         // ログインしていない場合は名刺は保存しない
-        return
+        redirect(`/businesscard/instant/edit?type=${type}`)
     }
 
     const defaults = getDefaultBusinessCard()
@@ -20,6 +20,5 @@ export const handleCreateBusinessCard = async (type: string) => {
         imageUrl: session.user.image ?? defaults.imageUrl,
     })
     redirect(`/businesscard/${newBusinessCard?.businessCardId ?? "instant"}/edit`)
-    return newBusinessCard
 }
 

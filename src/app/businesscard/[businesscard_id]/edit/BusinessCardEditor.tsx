@@ -164,7 +164,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         maxLength={15}
                     />
                 </div>
-                {ranks &&
+                {ranks && !isBusinessCard3 &&
                     <div className={css({ my: "md" })}>
                         <Select
                             label="肩書き"
@@ -186,8 +186,8 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                         placeholder="テーマカラーを選択してください"
                     />
                 </div>
-                <div className={css({ my: "md" })}>
-                    {!isBusinessCard3 && (
+                {!isBusinessCard3 && (
+                    <div className={css({ my: "md" })}>
                         <InputWrapper
                             label="興味のあるタグ"
                         >
@@ -197,8 +197,8 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
                                 onChangeSelected={setInterestTags}
                             />
                         </InputWrapper>
-                    )}
-                </div>
+                    </div>
+                )}
                 <div className={css({ my: "md" })}>
                     <InputWrapper
                         label="好きな作品"
