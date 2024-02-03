@@ -1,7 +1,6 @@
 import "server-only";
 
 import { prisma } from "@/prisma";
-import { searchApiClient } from "@/search/client";
 import { UserId } from "@/user/type";
 import { Art, CreateArtParams } from "./type";
 // eslint-disable-next-line no-restricted-imports
@@ -57,6 +56,5 @@ export const createArt = async (userId: UserId, { mediaTags, genreTags, otherTag
         // 変更履歴
         return newArt
     })
-    void searchApiClient.POST("/search/art/index")
     return newArt
 }
