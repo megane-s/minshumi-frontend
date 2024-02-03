@@ -1,5 +1,4 @@
 import { prisma } from "@/prisma"
-import { searchApiClient } from "@/search/client"
 import { cache } from "react"
 import "server-only"
 import { User } from "./type"
@@ -20,5 +19,4 @@ export const searchUser = cache(async (query: string): Promise<User[]> => {
 })
 
 export const updateSearchUserIndex = () => {
-    void searchApiClient.POST("/search/user/index")
 }
