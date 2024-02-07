@@ -12,3 +12,12 @@ export const getArt = async (artId: ArtId): Promise<Art | null> => {
     })
     return art
 }
+
+export const getArts = async ({ limit = 10_000 }: Partial<{ limit: number }> = {}) => {
+    return await prisma.art.findMany({
+        orderBy: {
+            updateAt: "desc",
+        },
+        take: limit,
+    })
+}

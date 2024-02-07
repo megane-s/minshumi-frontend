@@ -13,3 +13,9 @@ export const getUser = async (userId: UserId): Promise<User | null> => {
     })
     return user
 }
+
+export const getUsers = async ({ limit = 10_000 }: Partial<{ limit: number }> = {}) => {
+    return await prisma.user.findMany({
+        take: limit,
+    })
+}
