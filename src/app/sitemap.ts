@@ -59,4 +59,9 @@ const url = (path: string) => {
   const baseUrl = new URL("https://minshumi.com")
   baseUrl.pathname = path
   return baseUrl.toString()
+    .replaceAll(/&/g, "&amp;")
+    .replaceAll(/</g, "&lt;")
+    .replaceAll(/>/g, "&gt;")
+    .replaceAll(/\\/g, "&apos;")
+    .replaceAll(/"/g, "&quot;")
 }
