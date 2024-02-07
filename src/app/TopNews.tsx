@@ -1,62 +1,26 @@
-"use client"
 
-import { Carousel, CarouselSlide } from "@/components/Carousel"
-import { useClientRendered } from "@/util/client/useClientRendered"
-import { em } from "@mantine/core"
-import { useMediaQuery } from "@mantine/hooks"
 import Image, { ImageProps } from "next/image"
-import Link from "next/link"
+import TextPopImg from "@/../public/top_text-pop.png"
+import TopPanel1Img from "@/../public/top_panel_1.png"
 
 import { FC } from "react"
 import { css } from "styled-system/css"
-import { flex } from "styled-system/patterns"
-
-const fullSize = css({ w: "full", h: "full !important" })
+import { center, flex } from "styled-system/patterns"
+import { Button } from "@/components/Button"
+import { getSession } from "@/auth/server/auth"
+import LinkButton from "@/components/LinkButton"
+import { login } from "@/auth/client/login"
+import { LoginButton } from "@/components/LoginButton"
 
 interface TopNewsProps {
 }
 export const TopNews: FC<TopNewsProps> = () => {
-    const clientRendered = useClientRendered()
-
-    const isMobile = useMediaQuery(`(max-width: ${em(750)})`)
     return (
-        <Carousel
-            slideSize="min(900px, 70%)"
-            align="center"
-            controlSize={isMobile ? 40 : 64}
-            controlsOffset={isMobile ? 2 : "xl"}
-            loop
-            classNames={{
-                root: css({ opacity: clientRendered ? 1 : "0", transition: "opacity 0.1s" }),
-                container: fullSize,
-                viewport: fullSize,
-                control: css({
-                    transition: "all 0.3s",
-                    "&[data-inactive]": {
-                        opacity: "0 !important",
-                        cursor: "default !important",
-                    },
-                }),
-            }}
+        <div
+            className={flex({ flexDir: "column" })}
         >
-            <NewsSlide
-                src="/top_panel_0_lg.png"
-                alt="みんしゅみ"
-                priority
-            />
-            <NewsSlide
-                src="/top_panel_1_lg.png"
-                alt="作品をアピールしよう"
-                href="/art/appeal"
-                priority
-            />
-            <NewsSlide
-                src="/top_panel_2_lg.png"
-                alt="名刺の作成"
-                href="/businesscard/new"
-                priority
-            />
-        </Carousel>
+            <Appeal />
+        </div>
     )
 }
 
