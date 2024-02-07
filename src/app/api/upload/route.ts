@@ -1,9 +1,5 @@
-import { randomId } from "@/util/random";
-import { Storage } from "@google-cloud/storage";
+import { upload } from "@/upload/upload";
 import { NextRequest, NextResponse } from "next/server";
-import { ReadableWebToNodeStream } from "readable-web-to-node-stream";
-import { Readable, Writable } from "stream";
-import { pipeline } from "stream/promises";
 
 export const dynamic = "force-dynamic"
 
@@ -37,14 +33,8 @@ export const PUT = async (req: NextRequest) => {
             msg: `invalid content type :${contentType}`,
         }, { status: 400 })
     }
-    const storage = new Storage()
-    const bucket = storage.bucket(process.env.GCP_GCS_USER_CONTENT_BUCKET as string)
-    const file = bucket.file(randomId())
-    const publicUrl = file.publicUrl()
 
-    const readable: Readable = new ReadableWebToNodeStream(req.body)
-    const writable: Writable = file.createWriteStream()
-    await pipeline(readable, writable)
+    const publicUrl = await upload(req.body)
 
     return NextResponse.json({
         publicUrl,
