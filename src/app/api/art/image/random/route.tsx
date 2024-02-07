@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ImageResponse } from "next/og"
 import { notImplementError } from "@/util/notImplement";
 import { getRandomArtImage } from "@/art/image";
-import * as colorthief from "color-thief-node"
+import colorthief from "color-thief-node"
 import { RandomImageRequestSchema, RandomImageResponseBodySchema } from "./type";
 
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
