@@ -9,4 +9,5 @@ export interface ImageInputProps extends ComponentProps<"div"> {
     onUpload: (src: string) => void
     withIndicator?: boolean
     onClick?: (e: MouseEvent) => void
+    autoGenerateArtImage?: false | { title: string }
 }
