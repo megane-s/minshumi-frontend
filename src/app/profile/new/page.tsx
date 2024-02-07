@@ -11,7 +11,7 @@ export const metadata: Metadata = getMetadata({
 
 export const dynamic = "force-dynamic"
 
-const FirstRegisterPage = async () => {
+const FirstRegisterPage = async ({ searchParams: { callbackUrl } }: { searchParams: { callbackUrl?: string } }) => {
     const session = await getSession()
     if (!session) redirect("/login")
     return (
@@ -20,7 +20,9 @@ const FirstRegisterPage = async () => {
                 興味のあるタグを選んでください
             </PageTitle>
 
-            <FirstRegisterTagsForm />
+            <FirstRegisterTagsForm
+                callbackUrl={callbackUrl}
+            />
         </div>
     )
 }
