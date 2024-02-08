@@ -4,13 +4,15 @@ import Image from "next/image"
 import { css, cx } from "styled-system/css"
 import { Loader } from "../Loader"
 import { ImageInputProps } from "./type"
-import { Indicator } from "@mantine/core"
+import { Indicator, Menu } from "@mantine/core"
 import { MdOutlineEdit } from "react-icons/md"
-import { MouseEvent } from "react"
+import { RiSparkling2Line } from "react-icons/ri"
+import { IoMdCloudUpload } from "react-icons/io";
+import { notImplementError } from "@/util/notImplement"
+import { RandomImageResponseBodySchema } from "@/app/api/art/image/random/type"
 
 export const BackgroundImageInput = ({
     className,
-    onClick,
     imageProps: {
         className: imageClassName,
         ...imageProps
@@ -19,12 +21,13 @@ export const BackgroundImageInput = ({
     alt,
     onUpload,
     withIndicator = false,
+    autoGenerateArtImage,
     ...props
 }: ImageInputProps) => {
-    const handleUploadImage = async (e: MouseEvent) => {
+
+    const handleUploadImage = async () => {
         const file = await selectFile({ accept: "image/*" })
         await uploadImage.mutate(file)
-        onClick?.(e)
     }
     const uploadImage = useMutate(async (file: File) => {
         const { publicUrl } = await uploadFile(file)
@@ -34,15 +37,27 @@ export const BackgroundImageInput = ({
         onSuccess: { toast: "アップロードしました" },
         onError: { toast: "アップロードできませんでした" },
     })
-    const content = (
+
+    const autoGenerate = useMutate(async () => {
+        if (!autoGenerateArtImage) {
+            throw notImplementError("タイトルが不正です")
+        }
+        const { publicUrl } = await fetch("/api/art/image/random", {
+            method: "POST",
+            body: JSON.stringify({
+                title: autoGenerateArtImage.title,
+            }),
+        }).then(r => r.json()).then(r => RandomImageResponseBodySchema.parse(r))
+        onUpload(publicUrl)
+    }, {
+        loading: { toast: "自動生成中" },
+        onSuccess: { toast: autoGenerateArtImage && `${autoGenerateArtImage.title}の画像を自動生成しました` || "" },
+        onError: { toast: autoGenerateArtImage && `エラー` || "" },
+    })
+
+    let content = (
         <div
             className={cx(css({ position: "relative", overflow: "hidden", rounded: "md" }), className)}
-            onClick={e => {
-                if (withIndicator) {
-                    e.stopPropagation()
-                }
-                void handleUploadImage(e)
-            }}
             {...props}
         >
             {/* eslint-disable-next-line jsx-a11y/alt-text */}
@@ -62,7 +77,7 @@ export const BackgroundImageInput = ({
         </div>
     )
     if (withIndicator) {
-        return (
+        content = (
             <Indicator
                 inline
                 label={<MdOutlineEdit />}
@@ -70,11 +85,32 @@ export const BackgroundImageInput = ({
                 position="bottom-end"
                 h="fit-content"
                 classNames={{ indicator: css({ right: "0px !important", bottom: "0px !important", cursor: "pointer" }) }}
-                onClick={handleUploadImage}
             >
                 {content}
             </Indicator>
         )
     }
-    return content
+    return <>
+        <Menu shadow="md" classNames={{ dropdown: css({ bg: "background.2 !important" }) }}>
+            <Menu.Target>
+                {content}
+            </Menu.Target>
+            <Menu.Dropdown>
+                <Menu.Item
+                    leftSection={<IoMdCloudUpload />}
+                    onClick={() => void handleUploadImage()}
+                >
+                    アップロード
+                </Menu.Item>
+                {autoGenerateArtImage &&
+                    <Menu.Item
+                        leftSection={<RiSparkling2Line />}
+                        onClick={() => void autoGenerate.mutate(null)}
+                    >
+                        タイトルから自動生成
+                    </Menu.Item>
+                }
+            </Menu.Dropdown>
+        </Menu>
+    </>
 }

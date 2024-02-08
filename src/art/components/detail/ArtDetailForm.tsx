@@ -47,6 +47,7 @@ const ArtDetailForm: FC<ArtDetailFormProps> = ({
                             style: { width: 200, maxHeight: 200, objectFit: "cover" },
                         }}
                         withIndicator
+                        autoGenerateArtImage={titleErrors.length === 0 && { title }}
                     />
                 </Flex>
 

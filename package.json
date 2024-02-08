@@ -21,6 +21,7 @@
     "@types/readable-stream": "^4.0.10",
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "color-thief-node": "^1.0.4",
     "embla-carousel-autoplay": "^7.1.0",
     "embla-carousel-react": "^8.0.0-rc14",
     "framer-motion": "^10.16.5",
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
     "@pandacss/dev": "^0.28.0",
+    "@types/color-thief-node": "^1.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
