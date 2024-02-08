@@ -18,7 +18,7 @@ import { Art, ArtTag } from "@/art/type"
 import { InputArtTitle } from "./InputArtTitle"
 import MutateButton from "@/components/MutateButton"
 import { useMutate } from "@/util/client/useMutate"
-import { handleSaveBusinessCard } from "./actions"
+import { handleGotoBusinessCardSettings, handleSaveBusinessCard } from "./actions"
 import { getDefaultBusinessCard } from "@/businessCard/defaults"
 import { User } from "next-auth"
 import LinkButton from "@/components/LinkButton"
@@ -83,7 +83,7 @@ export const BusinessCardEditor: FC<BusinessCardEditorProps> = ({ defaultValues,
     const gotoSettings = useMutate(async () => {
         if (!isValid) throw new Error(`入力値が不正です`)
         if (isInstant) throw new Error(`ログインしていない状態での名刺は公開設定はできません。`)
-        await handleSaveBusinessCard(businessCardId, {
+        await handleGotoBusinessCardSettings(businessCardId, {
             type,
             name,
             imageUrl: icon,
