@@ -11,8 +11,9 @@ import { FC, useState } from "react"
 import { handleFirstRegister } from "./actions"
 
 interface FirstRegisterTagsFormProps {
+    callbackUrl?: string
 }
-export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = () => {
+export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = ({ callbackUrl }) => {
     const [selectedMedias, setSelectedMedias] = useState<ArtTag[]>([])
     const [selectedGenres, setSelectedGenres] = useState<ArtTag[]>([])
     const [selectedOthers, setSelectedOthers] = useState<ArtTag[]>([])
@@ -21,6 +22,7 @@ export const FirstRegisterTagsForm: FC<FirstRegisterTagsFormProps> = () => {
     const save = useMutate(async () => {
         await handleFirstRegister({
             interestTags: [...selectedMedias, ...selectedGenres, ...selectedOthers],
+            callbackUrl,
         })
     }, {
         loading: { toast: "設定中..." },
