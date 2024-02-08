@@ -3,8 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { ImageResponse } from "next/og"
 import { notImplementError } from "@/util/notImplement";
 import { getRandomArtImage } from "@/art/image";
-import colorthief from "color-thief-node"
 import { RandomImageRequestSchema, RandomImageResponseBodySchema } from "./type";
+import { extractColors } from "extract-colors"
+import getPixels from "get-pixels"
 
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
     const body = await req.json().then(r => RandomImageRequestSchema.safeParse(r))
@@ -44,7 +45,14 @@ interface ArtImageProps {
 const ArtImage = async ({
     background, title,
 }: ArtImageProps) => {
-    const [[r, g, b]] = await colorthief.getPaletteFromURL(background)
+    const { data, width, height } = await getPixelsAsync(background)
+    const [{
+        red: r,
+        green: g,
+        blue: b,
+    }] = await extractColors({
+        data, width, height,
+    })
     const textColor = (255 - r + 255 - g + 255 - b) / 3
     return (
         <div style={{
@@ -68,3 +76,23 @@ const ArtImage = async ({
         </div>
     )
 }
+
+const getPixelsAsync = (src: string) => new Promise<{
+    data: number[]
+    width: number
+    height: number
+}>((resolve, reject) => {
+    getPixels(src, (err, pixels) => {
+        if (!err) {
+            const data = [...pixels.data]
+            const width = Math.round(Math.sqrt(data.length / 4))
+            resolve({
+                data,
+                width,
+                height: width,
+            })
+        } else {
+            reject(err)
+        }
+    })
+})
