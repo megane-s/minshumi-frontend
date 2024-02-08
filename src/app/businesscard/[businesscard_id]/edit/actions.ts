@@ -46,3 +46,25 @@ export const deleteBusinessCardAction = async (businessCardId: BusinessCardId) =
     await deleteBusinessCard(businessCardId)
     redirect(`/settings/user`)
 }
+
+export const handleGotoBusinessCardSettings = async (businessCardId: BusinessCardId, params: UpdateBusinessCardParams) => {
+    const [session, prevBusinessCard] = await Promise.all([
+        getSession(),
+        getBusinessCardById(businessCardId),
+    ])
+    if (!session) {
+        throw notImplementError(`名刺の更新にはログインが必要です。`)
+    }
+    if (!prevBusinessCard) {
+        throw notImplementError(`存在しない名刺を更新しようとしました。`)
+    }
+    if (prevBusinessCard.userId !== session.user.id) {
+        throw notImplementError(`自分が持ち主ではない名刺を編集することはできません。`)
+    }
+    if (!canUpdateBusinessCard(session.user.id, prevBusinessCard)) {
+        throw new ValidationError()
+    }
+    const newBusinessCard = await updateBusinessCard(businessCardId, session.user.id, params)
+
+    redirect(`/businesscard/${newBusinessCard.businessCardId}/settings`)
+}
