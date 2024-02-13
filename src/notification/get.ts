@@ -22,12 +22,12 @@ export const getNotifications = async (
         prisma.notification.findMany({
             where: { type: "recommend", userId },
             take: params.recommend?.limit ?? 5,
-            orderBy: { updateAt: "desc" },
+            orderBy: { createAt: "desc" },
         }),
         prisma.notification.findMany({
             where: { type: { not: "recommend" }, userId },
             take: params.others?.limit,
-            orderBy: { updateAt: "desc" },
+            orderBy: { createAt: "desc" },
         }),
     ])
     if (params.markAsRead) {
