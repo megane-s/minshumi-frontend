@@ -15,6 +15,9 @@ import AppealReminderDialog from "./AppealReminderDialog"
 import LinkButton from "@/components/LinkButton"
 import { flex } from "styled-system/patterns"
 import { getArtAppeal } from "@/art/appeal/get"
+import Appeals from "./Appeals"
+import { Suspense } from "react"
+import { CenterLoader } from "@/components/CenterLoader"
 
 // アピール済みアイコン
 const AppealedIcon = () => (
@@ -111,9 +114,16 @@ const ArtDetailPage = async ({ params }: ArtDetailPageProps) => {
                 {art.description}
             </div>
 
-            <GoodButton artId={artId} isGooded={isGooded} isLogined={isLogined} />
+            <Divider
+                className={css({ my: "xl" })}
+            />
+            <Suspense fallback={<CenterLoader />}>
+                <Appeals
+                    artId={artId}
+                />
+            </Suspense>
 
-            {/* アイデア:ここにこの作品をお勧めしている人上位3人を出す */}
+            <GoodButton artId={artId} isGooded={isGooded} isLogined={isLogined} />
 
             {lastCreatedArtId &&
                 <AppealReminderDialog
