@@ -1,15 +1,16 @@
 import { getArtAppealsByArt } from "@/art/appeal/getByArt"
 import { getRelatedArts } from "@/art/getRelated"
 import { ArtAppeal, ArtId } from "@/art/type"
-import { getSession } from "@/auth/server/auth"
 import { Avatar } from "@/components/Avatar"
 import { Card } from "@/components/Card"
 import { CarouselSlide } from "@/components/Carousel"
+import { Link } from "@/components/Link"
+import { SectionTitle } from "@/components/SectionTitle"
 import { getUser } from "@/user/get"
 import { Carousel } from "@mantine/carousel"
 import { Loader } from "@mantine/core"
 import Image from "next/image"
-import Link from "next/link"
+import NextLink from "next/link"
 import { FC, Suspense } from "react"
 import { css } from "styled-system/css"
 import { flex } from "styled-system/patterns"
@@ -19,21 +20,20 @@ interface AppealsProps {
 }
 const Appeals: FC<AppealsProps> = async ({ artId }) => {
     const appeals = await getArtAppealsByArt(artId)
-    if (appeals.length === 0) {
-        const session = await getSession()
-        return (
-            <div>
-                まだアピールされていません。
-            </div>
-        )
-    }
     return (
         <div>
-            {appeals.map(appeal =>
-                <Suspense fallback={<Loader />} key={appeal.userId}>
-                    <AppealItem appeal={appeal} />
-                </Suspense>
-            )}
+            <SectionTitle>
+                アピール
+            </SectionTitle>
+            {appeals.length === 0
+                ? <div>
+                    まだアピールされていません
+                </div>
+                : appeals.map(appeal =>
+                    <Suspense fallback={<Loader />} key={appeal.userId}>
+                        <AppealItem appeal={appeal} />
+                    </Suspense>
+                )}
         </div>
     )
 }
@@ -48,18 +48,25 @@ const AppealItem: FC<AppealItemProps> = async ({ appeal }) => {
     if (!user) return null
     return (
         <div className={flex({ w: "full", gap: "md", mb: "xl" })}>
-            <Avatar
-                src={user.image}
-                alt={user.name ?? "ユーザ"}
-                className={css({ ml: "md" })}
-            />
+            <NextLink
+                href={`/user/${user.id}`}
+                className={css({ mt: "md" })}
+            >
+                <Avatar
+                    src={user.image}
+                    alt={user.name ?? "ユーザ"}
+                />
+            </NextLink>
+
             <div className={flex({ flexDir: "column", gap: "sm", flexGrow: 1, flexShrink: 1 })}>
                 <Card className={css({
                     flexShrink: 1,
                     w: "fit-content",
                 })}>
-                    <div className={css({ fontWeight: "bold", mb: "xs" })}>
-                        {user.name}
+                    <div className={css({ mb: "xs" })}>
+                        <Link href={`/user/${user.id}`} className={css({ fontWeight: "bold !important" })}>
+                            {user.name}
+                        </Link>
                     </div>
                     <div>
                         {appeal.likePoint}
