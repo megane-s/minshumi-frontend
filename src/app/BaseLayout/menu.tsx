@@ -1,4 +1,5 @@
 import { ExitIcon } from "@/components/icon/Exit";
+import { MailIcon } from "@/components/icon/Mail";
 import { SettingsIcon } from "@/components/icon/Settings";
 import { ReactNode } from "react";
 import { CgProfile } from "react-icons/cg";
@@ -38,6 +39,11 @@ export const menus: MenuItem[] = [
         icon: <ExitIcon />,
         onClick: "logout",
         label: "ログアウト",
+    },
+    {
+        icon: <MailIcon />,
+        href: "/form",
+        label: "お問い合わせ",
     },
 ]
 
